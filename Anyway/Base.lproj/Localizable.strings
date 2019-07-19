@@ -1,0 +1,453 @@
+/*
+  Localizable.strings
+  Anyway
+
+  Created by Aviel Gross on 14/12/2015.
+  Copyright © 2015 Hasadna. All rights reserved.
+*/
+
+//App UI (view controllers etc.)
+/**
+ *
+ *      The format for a key should be as follows:
+ *      1. screen name
+ *      2. followed by short (1-2 words) description of the string
+ *      3. followed by what it is (e.g., "label", "button", "alert_ok" etc.)
+ *
+ *      All lowercase, seperated with underscores.
+ *
+ *      e.g.: 
+ *            "accidents_list_all_button"
+ *            "info_close_button"
+ *
+ */
+"main_presenting_count_label" =  "Showing %d accidents";
+"main_history_prompt_alert_title" = "Roads History";
+"main_history_prompt_alert_message" = "ANYWAY can remember where you traveled and give you a summary of places you might want to avoid goind through.\n\n - Tracking is done in a way that keeps battery consumption to minimum.";
+"main_history_prompt_alert_cancel" = "Cancel";
+"main_history_prompt_alert_confirm_request_location" = "Approve Location Services";
+"main_history_prompt_alert_confirm" = "Confirm";
+
+
+// ### Filter ###
+"FILTER_SECTION_day" = "Day";
+"FILTER_SECTION_date_range" = "Dates Range";
+"FILTER_SECTION_severity" = "Severity";
+"FILTER_SECTION_anchoring" = "Anchoring";
+"FILTER_SECTION_road_type" = "Route";
+"FILTER_SECTION_conditions" = "Conditions";
+
+"FILTER_ROW_date_start" = "From";
+"FILTER_ROW_date_end" = "To";
+"FILTER_ROW_day_time" = "Time";
+"FILTER_ROW_fatal" = "Fatal";
+"FILTER_ROW_severe" = "Severe";
+"FILTER_ROW_light" = "Light";
+"FILTER_ROW_accurate" = "Accurate";
+"FILTER_ROW_inaccurate" = "Inaccurate";
+
+"FILTER_ROW_road_junction" = "Junciton";
+"FILTER_ROW_road_not_junction" = "Not Junction";
+"FILTER_ROW_road_one_way" = "One-Way";
+"FILTER_ROW_road_both_ways" = "Two-Ways";
+"FILTER_ROW_road_urban" = "Urban";
+"FILTER_ROW_road_not_urban" = "Non-Urban";
+
+
+"FILTER_weekday_all" = "All";
+"FILTER_weekday_sun" = "Sun";
+"FILTER_weekday_mon" = "Mon";
+"FILTER_weekday_tue" = "Tue";
+"FILTER_weekday_wed" = "Wed";
+"FILTER_weekday_thu" = "Thu";
+"FILTER_weekday_fri" = "Fri";
+"FILTER_weekday_sat" = "Sat";
+
+"FILTER_time_all" = "All";
+"FILTER_time_light" = "☼";
+"FILTER_time_dark" = "☽";
+"FILTER_time_morning" = "Morning";
+"FILTER_time_noon" = "Afternoon";
+"FILTER_time_evening" = "Evening";
+"FILTER_time_night" = "Night";
+
+"FILTER_weather_0" = "All";
+"FILTER_weather_1" = "Clear";
+"FILTER_weather_2" = "Rainy";
+"FILTER_weather_3" = "Torrid";
+"FILTER_weather_4" = "Cloudy";
+"FILTER_weather_5" = "Other";
+
+//Localization.swift
+"SUG_DERECH_1" = "Urban Intersection";
+"SUG_DERECH_2" = "Urban, non-intersection";
+"SUG_DERECH_3" = "Non-Urban Intersection";
+"SUG_DERECH_4" = "Non-urban, non-intersection";
+
+"YEHIDA_11" = "Coastal Zone (Haifa)";
+"YEHIDA_12" = "Galilee Zone";
+"YEHIDA_14" = "Valleys Zone";
+"YEHIDA_20" = "TLV Zone";
+"YEHIDA_33" = "Eilat Zone";
+"YEHIDA_34" = "Negev Zone";
+"YEHIDA_36" = "Shimshon Zone (Until 1999)";
+"YEHIDA_37" = "Shimshon Zone (From 2004)";
+"YEHIDA_38" = "Lachish Zone";
+"YEHIDA_41" = "Samaria Zone";
+"YEHIDA_43" = "Judea Zone";
+"YEHIDA_51" = "Hasharon Zone";
+"YEHIDA_52" = "Shfela Zone";
+"YEHIDA_61" = "Jerusalem Zone";
+
+
+// ### Road Conditions ###
+
+"SUG_YOM_0" = "All Days";
+"SUG_YOM_1" = "Holiday";
+"SUG_YOM_2" = "Holiday Eve";
+"SUG_YOM_3" = "Chol Hamoed";
+"SUG_YOM_4" = "Weekday";
+
+"HUMRAT_TEUNA_1" = "Fatal";
+"HUMRAT_TEUNA_2" = "Severe";
+"HUMRAT_TEUNA_3" = "Minor";
+
+"SUG_TEUNA_1" = "Bystander Hit";
+"SUG_TEUNA_2" = "Head-On to Side Collision";
+"SUG_TEUNA_3" = "Head-On to Rear Collision";
+"SUG_TEUNA_4" = "Side to Side Collision";
+"SUG_TEUNA_5" = "Head-On Collision";
+"SUG_TEUNA_6" = "Collision with non-parked, stopped vehicle";
+"SUG_TEUNA_7" = "Collision with parked vehicle";
+"SUG_TEUNA_8" = "Collision with inanimate object";
+"SUG_TEUNA_9" = "Driving off the road or on to the sidewalk";
+"SUG_TEUNA_10" = "Rollover";
+"SUG_TEUNA_11" = "Skidding";
+"SUG_TEUNA_12" = "Hitting Passenger within the vehicle";
+"SUG_TEUNA_13" = "Fall within a moving vehicle";
+"SUG_TEUNA_14" = "Fire";
+"SUG_TEUNA_15" = "Other";
+"SUG_TEUNA_17" = "Rear to head-on collision";
+"SUG_TEUNA_18" = "Rear to side collision";
+"SUG_TEUNA_19" = "Collision with animal";
+"SUG_TEUNA_20" = "Hit by Car Trunk";
+"SUG_TEUNA_21" = "United Hatzalah";
+
+"ZURAT_DEREH_1" = "Entering a Junction";
+"ZURAT_DEREH_2" = "Exiting a Junction";
+"ZURAT_DEREH_3" = "Parking Lot/Gas Station";
+"ZURAT_DEREH_4" = "Steep Slope";
+"ZURAT_DEREH_5" = "Sharp Curve";
+"ZURAT_DEREH_6" = "On Bridge/Tunnel";
+"ZURAT_DEREH_7" = "Railroad Crossing";
+"ZURAT_DEREH_8" = "Straight Road/Intersection";
+"ZURAT_DEREH_9" = "Other";
+
+"HAD_MASLUL_1" = "One-Way";
+"HAD_MASLUL_2" = "Two-Way, No Passing";
+"HAD_MASLUL_3" = "Two-Way, Passing Allowed";
+"HAD_MASLUL_4" = "Other";
+
+"RAV_MASLUL_1" = "Color-marked Barrier";
+"RAV_MASLUL_2" = "Barrier with a Safety Fence";
+"RAV_MASLUL_3" = "Rigid Barrier without Safety Fence";
+"RAV_MASLUL_4" = "Non-Rigid Barrier";
+"RAV_MASLUL_5" = "Other";
+
+"MEHIRUT_MUTERET_1" = "Up to 50 km/h";
+"MEHIRUT_MUTERET_2" = "60 km/h";
+"MEHIRUT_MUTERET_3" = "70 km/h";
+"MEHIRUT_MUTERET_4" = "80 km/h";
+"MEHIRUT_MUTERET_5" = "90 km/h";
+"MEHIRUT_MUTERET_6" = "100 km/h";
+
+"TKINUT_1" = "No Defect";
+"TKINUT_2" = "Poor Shoulder";
+"TKINUT_3" = "Potholed Road";
+"TKINUT_4" = "Potholed Road and Poor Shoulders";
+
+"ROHAV_1" = "Up to 5 Meters";
+"ROHAV_2" = "5 to 7";
+"ROHAV_3" = "7 to 10.5";
+"ROHAV_4" = "10.5 to 14";
+"ROHAV_5" = "More than 14 Meters";
+
+"SIMUN_TIMRUR_1" = "Missing/Inadequate Marking ";
+"SIMUN_TIMRUR_2" = "Missing/Inadequate Traffic Signals";
+"SIMUN_TIMRUR_3" = "No Defect";
+"SIMUN_TIMRUR_4" = "No Traffic Signalling Necessary";
+
+"TEURA_1" = "Regular Daylight";
+"TEURA_2" = "Limited Visibility due to Weather Conditions (Smoke, Fog)";
+"TEURA_3" = "Night with working lighting";
+"TEURA_4" = "Inadequate/non-functioning lighting";
+"TEURA_5" = "Night no lighting";
+
+"BAKARA_1" = "No Control";
+"BAKARA_2" = "Working traffic light";
+"BAKARA_3" = "Flashing yellow traffic light";
+"BAKARA_4" = "Broken traffic light";
+"BAKARA_5" = "Stop Sign";
+"BAKARA_6" = "Right-of-Way sign";
+"BAKARA_7" = "Other";
+
+"MEZEG_AVIR_1" = "Clear";
+"MEZEG_AVIR_2" = "Rainy";
+"MEZEG_AVIR_3" = "Torrid";
+"MEZEG_AVIR_4" = "Foggy";
+"MEZEG_AVIR_5" = "Other";
+
+"PNE_KVISH_1" = "Dry";
+"PNE_KVISH_2" = "Wet with water";
+"PNE_KVISH_3" = "Oil spilled";
+"PNE_KVISH_4" = "Covered in mud";
+"PNE_KVISH_5" = "Sand or gravel on the road";
+"PNE_KVISH_6" = "Other";
+
+"SUG_EZEM_1" = "Tree";
+"SUG_EZEM_2" = "Electric/Light/Telephone Pole";
+"SUG_EZEM_3" = "Traffic Light and Sign";
+"SUG_EZEM_4" = "Bridge and it's barriers and signs";
+"SUG_EZEM_5" = "Building";
+"SUG_EZEM_6" = "Traffic Barrier/Guard Rail";
+"SUG_EZEM_7" = "Barrel";
+"SUG_EZEM_8" = "Other";
+
+"MERHAK_EZEM_1" = "Up to 1 Meter";
+"MERHAK_EZEM_2" = "1-3 Meters";
+"MERHAK_EZEM_3" = "On the Road";
+"MERHAK_EZEM_4" = "On the median strip";
+
+"LO_HAZA_1" = "Walking with traffic direction";
+"LO_HAZA_2" = "Walking against";
+"LO_HAZA_3" = "Played on the road";
+"LO_HAZA_4" = "Stood on the road";
+"LO_HAZA_5" = "Was on the median strip";
+"LO_HAZA_6" = "Was on the shoulder/sidewalk";
+"LO_HAZA_7" = "Other";
+
+"OFEN_HAZIYA_1" = "Burst on to the road";
+"OFEN_HAZIYA_2" = "Crossed when he was not visible";
+"OFEN_HAZIYA_3" = "Crossed normally";
+"OFEN_HAZIYA_4" = "Other";
+
+"MEKOM_HAZIYA_1" = "Not on the Pedestrian Crossing by Intersection";
+"MEKOM_HAZIYA_2" = "Not on the Pedestrian Crossing not by Intersection";
+"MEKOM_HAZIYA_3" = "Pedestrian Crossing without traffic light";
+"MEKOM_HAZIYA_4" = "Pedestrian Crossing with traffic light";
+
+"KIVUN_HAZIYA_1" = "From Right to Left";
+"KIVUN_HAZIYA_2" = "From Left to Right";
+
+"STATUS_IGUN_1" = "Pinpoint Location";
+"STATUS_IGUN_2" = "Accurate to Community";
+"STATUS_IGUN_3" = "Accurate to Street";
+"STATUS_IGUN_4" = "Accurate to kilometer";
+"STATUS_IGUN_9" = "No Pinpoint Location";
+
+
+// ### Vehicle description titles ###
+
+// State (stolen, rent etc.)
+"MATZAV_REHEV_1" = "Stolen";
+"MATZAV_REHEV_2" = "Rental";
+"MATZAV_REHEV_3" = "Learner's";
+"MATZAV_REHEV_4" = "Childrens Transportation";
+
+// Association (police, citizen, diplomatic etc.)
+"SHIYUH_REHEV_LMS_0" = "Non-motorized";
+"SHIYUH_REHEV_LMS_1" = "Israeli";
+"SHIYUH_REHEV_LMS_2" = "Military";
+"SHIYUH_REHEV_LMS_3" = "Police";
+"SHIYUH_REHEV_LMS_4" = "Foreign";
+"SHIYUH_REHEV_LMS_5" = "Diplomatic";
+"SHIYUH_REHEV_LMS_6" = "Judea and Samaria";
+"SHIYUH_REHEV_LMS_9" = "Anonymous";
+
+// Type (private, truck etc.)
+"SUG_REHEV_LMS_1" = "Private Passenger Vehicle";
+"SUG_REHEV_LMS_2" = "Single Body Truck carrying 4 tons";
+"SUG_REHEV_LMS_3" = "Dual Body Truck carrying 4 tons";
+"SUG_REHEV_LMS_4" = "Truck carrying 1.4 to 9.9 tons";
+"SUG_REHEV_LMS_5" = "Truck carrying 10 to 15.9 tons";
+"SUG_REHEV_LMS_6" = "Truck carrying 16 to 33.9 tons";
+"SUG_REHEV_LMS_7" = "Truck carrying 34+ tons";
+"SUG_REHEV_LMS_8" = "Motorcycle up to 50 cc";
+"SUG_REHEV_LMS_9" = "Motorcycle from 51 to 251 cc";
+"SUG_REHEV_LMS_10" = "Motorcycle from 251 to 500 cc";
+"SUG_REHEV_LMS_11" = "Bus";
+"SUG_REHEV_LMS_12" = "Taxi";
+"SUG_REHEV_LMS_13" = "Work Vehicle";
+"SUG_REHEV_LMS_14" = "Tractor";
+"SUG_REHEV_LMS_15" = "Bike";
+"SUG_REHEV_LMS_16" = "Train";
+"SUG_REHEV_LMS_17" = "Other";
+"SUG_REHEV_LMS_18" = "Minibus";
+"SUG_REHEV_LMS_19" = "Motorcycle over 500cc";
+
+
+// ### Person Involved Description Titles ###
+
+// Type (driver, didn't hurt, passengar)
+"SUG_MEORAV_1" = "Driver uninjured";
+"SUG_MEORAV_2" = "Driver injured";
+"SUG_MEORAV_3" = "Non-Driver injured";
+
+// Sex
+"MIN_1" = "Male";
+"MIN_2" = "Female";
+
+// Car type drove
+// Same as: SUG_REHEV_LMS
+
+// Safety Measure (belt, helmet, none etc.)
+"EMZAE_BETIHUT_1" = "Seatbelt worn";
+"EMZAE_BETIHUT_2" = "Wore safety helmet (motorcycle only)";
+"EMZAE_BETIHUT_3" = "Sat in seat/car seat (only for child injured)";
+"EMZAE_BETIHUT_4" = "Didn't use safety measure";
+"EMZAE_BETIHUT_5" = "Uknown";
+
+// Severity (killed, injured, easy injure)
+"HUMRAT_PGIA_1" = "Fatality";
+"HUMRAT_PGIA_2" = "Serious injury";
+"HUMRAT_PGIA_3" = "Light injury";
+
+// Preson type (pedestrian, drived, motor/bycicle driver etc)
+"SUG_NIFGA_LMS_1" = "Pedestrian";
+"SUG_NIFGA_LMS_2" = "Driver of 4-wheel vehicle";
+"SUG_NIFGA_LMS_3" = "Passenger in 4-wheel vehicle";
+"SUG_NIFGA_LMS_4" = "Motorcyclist - Driver";
+"SUG_NIFGA_LMS_5" = "Motorcyclist (passenger)";
+"SUG_NIFGA_LMS_6" = "Bicyclist";
+"SUG_NIFGA_LMS_7" = "Bicyclist (Passenger)";
+"SUG_NIFGA_LMS_8" = "Driver - unknown vehicle type";
+"SUG_NIFGA_LMS_9" = "Passenger - unknown vehicle type";
+
+// Action (sitting front seat, got off car, walking etc.)
+"PEULAT_NIFGA_LMS_1" = "Sat in the vehicle's front seat";
+"PEULAT_NIFGA_LMS_2" = "Sat in the vehicle's back seat";
+"PEULAT_NIFGA_LMS_3" = "Sat in the vehicle's cargo cabin";
+"PEULAT_NIFGA_LMS_4" = "Stood in the car";
+"PEULAT_NIFGA_LMS_5" = "Got in the car";
+"PEULAT_NIFGA_LMS_6" = "Got out of the car";
+"PEULAT_NIFGA_LMS_7" = "Other action";
+"PEULAT_NIFGA_LMS_8" = "Unknown";
+"PEULAT_NIFGA_LMS_9" = "Pedestrian";
+
+// Hospitalization (upto 24hr, more than 24hr)
+"PAZUA_USHPAZ_1" = "Hospitalized less than 24 hrs";
+"PAZUA_USHPAZ_2" = "Hospitalized over 24 hrs";
+
+// Medical State (easy, medium, harsh etc.)
+"MADAD_RAFUI_1" = "Light (1-8)";
+"MADAD_RAFUI_2" = "Medium (9-15)";
+"MADAD_RAFUI_3" = "Severe (16-24)";
+"MADAD_RAFUI_4" = "Critical (25-75)";
+
+// Released to... (home, other hospital, death etc.)
+"YAAD_SHIHRUR_1" = "Home";
+"YAAD_SHIHRUR_2" = "Other Hospital";
+"YAAD_SHIHRUR_3" = "Rehabilitation Center/Rehabilitation Wing";
+"YAAD_SHIHRUR_4" = "Death";
+"YAAD_SHIHRUR_5" = "Other";
+
+// Did use safety measure (yes, no, unknown)
+"SHIMUSH_BE_AVIZAREY_BETIHOT_1" = "Yes";
+"SHIMUSH_BE_AVIZAREY_BETIHOT_2" = "No";
+"SHIMUSH_BE_AVIZAREY_BETIHOT_3" = "Unknown";
+
+// Late passing (upto 30 days later, more than 30 days later)
+"PTIRA_MEUHERET_1" = "Normal death up to 30 days later";
+"PTIRA_MEUHERET_2" = "Late death more than 30 days later";
+
+
+// ### Static Fields (titles etc.) ###
+
+// ### Accident Details Titles ###
+"DETAILS_HEADER_details" = "Accident Details";
+"DETAILS_HEADER_road" = "Road Conditions";
+"DETAILS_HEADER_time_location" = "Time & Location";
+"DETAILS_HEADER_people" = "People Involved";
+"DETAILS_HEADER_cars" = "Cars Invovled";
+"DETAILS_HEADER_more_info" = "More Info";
+
+"INNER_PERSON_TITLE" = "Details of person involved";
+"INNER_VEHICLE_TITLE" = "Details of vehicle involved";
+
+"PROVIDER_ihud" = "United Hatzalah";
+"PROVIDER_cbs" = "Central Bureau of Statistics";
+
+"pk_teuna_fikt" = "Identifier";
+"SUG_DERECH" = "Type of path";
+"SHEM_ZOMET" = "Junction name";
+"SEMEL_YISHUV" = "Town";
+"REHOV1" = "Street 1";
+"REHOV2" = "Street 2";
+"BAYIT" = "House number";
+"ZOMET_IRONI" = "Urban intersection";
+"KVISH1" = "Road 1";
+"KVISH2" = "Road2";
+"ZOMET_LO_IRONI" = "Non-urban intersection";
+"YEHIDA" = "Unit";
+"SUG_YOM" = "Type of Day";
+"TAARICH" = "Date";
+"RAMZOR" = "Traffic light";
+"HUMRAT_TEUNA" = "Accident Severity";
+"SUG_TEUNA" = "Accident type";
+"ZURAT_DEREH" = "Form of path";
+"HAD_MASLUL" = "Single-Lane";
+"RAV_MASLUL" = "Multi-lane";
+"MEHIRUT_MUTERET" = "Speed Limit";
+"TKINUT" = "Road Quality";
+"ROHAV" = "Width";
+"SIMUN_TIMRUR" = "Traffic signals";
+"TEURA" = "Lighting";
+"BAKARA" = "Regulation";
+"MEZEG_AVIR" = "Weather conditions";
+"PNE_KVISH" = "Road surface";
+"SUG_EZEM" = "Object type";
+"MERHAK_EZEM" = "Object Distance";
+"LO_HAZA" = "Didn't cross";
+"OFEN_HAZIYA" = "Crossing method";
+"MEKOM_HAZIYA" = "Crossing location";
+"KIVUN_HAZIYA" = "Crossing direction";
+"STATUS_IGUN" = "Anchoring";
+"MAHOZ" = "District";
+"NAFA" = "Region";
+"EZOR_TIVI" = "Natural Area";
+"MAAMAD_MINIZIPALI" = "Municipal Status";
+"ZURAT_ISHUV" = "Community Type";
+
+"SUG_MEORAV" = "Involvement Type";
+"SHNAT_HOZAA" = "Year driver's license issued";
+"KVUZA_GIL" = "Age group";
+"MIN" = "Gender";
+"SUG_REHEV_NASA_LMS" = "Vehicle type driven";
+"EMZAE_BETIHUT" = "Safety Measures";
+"HUMRAT_PGIA" = "Injury severity";
+"SUG_NIFGA_LMS" = "Type of injury";
+"PEULAT_NIFGA_LMS" = "Location of injured";
+"KVUTZAT_OHLUSIYA_LMS" = "Demographic group";
+"MAHOZ_MEGURIM" = "Residential District";
+"NAFA_MEGURIM" = "Residential Region";
+"EZOR_TIVI_MEGURIM" = "Natural Area - Residential";
+"MAAMAD_MINIZIPALI_MEGURIM" = "Municipal Status Residential";
+"ZURAT_ISHUV_MEGURIM" = "Community Type Residential";
+
+"PAZUA_USHPAZ" = "Hospitalization Period";
+"MADAD_RAFUI" = "ISS - Medical Index of injury severity";
+"YAAD_SHIHRUR" = "Release target";
+"SHIMUSH_BE_AVIZAREY_BETIHOT" = "Use of safety devices";
+"PTIRA_MEUHERET" = "Death date";
+
+"NEFAH" = "Motor Capacity";
+"SHNAT_YITZUR" = "Production year";
+"KIVUNE_NESIA" = "Driving direction";
+"MATZAV_REHEV" = "Vehicle status";
+"SHIYUH_REHEV_LMS" = "Vehicle Ownership";
+"SUG_REHEV_LMS" = "Vehicle Type";
+"MEKOMOT_YESHIVA_LMS" = "Number of seats";
+"MISHKAL_KOLEL_LMS" = "Total Weight";
+"ACC_ID" = "Serial Number";
+"PROVIDER_CODE" = "Provider Type";
+

@@ -1,0 +1,438 @@
+/* 
+  Localizable.strings
+  Anyway
+
+  Created by Aviel Gross on 14/12/2015.
+  Copyright © 2015 Hasadna. All rights reserved.
+*/
+
+//App UI (view controllers etc.)
+"main_presenting_count_label" =  "מציג %d תאונות";
+"main_history_prompt_alert_title" = "היסטוריה בדרכים";
+"main_history_prompt_alert_message" = "אם תרצו, נוכל לזכור איפה ביקרתם ולהציג לכם סיכום של מקומות שאולי כדאי להמנע מהם בעתיד.\n\n - המעקב נעשה באופן שאינו משפיע על צריכת הסוללה כמעט כלל";
+"main_history_prompt_alert_confirm_request_location" = "אישור שירותי מיקום";
+"main_history_prompt_alert_confirm" = "אישור";
+"main_history_prompt_alert_cancel" = "לא תודה";
+
+// ### Filter ###
+"FILTER_SECTION_day" = "יום";
+"FILTER_SECTION_date_range" = "טווח תאריכים";
+"FILTER_SECTION_severity" = "חומרה";
+"FILTER_SECTION_anchoring" = "עיגון";
+"FILTER_SECTION_road_type" = "סוג דרך";
+"FILTER_SECTION_conditions" = "תנאים";
+
+"FILTER_ROW_date_start" = "תאריך התחלה";
+"FILTER_ROW_date_end" = "תאריך סיום";
+"FILTER_ROW_day_time" = "זמן";
+"FILTER_ROW_fatal" = "קטלניות";
+"FILTER_ROW_severe" = "קשות";
+"FILTER_ROW_light" = "קלות";
+"FILTER_ROW_accurate" = "מדויק";
+"FILTER_ROW_inaccurate" = "מרחבי";
+
+"FILTER_ROW_road_junction" = "בצומת";
+"FILTER_ROW_road_not_junction" = "לא בצומת";
+"FILTER_ROW_road_one_way" = "חד-סטרי";
+"FILTER_ROW_road_both_ways" = "דו-סטרי";
+"FILTER_ROW_road_urban" = "עירוני";
+"FILTER_ROW_road_not_urban" = "לא עירוני";
+
+
+"FILTER_weekday_all" = "הכל";
+"FILTER_weekday_sun" = "א׳";
+"FILTER_weekday_mon" = "ב׳";
+"FILTER_weekday_tue" = "ג׳";
+"FILTER_weekday_wed" = "ד׳";
+"FILTER_weekday_thu" = "ה׳";
+"FILTER_weekday_fri" = "ו׳";
+"FILTER_weekday_sat" = "ש׳";
+
+"FILTER_time_all" = "הכל";
+"FILTER_time_light" = "☼";
+"FILTER_time_dark" = "☽";
+"FILTER_time_morning" = "בוקר";
+"FILTER_time_noon" = "צהריים";
+"FILTER_time_evening" = "ערב";
+"FILTER_time_night" = "לילה";
+
+"FILTER_weather_0" = "הכל";
+"FILTER_weather_1" = "בהיר";
+"FILTER_weather_2" = "גשום";
+"FILTER_weather_3" = "שרבי";
+"FILTER_weather_4" = "מעונן";
+"FILTER_weather_5" = "אחר";
+
+//Localization.swift
+"SUG_DERECH_1" = "עירוני בצומת";
+"SUG_DERECH_2" = "עירוני לא בצומת";
+"SUG_DERECH_3" = "לא עירוני בצומת";
+"SUG_DERECH_4" = "לא עירוני לא בצומת";
+
+"YEHIDA_11" = "מרחב חוף (חיפה)";
+"YEHIDA_12" = "מרחב גליל";
+"YEHIDA_14" = "מרחב עמקים";
+"YEHIDA_20" = "מרחב ת\"א";
+"YEHIDA_33" = "מרחב אילת";
+"YEHIDA_34" = "מרחב הנגב";
+"YEHIDA_36" = "מרחב שמשון (עד 1999)";
+"YEHIDA_37" = "מרחב שמשון (החל ב-2004)";
+"YEHIDA_38" = "מרחב לכיש";
+"YEHIDA_41" = "מרחב שומרון";
+"YEHIDA_43" = "מרחב יהודה";
+"YEHIDA_51" = "מרחב השרון";
+"YEHIDA_52" = "מרחב השפלה";
+"YEHIDA_61" = "מחוז ירושלים";
+
+
+// ### Road Conditions ###
+
+"SUG_YOM_0" = "הכל";
+"SUG_YOM_1" = "חג";
+"SUG_YOM_2" = "ערב חג";
+"SUG_YOM_3" = "חול המועד";
+"SUG_YOM_4" = "יום חול";
+
+"HUMRAT_TEUNA_1" = "קטלנית";
+"HUMRAT_TEUNA_2" = "קשה";
+"HUMRAT_TEUNA_3" = "קלה";
+
+"SUG_TEUNA_1" = "פגיעה בהולך רגל";
+"SUG_TEUNA_2" = "התנגשות חזית אל צד";
+"SUG_TEUNA_3" = "התנגשות חזית באחור";
+"SUG_TEUNA_4" = "התנגשות צד בצד";
+"SUG_TEUNA_5" = "התנגשות חזית אל חזית";
+"SUG_TEUNA_6" = "התנגשות עם רכב שנעצר ללא חניה";
+"SUG_TEUNA_7" = "התנגשות עם רכב חונה";
+"SUG_TEUNA_8" = "התנגשות עם עצם דומם";
+"SUG_TEUNA_9" = "ירידה מהכביש או עלייה למדרכה";
+"SUG_TEUNA_10" = "התהפכות";
+"SUG_TEUNA_11" = "החלקה";
+"SUG_TEUNA_12" = "פגיעה בנוסע בתוך כלי רכב";
+"SUG_TEUNA_13" = "נפילה ברכב נע";
+"SUG_TEUNA_14" = "שריפה";
+"SUG_TEUNA_15" = "אחר";
+"SUG_TEUNA_17" = "התנגשות אחור אל חזית";
+"SUG_TEUNA_18" = "התנגשות אחור אל צד";
+"SUG_TEUNA_19" = "התנגשות עם בעל חיים";
+"SUG_TEUNA_20" = "פגיעה ממטען של רכב";
+"SUG_TEUNA_21" = "איחוד הצלה";
+
+"ZURAT_DEREH_1" = "כניסה למחלף";
+"ZURAT_DEREH_2" = "ביציאה ממחלף";
+"ZURAT_DEREH_3" = "מ.חניה/ת. דלק";
+"ZURAT_DEREH_4" = "שיפוע תלול";
+"ZURAT_DEREH_5" = "עקום חד";
+"ZURAT_DEREH_6" = "על גשר מנהרה";
+"ZURAT_DEREH_7" = "מפגש מסילת ברזל";
+"ZURAT_DEREH_8" = "כביש ישר/צומת";
+"ZURAT_DEREH_9" = "אחר";
+
+"HAD_MASLUL_1" = "חד סיטרי";
+"HAD_MASLUL_2" = "דו סיטרי+קו הפרדה רצוף";
+"HAD_MASLUL_3" = "דו סיטרי אין קו הפרדה רצוף";
+"HAD_MASLUL_4" = "אחר";
+
+"RAV_MASLUL_1" = "מיפרדה מסומנת בצבע";
+"RAV_MASLUL_2" = "מיפרדה עם גדר בטיחות";
+"RAV_MASLUL_3" = "מיפרדה בנויה ללא גדר בטיחות";
+"RAV_MASLUL_4" = "מיפרדה לא בנויה";
+"RAV_MASLUL_5" = "אחר";
+
+"MEHIRUT_MUTERET_1" = "עד 50 קמ\"ש";
+"MEHIRUT_MUTERET_2" = "60 קמ\"ש";
+"MEHIRUT_MUTERET_3" = "70 קמ\"ש";
+"MEHIRUT_MUTERET_4" = "80 קמ\"ש";
+"MEHIRUT_MUTERET_5" = "90 קמ\"ש";
+"MEHIRUT_MUTERET_6" = "100 קמ\"ש";
+
+"TKINUT_1" = "אין ליקוי";
+"TKINUT_2" = "שוליים גרועים";
+"TKINUT_3" = "כביש משובש";
+"TKINUT_4" = "שוליים גרועים וכביש משובש";
+
+"ROHAV_1" = "עד 5 מטר";
+"ROHAV_2" = "5 עד 7";
+"ROHAV_3" = "7 עד 10.5";
+"ROHAV_4" = "10.5 עד 14";
+"ROHAV_5" = "יותר מ-14";
+
+"SIMUN_TIMRUR_1" = "סימון לקוי/חסר";
+"SIMUN_TIMRUR_2" = "תימרור לקוי/חסר";
+"SIMUN_TIMRUR_3" = "אין ליקוי";
+"SIMUN_TIMRUR_4" = "לא נדרש תמרור";
+
+"TEURA_1" = "אור יום רגיל";
+"TEURA_2" = "ראות מוגבלת עקב מזג אויר (עשן;ערפל)";
+"TEURA_3" = "לילה פעלה תאורה";
+"TEURA_4" = "קיימת תאורה בלתי תקינה/לא פועלת";
+"TEURA_5" = "לילה לא קיימת תאורה";
+
+"BAKARA_1" = "אין בקרה";
+"BAKARA_2" = "רמזור תקין";
+"BAKARA_3" = "רמזור מהבהב צהוב";
+"BAKARA_4" = "רמזור לא תקין";
+"BAKARA_5" = "תמרור עצור";
+"BAKARA_6" = "תמרור זכות קדימה";
+"BAKARA_7" = "אחר";
+
+"MEZEG_AVIR_1" = "בהיר";
+"MEZEG_AVIR_2" = "גשום";
+"MEZEG_AVIR_3" = "שרבי";
+"MEZEG_AVIR_4" = "ערפילי";
+"MEZEG_AVIR_5" = "אחר";
+
+"PNE_KVISH_1" = "יבש";
+"PNE_KVISH_2" = "רטוב ממים";
+"PNE_KVISH_3" = "מרוח בחומר דלק";
+"PNE_KVISH_4" = "מכוסה בבוץ";
+"PNE_KVISH_5" = "חול או חצץ על הכביש";
+"PNE_KVISH_6" = "אחר";
+
+"SUG_EZEM_1" = "עץ";
+"SUG_EZEM_2" = "עמוד חשמל/תאורה/טלפון";
+"SUG_EZEM_3" = "תמרור ושלט";
+"SUG_EZEM_4" = "גשר סימניו ומגיניו";
+"SUG_EZEM_5" = "מבנה";
+"SUG_EZEM_6" = "גדר בטיחות לרכב";
+"SUG_EZEM_7" = "חבית";
+"SUG_EZEM_8" = "אחר";
+
+"MERHAK_EZEM_1" = "עד מטר";
+"MERHAK_EZEM_2" = "1-3 מטר";
+"MERHAK_EZEM_3" = "על הכביש";
+"MERHAK_EZEM_4" = "על שטח הפרדה";
+
+"LO_HAZA_1" = "הלך בכיוון התנועה";
+"LO_HAZA_2" = "הלך נגד";
+"LO_HAZA_3" = "שיחק על הכביש";
+"LO_HAZA_4" = "עמד על הכביש";
+"LO_HAZA_5" = "היה על אי הפרדה";
+"LO_HAZA_6" = "היה על שוליים/מדרכה";
+"LO_HAZA_7" = "אחר";
+
+"OFEN_HAZIYA_1" = "התפרץ אל הכביש";
+"OFEN_HAZIYA_2" = "חצה שהוא מוסתר";
+"OFEN_HAZIYA_3" = "חצה רגיל";
+"OFEN_HAZIYA_4" = "אחר";
+
+"MEKOM_HAZIYA_1" = "לא במעבר חציה ליד צומת";
+"MEKOM_HAZIYA_2" = "לא במעבר חציה לא ליד צומת";
+"MEKOM_HAZIYA_3" = "במעבר חציה בלי רמזור";
+"MEKOM_HAZIYA_4" = "במעבר חציה עם רמזור";
+
+"KIVUN_HAZIYA_1" = "מימין לשמאל";
+"KIVUN_HAZIYA_2" = "משמאל לימין";
+
+"STATUS_IGUN_1" = "עיגון מדויק";
+"STATUS_IGUN_2" = "מרכז ישוב";
+"STATUS_IGUN_3" = "מרכז דרך";
+"STATUS_IGUN_4" = "מרכז קילומטר";
+"STATUS_IGUN_9" = "לא עוגן";
+
+
+// ### Vehicle description titles ###
+
+// State (stolen, rent etc.)
+"MATZAV_REHEV_1" = "גנוב";
+"MATZAV_REHEV_2" = "השכרה";
+"MATZAV_REHEV_3" = "לימוד";
+"MATZAV_REHEV_4" = "הסעת ילדים";
+
+// Association (police, citizen, diplomatic etc.)
+"SHIYUH_REHEV_LMS_0" = "לא מנועי";
+"SHIYUH_REHEV_LMS_1" = "ישראלי";
+"SHIYUH_REHEV_LMS_2" = "צבאי";
+"SHIYUH_REHEV_LMS_3" = "משטרתי";
+"SHIYUH_REHEV_LMS_4" = "זר";
+"SHIYUH_REHEV_LMS_5" = "דיפלומטי";
+"SHIYUH_REHEV_LMS_6" = "יש״ע";
+"SHIYUH_REHEV_LMS_9" = "אלמוני";
+
+// Type (private, truck etc.)
+"SUG_REHEV_LMS_1" = "רכב נוסעים פרטי";
+"SUG_REHEV_LMS_2" = "משא עד 4 טון אחוד";
+"SUG_REHEV_LMS_3" = "משא עד 4 טון לא אחוד";
+"SUG_REHEV_LMS_4" = "משא 1.4 עד 9.9 טון משקל כולל";
+"SUG_REHEV_LMS_5" = "משא 10 עד 15.9 טון משקל כולל";
+"SUG_REHEV_LMS_6" = "משא 16 עד 33.9 טון משקל כולל";
+"SUG_REHEV_LMS_7" = "משא 34.0+טון משקל כולל";
+"SUG_REHEV_LMS_8" = "אופנוע עד 50 סמ״ק";
+"SUG_REHEV_LMS_9" = "אופנוע 51 עד 250 סמ״ק";
+"SUG_REHEV_LMS_10" = "אופנוע 251 עד 500 סמ״ק";
+"SUG_REHEV_LMS_11" = "אוטובוס";
+"SUG_REHEV_LMS_12" = "מונית";
+"SUG_REHEV_LMS_13" = "רכב עבודה";
+"SUG_REHEV_LMS_14" = "טרקטור";
+"SUG_REHEV_LMS_15" = "אופניים";
+"SUG_REHEV_LMS_16" = "רכבת";
+"SUG_REHEV_LMS_17" = "אחר";
+"SUG_REHEV_LMS_18" = "אוטובוס זעיר";
+"SUG_REHEV_LMS_19" = "אופנוע מעל 500 סמ״ק";
+
+
+// ### Person Involved Description Titles ###
+
+// Type (driver, didn't hurt, passengar)
+"SUG_MEORAV_1" = "נהג שלא נפגע";
+"SUG_MEORAV_2" = "נהג נפגע";
+"SUG_MEORAV_3" = "נפגע שאינו נהג";
+
+// Sex
+"MIN_1" = "זכר";
+"MIN_2" = "נקבה";
+
+// Car type drove
+// Same as: SUG_REHEV_LMS
+
+// Safety Measure (belt, helmet, none etc.)
+"EMZAE_BETIHUT_1" = "חגר חגורה";
+"EMZAE_BETIHUT_2" = "חבש קסדת מגן (רק לאופנוע)";
+"EMZAE_BETIHUT_3" = "ישב במושב/ריתמה לילדים (רק לנפגע ילד)";
+"EMZAE_BETIHUT_4" = "לא השתמש באמצעי";
+"EMZAE_BETIHUT_5" = "לא ידוע";
+
+// Severity (killed, injured, easy injure)
+"HUMRAT_PGIA_1" = "הרוג";
+"HUMRAT_PGIA_2" = "פצוע קשה";
+"HUMRAT_PGIA_3" = "פצוע קל";
+
+// Preson type (pedestrian, drived, motor/bycicle driver etc)
+"SUG_NIFGA_LMS_1" = "הולך רגל";
+"SUG_NIFGA_LMS_2" = "נהג-רכב בעל 4+ גלגלים";
+"SUG_NIFGA_LMS_3" = "נוסע- רכב בעל 4+ גלגלים";
+"SUG_NIFGA_LMS_4" = "נהג-אופנוע";
+"SUG_NIFGA_LMS_5" = "נוסע-אופנוע (לא נהג)";
+"SUG_NIFGA_LMS_6" = "נהג-אופניים";
+"SUG_NIFGA_LMS_7" = "נוסע-אופניים (לא נהג)";
+"SUG_NIFGA_LMS_8" = "נהג-רכב לא ידוע";
+"SUG_NIFGA_LMS_9" = "נוסע-רכב לא ידוע";
+
+// Action (sitting front seat, got off car, walking etc.)
+"PEULAT_NIFGA_LMS_1" = "ישב ברכב במושב קדמי";
+"PEULAT_NIFGA_LMS_2" = "ישב ברכב במושב אחורי";
+"PEULAT_NIFGA_LMS_3" = "ישב ברכב בארגז מאחור";
+"PEULAT_NIFGA_LMS_4" = "עמד ברכב";
+"PEULAT_NIFGA_LMS_5" = "עלה לרכב";
+"PEULAT_NIFGA_LMS_6" = "ירד מהרכב";
+"PEULAT_NIFGA_LMS_7" = "פעולה אחרת";
+"PEULAT_NIFGA_LMS_8" = "לא ידוע";
+"PEULAT_NIFGA_LMS_9" = "הולך רגל";
+
+// Hospitalization (upto 24hr, more than 24hr)
+"PAZUA_USHPAZ_1" = "אשפוז עד 24 שעות";
+"PAZUA_USHPAZ_2" = "אשפוז מעל 24 שעות";
+
+// Medical State (easy, medium, harsh etc.)
+"MADAD_RAFUI_1" = "קל (1-8)";
+"MADAD_RAFUI_2" = "בינוני (9-15)";
+"MADAD_RAFUI_3" = "קשה (16-24)";
+"MADAD_RAFUI_4" = "קשה מאוד (25-75)";
+
+// Released to... (home, other hospital, death etc.)
+"YAAD_SHIHRUR_1" = "בית";
+"YAAD_SHIHRUR_2" = "בית חולים אחר";
+"YAAD_SHIHRUR_3" = "מוסד שיקומי/ מחלקה שיקומית";
+"YAAD_SHIHRUR_4" = "מוות";
+"YAAD_SHIHRUR_5" = "אחר";
+
+// DId use safety measure (yes, no, unknown)
+"SHIMUSH_BE_AVIZAREY_BETIHOT_1" = "כן";
+"SHIMUSH_BE_AVIZAREY_BETIHOT_2" = "לא";
+"SHIMUSH_BE_AVIZAREY_BETIHOT_3" = "לא ידוע";
+
+// Late passing (upto 30 days later, more than 30 days later)
+"PTIRA_MEUHERET_1" = "פטירה רגילה עד 30 יום";
+"PTIRA_MEUHERET_2" = "פטירה מאוחרת מעל 30 יום";
+
+
+// ### Static Fields (titles etc.) ###
+
+// ### Accident Details Titles ###
+"DETAILS_HEADER_details" = "פרטי התאונה";
+"DETAILS_HEADER_road" = "תנאי הדרך";
+"DETAILS_HEADER_time_location" = "מיקום וזמן";
+"DETAILS_HEADER_people" = "נפגעים";
+"DETAILS_HEADER_cars" = "רכבים מעורבים";
+"DETAILS_HEADER_more_info" = "מידע נוסף";
+
+"INNER_PERSON_TITLE" = "פרטי אדם מעורב";
+"INNER_VEHICLE_TITLE" = "פרטי רכב מעורב";
+
+"PROVIDER_ihud" = "איחוד הצלה";
+"PROVIDER_cbs" = "הלשכה המרכזית לסטטיסטיקה";
+
+"pk_teuna_fikt" = "מזהה";
+"SUG_DERECH" = "סוג דרך";
+"SHEM_ZOMET" = "שם צומת";
+"SEMEL_YISHUV" = "ישוב";
+"REHOV1" = "רחוב 1";
+"REHOV2" = "רחוב 2";
+"BAYIT" = "מספר בית";
+"ZOMET_IRONI" = "צומת עירוני";
+"KVISH1" = "כביש 1";
+"KVISH2" = "כביש 2";
+"ZOMET_LO_IRONI" = "צומת לא עירוני";
+"YEHIDA" = "יחידה";
+"SUG_YOM" = "סוג יום";
+"TAARICH" = "תאריך";
+"RAMZOR" = "רמזור";
+"HUMRAT_TEUNA" = "חומרת תאונה";
+"SUG_TEUNA" = "סוג תאונה";
+"ZURAT_DEREH" = "צורת דרך";
+"HAD_MASLUL" = "חד מסלול";
+"RAV_MASLUL" = "רב מסלול";
+"MEHIRUT_MUTERET" = "מהירות מותרת";
+"TKINUT" = "תקינות";
+"ROHAV" = "רוחב";
+"SIMUN_TIMRUR" = "סימון תמרור";
+"TEURA" = "תאורה";
+"BAKARA" = "בקרה";
+"MEZEG_AVIR" = "מזג אוויר";
+"PNE_KVISH" = "פני כביש";
+"SUG_EZEM" = "סוג עצם";
+"MERHAK_EZEM" = "מרחק עצם";
+"LO_HAZA" = "לא חצה";
+"OFEN_HAZIYA" = "אופן חציה";
+"MEKOM_HAZIYA" = "מקום חציה";
+"KIVUN_HAZIYA" = "כיוון חציה";
+"STATUS_IGUN" = "עיגון";
+"MAHOZ" = "מחוז";
+"NAFA" = "נפה";
+"EZOR_TIVI" = "אזור טבעי";
+"MAAMAD_MINIZIPALI" = "מעמד מוניציפלי";
+"ZURAT_ISHUV" = "צורת יישוב";
+
+"SUG_MEORAV" = "סוג מעורב";
+"SHNAT_HOZAA" = "שנת הוצאת רשיון נהיגה";
+"KVUZA_GIL" = "קבוצת גיל";
+"MIN" = "מין";
+"SUG_REHEV_NASA_LMS" = "סוג רכב בו נסע";
+"EMZAE_BETIHUT" = "אמצעי בטיחות";
+"HUMRAT_PGIA" = "חומרת פגיעה";
+"SUG_NIFGA_LMS" = "סוג נפגע";
+"PEULAT_NIFGA_LMS" = "מיקום פצוע";
+"KVUTZAT_OHLUSIYA_LMS" = "קבוצת אוכלוסיה";
+"MAHOZ_MEGURIM" = "מחוז מגורים";
+"NAFA_MEGURIM" = "נפת מגורים";
+"EZOR_TIVI_MEGURIM" = "אזור טבעי מגורים";
+"MAAMAD_MINIZIPALI_MEGURIM" = "מעמד מוניצפלי מגורים";
+"ZURAT_ISHUV_MEGURIM" = "צורת ישוב מגורים";
+
+"PAZUA_USHPAZ" = "משך אשפוז";
+"MADAD_RAFUI" = "מדד רפואי לחומרת הפציעה - ISS";
+"YAAD_SHIHRUR" = "יעד שחרור";
+"SHIMUSH_BE_AVIZAREY_BETIHOT" = "שימוש באביזרי בטיחות";
+"PTIRA_MEUHERET" = "מועד הפטירה";
+
+"NEFAH" = "נפח מנוע";
+"SHNAT_YITZUR" = "שנת ייצור";
+"KIVUNE_NESIA" = "כיוון נסיעה";
+"MATZAV_REHEV" = "מצב רכב";
+"SHIYUH_REHEV_LMS" = "שיוך רכב";
+"SUG_REHEV_LMS" = "סוג רכב";
+"MEKOMOT_YESHIVA_LMS" = "מקומות ישיבה";
+"MISHKAL_KOLEL_LMS" = "משקל כולל";
+"ACC_ID" = "מספר סידורי";
+"PROVIDER_CODE" = "סוג תיק";
+
