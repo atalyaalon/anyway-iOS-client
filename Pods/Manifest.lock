@@ -6,6 +6,8 @@ PODS:
   - GoogleMaps/Base (3.1.0)
   - GoogleMaps/Maps (3.1.0):
     - GoogleMaps/Base
+  - LFHeatMap (1.0.2)
+  - MBProgressHUD (1.1.0)
   - Realm (3.15.0):
     - Realm/Headers (= 3.15.0)
   - Realm/Headers (3.15.0)
@@ -27,10 +29,11 @@ DEPENDENCIES:
   - Alamofire
   - Eureka
   - GoogleMaps
+  - LFHeatMap
+  - MBProgressHUD (~> 1.1.0)
   - RealmSwift
   - RxCocoa (~> 5)
   - RxGoogleMaps
-  - RxSwift (~> 5)
   - SwiftyJSON
 
 SPEC REPOS:
@@ -38,6 +41,8 @@ SPEC REPOS:
     - Alamofire
     - Eureka
     - GoogleMaps
+    - LFHeatMap
+    - MBProgressHUD
     - Realm
     - RealmSwift
     - RxCocoa
@@ -50,6 +55,8 @@ SPEC CHECKSUMS:
   Alamofire: ae5c501addb7afdbb13687d7f2f722c78734c2d3
   Eureka: 28ea296f06710f6745266b71f17862048941a32d
   GoogleMaps: 5c13302e6fe6bb6e686b267196586b91cd594225
+  LFHeatMap: 433197b20e4d57a9502bc2a2a21300fa851ff3c6
+  MBProgressHUD: e7baa36a220447d8aeb12769bf0585582f3866d9
   Realm: 9b834e1be6062f544805252c812348872dc5d4ed
   RealmSwift: 8a41886f8ab6efef9eb8df97de2f2bb911561a79
   RxCocoa: fcf32050ac00d801f34a7f71d5e8e7f23026dcd8
@@ -58,6 +65,6 @@ SPEC CHECKSUMS:
   RxSwift: 8b0671caa829a763bbce7271095859121cbd895f
   SwiftyJSON: 36413e04c44ee145039d332b4f4e2d3e8d6c4db7
 
-PODFILE CHECKSUM: f8de813ba91e8fead41c747e83b289d5784cf419
+PODFILE CHECKSUM: 8609287c40e0cbb1edf3ba4b8f17f4c7665d8f69
 
 COCOAPODS: 1.6.1

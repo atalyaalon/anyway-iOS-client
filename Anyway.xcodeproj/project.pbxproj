@@ -63,10 +63,10 @@
 		30D6E5D61A92647300337FDB /* PrintlnMagic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30D6E5D31A92647300337FDB /* PrintlnMagic.swift */; };
 		30DAA0981AC1F95D001F67D2 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30DAA0971AC1F95D001F67D2 /* Extensions.swift */; };
 		30ECD1821ADC19D800A62052 /* SwiftyUserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30ECD1811ADC19D800A62052 /* SwiftyUserDefaults.swift */; };
-		98C5266C20611647AF2A6021 /* Pods_Anyway.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DD1521A2C594A5668CBF565D /* Pods_Anyway.framework */; };
 		9F2076E1229254540034EABF /* Ben Avigdor.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 9F2076E0229254540034EABF /* Ben Avigdor.gpx */; };
 		9F2076E3229288BA0034EABF /* HeatmapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F2076E2229288BA0034EABF /* HeatmapViewController.swift */; };
 		9F528077228BBA69003D6478 /* UserPickViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F528076228BBA69003D6478 /* UserPickViewController.swift */; };
+		E8718E7DE640DB8C87A4312C /* libPods-Anyway.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5BAA4DA381CEE5DD137783F3 /* libPods-Anyway.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -158,10 +158,10 @@
 		30DAA0971AC1F95D001F67D2 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		30ECD1811ADC19D800A62052 /* SwiftyUserDefaults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyUserDefaults.swift; sourceTree = "<group>"; };
 		3A06E2DAB55DAB6F55D67925 /* Pods-Anyway.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Anyway.release.xcconfig"; path = "Pods/Target Support Files/Pods-Anyway/Pods-Anyway.release.xcconfig"; sourceTree = "<group>"; };
+		5BAA4DA381CEE5DD137783F3 /* libPods-Anyway.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Anyway.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9F2076E0229254540034EABF /* Ben Avigdor.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "Ben Avigdor.gpx"; sourceTree = "<group>"; };
 		9F2076E2229288BA0034EABF /* HeatmapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeatmapViewController.swift; sourceTree = "<group>"; };
 		9F528076228BBA69003D6478 /* UserPickViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPickViewController.swift; sourceTree = "<group>"; };
-		DD1521A2C594A5668CBF565D /* Pods_Anyway.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Anyway.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EC9DF7F2A796E6C58616FB90 /* Pods-Anyway.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Anyway.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Anyway/Pods-Anyway.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -172,7 +172,7 @@
 			files = (
 				30CDE5131BFA525B00BBC183 /* SwiftyJSON.framework in Frameworks */,
 				30CDE5111BFA525800BBC183 /* Alamofire.framework in Frameworks */,
-				98C5266C20611647AF2A6021 /* Pods_Anyway.framework in Frameworks */,
+				E8718E7DE640DB8C87A4312C /* libPods-Anyway.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -189,7 +189,7 @@
 				305E9AF11BFA4E0C003858F3 /* SwiftyJSON.framework */,
 				305E9AEF1BFA4E08003858F3 /* Alamofire.framework */,
 				143F5942D9E4E7907849857B /* Pods.framework */,
-				DD1521A2C594A5668CBF565D /* Pods_Anyway.framework */,
+				5BAA4DA381CEE5DD137783F3 /* libPods-Anyway.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -447,7 +447,6 @@
 				30D6E5A91A92639500337FDB /* Frameworks */,
 				30D6E5AA1A92639500337FDB /* Resources */,
 				30673C631C1F3D3800CEB5FB /* Run Script | Set Build To "DEVELOPMENT" */,
-				EE6970D3164DFFA9D86A01CE /* [CP] Embed Pods Frameworks */,
 				237F04313757B99442239535 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
@@ -524,12 +523,14 @@
 			);
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-Anyway/Pods-Anyway-resources.sh",
+				"${PODS_ROOT}/Eureka/Source/Resources/Eureka.bundle",
 				"${PODS_ROOT}/GoogleMaps/Maps/Frameworks/GoogleMaps.framework/Resources/GoogleMaps.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
 			);
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Eureka.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleMaps.bundle",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -564,38 +565,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion DEVELOPMENT\" \"${PROJECT_DIR}/${INFOPLIST_FILE}\"";
-		};
-		EE6970D3164DFFA9D86A01CE /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Anyway/Pods-Anyway-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
-				"${BUILT_PRODUCTS_DIR}/Eureka/Eureka.framework",
-				"${BUILT_PRODUCTS_DIR}/Realm/Realm.framework",
-				"${BUILT_PRODUCTS_DIR}/RealmSwift/RealmSwift.framework",
-				"${BUILT_PRODUCTS_DIR}/RxCocoa/RxCocoa.framework",
-				"${BUILT_PRODUCTS_DIR}/RxRelay/RxRelay.framework",
-				"${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework",
-				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Eureka.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Realm.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RealmSwift.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxCocoa.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxRelay.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Anyway/Pods-Anyway-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
 		};
 		FACE2F2B81068178BFCA780E /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
