@@ -26,19 +26,19 @@ import RealmSwift
 //}
 
 public extension Notification.Name {
-    public static var locationServicesDenied = Notification.Name("locationServicesDenied")
-    public static var locationServicesRestricted = Notification.Name("locationServicesRestricted")
-    public static var knownLocationChanged = Notification.Name("knownLocationChanged")
+    static var locationServicesDenied = Notification.Name("locationServicesDenied")
+    static var locationServicesRestricted = Notification.Name("locationServicesRestricted")
+    static var knownLocationChanged = Notification.Name("knownLocationChanged")
 }
 
 public extension CLLocation {
-    public var asData: Data { return NSKeyedArchiver.archivedData(withRootObject: self) }
-    public class func from(_ data: Data) -> CLLocation? { return data.unarchived as? CLLocation ?? nil }
+    var asData: Data { return NSKeyedArchiver.archivedData(withRootObject: self) }
+    class func from(_ data: Data) -> CLLocation? { return data.unarchived as? CLLocation ?? nil }
 }
 
 public extension CLPlacemark {
-    public var asData: Data { return NSKeyedArchiver.archivedData(withRootObject: self) }
-    public class func from(_ data: Data) -> CLPlacemark? { return data.unarchived as? CLPlacemark ?? nil }
+    var asData: Data { return NSKeyedArchiver.archivedData(withRootObject: self) }
+    class func from(_ data: Data) -> CLPlacemark? { return data.unarchived as? CLPlacemark ?? nil }
 }
 
 public class Location: NSObject, CLLocationManagerDelegate {

@@ -81,7 +81,7 @@ struct ManualLocalizationWorker {
     /// Default for fresh install, or when there isn't any value
     fileprivate static var defaultLocal: AppLocal {
         let phoneVar = (defaults.object(forKey: "AppleLanguages") as? [String])?
-                        .flatMap{ AppLocal(rawValue: $0) }.first
+            .compactMap{ AppLocal(rawValue: $0) }.first
         return phoneVar ?? AppLocal.English
     }
     

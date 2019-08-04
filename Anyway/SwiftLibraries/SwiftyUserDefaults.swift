@@ -79,13 +79,13 @@ public extension UserDefaults {
     
     /// Returns getter proxy for `key`
     
-    public subscript(key: String) -> Proxy {
+    subscript(key: String) -> Proxy {
         return Proxy(self, key)
     }
     
     /// Sets value for `key`
     
-    public subscript(key: String) -> Any? {
+    subscript(key: String) -> Any? {
         get {
             return self[key]
         }
@@ -108,13 +108,13 @@ public extension UserDefaults {
     
     /// Returns `true` if `key` exists
     
-    public func hasKey(_ key: String) -> Bool {
+    func hasKey(_ key: String) -> Bool {
         return object(forKey: key) != nil
     }
     
     /// Removes value for `key`
     
-    public func remove(_ key: String) {
+    func remove(_ key: String) {
         removeObject(forKey: key)
     }
 }

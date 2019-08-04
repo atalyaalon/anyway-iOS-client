@@ -7,38 +7,19 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		30367E9B1A9D006400B16DA1 /* OCAlgorithms.m in Sources */ = {isa = PBXBuildFile; fileRef = 30367E931A9D006400B16DA1 /* OCAlgorithms.m */; };
-		30367E9C1A9D006400B16DA1 /* OCAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 30367E951A9D006400B16DA1 /* OCAnnotation.m */; };
-		30367E9D1A9D006400B16DA1 /* OCDistance.m in Sources */ = {isa = PBXBuildFile; fileRef = 30367E971A9D006400B16DA1 /* OCDistance.m */; };
-		30367E9E1A9D006400B16DA1 /* OCMapView.m in Sources */ = {isa = PBXBuildFile; fileRef = 30367E9A1A9D006400B16DA1 /* OCMapView.m */; };
 		30673C681C1F4B6200CEB5FB /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 30673C6A1C1F4B6200CEB5FB /* Localizable.strings */; };
 		309CCBDF1C569FAA00C829E5 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 309CCBDE1C569FAA00C829E5 /* main.swift */; };
 		309DD0461BFA464100AF80D1 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 309DD0451BFA464100AF80D1 /* Utilities.swift */; };
-		30AF036D1A9BC663008B7889 /* AnnotationCoordinateUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = 30AF036C1A9BC663008B7889 /* AnnotationCoordinateUtility.m */; };
 		30BE3E321B7918C90092CEAB /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30BE3E311B7918C90092CEAB /* Constants.swift */; };
-		30BEB4621A9D1A7A005F3205 /* JGProgressHUD Resources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 30BEB44D1A9D1A7A005F3205 /* JGProgressHUD Resources.bundle */; };
-		30BEB4631A9D1A7A005F3205 /* JGProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 30BEB44F1A9D1A7A005F3205 /* JGProgressHUD.m */; };
-		30BEB4641A9D1A7A005F3205 /* JGProgressHUDAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 30BEB4511A9D1A7A005F3205 /* JGProgressHUDAnimation.m */; };
-		30BEB4651A9D1A7A005F3205 /* JGProgressHUDErrorIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 30BEB4531A9D1A7A005F3205 /* JGProgressHUDErrorIndicatorView.m */; };
-		30BEB4661A9D1A7A005F3205 /* JGProgressHUDFadeAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 30BEB4551A9D1A7A005F3205 /* JGProgressHUDFadeAnimation.m */; };
-		30BEB4671A9D1A7A005F3205 /* JGProgressHUDFadeZoomAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 30BEB4571A9D1A7A005F3205 /* JGProgressHUDFadeZoomAnimation.m */; };
-		30BEB4681A9D1A7A005F3205 /* JGProgressHUDIndeterminateIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 30BEB4591A9D1A7A005F3205 /* JGProgressHUDIndeterminateIndicatorView.m */; };
-		30BEB4691A9D1A7A005F3205 /* JGProgressHUDIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 30BEB45B1A9D1A7A005F3205 /* JGProgressHUDIndicatorView.m */; };
-		30BEB46A1A9D1A7A005F3205 /* JGProgressHUDPieIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 30BEB45D1A9D1A7A005F3205 /* JGProgressHUDPieIndicatorView.m */; };
-		30BEB46B1A9D1A7A005F3205 /* JGProgressHUDRingIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 30BEB45F1A9D1A7A005F3205 /* JGProgressHUDRingIndicatorView.m */; };
-		30BEB46C1A9D1A7A005F3205 /* JGProgressHUDSuccessIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 30BEB4611A9D1A7A005F3205 /* JGProgressHUDSuccessIndicatorView.m */; };
 		30CDE5111BFA525800BBC183 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30CDE5101BFA525800BBC183 /* Alamofire.framework */; };
 		30CDE5131BFA525B00BBC183 /* SwiftyJSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30CDE5121BFA525B00BBC183 /* SwiftyJSON.framework */; };
-		30CDE5151BFA555500BBC183 /* Alamofire-SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30CDE5141BFA555500BBC183 /* Alamofire-SwiftyJSON.swift */; };
 		30CDE5171BFA690A00BBC183 /* Localization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30CDE5161BFA690A00BBC183 /* Localization.swift */; };
 		30D6E5B21A92639500337FDB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30D6E5B11A92639500337FDB /* AppDelegate.swift */; };
 		30D6E5B71A92639500337FDB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 30D6E5B51A92639500337FDB /* Main.storyboard */; };
 		30D6E5B91A92639500337FDB /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 30D6E5B81A92639500337FDB /* Images.xcassets */; };
 		30D6E5BC1A92639500337FDB /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30D6E5BA1A92639500337FDB /* LaunchScreen.xib */; };
 		30D6E5D21A92642000337FDB /* MapProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30D6E5D11A92642000337FDB /* MapProvider.swift */; };
-		30D6E5D61A92647300337FDB /* PrintlnMagic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30D6E5D31A92647300337FDB /* PrintlnMagic.swift */; };
 		30DAA0981AC1F95D001F67D2 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30DAA0971AC1F95D001F67D2 /* Extensions.swift */; };
-		30ECD1821ADC19D800A62052 /* SwiftyUserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30ECD1811ADC19D800A62052 /* SwiftyUserDefaults.swift */; };
 		98C5266C20611647AF2A6021 /* Pods_Anyway.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DD1521A2C594A5668CBF565D /* Pods_Anyway.framework */; };
 		9F0EE8A222F7158700D53D4D /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F0EE8A122F7158700D53D4D /* MainViewController.swift */; };
 		9F0EE8A722F715B900D53D4D /* ViewController+MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F0EE8A322F715B900D53D4D /* ViewController+MapView.swift */; };
@@ -65,6 +46,24 @@
 		9F0EE8D022F719B300D53D4D /* HistoryPosition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F0EE8CE22F719B300D53D4D /* HistoryPosition.swift */; };
 		9F0EE8D222F719E500D53D4D /* Filter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F0EE8D122F719E500D53D4D /* Filter.swift */; };
 		9F0EE8D422F71A8300D53D4D /* PairsDataProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F0EE8D322F71A8300D53D4D /* PairsDataProtocol.swift */; };
+		9F0EE8F922F71C1400D53D4D /* OCAlgorithms.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F0EE8D822F71C1400D53D4D /* OCAlgorithms.m */; };
+		9F0EE8FA22F71C1400D53D4D /* OCMapView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F0EE8DA22F71C1400D53D4D /* OCMapView.m */; };
+		9F0EE8FB22F71C1400D53D4D /* OCDistance.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F0EE8DB22F71C1400D53D4D /* OCDistance.m */; };
+		9F0EE8FC22F71C1400D53D4D /* OCAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F0EE8DE22F71C1400D53D4D /* OCAnnotation.m */; };
+		9F0EE8FD22F71C1400D53D4D /* JGProgressHUDIndeterminateIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F0EE8E422F71C1400D53D4D /* JGProgressHUDIndeterminateIndicatorView.m */; };
+		9F0EE8FE22F71C1400D53D4D /* JGProgressHUDErrorIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F0EE8E522F71C1400D53D4D /* JGProgressHUDErrorIndicatorView.m */; };
+		9F0EE8FF22F71C1400D53D4D /* JGProgressHUDAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F0EE8E722F71C1400D53D4D /* JGProgressHUDAnimation.m */; };
+		9F0EE90022F71C1400D53D4D /* JGProgressHUDFadeZoomAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F0EE8EB22F71C1400D53D4D /* JGProgressHUDFadeZoomAnimation.m */; };
+		9F0EE90122F71C1400D53D4D /* JGProgressHUD Resources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 9F0EE8ED22F71C1400D53D4D /* JGProgressHUD Resources.bundle */; };
+		9F0EE90222F71C1400D53D4D /* JGProgressHUDSuccessIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F0EE8EE22F71C1400D53D4D /* JGProgressHUDSuccessIndicatorView.m */; };
+		9F0EE90322F71C1400D53D4D /* JGProgressHUDIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F0EE8F022F71C1400D53D4D /* JGProgressHUDIndicatorView.m */; };
+		9F0EE90422F71C1400D53D4D /* JGProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F0EE8F322F71C1400D53D4D /* JGProgressHUD.m */; };
+		9F0EE90522F71C1400D53D4D /* JGProgressHUDFadeAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F0EE8F422F71C1400D53D4D /* JGProgressHUDFadeAnimation.m */; };
+		9F0EE90622F71C1400D53D4D /* JGProgressHUDRingIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F0EE8F622F71C1400D53D4D /* JGProgressHUDRingIndicatorView.m */; };
+		9F0EE90722F71C1400D53D4D /* JGProgressHUDPieIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F0EE8F722F71C1400D53D4D /* JGProgressHUDPieIndicatorView.m */; };
+		9F0EE90822F71C1400D53D4D /* AnnotationCoordinateUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F0EE8F822F71C1400D53D4D /* AnnotationCoordinateUtility.m */; };
+		9F0EE90C22F71F5E00D53D4D /* PrintlnMagic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F0EE90A22F71F5E00D53D4D /* PrintlnMagic.swift */; };
+		9F0EE90D22F71F5E00D53D4D /* SwiftyUserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F0EE90B22F71F5E00D53D4D /* SwiftyUserDefaults.swift */; };
 		9F2076E1229254540034EABF /* Ben Avigdor.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 9F2076E0229254540034EABF /* Ben Avigdor.gpx */; };
 		9FE0A91B2299098000E7E76A /* GMUWeightedLatLng.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FE0A8D32299098000E7E76A /* GMUWeightedLatLng.m */; };
 		9FE0A91C2299098000E7E76A /* GMUGradient.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FE0A8D62299098000E7E76A /* GMUGradient.m */; };
@@ -96,16 +95,6 @@
 
 /* Begin PBXFileReference section */
 		143F5942D9E4E7907849857B /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		30367E911A9D006400B16DA1 /* OCAlgorithmDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCAlgorithmDelegate.h; sourceTree = "<group>"; };
-		30367E921A9D006400B16DA1 /* OCAlgorithms.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCAlgorithms.h; sourceTree = "<group>"; };
-		30367E931A9D006400B16DA1 /* OCAlgorithms.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCAlgorithms.m; sourceTree = "<group>"; };
-		30367E941A9D006400B16DA1 /* OCAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCAnnotation.h; sourceTree = "<group>"; };
-		30367E951A9D006400B16DA1 /* OCAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCAnnotation.m; sourceTree = "<group>"; };
-		30367E961A9D006400B16DA1 /* OCDistance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCDistance.h; sourceTree = "<group>"; };
-		30367E971A9D006400B16DA1 /* OCDistance.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCDistance.m; sourceTree = "<group>"; };
-		30367E981A9D006400B16DA1 /* OCGrouping.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCGrouping.h; sourceTree = "<group>"; };
-		30367E991A9D006400B16DA1 /* OCMapView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCMapView.h; sourceTree = "<group>"; };
-		30367E9A1A9D006400B16DA1 /* OCMapView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCMapView.m; sourceTree = "<group>"; };
 		305E9AEF1BFA4E08003858F3 /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = "Pods/../build/Debug-iphoneos/Alamofire.framework"; sourceTree = "<group>"; };
 		305E9AF11BFA4E0C003858F3 /* SwiftyJSON.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftyJSON.framework; path = "Pods/../build/Debug-iphoneos/SwiftyJSON.framework"; sourceTree = "<group>"; };
 		30673C661C1F4B2900CEB5FB /* he */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = he; path = he.lproj/Main.strings; sourceTree = "<group>"; };
@@ -116,35 +105,11 @@
 		309CCBDE1C569FAA00C829E5 /* main.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		309DD0451BFA464100AF80D1 /* Utilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 		30AF03671A9BC62C008B7889 /* Anyway-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Anyway-Bridging-Header.h"; sourceTree = "<group>"; };
-		30AF036B1A9BC663008B7889 /* AnnotationCoordinateUtility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnnotationCoordinateUtility.h; sourceTree = "<group>"; };
-		30AF036C1A9BC663008B7889 /* AnnotationCoordinateUtility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnnotationCoordinateUtility.m; sourceTree = "<group>"; };
 		30BA64A41BFA505900700C72 /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = "Pods/../build/Debug-iphoneos/Alamofire.framework"; sourceTree = "<group>"; };
 		30BA64A61BFA505C00700C72 /* SwiftyJSON.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftyJSON.framework; path = "Pods/../build/Debug-iphoneos/SwiftyJSON.framework"; sourceTree = "<group>"; };
 		30BE3E311B7918C90092CEAB /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
-		30BEB44D1A9D1A7A005F3205 /* JGProgressHUD Resources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = "JGProgressHUD Resources.bundle"; sourceTree = "<group>"; };
-		30BEB44E1A9D1A7A005F3205 /* JGProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JGProgressHUD.h; sourceTree = "<group>"; };
-		30BEB44F1A9D1A7A005F3205 /* JGProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JGProgressHUD.m; sourceTree = "<group>"; };
-		30BEB4501A9D1A7A005F3205 /* JGProgressHUDAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JGProgressHUDAnimation.h; sourceTree = "<group>"; };
-		30BEB4511A9D1A7A005F3205 /* JGProgressHUDAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JGProgressHUDAnimation.m; sourceTree = "<group>"; };
-		30BEB4521A9D1A7A005F3205 /* JGProgressHUDErrorIndicatorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JGProgressHUDErrorIndicatorView.h; sourceTree = "<group>"; };
-		30BEB4531A9D1A7A005F3205 /* JGProgressHUDErrorIndicatorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JGProgressHUDErrorIndicatorView.m; sourceTree = "<group>"; };
-		30BEB4541A9D1A7A005F3205 /* JGProgressHUDFadeAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JGProgressHUDFadeAnimation.h; sourceTree = "<group>"; };
-		30BEB4551A9D1A7A005F3205 /* JGProgressHUDFadeAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JGProgressHUDFadeAnimation.m; sourceTree = "<group>"; };
-		30BEB4561A9D1A7A005F3205 /* JGProgressHUDFadeZoomAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JGProgressHUDFadeZoomAnimation.h; sourceTree = "<group>"; };
-		30BEB4571A9D1A7A005F3205 /* JGProgressHUDFadeZoomAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JGProgressHUDFadeZoomAnimation.m; sourceTree = "<group>"; };
-		30BEB4581A9D1A7A005F3205 /* JGProgressHUDIndeterminateIndicatorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JGProgressHUDIndeterminateIndicatorView.h; sourceTree = "<group>"; };
-		30BEB4591A9D1A7A005F3205 /* JGProgressHUDIndeterminateIndicatorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JGProgressHUDIndeterminateIndicatorView.m; sourceTree = "<group>"; };
-		30BEB45A1A9D1A7A005F3205 /* JGProgressHUDIndicatorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JGProgressHUDIndicatorView.h; sourceTree = "<group>"; };
-		30BEB45B1A9D1A7A005F3205 /* JGProgressHUDIndicatorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JGProgressHUDIndicatorView.m; sourceTree = "<group>"; };
-		30BEB45C1A9D1A7A005F3205 /* JGProgressHUDPieIndicatorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JGProgressHUDPieIndicatorView.h; sourceTree = "<group>"; };
-		30BEB45D1A9D1A7A005F3205 /* JGProgressHUDPieIndicatorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JGProgressHUDPieIndicatorView.m; sourceTree = "<group>"; };
-		30BEB45E1A9D1A7A005F3205 /* JGProgressHUDRingIndicatorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JGProgressHUDRingIndicatorView.h; sourceTree = "<group>"; };
-		30BEB45F1A9D1A7A005F3205 /* JGProgressHUDRingIndicatorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JGProgressHUDRingIndicatorView.m; sourceTree = "<group>"; };
-		30BEB4601A9D1A7A005F3205 /* JGProgressHUDSuccessIndicatorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JGProgressHUDSuccessIndicatorView.h; sourceTree = "<group>"; };
-		30BEB4611A9D1A7A005F3205 /* JGProgressHUDSuccessIndicatorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JGProgressHUDSuccessIndicatorView.m; sourceTree = "<group>"; };
 		30CDE5101BFA525800BBC183 /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = "Pods/../build/Debug-iphoneos/Alamofire.framework"; sourceTree = "<group>"; };
 		30CDE5121BFA525B00BBC183 /* SwiftyJSON.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftyJSON.framework; path = "Pods/../build/Debug-iphoneos/SwiftyJSON.framework"; sourceTree = "<group>"; };
-		30CDE5141BFA555500BBC183 /* Alamofire-SwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Alamofire-SwiftyJSON.swift"; sourceTree = "<group>"; };
 		30CDE5161BFA690A00BBC183 /* Localization.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Localization.swift; sourceTree = "<group>"; };
 		30D6E5AC1A92639500337FDB /* Anyway.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Anyway.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		30D6E5B01A92639500337FDB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -155,9 +120,7 @@
 		30D6E5C61A92639500337FDB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		30D6E5C71A92639500337FDB /* AnywayTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnywayTests.swift; sourceTree = "<group>"; };
 		30D6E5D11A92642000337FDB /* MapProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapProvider.swift; sourceTree = "<group>"; };
-		30D6E5D31A92647300337FDB /* PrintlnMagic.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrintlnMagic.swift; sourceTree = "<group>"; };
 		30DAA0971AC1F95D001F67D2 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
-		30ECD1811ADC19D800A62052 /* SwiftyUserDefaults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyUserDefaults.swift; sourceTree = "<group>"; };
 		3A06E2DAB55DAB6F55D67925 /* Pods-Anyway.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Anyway.release.xcconfig"; path = "Pods/Target Support Files/Pods-Anyway/Pods-Anyway.release.xcconfig"; sourceTree = "<group>"; };
 		9F0EE8A122F7158700D53D4D /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		9F0EE8A322F715B900D53D4D /* ViewController+MapView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ViewController+MapView.swift"; sourceTree = "<group>"; };
@@ -184,6 +147,41 @@
 		9F0EE8CE22F719B300D53D4D /* HistoryPosition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryPosition.swift; sourceTree = "<group>"; };
 		9F0EE8D122F719E500D53D4D /* Filter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Filter.swift; sourceTree = "<group>"; };
 		9F0EE8D322F71A8300D53D4D /* PairsDataProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PairsDataProtocol.swift; sourceTree = "<group>"; };
+		9F0EE8D722F71C1400D53D4D /* OCAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCAnnotation.h; sourceTree = "<group>"; };
+		9F0EE8D822F71C1400D53D4D /* OCAlgorithms.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCAlgorithms.m; sourceTree = "<group>"; };
+		9F0EE8D922F71C1400D53D4D /* OCGrouping.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCGrouping.h; sourceTree = "<group>"; };
+		9F0EE8DA22F71C1400D53D4D /* OCMapView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCMapView.m; sourceTree = "<group>"; };
+		9F0EE8DB22F71C1400D53D4D /* OCDistance.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCDistance.m; sourceTree = "<group>"; };
+		9F0EE8DC22F71C1400D53D4D /* OCAlgorithmDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCAlgorithmDelegate.h; sourceTree = "<group>"; };
+		9F0EE8DD22F71C1400D53D4D /* OCAlgorithms.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCAlgorithms.h; sourceTree = "<group>"; };
+		9F0EE8DE22F71C1400D53D4D /* OCAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCAnnotation.m; sourceTree = "<group>"; };
+		9F0EE8DF22F71C1400D53D4D /* OCDistance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCDistance.h; sourceTree = "<group>"; };
+		9F0EE8E022F71C1400D53D4D /* OCMapView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCMapView.h; sourceTree = "<group>"; };
+		9F0EE8E122F71C1400D53D4D /* AnnotationCoordinateUtility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnnotationCoordinateUtility.h; sourceTree = "<group>"; };
+		9F0EE8E322F71C1400D53D4D /* JGProgressHUDSuccessIndicatorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JGProgressHUDSuccessIndicatorView.h; sourceTree = "<group>"; };
+		9F0EE8E422F71C1400D53D4D /* JGProgressHUDIndeterminateIndicatorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JGProgressHUDIndeterminateIndicatorView.m; sourceTree = "<group>"; };
+		9F0EE8E522F71C1400D53D4D /* JGProgressHUDErrorIndicatorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JGProgressHUDErrorIndicatorView.m; sourceTree = "<group>"; };
+		9F0EE8E622F71C1400D53D4D /* JGProgressHUDIndicatorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JGProgressHUDIndicatorView.h; sourceTree = "<group>"; };
+		9F0EE8E722F71C1400D53D4D /* JGProgressHUDAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JGProgressHUDAnimation.m; sourceTree = "<group>"; };
+		9F0EE8E822F71C1400D53D4D /* JGProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JGProgressHUD.h; sourceTree = "<group>"; };
+		9F0EE8E922F71C1400D53D4D /* JGProgressHUDPieIndicatorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JGProgressHUDPieIndicatorView.h; sourceTree = "<group>"; };
+		9F0EE8EA22F71C1400D53D4D /* JGProgressHUDRingIndicatorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JGProgressHUDRingIndicatorView.h; sourceTree = "<group>"; };
+		9F0EE8EB22F71C1400D53D4D /* JGProgressHUDFadeZoomAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JGProgressHUDFadeZoomAnimation.m; sourceTree = "<group>"; };
+		9F0EE8EC22F71C1400D53D4D /* JGProgressHUDFadeAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JGProgressHUDFadeAnimation.h; sourceTree = "<group>"; };
+		9F0EE8ED22F71C1400D53D4D /* JGProgressHUD Resources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = "JGProgressHUD Resources.bundle"; sourceTree = "<group>"; };
+		9F0EE8EE22F71C1400D53D4D /* JGProgressHUDSuccessIndicatorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JGProgressHUDSuccessIndicatorView.m; sourceTree = "<group>"; };
+		9F0EE8EF22F71C1400D53D4D /* JGProgressHUDAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JGProgressHUDAnimation.h; sourceTree = "<group>"; };
+		9F0EE8F022F71C1400D53D4D /* JGProgressHUDIndicatorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JGProgressHUDIndicatorView.m; sourceTree = "<group>"; };
+		9F0EE8F122F71C1400D53D4D /* JGProgressHUDErrorIndicatorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JGProgressHUDErrorIndicatorView.h; sourceTree = "<group>"; };
+		9F0EE8F222F71C1400D53D4D /* JGProgressHUDIndeterminateIndicatorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JGProgressHUDIndeterminateIndicatorView.h; sourceTree = "<group>"; };
+		9F0EE8F322F71C1400D53D4D /* JGProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JGProgressHUD.m; sourceTree = "<group>"; };
+		9F0EE8F422F71C1400D53D4D /* JGProgressHUDFadeAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JGProgressHUDFadeAnimation.m; sourceTree = "<group>"; };
+		9F0EE8F522F71C1400D53D4D /* JGProgressHUDFadeZoomAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JGProgressHUDFadeZoomAnimation.h; sourceTree = "<group>"; };
+		9F0EE8F622F71C1400D53D4D /* JGProgressHUDRingIndicatorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JGProgressHUDRingIndicatorView.m; sourceTree = "<group>"; };
+		9F0EE8F722F71C1400D53D4D /* JGProgressHUDPieIndicatorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JGProgressHUDPieIndicatorView.m; sourceTree = "<group>"; };
+		9F0EE8F822F71C1400D53D4D /* AnnotationCoordinateUtility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnnotationCoordinateUtility.m; sourceTree = "<group>"; };
+		9F0EE90A22F71F5E00D53D4D /* PrintlnMagic.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrintlnMagic.swift; sourceTree = "<group>"; };
+		9F0EE90B22F71F5E00D53D4D /* SwiftyUserDefaults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyUserDefaults.swift; sourceTree = "<group>"; };
 		9F2076E0229254540034EABF /* Ben Avigdor.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "Ben Avigdor.gpx"; sourceTree = "<group>"; };
 		9FE0A8D22299098000E7E76A /* GMUGradient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GMUGradient.h; sourceTree = "<group>"; };
 		9FE0A8D32299098000E7E76A /* GMUWeightedLatLng.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GMUWeightedLatLng.m; sourceTree = "<group>"; };
@@ -285,80 +283,6 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		30367E901A9D006400B16DA1 /* OCMapView */ = {
-			isa = PBXGroup;
-			children = (
-				30367E911A9D006400B16DA1 /* OCAlgorithmDelegate.h */,
-				30367E921A9D006400B16DA1 /* OCAlgorithms.h */,
-				30367E931A9D006400B16DA1 /* OCAlgorithms.m */,
-				30367E941A9D006400B16DA1 /* OCAnnotation.h */,
-				30367E951A9D006400B16DA1 /* OCAnnotation.m */,
-				30367E961A9D006400B16DA1 /* OCDistance.h */,
-				30367E971A9D006400B16DA1 /* OCDistance.m */,
-				30367E981A9D006400B16DA1 /* OCGrouping.h */,
-				30367E991A9D006400B16DA1 /* OCMapView.h */,
-				30367E9A1A9D006400B16DA1 /* OCMapView.m */,
-			);
-			path = OCMapView;
-			sourceTree = "<group>";
-		};
-		30367E9F1A9D0AA300B16DA1 /* UI */ = {
-			isa = PBXGroup;
-			children = (
-				30D6E5B51A92639500337FDB /* Main.storyboard */,
-			);
-			name = UI;
-			sourceTree = "<group>";
-		};
-		30367EA01A9D0AAE00B16DA1 /* Business */ = {
-			isa = PBXGroup;
-			children = (
-				30D6E5D11A92642000337FDB /* MapProvider.swift */,
-				30CDE5161BFA690A00BBC183 /* Localization.swift */,
-				309DD0451BFA464100AF80D1 /* Utilities.swift */,
-			);
-			name = Business;
-			sourceTree = "<group>";
-		};
-		30AF03661A9BC620008B7889 /* ObjC */ = {
-			isa = PBXGroup;
-			children = (
-				30BEB44C1A9D1A7A005F3205 /* JGProgressHUD */,
-				30367E901A9D006400B16DA1 /* OCMapView */,
-				30AF036B1A9BC663008B7889 /* AnnotationCoordinateUtility.h */,
-				30AF036C1A9BC663008B7889 /* AnnotationCoordinateUtility.m */,
-			);
-			name = ObjC;
-			sourceTree = "<group>";
-		};
-		30BEB44C1A9D1A7A005F3205 /* JGProgressHUD */ = {
-			isa = PBXGroup;
-			children = (
-				30BEB44D1A9D1A7A005F3205 /* JGProgressHUD Resources.bundle */,
-				30BEB44E1A9D1A7A005F3205 /* JGProgressHUD.h */,
-				30BEB44F1A9D1A7A005F3205 /* JGProgressHUD.m */,
-				30BEB4501A9D1A7A005F3205 /* JGProgressHUDAnimation.h */,
-				30BEB4511A9D1A7A005F3205 /* JGProgressHUDAnimation.m */,
-				30BEB4521A9D1A7A005F3205 /* JGProgressHUDErrorIndicatorView.h */,
-				30BEB4531A9D1A7A005F3205 /* JGProgressHUDErrorIndicatorView.m */,
-				30BEB4541A9D1A7A005F3205 /* JGProgressHUDFadeAnimation.h */,
-				30BEB4551A9D1A7A005F3205 /* JGProgressHUDFadeAnimation.m */,
-				30BEB4561A9D1A7A005F3205 /* JGProgressHUDFadeZoomAnimation.h */,
-				30BEB4571A9D1A7A005F3205 /* JGProgressHUDFadeZoomAnimation.m */,
-				30BEB4581A9D1A7A005F3205 /* JGProgressHUDIndeterminateIndicatorView.h */,
-				30BEB4591A9D1A7A005F3205 /* JGProgressHUDIndeterminateIndicatorView.m */,
-				30BEB45A1A9D1A7A005F3205 /* JGProgressHUDIndicatorView.h */,
-				30BEB45B1A9D1A7A005F3205 /* JGProgressHUDIndicatorView.m */,
-				30BEB45C1A9D1A7A005F3205 /* JGProgressHUDPieIndicatorView.h */,
-				30BEB45D1A9D1A7A005F3205 /* JGProgressHUDPieIndicatorView.m */,
-				30BEB45E1A9D1A7A005F3205 /* JGProgressHUDRingIndicatorView.h */,
-				30BEB45F1A9D1A7A005F3205 /* JGProgressHUDRingIndicatorView.m */,
-				30BEB4601A9D1A7A005F3205 /* JGProgressHUDSuccessIndicatorView.h */,
-				30BEB4611A9D1A7A005F3205 /* JGProgressHUDSuccessIndicatorView.m */,
-			);
-			path = JGProgressHUD;
-			sourceTree = "<group>";
-		};
 		30D6E5A31A92639500337FDB = {
 			isa = PBXGroup;
 			children = (
@@ -387,15 +311,17 @@
 				30BE3E311B7918C90092CEAB /* Constants.swift */,
 				30DAA0971AC1F95D001F67D2 /* Extensions.swift */,
 				9F0EE8D322F71A8300D53D4D /* PairsDataProtocol.swift */,
+				30D6E5D11A92642000337FDB /* MapProvider.swift */,
+				309DD0451BFA464100AF80D1 /* Utilities.swift */,
+				30CDE5161BFA690A00BBC183 /* Localization.swift */,
+				30D6E5B51A92639500337FDB /* Main.storyboard */,
 				9F0EE8A022F7158700D53D4D /* ViewControllers */,
 				9F0EE8C022F7196F00D53D4D /* Model */,
 				9F0EE8B922F718F300D53D4D /* Views */,
 				9FE0A86A2298951A00E7E76A /* Google-Maps-iOS-Utils */,
-				30367EA01A9D0AAE00B16DA1 /* Business */,
-				30367E9F1A9D0AA300B16DA1 /* UI */,
+				9F0EE8D522F71C1400D53D4D /* ObjectiveC */,
 				30D6E5AF1A92639500337FDB /* Supporting Files */,
-				30AF03661A9BC620008B7889 /* ObjC */,
-				30D6E5D91A92647800337FDB /* Swift Libraries */,
+				9F0EE90922F71F5E00D53D4D /* SwiftLibraries */,
 			);
 			path = Anyway;
 			sourceTree = "<group>";
@@ -429,16 +355,6 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		30D6E5D91A92647800337FDB /* Swift Libraries */ = {
-			isa = PBXGroup;
-			children = (
-				30CDE5141BFA555500BBC183 /* Alamofire-SwiftyJSON.swift */,
-				30D6E5D31A92647300337FDB /* PrintlnMagic.swift */,
-				30ECD1811ADC19D800A62052 /* SwiftyUserDefaults.swift */,
-			);
-			name = "Swift Libraries";
-			sourceTree = "<group>";
-		};
 		9F0EE8A022F7158700D53D4D /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -461,6 +377,7 @@
 		9F0EE8B922F718F300D53D4D /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				9F0EE8CD22F719B300D53D4D /* MarkerViews.swift */,
 				9F0EE8BA22F718F300D53D4D /* InsetLabel.swift */,
 				9F0EE8BB22F718F300D53D4D /* DetailCells.swift */,
 				9F0EE8BC22F718F300D53D4D /* FilterCellTableViewCell.swift */,
@@ -472,7 +389,6 @@
 			isa = PBXGroup;
 			children = (
 				9F0EE8CE22F719B300D53D4D /* HistoryPosition.swift */,
-				9F0EE8CD22F719B300D53D4D /* MarkerViews.swift */,
 				9F0EE8C122F7196F00D53D4D /* Location.swift */,
 				9F0EE8C222F7196F00D53D4D /* Marker+General.swift */,
 				9F0EE8C322F7196F00D53D4D /* Vehicle.swift */,
@@ -484,6 +400,71 @@
 			name = Model;
 			path = Anyway/Model;
 			sourceTree = SOURCE_ROOT;
+		};
+		9F0EE8D522F71C1400D53D4D /* ObjectiveC */ = {
+			isa = PBXGroup;
+			children = (
+				9F0EE8F822F71C1400D53D4D /* AnnotationCoordinateUtility.m */,
+				9F0EE8E122F71C1400D53D4D /* AnnotationCoordinateUtility.h */,
+				9F0EE8D622F71C1400D53D4D /* OCMapView */,
+				9F0EE8E222F71C1400D53D4D /* JGProgressHUD */,
+			);
+			path = ObjectiveC;
+			sourceTree = "<group>";
+		};
+		9F0EE8D622F71C1400D53D4D /* OCMapView */ = {
+			isa = PBXGroup;
+			children = (
+				9F0EE8D722F71C1400D53D4D /* OCAnnotation.h */,
+				9F0EE8D822F71C1400D53D4D /* OCAlgorithms.m */,
+				9F0EE8D922F71C1400D53D4D /* OCGrouping.h */,
+				9F0EE8DA22F71C1400D53D4D /* OCMapView.m */,
+				9F0EE8DB22F71C1400D53D4D /* OCDistance.m */,
+				9F0EE8DC22F71C1400D53D4D /* OCAlgorithmDelegate.h */,
+				9F0EE8DD22F71C1400D53D4D /* OCAlgorithms.h */,
+				9F0EE8DE22F71C1400D53D4D /* OCAnnotation.m */,
+				9F0EE8DF22F71C1400D53D4D /* OCDistance.h */,
+				9F0EE8E022F71C1400D53D4D /* OCMapView.h */,
+			);
+			path = OCMapView;
+			sourceTree = "<group>";
+		};
+		9F0EE8E222F71C1400D53D4D /* JGProgressHUD */ = {
+			isa = PBXGroup;
+			children = (
+				9F0EE8E322F71C1400D53D4D /* JGProgressHUDSuccessIndicatorView.h */,
+				9F0EE8E422F71C1400D53D4D /* JGProgressHUDIndeterminateIndicatorView.m */,
+				9F0EE8E522F71C1400D53D4D /* JGProgressHUDErrorIndicatorView.m */,
+				9F0EE8E622F71C1400D53D4D /* JGProgressHUDIndicatorView.h */,
+				9F0EE8E722F71C1400D53D4D /* JGProgressHUDAnimation.m */,
+				9F0EE8E822F71C1400D53D4D /* JGProgressHUD.h */,
+				9F0EE8E922F71C1400D53D4D /* JGProgressHUDPieIndicatorView.h */,
+				9F0EE8EA22F71C1400D53D4D /* JGProgressHUDRingIndicatorView.h */,
+				9F0EE8EB22F71C1400D53D4D /* JGProgressHUDFadeZoomAnimation.m */,
+				9F0EE8EC22F71C1400D53D4D /* JGProgressHUDFadeAnimation.h */,
+				9F0EE8ED22F71C1400D53D4D /* JGProgressHUD Resources.bundle */,
+				9F0EE8EE22F71C1400D53D4D /* JGProgressHUDSuccessIndicatorView.m */,
+				9F0EE8EF22F71C1400D53D4D /* JGProgressHUDAnimation.h */,
+				9F0EE8F022F71C1400D53D4D /* JGProgressHUDIndicatorView.m */,
+				9F0EE8F122F71C1400D53D4D /* JGProgressHUDErrorIndicatorView.h */,
+				9F0EE8F222F71C1400D53D4D /* JGProgressHUDIndeterminateIndicatorView.h */,
+				9F0EE8F322F71C1400D53D4D /* JGProgressHUD.m */,
+				9F0EE8F422F71C1400D53D4D /* JGProgressHUDFadeAnimation.m */,
+				9F0EE8F522F71C1400D53D4D /* JGProgressHUDFadeZoomAnimation.h */,
+				9F0EE8F622F71C1400D53D4D /* JGProgressHUDRingIndicatorView.m */,
+				9F0EE8F722F71C1400D53D4D /* JGProgressHUDPieIndicatorView.m */,
+			);
+			path = JGProgressHUD;
+			sourceTree = "<group>";
+		};
+		9F0EE90922F71F5E00D53D4D /* SwiftLibraries */ = {
+			isa = PBXGroup;
+			children = (
+				9F0EE90A22F71F5E00D53D4D /* PrintlnMagic.swift */,
+				9F0EE90B22F71F5E00D53D4D /* SwiftyUserDefaults.swift */,
+			);
+			path = SwiftLibraries;
+			sourceTree = "<group>";
 		};
 		9FE0A86A2298951A00E7E76A /* Google-Maps-iOS-Utils */ = {
 			isa = PBXGroup;
@@ -698,8 +679,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				30673C681C1F4B6200CEB5FB /* Localizable.strings in Resources */,
-				30BEB4621A9D1A7A005F3205 /* JGProgressHUD Resources.bundle in Resources */,
 				30D6E5B71A92639500337FDB /* Main.storyboard in Resources */,
+				9F0EE90122F71C1400D53D4D /* JGProgressHUD Resources.bundle in Resources */,
 				30D6E5BC1A92639500337FDB /* LaunchScreen.xib in Resources */,
 				30D6E5B91A92639500337FDB /* Images.xcassets in Resources */,
 				9F2076E1229254540034EABF /* Ben Avigdor.gpx in Resources */,
@@ -818,20 +799,20 @@
 			files = (
 				9FE0A9232299098000E7E76A /* GMUStyleMap.m in Sources */,
 				9FE0A9292299098000E7E76A /* GMULineString.m in Sources */,
-				30367E9D1A9D006400B16DA1 /* OCDistance.m in Sources */,
 				9FE0A9322299098000E7E76A /* GMUDefaultClusterRenderer.m in Sources */,
 				30D6E5D21A92642000337FDB /* MapProvider.swift in Sources */,
 				9F0EE8D422F71A8300D53D4D /* PairsDataProtocol.swift in Sources */,
+				9F0EE90D22F71F5E00D53D4D /* SwiftyUserDefaults.swift in Sources */,
 				9FE0A9332299098000E7E76A /* GMUDefaultClusterIconGenerator.m in Sources */,
-				30BEB4661A9D1A7A005F3205 /* JGProgressHUDFadeAnimation.m in Sources */,
+				9F0EE90222F71C1400D53D4D /* JGProgressHUDSuccessIndicatorView.m in Sources */,
+				9F0EE90C22F71F5E00D53D4D /* PrintlnMagic.swift in Sources */,
 				9FE0A9262299098000E7E76A /* GMUStyle.m in Sources */,
-				30367E9B1A9D006400B16DA1 /* OCAlgorithms.m in Sources */,
-				30BEB4691A9D1A7A005F3205 /* JGProgressHUDIndicatorView.m in Sources */,
-				30BEB46A1A9D1A7A005F3205 /* JGProgressHUDPieIndicatorView.m in Sources */,
 				9F0EE8C822F7196F00D53D4D /* Marker+General.swift in Sources */,
 				9F0EE8B422F7164600D53D4D /* InfoViewController.swift in Sources */,
 				9FE0A9252299098000E7E76A /* GMUGroundOverlay.m in Sources */,
+				9F0EE90022F71C1400D53D4D /* JGProgressHUDFadeZoomAnimation.m in Sources */,
 				9F0EE8CB22F7196F00D53D4D /* Marker.swift in Sources */,
+				9F0EE8F922F71C1400D53D4D /* OCAlgorithms.m in Sources */,
 				9FE0A92D2299098000E7E76A /* GMUClusterManager.m in Sources */,
 				9F0EE8AA22F715B900D53D4D /* ViewController+FilterScreen.swift in Sources */,
 				9FE0A9202299098000E7E76A /* GMUGeometryCollection.m in Sources */,
@@ -840,58 +821,57 @@
 				9FE0A9282299098000E7E76A /* GMUPair.m in Sources */,
 				9F0EE8A722F715B900D53D4D /* ViewController+MapView.swift in Sources */,
 				309CCBDF1C569FAA00C829E5 /* main.swift in Sources */,
-				30ECD1821ADC19D800A62052 /* SwiftyUserDefaults.swift in Sources */,
 				9FE0A9272299098000E7E76A /* GMUPoint.m in Sources */,
 				9FE0A91F2299098000E7E76A /* GMUGeometryRenderer.m in Sources */,
 				9F0EE8CA22F7196F00D53D4D /* Person.swift in Sources */,
+				9F0EE8FC22F71C1400D53D4D /* OCAnnotation.m in Sources */,
+				9F0EE90522F71C1400D53D4D /* JGProgressHUDFadeAnimation.m in Sources */,
 				9F0EE8D022F719B300D53D4D /* HistoryPosition.swift in Sources */,
 				9FE0A9242299098000E7E76A /* GMUFeature.m in Sources */,
-				30BEB4671A9D1A7A005F3205 /* JGProgressHUDFadeZoomAnimation.m in Sources */,
 				9FE0A91B2299098000E7E76A /* GMUWeightedLatLng.m in Sources */,
 				9F0EE8B522F7164600D53D4D /* DetailViewController.swift in Sources */,
 				9F0EE8BF22F718F300D53D4D /* FilterCellTableViewCell.swift in Sources */,
 				9F0EE8C722F7196F00D53D4D /* Location.swift in Sources */,
 				9F0EE8A922F715B900D53D4D /* ViewController+LocationServices.swift in Sources */,
 				9FE0A92B2299098000E7E76A /* GQTPointQuadTree.m in Sources */,
-				30BEB4681A9D1A7A005F3205 /* JGProgressHUDIndeterminateIndicatorView.m in Sources */,
+				9F0EE90322F71C1400D53D4D /* JGProgressHUDIndicatorView.m in Sources */,
 				9F0EE8B322F7164600D53D4D /* LanguageViewController.swift in Sources */,
 				9F0EE8A222F7158700D53D4D /* MainViewController.swift in Sources */,
-				30D6E5D61A92647300337FDB /* PrintlnMagic.swift in Sources */,
 				9FE0A9342299098000E7E76A /* GMUStaticCluster.m in Sources */,
+				9F0EE8FB22F71C1400D53D4D /* OCDistance.m in Sources */,
 				9FE0A91D2299098000E7E76A /* GMUHeatmapTileLayer.m in Sources */,
 				9F0EE8B122F7164600D53D4D /* FilterViewController.swift in Sources */,
 				9F0EE8B622F7164600D53D4D /* AccidentsViewController.swift in Sources */,
-				30CDE5151BFA555500BBC183 /* Alamofire-SwiftyJSON.swift in Sources */,
 				9FE0A91E2299098000E7E76A /* GMUKMLParser.m in Sources */,
 				9FE0A92A2299098000E7E76A /* GMUGeoJSONParser.m in Sources */,
 				9F0EE8BD22F718F300D53D4D /* InsetLabel.swift in Sources */,
 				9FE0A92E2299098000E7E76A /* GMUGridBasedClusterAlgorithm.m in Sources */,
-				30367E9E1A9D006400B16DA1 /* OCMapView.m in Sources */,
+				9F0EE90622F71C1400D53D4D /* JGProgressHUDRingIndicatorView.m in Sources */,
+				9F0EE8FF22F71C1400D53D4D /* JGProgressHUDAnimation.m in Sources */,
+				9F0EE8FE22F71C1400D53D4D /* JGProgressHUDErrorIndicatorView.m in Sources */,
 				9F0EE8B822F7169000D53D4D /* FilterViewController+Setup.swift in Sources */,
-				30BEB4631A9D1A7A005F3205 /* JGProgressHUD.m in Sources */,
-				30BEB4641A9D1A7A005F3205 /* JGProgressHUDAnimation.m in Sources */,
 				9FE0A9222299098000E7E76A /* GMUPolygon.m in Sources */,
 				9F0EE8CF22F719B300D53D4D /* MarkerViews.swift in Sources */,
 				9FE0A91C2299098000E7E76A /* GMUGradient.m in Sources */,
 				9F0EE8A822F715B900D53D4D /* ViewController.swift in Sources */,
-				30AF036D1A9BC663008B7889 /* AnnotationCoordinateUtility.m in Sources */,
 				30CDE5171BFA690A00BBC183 /* Localization.swift in Sources */,
+				9F0EE90422F71C1400D53D4D /* JGProgressHUD.m in Sources */,
 				309DD0461BFA464100AF80D1 /* Utilities.swift in Sources */,
 				9F0EE8BE22F718F300D53D4D /* DetailCells.swift in Sources */,
 				9FE0A9212299098000E7E76A /* GMUPlacemark.m in Sources */,
-				30BEB4651A9D1A7A005F3205 /* JGProgressHUDErrorIndicatorView.m in Sources */,
-				30367E9C1A9D006400B16DA1 /* OCAnnotation.m in Sources */,
+				9F0EE8FA22F71C1400D53D4D /* OCMapView.m in Sources */,
 				9F0EE8B222F7164600D53D4D /* HistoryViewController.swift in Sources */,
 				30DAA0981AC1F95D001F67D2 /* Extensions.swift in Sources */,
-				30BEB46B1A9D1A7A005F3205 /* JGProgressHUDRingIndicatorView.m in Sources */,
 				9FE0A92C2299098000E7E76A /* GQTPointQuadTreeChild.m in Sources */,
-				30BEB46C1A9D1A7A005F3205 /* JGProgressHUDSuccessIndicatorView.m in Sources */,
 				9FE0A92F2299098000E7E76A /* GMUWrappingDictionaryKey.m in Sources */,
 				9F0EE8C922F7196F00D53D4D /* Vehicle.swift in Sources */,
 				9F0EE8D222F719E500D53D4D /* Filter.swift in Sources */,
+				9F0EE90722F71C1400D53D4D /* JGProgressHUDPieIndicatorView.m in Sources */,
+				9F0EE8FD22F71C1400D53D4D /* JGProgressHUDIndeterminateIndicatorView.m in Sources */,
 				30D6E5B21A92639500337FDB /* AppDelegate.swift in Sources */,
 				9FE0A9312299098000E7E76A /* GMUNonHierarchicalDistanceBasedAlgorithm.m in Sources */,
 				9F0EE8CC22F7196F00D53D4D /* MarkerGroup.swift in Sources */,
+				9F0EE90822F71C1400D53D4D /* AnnotationCoordinateUtility.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

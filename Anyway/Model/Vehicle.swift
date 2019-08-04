@@ -28,7 +28,7 @@ extension Vehicle: PairsData {
             case "SUG_REHEV_LMS": return pair(forType: .sug_REHEV_LMS, value: Int(rawValue) ?? -1)
             default: return (local(rawTitle), rawValue)
             }
-        }.flatMap{ $0 }
+            }.compactMap{ $0 }
     }
     
 }

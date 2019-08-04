@@ -38,6 +38,8 @@ extension ViewController {
         case .denied: //DENIED
             break
             
+        @unknown default:
+            break
         }
         
     }

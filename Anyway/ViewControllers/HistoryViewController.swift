@@ -45,7 +45,7 @@ extension HistoryViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        print("DATA: \(data?.count)")
+        print("DATA: \(String(describing: data?.count))")
         return data?.count ?? 0
     }
     

@@ -29,7 +29,7 @@ extension Person: PairsData {
                 
             default: return (local(rawTitle), rawValue)
             }
-        }.flatMap{ $0 }
+            }.compactMap{ $0 }
     }
     
 }

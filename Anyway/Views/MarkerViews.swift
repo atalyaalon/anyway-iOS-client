@@ -49,7 +49,7 @@ class IconPinView: UIView {
         // main pin
         let back = UIImageView(image: img)
         self.frame = back.frame
-        back.transform = CGAffineTransform(rotationAngle: CGFloat(45.0 * (M_PI/180)))
+        back.transform = CGAffineTransform(rotationAngle: CGFloat(45.0 * (Double.pi/180)))
         
         // white back view
         let mainPinVisibleDiameter = CGFloat(35)
@@ -105,7 +105,7 @@ class IconPinView: UIView {
         didSet {
             // whenever the color changes > change
             //  the tint for any subview
-            for i in subviews.flatMap({ $0 as? UIImageView }) {
+            for i in subviews.compactMap({ $0 as? UIImageView }) {
                 i.tintColor = color
             }
         }
