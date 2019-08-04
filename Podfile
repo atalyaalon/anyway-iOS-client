@@ -11,11 +11,12 @@ target 'Anyway' do
     pod 'RealmSwift'
     pod 'GoogleMaps'
     #pod 'SwiftLocation'
-    #pod 'RxSwift', '~> 5'
+    pod 'RxSwift', '~> 5'
     pod 'RxCocoa', '~> 5'
     pod 'RxGoogleMaps'
     pod 'MBProgressHUD', '~> 1.1.0'
-    pod 'LFHeatMap'
+    #pod 'LFHeatMap'
+    pod 'SnapKit', '~> 4.0.0'
     #pod 'Google-Maps-iOS-Utils', :path => '../..'
 
 end

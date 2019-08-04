@@ -27,8 +27,6 @@ class MainViewController: UIViewController {
 
     var filter = Filter()
 
-//    private var gradientColors = [UIColor.green, UIColor.orange, UIColor.yellow, UIColor.red]
-//    private var gradientStartPoints = [0.02,0.02,0.02, 0.02] as [NSNumber]
 
     private var gradientColors = [UIColor.green, UIColor.red]
     private var gradientStartPoints = [0.02, 0.09] as [NSNumber]
@@ -53,7 +51,6 @@ class MainViewController: UIViewController {
         self.initLocationManager()
         mapView.settings.compassButton = true
         self.nextBarButton.isEnabled = false
-
 
         hud?.animation = JGProgressHUDFadeZoomAnimation() as JGProgressHUDFadeZoomAnimation
         hud?.interactionType = JGProgressHUDInteractionType.blockNoTouches
@@ -105,7 +102,6 @@ class MainViewController: UIViewController {
             DispatchQueue.main.async {
                 googleMarker.map = self.mapView
             }
-
         }
     }
 
@@ -124,7 +120,6 @@ class MainViewController: UIViewController {
 
         hud?.show(in: view)
 
-
         network.getAnnotations(edges, filter: filter) { [weak self] (markers: [MarkerAnnotation], count: Int) in
             print("finished parsing. markers count : \(markers.count)")
             guard let self = self else {return}
@@ -133,7 +128,6 @@ class MainViewController: UIViewController {
             self.addHeatMapLayer()
 
             self.addHeatmap(markers: markers)
-
             //self.addMarkers(markers: markers)
 
             self.hud?.dismiss()
