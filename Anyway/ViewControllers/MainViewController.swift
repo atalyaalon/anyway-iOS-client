@@ -1,5 +1,5 @@
 //
-//  UserPickViewController.swift
+//  MainViewController.swift
 //  Anyway
 //
 //  Created by Yigal Omer on 15/05/2019.
@@ -9,7 +9,7 @@
 import UIKit
 import GoogleMaps
 
-class UserPickViewController: UIViewController {
+class MainViewController: UIViewController {
 
     @IBOutlet weak var nextBarButton: UIBarButtonItem!
     
@@ -184,7 +184,7 @@ class UserPickViewController: UIViewController {
 
 
 // MARK: - GMSMapViewDelegate
-extension UserPickViewController: GMSMapViewDelegate {
+extension MainViewController: GMSMapViewDelegate {
     
     func mapView(_ mapView: GMSMapView, idleAt position: GMSCameraPosition) {
 
@@ -240,7 +240,7 @@ extension UserPickViewController: GMSMapViewDelegate {
 }
 
 // MARK: - CLLocationManagerDelegate
-extension UserPickViewController: CLLocationManagerDelegate {
+extension MainViewController: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         guard status == .authorizedWhenInUse else {
             return }
