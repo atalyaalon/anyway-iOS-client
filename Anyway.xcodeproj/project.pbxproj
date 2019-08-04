@@ -65,7 +65,6 @@
 		30ECD1821ADC19D800A62052 /* SwiftyUserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30ECD1811ADC19D800A62052 /* SwiftyUserDefaults.swift */; };
 		98C5266C20611647AF2A6021 /* Pods_Anyway.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DD1521A2C594A5668CBF565D /* Pods_Anyway.framework */; };
 		9F2076E1229254540034EABF /* Ben Avigdor.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 9F2076E0229254540034EABF /* Ben Avigdor.gpx */; };
-		9F2076E3229288BA0034EABF /* HeatmapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F2076E2229288BA0034EABF /* HeatmapViewController.swift */; };
 		9F528077228BBA69003D6478 /* UserPickViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F528076228BBA69003D6478 /* UserPickViewController.swift */; };
 		9FE0A91B2299098000E7E76A /* GMUWeightedLatLng.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FE0A8D32299098000E7E76A /* GMUWeightedLatLng.m */; };
 		9FE0A91C2299098000E7E76A /* GMUGradient.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FE0A8D62299098000E7E76A /* GMUGradient.m */; };
@@ -185,7 +184,6 @@
 		30ECD1811ADC19D800A62052 /* SwiftyUserDefaults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyUserDefaults.swift; sourceTree = "<group>"; };
 		3A06E2DAB55DAB6F55D67925 /* Pods-Anyway.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Anyway.release.xcconfig"; path = "Pods/Target Support Files/Pods-Anyway/Pods-Anyway.release.xcconfig"; sourceTree = "<group>"; };
 		9F2076E0229254540034EABF /* Ben Avigdor.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "Ben Avigdor.gpx"; sourceTree = "<group>"; };
-		9F2076E2229288BA0034EABF /* HeatmapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeatmapViewController.swift; sourceTree = "<group>"; };
 		9F528076228BBA69003D6478 /* UserPickViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPickViewController.swift; sourceTree = "<group>"; };
 		9FE0A8D22299098000E7E76A /* GMUGradient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GMUGradient.h; sourceTree = "<group>"; };
 		9FE0A8D32299098000E7E76A /* GMUWeightedLatLng.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GMUWeightedLatLng.m; sourceTree = "<group>"; };
@@ -318,7 +316,6 @@
 				30CC256E1B4B11A800BE8FE9 /* AccidentsViewController.swift */,
 				30C9AB291C56A7A100E35928 /* LanguageViewController.swift */,
 				9F528076228BBA69003D6478 /* UserPickViewController.swift */,
-				9F2076E2229288BA0034EABF /* HeatmapViewController.swift */,
 			);
 			name = UI;
 			sourceTree = "<group>";
@@ -843,7 +840,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				9FE0A9232299098000E7E76A /* GMUStyleMap.m in Sources */,
-				9F2076E3229288BA0034EABF /* HeatmapViewController.swift in Sources */,
 				9FE0A9292299098000E7E76A /* GMULineString.m in Sources */,
 				30367E9D1A9D006400B16DA1 /* OCDistance.m in Sources */,
 				9FE0A9322299098000E7E76A /* GMUDefaultClusterRenderer.m in Sources */,
