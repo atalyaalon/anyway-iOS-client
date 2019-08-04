@@ -19,14 +19,24 @@ class UserPickViewController: UIViewController {
     var locationManager = CLLocationManager()
     var pickCount:Int = 0
     private let ZOOM: Float = 16
+
     /// Handling the network calls
     let network = Network()
+
     var hud = JGProgressHUD(style: .light)
+
     var filter = Filter()
+
+//    private var gradientColors = [UIColor.green, UIColor.orange, UIColor.yellow, UIColor.red]
+//    private var gradientStartPoints = [0.02,0.02,0.02, 0.02] as [NSNumber]
+
     private var gradientColors = [UIColor.green, UIColor.red]
     private var gradientStartPoints = [0.02, 0.09] as [NSNumber]
+
+
     private var heatmapLayer: GMUHeatmapTileLayer!
 
+    
     fileprivate func addHeatMapLayer() {
         heatmapLayer = GMUHeatmapTileLayer()
         heatmapLayer.radius = 80
@@ -34,6 +44,7 @@ class UserPickViewController: UIViewController {
         heatmapLayer.gradient = GMUGradient(colors: gradientColors,
                                             startPoints: gradientStartPoints,
                                             colorMapSize: 256)
+
     }
 
     override func viewDidLoad() {
@@ -42,17 +53,22 @@ class UserPickViewController: UIViewController {
         self.initLocationManager()
         mapView.settings.compassButton = true
         self.nextBarButton.isEnabled = false
+
+
         hud?.animation = JGProgressHUDFadeZoomAnimation() as JGProgressHUDFadeZoomAnimation
         hud?.interactionType = JGProgressHUDInteractionType.blockNoTouches
 
         mapView.animate(toZoom: ZOOM)
+
         addHeatMapLayer()
     }
+
 
     @IBAction func nextButtonPressed(_ sender: Any) {
 
         DispatchQueue.main.async { [weak self]  in
             self?.updateInfoIfPossible(filterChanged:false)
+            //self?.pickTitle.text = "Here are the dangerouse places"
         }
     }
     func addHeatmap(markers: [MarkerAnnotation])  {
@@ -69,13 +85,17 @@ class UserPickViewController: UIViewController {
         }
         // Add the latlngs to the heatmap layer.
         heatmapLayer.weightedData = list
+
         self.heatmapLayer.map = self.mapView
     }
+
 
     fileprivate func addMarkers(markers: [MarkerAnnotation]) {
 
         for marker in markers {
-            let googleMarker: GMSMarker = GMSMarker()
+
+            let googleMarker: GMSMarker = GMSMarker() // Allocating Marker
+
             googleMarker.title =  marker.title ?? ""
             googleMarker.snippet = marker.subtitle ?? ""
             //googleMarker.icon = marker.
@@ -85,19 +105,26 @@ class UserPickViewController: UIViewController {
             DispatchQueue.main.async {
                 googleMarker.map = self.mapView
             }
+
         }
     }
 
     func updateInfoIfPossible( filterChanged: Bool) {
 
         print("Getting Annotations...")
+
         self.pickTitle.text = "Calculating..."
         let projection = mapView.projection.visibleRegion()
+
+        //let topLeftCorner: CLLocationCoordinate2D = projection.farLeft
         let topRightCorner: CLLocationCoordinate2D = projection.farRight
         let bottomLeftCorner: CLLocationCoordinate2D = projection.nearLeft
+        //let bottomRightCorner: CLLocationCoordinate2D = projection.nearRight
         let edges:Edges = (ne: topRightCorner, sw: bottomLeftCorner)
 
         hud?.show(in: view)
+
+
         network.getAnnotations(edges, filter: filter) { [weak self] (markers: [MarkerAnnotation], count: Int) in
             print("finished parsing. markers count : \(markers.count)")
             guard let self = self else {return}
@@ -106,6 +133,7 @@ class UserPickViewController: UIViewController {
             self.addHeatMapLayer()
 
             self.addHeatmap(markers: markers)
+
             //self.addMarkers(markers: markers)
 
             self.hud?.dismiss()
@@ -123,11 +151,13 @@ class UserPickViewController: UIViewController {
         heatmapLayer = nil
     }
 
+
     private func initLocationManager() {
         locationManager.delegate = self
         locationManager.requestWhenInUseAuthorization()
         locationManager.startUpdatingLocation()
     }
+
     private func setupMapView() {
         mapView.isTrafficEnabled   = false
         mapView.isHidden           = false
@@ -144,6 +174,12 @@ class UserPickViewController: UIViewController {
             self.addressLabel.text = lines.joined(separator: "\n")
         }
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if (segue.identifier == "showHeatMap") {
+           // let heatmapViewController = segue.destination as? HeatmapViewController
+        }
+    }
 }
 
 
@@ -157,6 +193,8 @@ extension UserPickViewController: GMSMapViewDelegate {
         } else {
             self.updateInfoIfPossible(filterChanged:false)
         }
+
+
     }
     func mapView(_ mapView: GMSMapView, willMove gesture: Bool) {
         if (gesture) {
@@ -218,6 +256,10 @@ extension UserPickViewController: CLLocationManagerDelegate {
  
         mapView.camera = GMSCameraPosition(target: location.coordinate, zoom: ZOOM, bearing: 0, viewingAngle: 0)
         locationManager.stopUpdatingLocation()
+
+        //updateInfoIfPossible(filterChanged:true)
+        //locationManager.stopUpdatingLocation()
+        //fetchNearbyPlaces(coordinate: location.coordinate)
     }
 
     private func newHud() -> JGProgressHUD {

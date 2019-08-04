@@ -1,4 +1,4 @@
-module Eureka {
+framework module Eureka {
   umbrella header "Eureka-umbrella.h"
 
   export *
