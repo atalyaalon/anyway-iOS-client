@@ -104,7 +104,7 @@ class MainViewController: UIViewController {
         print("Fist Button Clicked")
         snackbarView.hideSnackBar()
         snackbarView = SnackBarView()
-        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1)) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(400)) {
             self.displaySecondQuestionnaire()
         }
     }
@@ -112,7 +112,7 @@ class MainViewController: UIViewController {
         print("yes Button Clicked")
         snackbarView.hideSnackBar()
         snackbarView = SnackBarView()
-        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1)) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(400)) {
              self.displayThirdQuestionnaire()
         }
     }
@@ -120,7 +120,7 @@ class MainViewController: UIViewController {
         print("no Button Clicked")
         snackbarView.hideSnackBar()
         snackbarView = SnackBarView()
-        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1)) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(400)) {
             self.displayThirdQuestionnaire()
         }
     }
@@ -128,7 +128,7 @@ class MainViewController: UIViewController {
         print("yes Button Clicked")
         snackbarView.hideSnackBar()
         snackbarView = SnackBarView()
-        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1)) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(400)) {
             self.displayForthQuestionnaire()
         }
     }
@@ -136,14 +136,14 @@ class MainViewController: UIViewController {
         print("no Button Clicked")
         snackbarView.hideSnackBar()
         snackbarView = SnackBarView()
-        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1)) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(400)) {
             self.displayForthQuestionnaire()
         }
     }
     @objc func cancelButtonClicked() {
         print("cancel Button Clicked")
         snackbarView.hideSnackBar()
-        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1)) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(200)) {
             self.pickCount = 0
             self.mapView.clear()
             self.pickTitle.text = "בחר מקום על המפה שאתה חושד בו כמסוכן"
@@ -153,7 +153,7 @@ class MainViewController: UIViewController {
         print("send Button Clicked")
         snackbarView.hideSnackBar()
         self.pickTitle.text = "שולח תשובות..."
-        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(3)) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(400)) {
             self.pickCount = 0
             self.mapView.clear()
             self.pickTitle.text = "בחר מקום על המפה שאתה חושד בו כמסוכן"
