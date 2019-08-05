@@ -64,6 +64,11 @@
 		9F0EE90822F71C1400D53D4D /* AnnotationCoordinateUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F0EE8F822F71C1400D53D4D /* AnnotationCoordinateUtility.m */; };
 		9F0EE90C22F71F5E00D53D4D /* PrintlnMagic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F0EE90A22F71F5E00D53D4D /* PrintlnMagic.swift */; };
 		9F0EE90D22F71F5E00D53D4D /* SwiftyUserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F0EE90B22F71F5E00D53D4D /* SwiftyUserDefaults.swift */; };
+		9F0EE96922F7728700D53D4D /* SnackBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F0EE96822F7728700D53D4D /* SnackBarView.swift */; };
+		9F0EE96B22F78A7100D53D4D /* KeyboardObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F0EE96A22F78A7100D53D4D /* KeyboardObserver.swift */; };
+		9F0EE96D22F84EE900D53D4D /* UIColor+Anyway.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F0EE96C22F84EE900D53D4D /* UIColor+Anyway.swift */; };
+		9F0EE96F22F861A400D53D4D /* UIButton+Anyway.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F0EE96E22F861A400D53D4D /* UIButton+Anyway.swift */; };
+		9F0EE97122F8699A00D53D4D /* UILabel+Anyway.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F0EE97022F8699A00D53D4D /* UILabel+Anyway.swift */; };
 		9F2076E1229254540034EABF /* Ben Avigdor.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 9F2076E0229254540034EABF /* Ben Avigdor.gpx */; };
 		9FE0A91B2299098000E7E76A /* GMUWeightedLatLng.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FE0A8D32299098000E7E76A /* GMUWeightedLatLng.m */; };
 		9FE0A91C2299098000E7E76A /* GMUGradient.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FE0A8D62299098000E7E76A /* GMUGradient.m */; };
@@ -182,6 +187,11 @@
 		9F0EE8F822F71C1400D53D4D /* AnnotationCoordinateUtility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnnotationCoordinateUtility.m; sourceTree = "<group>"; };
 		9F0EE90A22F71F5E00D53D4D /* PrintlnMagic.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrintlnMagic.swift; sourceTree = "<group>"; };
 		9F0EE90B22F71F5E00D53D4D /* SwiftyUserDefaults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyUserDefaults.swift; sourceTree = "<group>"; };
+		9F0EE96822F7728700D53D4D /* SnackBarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnackBarView.swift; sourceTree = "<group>"; };
+		9F0EE96A22F78A7100D53D4D /* KeyboardObserver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardObserver.swift; sourceTree = "<group>"; };
+		9F0EE96C22F84EE900D53D4D /* UIColor+Anyway.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Anyway.swift"; sourceTree = "<group>"; };
+		9F0EE96E22F861A400D53D4D /* UIButton+Anyway.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Anyway.swift"; sourceTree = "<group>"; };
+		9F0EE97022F8699A00D53D4D /* UILabel+Anyway.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+Anyway.swift"; sourceTree = "<group>"; };
 		9F2076E0229254540034EABF /* Ben Avigdor.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "Ben Avigdor.gpx"; sourceTree = "<group>"; };
 		9FE0A8D22299098000E7E76A /* GMUGradient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GMUGradient.h; sourceTree = "<group>"; };
 		9FE0A8D32299098000E7E76A /* GMUWeightedLatLng.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GMUWeightedLatLng.m; sourceTree = "<group>"; };
@@ -315,6 +325,7 @@
 				309DD0451BFA464100AF80D1 /* Utilities.swift */,
 				30CDE5161BFA690A00BBC183 /* Localization.swift */,
 				30D6E5B51A92639500337FDB /* Main.storyboard */,
+				9F0EE96722F7728700D53D4D /* Utils */,
 				9F0EE8A022F7158700D53D4D /* ViewControllers */,
 				9F0EE8C022F7196F00D53D4D /* Model */,
 				9F0EE8B922F718F300D53D4D /* Views */,
@@ -464,6 +475,18 @@
 				9F0EE90B22F71F5E00D53D4D /* SwiftyUserDefaults.swift */,
 			);
 			path = SwiftLibraries;
+			sourceTree = "<group>";
+		};
+		9F0EE96722F7728700D53D4D /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				9F0EE96C22F84EE900D53D4D /* UIColor+Anyway.swift */,
+				9F0EE96822F7728700D53D4D /* SnackBarView.swift */,
+				9F0EE96A22F78A7100D53D4D /* KeyboardObserver.swift */,
+				9F0EE96E22F861A400D53D4D /* UIButton+Anyway.swift */,
+				9F0EE97022F8699A00D53D4D /* UILabel+Anyway.swift */,
+			);
+			path = Utils;
 			sourceTree = "<group>";
 		};
 		9FE0A86A2298951A00E7E76A /* Google-Maps-iOS-Utils */ = {
@@ -800,7 +823,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				9FE0A9232299098000E7E76A /* GMUStyleMap.m in Sources */,
+				9F0EE97122F8699A00D53D4D /* UILabel+Anyway.swift in Sources */,
 				9FE0A9292299098000E7E76A /* GMULineString.m in Sources */,
+				9F0EE96B22F78A7100D53D4D /* KeyboardObserver.swift in Sources */,
 				9FE0A9322299098000E7E76A /* GMUDefaultClusterRenderer.m in Sources */,
 				30D6E5D21A92642000337FDB /* MapProvider.swift in Sources */,
 				9F0EE8D422F71A8300D53D4D /* PairsDataProtocol.swift in Sources */,
@@ -808,6 +833,7 @@
 				9FE0A9332299098000E7E76A /* GMUDefaultClusterIconGenerator.m in Sources */,
 				9F0EE90222F71C1400D53D4D /* JGProgressHUDSuccessIndicatorView.m in Sources */,
 				9F0EE90C22F71F5E00D53D4D /* PrintlnMagic.swift in Sources */,
+				9F0EE96F22F861A400D53D4D /* UIButton+Anyway.swift in Sources */,
 				9FE0A9262299098000E7E76A /* GMUStyle.m in Sources */,
 				9F0EE8C822F7196F00D53D4D /* Marker+General.swift in Sources */,
 				9F0EE8B422F7164600D53D4D /* InfoViewController.swift in Sources */,
@@ -829,8 +855,10 @@
 				9F0EE8FC22F71C1400D53D4D /* OCAnnotation.m in Sources */,
 				9F0EE90522F71C1400D53D4D /* JGProgressHUDFadeAnimation.m in Sources */,
 				9F0EE8D022F719B300D53D4D /* HistoryPosition.swift in Sources */,
+				9F0EE96922F7728700D53D4D /* SnackBarView.swift in Sources */,
 				9FE0A9242299098000E7E76A /* GMUFeature.m in Sources */,
 				9FE0A91B2299098000E7E76A /* GMUWeightedLatLng.m in Sources */,
+				9F0EE96D22F84EE900D53D4D /* UIColor+Anyway.swift in Sources */,
 				9F0EE8B522F7164600D53D4D /* DetailViewController.swift in Sources */,
 				9F0EE8BF22F718F300D53D4D /* FilterCellTableViewCell.swift in Sources */,
 				9F0EE8C722F7196F00D53D4D /* Location.swift in Sources */,

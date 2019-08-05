@@ -193,8 +193,9 @@ class Network {
             //Sometimes multiple markers would have the exact same coordinate.
             //This method would arrange the identical markers in a circle around the coordinate.
             //AnnotationCoordinateUtility.mutateCoordinatesOfClashingAnnotations(markers)
-//            print("markers:\(markers.count)")
-            let finalMarkers = self.groupMarkersWithColidingCoordinates(markers)
+            // print("markers:\(markers.count)")
+
+            //let finalMarkers = self.groupMarkersWithColidingCoordinates(markers)
             
             anots(markers, markers.count)
         }

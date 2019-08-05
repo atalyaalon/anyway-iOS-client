@@ -62,7 +62,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sEZ-um-WKY" customClass="GMSMapView">
-                                <rect key="frame" x="0.0" y="135" width="375" height="532"/>
+                                <rect key="frame" x="0.0" y="127" width="375" height="541"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" alpha="0.69999999999999996" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eQm-xW-TfV">
@@ -75,11 +75,9 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="971-GA-thi">
-                                <rect key="frame" x="0.0" y="64" width="375" height="71"/>
-                                <color key="backgroundColor" red="0.97000747919999997" green="0.90035343170000004" blue="0.9744523168" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <string key="text">Where do you think are the dangerous places?
-Please pick two places on the map</string>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" text="בחר מקום על המפה שאתה חושד בו כמסוכן" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="971-GA-thi">
+                                <rect key="frame" x="0.0" y="64" width="375" height="63"/>
+                                <color key="backgroundColor" red="0.87450980392156863" green="0.8666666666666667" blue="0.98039215686274506" alpha="0.90520654965753422" colorSpace="custom" customColorSpace="displayP3"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                 <userDefinedRuntimeAttributes>
@@ -94,18 +92,18 @@ Please pick two places on the map</string>
                             <constraint firstAttribute="trailing" secondItem="sEZ-um-WKY" secondAttribute="trailing" id="EC0-kM-WOh"/>
                             <constraint firstItem="sEZ-um-WKY" firstAttribute="top" secondItem="971-GA-thi" secondAttribute="bottom" id="Er0-ZX-anv"/>
                             <constraint firstItem="971-GA-thi" firstAttribute="centerX" secondItem="sEZ-um-WKY" secondAttribute="centerX" id="TXd-m7-l1Q"/>
-                            <constraint firstItem="sEZ-um-WKY" firstAttribute="top" secondItem="iQu-uc-iDB" secondAttribute="top" constant="135" id="UyA-FX-6Gr"/>
+                            <constraint firstItem="sEZ-um-WKY" firstAttribute="top" secondItem="iQu-uc-iDB" secondAttribute="top" constant="127" id="UyA-FX-6Gr"/>
                             <constraint firstItem="eQm-xW-TfV" firstAttribute="leading" secondItem="iQu-uc-iDB" secondAttribute="leadingMargin" id="YD6-nX-hOW"/>
                             <constraint firstItem="fev-gO-UnZ" firstAttribute="top" secondItem="eQm-xW-TfV" secondAttribute="bottom" constant="65" id="aLY-MN-xXv"/>
                             <constraint firstItem="971-GA-thi" firstAttribute="leading" secondItem="sEZ-um-WKY" secondAttribute="leading" id="bTa-lE-fVC"/>
                             <constraint firstItem="sEZ-um-WKY" firstAttribute="leading" secondItem="iQu-uc-iDB" secondAttribute="leading" id="dkT-Tb-cEZ"/>
                             <constraint firstItem="971-GA-thi" firstAttribute="top" secondItem="DLX-fR-4dK" secondAttribute="bottom" id="jnb-W9-6EF"/>
                             <constraint firstItem="eQm-xW-TfV" firstAttribute="trailing" secondItem="iQu-uc-iDB" secondAttribute="trailingMargin" id="qZl-dV-09P"/>
-                            <constraint firstItem="sEZ-um-WKY" firstAttribute="bottom" secondItem="fev-gO-UnZ" secondAttribute="top" id="qv3-TJ-Zz9"/>
+                            <constraint firstItem="sEZ-um-WKY" firstAttribute="bottom" secondItem="fev-gO-UnZ" secondAttribute="top" constant="1" id="qv3-TJ-Zz9"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Accidents" id="clS-I1-Tdb">
-                        <barButtonItem key="rightBarButtonItem" title="Next" id="yBR-Dw-tr6">
+                        <barButtonItem key="rightBarButtonItem" title="המשך" id="yBR-Dw-tr6">
                             <connections>
                                 <action selector="nextButtonPressed:" destination="GQG-KH-GPO" id="6Qy-sR-TS7"/>
                             </connections>
@@ -135,17 +133,17 @@ Please pick two places on the map</string>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="anyway big logo" translatesAutoresizingMaskIntoConstraints="NO" id="1XK-fo-oAQ">
-                                <rect key="frame" x="179.5" y="44" width="16" height="16"/>
+                                <rect key="frame" x="82" y="44" width="211" height="56.5"/>
                             </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qgS-ti-nxI" userLabel="Seperator">
-                                <rect key="frame" x="51" y="68" width="273" height="1"/>
+                                <rect key="frame" x="51" y="108.5" width="273" height="1"/>
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="1" id="KLm-uK-15o"/>
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="משפיעים בכל דרך" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kVM-yJ-aoa">
-                                <rect key="frame" x="91.5" y="73" width="192.5" height="35"/>
+                                <rect key="frame" x="91.5" y="113.5" width="192.5" height="35"/>
                                 <fontDescription key="fontDescription" type="system" weight="thin" pointSize="29"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
@@ -565,13 +563,13 @@ Please pick two places on the map</string>
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="770" verticalCompressionResistancePriority="250" text="Hasadna" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jdk-sO-5fr">
-                                        <rect key="frame" x="51" y="726" width="116.5" height="37"/>
+                                        <rect key="frame" x="101.5" y="726" width="116.5" height="37"/>
                                         <fontDescription key="fontDescription" type="system" weight="light" pointSize="31"/>
                                         <color key="textColor" red="0.070588235294117646" green="0.55294117647058827" blue="0.82745098039215681" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" image="sadna_logo" translatesAutoresizingMaskIntoConstraints="NO" id="g6g-zS-DDt">
-                                        <rect key="frame" x="20" y="712" width="16" height="16"/>
+                                        <rect key="frame" x="20" y="712" width="66.5" height="66.5"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="g6g-zS-DDt" secondAttribute="height" multiplier="1:1" id="lMp-gi-X7E"/>
                                         </constraints>
@@ -590,7 +588,7 @@ ANYWAY הוא חשמביר (פרויקט) הפועל בחסות הסדנא לי�
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="TopLeft" horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="770" verticalCompressionResistancePriority="250" text="The Workshop for Public Knowledge" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="W6a-lU-jj5">
-                                        <rect key="frame" x="51" y="763" width="261" height="17"/>
+                                        <rect key="frame" x="101.5" y="763" width="210.5" height="17"/>
                                         <fontDescription key="fontDescription" type="system" weight="light" pointSize="14"/>
                                         <color key="textColor" red="0.070588235289999995" green="0.55294117649999996" blue="0.82745098039999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
