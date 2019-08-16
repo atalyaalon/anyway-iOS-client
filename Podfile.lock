@@ -1,16 +1,17 @@
 PODS:
   - Alamofire (4.8.2)
   - Eureka (4.3.1)
-  - GoogleMaps (3.1.0):
-    - GoogleMaps/Maps (= 3.1.0)
-  - GoogleMaps/Base (3.1.0)
-  - GoogleMaps/Maps (3.1.0):
+  - GoogleMaps (3.3.0):
+    - GoogleMaps/Maps (= 3.3.0)
+  - GoogleMaps/Base (3.3.0)
+  - GoogleMaps/Maps (3.3.0):
     - GoogleMaps/Base
-  - Realm (3.15.0):
-    - Realm/Headers (= 3.15.0)
-  - Realm/Headers (3.15.0)
-  - RealmSwift (3.15.0):
-    - Realm (= 3.15.0)
+  - MBProgressHUD (1.1.0)
+  - Realm (3.17.3):
+    - Realm/Headers (= 3.17.3)
+  - Realm/Headers (3.17.3)
+  - RealmSwift (3.17.3):
+    - Realm (= 3.17.3)
   - RxCocoa (5.0.0):
     - RxRelay (~> 5)
     - RxSwift (~> 5)
@@ -21,16 +22,22 @@ PODS:
   - RxRelay (5.0.0):
     - RxSwift (~> 5)
   - RxSwift (5.0.0)
-  - SwiftyJSON (5.0.0)
+  - SnapKit (4.0.1)
+  - SwiftLocation (3.2.3):
+    - SwiftyJSON (~> 4.0.0-alpha.1)
+  - SwiftyJSON (4.0.0)
 
 DEPENDENCIES:
   - Alamofire
   - Eureka
   - GoogleMaps
+  - MBProgressHUD (~> 1.1.0)
   - RealmSwift
   - RxCocoa (~> 5)
   - RxGoogleMaps
   - RxSwift (~> 5)
+  - SnapKit (~> 4.0.0)
+  - SwiftLocation
   - SwiftyJSON
 
 SPEC REPOS:
@@ -38,26 +45,32 @@ SPEC REPOS:
     - Alamofire
     - Eureka
     - GoogleMaps
+    - MBProgressHUD
     - Realm
     - RealmSwift
     - RxCocoa
     - RxGoogleMaps
     - RxRelay
     - RxSwift
+    - SnapKit
+    - SwiftLocation
     - SwiftyJSON
 
 SPEC CHECKSUMS:
   Alamofire: ae5c501addb7afdbb13687d7f2f722c78734c2d3
   Eureka: 28ea296f06710f6745266b71f17862048941a32d
-  GoogleMaps: 5c13302e6fe6bb6e686b267196586b91cd594225
-  Realm: 9b834e1be6062f544805252c812348872dc5d4ed
-  RealmSwift: 8a41886f8ab6efef9eb8df97de2f2bb911561a79
+  GoogleMaps: cfee83da305b9aaeccf92c24ac79df11c3003492
+  MBProgressHUD: e7baa36a220447d8aeb12769bf0585582f3866d9
+  Realm: 5a1d9d47bfc101dd597668b1a8af4288a2557f6d
+  RealmSwift: b7fdc2d18616621c31df5c7a398a45a2163f8eb0
   RxCocoa: fcf32050ac00d801f34a7f71d5e8e7f23026dcd8
   RxGoogleMaps: 5d8a91a26dc9e3f703c5be09424e3ecf7f607328
   RxRelay: 4f7409406a51a55cd88483f21ed898c234d60f18
   RxSwift: 8b0671caa829a763bbce7271095859121cbd895f
-  SwiftyJSON: 36413e04c44ee145039d332b4f4e2d3e8d6c4db7
+  SnapKit: 0de968a9fec17499afa29683b05d0c775b6d1c29
+  SwiftLocation: a3c3bc2023118171ef3572188a31def94aa0892c
+  SwiftyJSON: 070dabdcb1beb81b247c65ffa3a79dbbfb3b48aa
 
-PODFILE CHECKSUM: f8de813ba91e8fead41c747e83b289d5784cf419
+PODFILE CHECKSUM: f078fe55057e4bd21fd72a3964c0ce39c1f2986c
 
 COCOAPODS: 1.6.1

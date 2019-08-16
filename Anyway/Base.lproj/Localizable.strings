@@ -451,3 +451,18 @@
 "ACC_ID" = "Serial Number";
 "PROVIDER_CODE" = "Provider Type";
 
+"SIGNS_ARE_CLEAR" = "האם הסימונים על הכביש ברורים?";
+"PROBLEM_WITH_SIGN" = "האם קיימת בעייה בתמרור?";
+"WISH_TO_SEND_ANSWERS" = "מעוניין לשלוח אלינו תשובות?" ;
+"WHY_DID_YOU_SUSPECT_THIS_PLACE" = "מדוע חשדת שמקום זה מסוכן?";
+"CHOOSE_A_PLACE" = "בחר מקום על המפה שאתה חושד בו כמסוכן";
+"SENDING_ANSWERS" = "שולח תשובות...";
+"CONTINUE" = "המשך";
+"SEND" = "שלח";
+"CANCEL" = "בטל";
+"YES" = "כן";
+"NO" = "לא";
+"SHORT_QUESTIONNAIRE" = "שאלון קצר";
+"PLACES_MAKRKED_WITH_HEATMAP" = "המקומות המסוכנים מוצגים בעזרת מפת חום. לחץ המשך";
+"LOADING" = "טוען נתונים...";
+

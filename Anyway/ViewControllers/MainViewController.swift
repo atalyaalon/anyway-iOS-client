@@ -8,6 +8,7 @@
 
 import UIKit
 import GoogleMaps
+import SnapKit
 
 class MainViewController: UIViewController {
 
@@ -140,29 +141,31 @@ class MainViewController: UIViewController {
             self.displayForthQuestionnaire()
         }
     }
-    @objc func cancelButtonClicked() {
-        print("cancel Button Clicked")
-        snackbarView.hideSnackBar()
+
+    fileprivate func restartMainViewState() {
         DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(200)) {
             self.pickCount = 0
             self.mapView.clear()
-            self.pickTitle.text = "בחר מקום על המפה שאתה חושד בו כמסוכן"
+            self.pickTitle.text = "CHOOSE_A_PLACE".localized
         }
+    }
+
+    @objc func cancelButtonClicked() {
+        print("cancel Button Clicked")
+        snackbarView.hideSnackBar()
+        restartMainViewState()
     }
     @objc func sendButtonClicked() {
         print("send Button Clicked")
         snackbarView.hideSnackBar()
-        self.pickTitle.text = "שולח תשובות..."
-        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(400)) {
-            self.pickCount = 0
-            self.mapView.clear()
-            self.pickTitle.text = "בחר מקום על המפה שאתה חושד בו כמסוכן"
-        }
+        self.pickTitle.text = "SENDING_ANSWERS".localized
+        restartMainViewState()
     }
 
     private func displayFirstQuestionnaire() {
         let snackView = UIView( frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width - 20.0, height: 170))
-        let label = UILabel.questionnaireLabel(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 50), text: "?מדוע חשדת שמקום זה מסוכן")
+
+        let label = UILabel.questionnaireLabel(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 50), text: "WHY_DID_YOU_SUSPECT_THIS_PLACE".localized)
         snackView.addSubview(label)
         self.textView = UITextView(frame: CGRect(x: 0, y: 50, width: UIScreen.main.bounds.width , height: 50))
         self.textView.textColor = UIColor.black
@@ -172,7 +175,7 @@ class MainViewController: UIViewController {
         snackView.addSubview(self.textView)
         let continueButton = UIButton(frame: CGRect(x: 173, y: 120, width: 60, height: 35))
         continueButton.tintColor = UIColor.black
-        continueButton.setTitle("המשך", for: UIControl.State.normal)
+        continueButton.setTitle("CONTINUE".localized, for: UIControl.State.normal)
         continueButton.setTitleColor(UIColor.white, for: UIControl.State.normal)
         continueButton.backgroundColor = UIColor.lightGray
         continueButton.cornerRadius = 4
@@ -183,7 +186,7 @@ class MainViewController: UIViewController {
 
     private func displaySecondQuestionnaire() {
         let snackView = UIView( frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width - 20.0, height: 130))
-        let label = UILabel.questionnaireLabel(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 50), text: "? האם הסימונים על הכביש ברורים")
+        let label = UILabel.questionnaireLabel(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 50), text: "SIGNS_ARE_CLEAR".localized)
         snackView.addSubview(label)
        self.addYesNoButtons(toView:snackView, yesAction:#selector(self.yesButtonClicked), noAction:#selector(self.noButtonClicked) )
         snackbarView.showSnackBar(superView: self.view, bgColor: SNACK_BAR_BG_COLOR, snackbarView: snackView)
@@ -191,7 +194,7 @@ class MainViewController: UIViewController {
 
     private func displayThirdQuestionnaire() {
         let snackView = UIView( frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width - 20.0, height: 130))
-        let label = UILabel.questionnaireLabel(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 50), text: "?האם קיימת בעיה בתמרור")
+        let label = UILabel.questionnaireLabel(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 50), text: "PROBLEM_WITH_SIGN".localized)
         snackView.addSubview(label)
         self.addYesNoButtons(toView:snackView, yesAction:#selector(self.yesButtonClickedLast), noAction:#selector(self.noButtonClickedLast) )
         snackbarView.showSnackBar(superView: self.view, bgColor: SNACK_BAR_BG_COLOR, snackbarView: snackView)
@@ -199,12 +202,12 @@ class MainViewController: UIViewController {
 
     private func displayForthQuestionnaire() {
         let snackView = UIView( frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width - 20.0, height: 130))
-        let label = UILabel.questionnaireLabel(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 50), text: "מעוניין לשלוח אלינו תשובות")
+        let label = UILabel.questionnaireLabel(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 50), text: "WISH_TO_SEND_ANSWERS".localized)
         snackView.addSubview(label)
-        let yesButton = UIButton.questionnaireButton(frame: CGRect(x: 150, y: 80, width: BUTTON_WIDTH, height: BUTTON_HEIGHT), title: "שלח")
+        let yesButton = UIButton.questionnaireButton(frame: CGRect(x: 150, y: 80, width: BUTTON_WIDTH, height: BUTTON_HEIGHT), title: "SEND".localized)
         yesButton.addTarget(self, action:#selector(self.sendButtonClicked), for: .touchUpInside)
         snackView.addSubview(yesButton)
-        let noButton = UIButton.questionnaireButton(frame: CGRect(x: 210, y: 80, width: BUTTON_WIDTH, height: BUTTON_HEIGHT), title: "בטל")
+        let noButton = UIButton.questionnaireButton(frame: CGRect(x: 210, y: 80, width: BUTTON_WIDTH, height: BUTTON_HEIGHT), title: "CANCEL".localized)
         noButton.addTarget(self, action:#selector(self.cancelButtonClicked), for: .touchUpInside)
         snackView.addSubview(noButton)
         snackbarView.showSnackBar(superView: self.view, bgColor: SNACK_BAR_BG_COLOR, snackbarView: snackView)
@@ -212,11 +215,11 @@ class MainViewController: UIViewController {
 
     private func addYesNoButtons(toView: UIView, yesAction: Selector, noAction: Selector) {
 
-        let yesButton = UIButton.questionnaireButton(frame: CGRect(x: 150, y: 80, width: BUTTON_WIDTH, height: BUTTON_HEIGHT), title: "כן")
+        let yesButton = UIButton.questionnaireButton(frame: CGRect(x: 150, y: 80, width: BUTTON_WIDTH, height: BUTTON_HEIGHT), title: "YES".localized)
         yesButton.addTarget(self, action:yesAction, for: .touchUpInside)
         toView.addSubview(yesButton)
 
-        let noButton = UIButton.questionnaireButton(frame: CGRect(x: 210, y: 80, width: BUTTON_WIDTH, height: BUTTON_HEIGHT), title: "לא")
+        let noButton = UIButton.questionnaireButton(frame: CGRect(x: 210, y: 80, width: BUTTON_WIDTH, height: BUTTON_HEIGHT), title: "NO".localized)
         noButton.addTarget(self, action:noAction, for: .touchUpInside)
         toView.addSubview(noButton)
     }
@@ -231,7 +234,7 @@ class MainViewController: UIViewController {
                 self.updateInfoIfPossible(filterChanged:false)
             } else if self.pickCount == 2 {
                 self.nextBarButton.isEnabled = false
-                self.pickTitle.text = "שאלון קצר"
+                self.pickTitle.text = "SHORT_QUESTIONNAIRE".localized
                 self.snackbarView = SnackBarView()
                 self.displayFirstQuestionnaire()
             }
@@ -271,7 +274,7 @@ class MainViewController: UIViewController {
     func updateInfoIfPossible( filterChanged: Bool) {
 
         print("Getting Annotations...")
-        self.pickTitle.text = "טוען נתונים..."
+        self.pickTitle.text = "LOADING".localized
         let projection = mapView.projection.visibleRegion()
         //let topLeftCorner: CLLocationCoordinate2D = projection.farLeft
         let topRightCorner: CLLocationCoordinate2D = projection.farRight
@@ -293,7 +296,7 @@ class MainViewController: UIViewController {
             self.hud?.dismiss()
             self.pickCount = 2
             DispatchQueue.main.async { [weak self]  in
-                self?.pickTitle.text = "המקומות המסוכנים מוצגים בעזרת מפת חום. לחץ המשך"
+                self?.pickTitle.text = "PLACES_MAKRKED_WITH_HEATMAP".localized
             }
             self.nextBarButton.isEnabled = true
         }
