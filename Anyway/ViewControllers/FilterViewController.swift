@@ -24,6 +24,7 @@ class FilterViewController: FormViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.navigationController?.isNavigationBarHidden = false
         
         assert(filter != nil, "Filter is nil!")
         setupForm(filter)

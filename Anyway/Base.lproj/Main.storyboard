@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES" initialViewController="GQG-KH-GPO">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES" initialViewController="hgT-Zb-3Q7">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -66,7 +66,7 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="971-GA-thi">
-                                <rect key="frame" x="0.0" y="52" width="375" height="40"/>
+                                <rect key="frame" x="0.0" y="96" width="375" height="40"/>
                                 <color key="backgroundColor" red="0.87450980392156863" green="0.8666666666666667" blue="0.98039215686274506" alpha="0.90520654965753422" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="Nct-GR-hzp"/>
@@ -90,7 +90,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KnO-fV-y68" customClass="MDCFloatingButton">
-                                <rect key="frame" x="124" y="91" width="126" height="29"/>
+                                <rect key="frame" x="124" y="135" width="126" height="29"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="29" id="373-hA-onR"/>
                                     <constraint firstAttribute="width" constant="126" id="U9J-A6-0Sh"/>
@@ -129,6 +129,7 @@
                             <constraint firstItem="KnO-fV-y68" firstAttribute="bottom" secondItem="971-GA-thi" secondAttribute="bottom" constant="28" id="whx-RI-goE"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="cJl-eI-WzG"/>
                     <connections>
                         <outlet property="addressLabel" destination="eQm-xW-TfV" id="M5M-Fn-93R"/>
                         <outlet property="mapView" destination="sEZ-um-WKY" id="SfW-nB-FhO"/>
@@ -138,7 +139,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="G5Q-TS-pSb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-42.399999999999999" y="1772.5637181409297"/>
+            <point key="canvasLocation" x="896.79999999999995" y="1772.5637181409297"/>
         </scene>
         <!--Language View Controller-->
         <scene sceneID="pwg-jz-8QM">
@@ -249,7 +250,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UgG-cQ-JNN" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2535.1999999999998" y="1752.7736131934034"/>
+            <point key="canvasLocation" x="3474.4000000000001" y="1752.7736131934034"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
@@ -771,7 +772,7 @@ ANYWAY מציגה על גבי מפה תאונות דרכים עם נפגעים (
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="29B-AX-Bob" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1718.840579710145" y="-214.95535714285714"/>
+            <point key="canvasLocation" x="1788" y="-1110"/>
         </scene>
         <!--History View Controller-->
         <scene sceneID="nPk-O8-nFg">
@@ -843,7 +844,7 @@ ANYWAY מציגה על גבי מפה תאונות דרכים עם נפגעים (
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5w0-v9-lwI" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2293.4782608695655" y="941.85267857142856"/>
+            <point key="canvasLocation" x="2855" y="971"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="QUe-CU-OuK">
@@ -885,7 +886,7 @@ ANYWAY מציגה על גבי מפה תאונות דרכים עם נפגעים (
         <!--Filter View Controller-->
         <scene sceneID="kB6-Ks-eWP">
             <objects>
-                <viewController id="jsb-JT-nBk" customClass="FilterViewController" customModule="Anyway" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="FilterViewController" id="jsb-JT-nBk" customClass="FilterViewController" customModule="Anyway" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="4dn-yr-G5L"/>
                         <viewControllerLayoutGuide type="bottom" id="lFL-Y6-kny"/>
@@ -925,7 +926,7 @@ ANYWAY מציגה על גבי מפה תאונות דרכים עם נפגעים (
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uWJ-v3-eAX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2131.8840579710145" y="421.20535714285711"/>
+            <point key="canvasLocation" x="2210" y="424"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="85s-q5-xoM">
@@ -959,6 +960,24 @@ ANYWAY מציגה על גבי מפה תאונות דרכים עם נפגעים (
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Vgu-yr-cTy" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-2706" y="1635"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="h3b-tV-6vw">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="hgT-Zb-3Q7" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="LZn-PA-MwO">
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="GQG-KH-GPO" kind="relationship" relationship="rootViewController" id="758-6u-ZCW"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="2zO-tN-9My" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-42.399999999999999" y="1772.5637181409297"/>
         </scene>
     </scenes>
     <resources>

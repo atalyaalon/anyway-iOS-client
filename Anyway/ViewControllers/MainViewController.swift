@@ -14,7 +14,6 @@ import MaterialComponents.MaterialButtons
 
 class MainViewController: UIViewController {
 
-    //@IBOutlet weak var nextBarButton: UIBarButtonItem!
     @IBOutlet weak var nextButton: MDCFloatingButton!
     @IBOutlet weak var addressLabel: UILabel!
     @IBOutlet var mapView: GMSMapView!
@@ -38,22 +37,23 @@ class MainViewController: UIViewController {
     var pickTitleFrameWithoutContinue = CGRect(x: 0, y: 0, width: 0, height:0)
 
 
-
-
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController?.isNavigationBarHidden = true
         self.setupMapView()
         self.initLocationManager()
         setupTitle()
-
         setupHUD()
         mapView.animate(toZoom: ZOOM)
         addKeyboardObservers()
         addTapGesture()
         addHeatMapLayer()
         restartMainViewState()
-     }
+    }
+
+//    override func viewDidAppear(_ animated: Bool) {
+//        self.navigationController?.isNavigationBarHidden = true
+//    }
 
     private func initLocationManager() {
         locationManager.delegate = self
@@ -94,24 +94,13 @@ class MainViewController: UIViewController {
         mapView.settings.myLocationButton = true
         mapView.settings.compassButton = true
         setupHelpButton()
-
-
-
-        // update the values of the copy
-        //questionView.size.height = CGFloat(screenSize.height * 0.70)
-        //answerView.size.height = CGFloat(screenSize.height * 0.30)
-
-        // set the frames to the new frames
-        ////questionFrame.frame = questionView
-        //answerFrame.frame = answerView
-
-        //self.pickTitle.frame.height = self.pickTitle.frame.height * 0.7
-
+        setupFilterButton()
     }
 
     fileprivate func setupHelpButton() {
-        let helpButton = MDCFloatingButton(frame: CGRect(x: 330, y: 150, width: 26, height: 26))
+        let helpButton = MDCFloatingButton(frame: CGRect(x: 330, y: 125, width: 26, height: 26))
         helpButton.setImage(#imageLiteral(resourceName: "information"), for: .normal)
+        helpButton.backgroundColor = UIColor.clear
         helpButton.setElevation(ShadowElevation(rawValue: 8), for: .normal)
         helpButton.setElevation(ShadowElevation(rawValue: 12), for: .highlighted)
         helpButton.addTarget(self, action: #selector(handleHelpTap), for: .touchUpInside)
@@ -123,6 +112,28 @@ class MainViewController: UIViewController {
         let viewController:UIViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "InfoViewController") as UIViewController
         self.present(viewController, animated: false, completion: nil)
     }
+
+    fileprivate func setupFilterButton() {
+        let helpButton = MDCFloatingButton(frame: CGRect(x: 30, y: 125, width: 21, height: 21))
+        //let helpButton = UIButton(frame: CGRect(x: 30, y: 150, width: 26, height: 26))
+        helpButton.setImage(#imageLiteral(resourceName: "filter_add"), for: .normal)
+        helpButton.backgroundColor = UIColor.clear
+        helpButton.setElevation(ShadowElevation(rawValue: 8), for: .normal)
+        helpButton.setElevation(ShadowElevation(rawValue: 12), for: .highlighted)
+        helpButton.addTarget(self, action: #selector(handleFilterTap), for: .touchUpInside)
+        self.view.addSubview(helpButton)
+    }
+
+    @objc func handleFilterTap(_ sender: UIButton) {
+        print("Help button tapped")
+        let viewController:FilterViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "FilterViewController") as UIViewController as! FilterViewController
+        viewController.filter = filter
+        viewController.delegate = self as FilterScreenDelegate
+
+        self.navigationController!.pushViewController(viewController, animated: true)
+        //self.present(viewController, animated: false, completion: nil)
+    }
+
 
     private func addKeyboardObservers() {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
@@ -464,6 +475,28 @@ extension MainViewController: CLLocationManagerDelegate {
         hud?.interactionType = JGProgressHUDInteractionType.blockNoTouches
         return hud!
     }
+}
+
+
+extension MainViewController: FilterScreenDelegate {
+
+    func didCancel(_ vc: FilterViewController, filter: Filter) {
+        //dismiss(animated: true, completion: nil)
+        self.navigationController?.isNavigationBarHidden = true
+        self.navigationController?.popViewController(animated: true)
+
+    }
+
+    func didSave(_ vc: FilterViewController, filter: Filter) {
+//        dismiss(animated: true) {
+//            self.filter = filter
+//            //self.updateInfoIfPossible( filterChanged: true)
+//        }
+        self.navigationController?.isNavigationBarHidden = true
+        self.filter = filter
+        self.navigationController?.popViewController(animated: true)
+    }
+
 }
 
 
