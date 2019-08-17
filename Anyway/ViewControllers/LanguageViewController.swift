@@ -7,10 +7,18 @@
 //
 
 import UIKit
+import MaterialComponents.MaterialButtons
 
 class LanguageViewController: UIViewController {
 
+    @IBOutlet weak var closeButton: MDCFlatButton!
     static let segueFromSplit = "choose language segue"
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        closeButton.setTitle("CLOSE".localized, for: UIControl.State.normal)
+        
+    }
 
     @IBAction func closeTapped(_ sender: Any) {
         dismiss(animated: true) { }

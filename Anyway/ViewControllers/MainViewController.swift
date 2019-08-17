@@ -10,10 +10,12 @@ import UIKit
 import GoogleMaps
 import SnapKit
 import MaterialComponents.MaterialButtons
+//import MaterialComponents.MaterialButtons_Theming
 
 class MainViewController: UIViewController {
 
-    @IBOutlet weak var nextBarButton: UIBarButtonItem!
+    //@IBOutlet weak var nextBarButton: UIBarButtonItem!
+    @IBOutlet weak var nextButton: MDCFloatingButton!
     @IBOutlet weak var addressLabel: UILabel!
     @IBOutlet var mapView: GMSMapView!
     @IBOutlet weak var pickTitle: UITextView!
@@ -32,14 +34,19 @@ class MainViewController: UIViewController {
     //private var keyboardObserver: KeyboardObserver = KeyboardObserver()
     private var textView = UITextView()
     private var snackbarView = SnackBarView()
+    var pickTitleFrameWithContinue = CGRect(x: 0, y: 0, width: 0, height:0)
+    var pickTitleFrameWithoutContinue = CGRect(x: 0, y: 0, width: 0, height:0)
+
+
 
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        //self.navigationController?.isNavigationBarHidden = true
+        self.navigationController?.isNavigationBarHidden = true
         self.setupMapView()
         self.initLocationManager()
-        self.nextBarButton.isEnabled = false
+        setupTitle()
+
         setupHUD()
         mapView.animate(toZoom: ZOOM)
         addKeyboardObservers()
@@ -53,7 +60,32 @@ class MainViewController: UIViewController {
         locationManager.requestWhenInUseAuthorization()
         locationManager.startUpdatingLocation()
     }
+    private func setupTitle() {
+        nextButton.setTitle("CONTINUE".localized, for: UIControl.State.normal)
+        nextButton.backgroundColor = UIColor.lightGray
+        nextButton.setElevation(ShadowElevation(rawValue: 8), for: .normal)
+        nextButton.setElevation(ShadowElevation(rawValue: 12), for: .highlighted)
 
+        // keep reference to  frames
+        pickTitleFrameWithoutContinue = pickTitle.frame
+        pickTitleFrameWithContinue = CGRect(x: 0, y: 0, width: pickTitle.frame.width, height: pickTitle.frame.height * 2)
+        //nextButton.applyOutlinedTheme(withScheme: containerScheme)
+
+        setTitleWithoutContinue()
+    }
+    private func setTitleWithContinue() {
+        self.nextButton.isHidden = false
+        self.pickTitle.frame = pickTitleFrameWithContinue
+
+        super.updateViewConstraints()
+        view.setNeedsUpdateConstraints()
+    }
+    private func setTitleWithoutContinue() {
+        self.nextButton.isHidden = true
+        self.pickTitle.frame = pickTitleFrameWithoutContinue
+        super.updateViewConstraints()
+        view.setNeedsUpdateConstraints()
+    }
     private func setupMapView() {
         mapView.isTrafficEnabled   = false
         mapView.isHidden           = false
@@ -62,7 +94,19 @@ class MainViewController: UIViewController {
         mapView.settings.myLocationButton = true
         mapView.settings.compassButton = true
         setupHelpButton()
-        nextBarButton.title = "CONTINUE".localized
+
+
+
+        // update the values of the copy
+        //questionView.size.height = CGFloat(screenSize.height * 0.70)
+        //answerView.size.height = CGFloat(screenSize.height * 0.30)
+
+        // set the frames to the new frames
+        ////questionFrame.frame = questionView
+        //answerFrame.frame = answerView
+
+        //self.pickTitle.frame.height = self.pickTitle.frame.height * 0.7
+
     }
 
     fileprivate func setupHelpButton() {
@@ -248,10 +292,12 @@ class MainViewController: UIViewController {
              guard let self = self else { return }
 
             if self.pickCount == 1 {
-                self.nextBarButton.isEnabled = false
+                //self.nextButton.isEnabled = false
+                self.setTitleWithoutContinue()
                 self.updateInfoIfPossible(filterChanged:false)
             } else if self.pickCount == 2 {
-                self.nextBarButton.isEnabled = false
+                //self.nextButton.isEnabled = false
+                self.setTitleWithoutContinue()
                 self.pickTitle.text = "SHORT_QUESTIONNAIRE".localized
                 self.snackbarView = SnackBarView()
                 self.displayFirstQuestionnaire()
@@ -315,8 +361,10 @@ class MainViewController: UIViewController {
             self.pickCount = 2
             DispatchQueue.main.async { [weak self]  in
                 self?.pickTitle.text = "PLACES_MAKRKED_WITH_HEATMAP".localized
+                self?.setTitleWithContinue()
             }
-            self.nextBarButton.isEnabled = true
+
+
         }
     }
 
@@ -372,12 +420,15 @@ extension MainViewController: GMSMapViewDelegate {
         marker.position = CLLocationCoordinate2D(latitude: coordinate.latitude, longitude: coordinate.longitude)
   
         self.pickCount += 1
-        self.pickTitle.text = "TAP_CONTINUE".localized
+        self.pickTitle.text = "TAP_CONTINUE_TO_GET_DANGEROUS_PLACES".localized
         marker.snippet = ""
         marker.map = self.mapView
         if self.pickCount == 1 {
-            marker.title = "המקום שנבחר כמסוכן"
-            self.nextBarButton.isEnabled = true
+            //marker.title = "המקום שנבחר כמסוכן"
+            //self.nextButton.isHidden = true
+             self.setTitleWithContinue()
+
+            //self.nextBarButton.isEnabled = true
         }
         mapView.resignFirstResponder()
     }

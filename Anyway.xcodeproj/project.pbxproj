@@ -376,11 +376,11 @@
 				9F0EE8A522F715B900D53D4D /* ViewController+LocationServices.swift */,
 				9F0EE8A322F715B900D53D4D /* ViewController+MapView.swift */,
 				9F0EE8B022F7164600D53D4D /* AccidentsViewController.swift */,
+				9F0EE8AE22F7164600D53D4D /* InfoViewController.swift */,
 				9F0EE8AF22F7164600D53D4D /* DetailViewController.swift */,
 				9F0EE8AB22F7164600D53D4D /* FilterViewController.swift */,
 				9F0EE8B722F7169000D53D4D /* FilterViewController+Setup.swift */,
 				9F0EE8AC22F7164600D53D4D /* HistoryViewController.swift */,
-				9F0EE8AE22F7164600D53D4D /* InfoViewController.swift */,
 				9F0EE8AD22F7164600D53D4D /* LanguageViewController.swift */,
 			);
 			path = ViewControllers;

@@ -7,13 +7,21 @@
 //
 
 import UIKit
+import MaterialComponents.MaterialButtons
 
 class InfoViewController: UIViewController {
 
+    @IBOutlet weak var langButton: MDCFlatButton!
     @IBOutlet weak var infoLabelText: UILabel! {
         didSet{
             infoLabelText.text = infoLabelText.text?.stringByForcingWritingDirectionRTL()
         }
+    }
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        langButton.setTitle("LANGUAGE".localized, for: UIControl.State.normal)
+        infoLabelText.text = "ANYWAY_TEXT".localized
     }
     
     @IBAction func dismissAction() {

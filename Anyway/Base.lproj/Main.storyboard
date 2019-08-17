@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES" initialViewController="lfJ-fK-NRQ">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES" initialViewController="GQG-KH-GPO">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -49,7 +49,7 @@
             </objects>
             <point key="canvasLocation" x="-730.43478260869574" y="855.80357142857144"/>
         </scene>
-        <!--Accidents-->
+        <!--Main View Controller-->
         <scene sceneID="sLY-bs-yes">
             <objects>
                 <viewController id="GQG-KH-GPO" customClass="MainViewController" customModule="Anyway" customModuleProvider="target" sceneMemberID="viewController">
@@ -62,9 +62,23 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sEZ-um-WKY" customClass="GMSMapView">
-                                <rect key="frame" x="0.0" y="127" width="375" height="541"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="971-GA-thi">
+                                <rect key="frame" x="0.0" y="52" width="375" height="40"/>
+                                <color key="backgroundColor" red="0.87450980392156863" green="0.8666666666666667" blue="0.98039215686274506" alpha="0.90520654965753422" colorSpace="custom" customColorSpace="displayP3"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="Nct-GR-hzp"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="0.0"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </textView>
                             <label opaque="NO" userInteractionEnabled="NO" alpha="0.69999999999999996" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eQm-xW-TfV">
                                 <rect key="frame" x="16" y="569" width="343" height="33"/>
                                 <color key="backgroundColor" red="0.97000747919999997" green="0.90035343170000004" blue="0.9744523168" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -75,44 +89,50 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="971-GA-thi">
-                                <rect key="frame" x="0.0" y="64" width="375" height="63"/>
-                                <color key="backgroundColor" red="0.87450980392156863" green="0.8666666666666667" blue="0.98039215686274506" alpha="0.90520654965753422" colorSpace="custom" customColorSpace="displayP3"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KnO-fV-y68" customClass="MDCFloatingButton">
+                                <rect key="frame" x="124" y="91" width="126" height="29"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="29" id="373-hA-onR"/>
+                                    <constraint firstAttribute="width" constant="126" id="U9J-A6-0Sh"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                <state key="normal" title="Continue">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
                                 <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                        <real key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                        <real key="value" value="0.0"/>
+                                        <integer key="value" value="2"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
-                            </textView>
+                                <connections>
+                                    <action selector="nextButtonPressed:" destination="GQG-KH-GPO" eventType="touchUpInside" id="9ZC-zi-jTk"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="sEZ-um-WKY" secondAttribute="trailing" id="EC0-kM-WOh"/>
-                            <constraint firstItem="sEZ-um-WKY" firstAttribute="top" secondItem="971-GA-thi" secondAttribute="bottom" id="Er0-ZX-anv"/>
-                            <constraint firstItem="971-GA-thi" firstAttribute="centerX" secondItem="sEZ-um-WKY" secondAttribute="centerX" id="TXd-m7-l1Q"/>
-                            <constraint firstItem="sEZ-um-WKY" firstAttribute="top" secondItem="iQu-uc-iDB" secondAttribute="top" constant="127" id="UyA-FX-6Gr"/>
+                            <constraint firstItem="KnO-fV-y68" firstAttribute="top" secondItem="971-GA-thi" secondAttribute="top" constant="39" id="Lec-rH-woK"/>
+                            <constraint firstItem="971-GA-thi" firstAttribute="leading" secondItem="sEZ-um-WKY" secondAttribute="leading" id="M8u-N0-Pla"/>
+                            <constraint firstItem="sEZ-um-WKY" firstAttribute="top" secondItem="iQu-uc-iDB" secondAttribute="top" id="UyA-FX-6Gr"/>
                             <constraint firstItem="eQm-xW-TfV" firstAttribute="leading" secondItem="iQu-uc-iDB" secondAttribute="leadingMargin" id="YD6-nX-hOW"/>
+                            <constraint firstItem="971-GA-thi" firstAttribute="trailing" secondItem="sEZ-um-WKY" secondAttribute="trailing" id="ZVg-SE-0Gj"/>
                             <constraint firstItem="fev-gO-UnZ" firstAttribute="top" secondItem="eQm-xW-TfV" secondAttribute="bottom" constant="65" id="aLY-MN-xXv"/>
-                            <constraint firstItem="971-GA-thi" firstAttribute="leading" secondItem="sEZ-um-WKY" secondAttribute="leading" id="bTa-lE-fVC"/>
+                            <constraint firstItem="KnO-fV-y68" firstAttribute="centerX" secondItem="iQu-uc-iDB" secondAttribute="centerX" constant="-0.5" id="bBB-2a-6x2"/>
                             <constraint firstItem="sEZ-um-WKY" firstAttribute="leading" secondItem="iQu-uc-iDB" secondAttribute="leading" id="dkT-Tb-cEZ"/>
-                            <constraint firstItem="971-GA-thi" firstAttribute="top" secondItem="DLX-fR-4dK" secondAttribute="bottom" id="jnb-W9-6EF"/>
                             <constraint firstItem="eQm-xW-TfV" firstAttribute="trailing" secondItem="iQu-uc-iDB" secondAttribute="trailingMargin" id="qZl-dV-09P"/>
-                            <constraint firstItem="sEZ-um-WKY" firstAttribute="bottom" secondItem="fev-gO-UnZ" secondAttribute="top" constant="1" id="qv3-TJ-Zz9"/>
+                            <constraint firstItem="sEZ-um-WKY" firstAttribute="bottom" secondItem="iQu-uc-iDB" secondAttribute="bottom" id="qv3-TJ-Zz9"/>
+                            <constraint firstItem="971-GA-thi" firstAttribute="top" secondItem="DLX-fR-4dK" secondAttribute="bottom" constant="32" id="wC8-4T-3VU"/>
+                            <constraint firstItem="KnO-fV-y68" firstAttribute="bottom" secondItem="971-GA-thi" secondAttribute="bottom" constant="28" id="whx-RI-goE"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Accidents" id="clS-I1-Tdb">
-                        <barButtonItem key="rightBarButtonItem" title="המשך" id="yBR-Dw-tr6">
-                            <connections>
-                                <action selector="nextButtonPressed:" destination="GQG-KH-GPO" id="6Qy-sR-TS7"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
                     <connections>
                         <outlet property="addressLabel" destination="eQm-xW-TfV" id="M5M-Fn-93R"/>
                         <outlet property="mapView" destination="sEZ-um-WKY" id="SfW-nB-FhO"/>
-                        <outlet property="nextBarButton" destination="yBR-Dw-tr6" id="hxn-jC-2YF"/>
+                        <outlet property="nextButton" destination="KnO-fV-y68" id="M0o-MD-xG6"/>
                         <outlet property="pickTitle" destination="971-GA-thi" id="VRz-bs-NWf"/>
                     </connections>
                 </viewController>
@@ -223,6 +243,9 @@
                             <constraint firstItem="kmF-VU-Yd4" firstAttribute="centerX" secondItem="PJN-6J-MDt" secondAttribute="centerX" id="yDz-1X-ZSx"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="closeButton" destination="Jeo-8J-3rG" id="uet-J1-s5c"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UgG-cQ-JNN" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -668,6 +691,7 @@ ANYWAY מציגה על גבי מפה תאונות דרכים עם נפגעים (
                     <size key="freeformSize" width="320" height="825"/>
                     <connections>
                         <outlet property="infoLabelText" destination="SQC-Jd-2iJ" id="rWe-YS-yMy"/>
+                        <outlet property="langButton" destination="zZc-95-OkH" id="iTM-wb-1Ek"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DRw-dw-qd2" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -935,24 +959,6 @@ ANYWAY מציגה על גבי מפה תאונות דרכים עם נפגעים (
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Vgu-yr-cTy" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-2706" y="1635"/>
-        </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="iZY-TG-fpY">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="lfJ-fK-NRQ" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="4uS-Ow-bwS">
-                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="GQG-KH-GPO" kind="relationship" relationship="rootViewController" id="QEP-SL-dey"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="CWX-0w-MQ3" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-927" y="1774"/>
         </scene>
     </scenes>
     <resources>
