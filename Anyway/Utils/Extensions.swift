@@ -47,3 +47,18 @@ extension CGSize {
         height = side
     }
 }
+
+extension UIView{
+    func elevate(elevation: Double) {
+        self.layer.masksToBounds = false
+        self.layer.shadowColor = UIColor.black.cgColor //Color().black.CGColor
+        self.layer.shadowOffset = CGSize(width: 0, height: elevation)
+
+        if elevation >= 0.0 {
+            self.layer.shadowRadius = CGFloat(elevation)
+        } else {
+            self.layer.shadowRadius = -CGFloat(elevation)
+        }
+        self.layer.shadowOpacity = 0.24
+    }
+}

@@ -9,6 +9,7 @@
 import UIKit
 import GoogleMaps
 import SnapKit
+import MaterialComponents.MaterialButtons
 
 class MainViewController: UIViewController {
 
@@ -28,22 +29,23 @@ class MainViewController: UIViewController {
     private var gradientColors = [UIColor.green, UIColor.red]
     private var gradientStartPoints = [0.02, 0.09] as [NSNumber]
     private var heatmapLayer: GMUHeatmapTileLayer!
-    private var keyboardObserver: KeyboardObserver = KeyboardObserver()
+    //private var keyboardObserver: KeyboardObserver = KeyboardObserver()
     private var textView = UITextView()
     private var snackbarView = SnackBarView()
 
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        //self.navigationController?.isNavigationBarHidden = true
         self.setupMapView()
         self.initLocationManager()
-        mapView.settings.compassButton = true
         self.nextBarButton.isEnabled = false
         setupHUD()
         mapView.animate(toZoom: ZOOM)
         addKeyboardObservers()
         addTapGesture()
         addHeatMapLayer()
+        restartMainViewState()
      }
 
     private func initLocationManager() {
@@ -56,11 +58,45 @@ class MainViewController: UIViewController {
         mapView.isTrafficEnabled   = false
         mapView.isHidden           = false
         mapView.delegate           = self
+        mapView.isMyLocationEnabled = true
+        mapView.settings.myLocationButton = true
+        mapView.settings.compassButton = true
+        setupHelpButton()
+        nextBarButton.title = "CONTINUE".localized
+    }
+
+    fileprivate func setupHelpButton() {
+        let helpButton = MDCFloatingButton(frame: CGRect(x: 330, y: 150, width: 26, height: 26))
+        helpButton.setImage(#imageLiteral(resourceName: "information"), for: .normal)
+        helpButton.setElevation(ShadowElevation(rawValue: 8), for: .normal)
+        helpButton.setElevation(ShadowElevation(rawValue: 12), for: .highlighted)
+        helpButton.addTarget(self, action: #selector(handleHelpTap), for: .touchUpInside)
+        self.view.addSubview(helpButton)
+    }
+
+    @objc func handleHelpTap(_ sender: UIButton) {
+        print("Help button tapped")
+        let viewController:UIViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "InfoViewController") as UIViewController
+        self.present(viewController, animated: false, completion: nil)
     }
 
     private func addKeyboardObservers() {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+
+    @objc func keyboardWillShow(notification: NSNotification) {
+        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
+            if self.view.frame.origin.y == 0 {
+                self.view.frame.origin.y -= keyboardSize.height
+            }
+        }
+    }
+
+    @objc func keyboardWillHide(notification: NSNotification) {
+        if self.view.frame.origin.y != 0 {
+            self.view.frame.origin.y = 0
+        }
     }
 
     private func addTapGesture() {
@@ -76,20 +112,6 @@ class MainViewController: UIViewController {
     @objc func hideKeyboard() {
         view.endEditing(true)
         self.textView.endEditing(true)
-    }
-
-    @objc func keyboardWillShow(notification: NSNotification) {
-        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
-            if self.view.frame.origin.y == 0 {
-                self.view.frame.origin.y -= keyboardSize.height
-            }
-        }
-    }
-
-    @objc func keyboardWillHide(notification: NSNotification) {
-        if self.view.frame.origin.y != 0 {
-            self.view.frame.origin.y = 0
-        }
     }
 
     fileprivate func addHeatMapLayer() {
@@ -142,8 +164,8 @@ class MainViewController: UIViewController {
         }
     }
 
-    fileprivate func restartMainViewState() {
-        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(200)) {
+    fileprivate func restartMainViewState(_ after: Int = 0) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(after)) {
             self.pickCount = 0
             self.mapView.clear()
             self.pickTitle.text = "CHOOSE_A_PLACE".localized
@@ -153,13 +175,13 @@ class MainViewController: UIViewController {
     @objc func cancelButtonClicked() {
         print("cancel Button Clicked")
         snackbarView.hideSnackBar()
-        restartMainViewState()
+        restartMainViewState(200)
     }
     @objc func sendButtonClicked() {
         print("send Button Clicked")
         snackbarView.hideSnackBar()
         self.pickTitle.text = "SENDING_ANSWERS".localized
-        restartMainViewState()
+        restartMainViewState(1500)
     }
 
     private func displayFirstQuestionnaire() {
@@ -175,7 +197,7 @@ class MainViewController: UIViewController {
         snackView.addSubview(self.textView)
         let continueButton = UIButton(frame: CGRect(x: 173, y: 120, width: 60, height: 35))
         continueButton.tintColor = UIColor.black
-        continueButton.setTitle("CONTINUE".localized, for: UIControl.State.normal)
+        continueButton.setTitle("CONT".localized, for: UIControl.State.normal)
         continueButton.setTitleColor(UIColor.white, for: UIControl.State.normal)
         continueButton.backgroundColor = UIColor.lightGray
         continueButton.cornerRadius = 4
@@ -204,12 +226,8 @@ class MainViewController: UIViewController {
         let snackView = UIView( frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width - 20.0, height: 130))
         let label = UILabel.questionnaireLabel(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 50), text: "WISH_TO_SEND_ANSWERS".localized)
         snackView.addSubview(label)
-        let yesButton = UIButton.questionnaireButton(frame: CGRect(x: 150, y: 80, width: BUTTON_WIDTH, height: BUTTON_HEIGHT), title: "SEND".localized)
-        yesButton.addTarget(self, action:#selector(self.sendButtonClicked), for: .touchUpInside)
-        snackView.addSubview(yesButton)
-        let noButton = UIButton.questionnaireButton(frame: CGRect(x: 210, y: 80, width: BUTTON_WIDTH, height: BUTTON_HEIGHT), title: "CANCEL".localized)
-        noButton.addTarget(self, action:#selector(self.cancelButtonClicked), for: .touchUpInside)
-        snackView.addSubview(noButton)
+
+        self.addYesNoButtons(toView:snackView, yesAction:#selector(self.sendButtonClicked), noAction:#selector(self.cancelButtonClicked) )
         snackbarView.showSnackBar(superView: self.view, bgColor: SNACK_BAR_BG_COLOR, snackbarView: snackView)
     }
 
@@ -354,7 +372,7 @@ extension MainViewController: GMSMapViewDelegate {
         marker.position = CLLocationCoordinate2D(latitude: coordinate.latitude, longitude: coordinate.longitude)
   
         self.pickCount += 1
-        self.pickTitle.text = "לחץ המשך"
+        self.pickTitle.text = "TAP_CONTINUE".localized
         marker.snippet = ""
         marker.map = self.mapView
         if self.pickCount == 1 {
@@ -375,8 +393,8 @@ extension MainViewController: CLLocationManagerDelegate {
         guard status == .authorizedWhenInUse else {
             return }
         locationManager.startUpdatingLocation()
-        mapView.isMyLocationEnabled = true
-        mapView.settings.myLocationButton = true
+//        mapView.isMyLocationEnabled = true
+//        mapView.settings.myLocationButton = true
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {

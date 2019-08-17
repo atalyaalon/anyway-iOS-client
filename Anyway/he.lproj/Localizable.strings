@@ -443,6 +443,7 @@
 "CHOOSE_A_PLACE" = "בחר מקום על המפה שאתה חושד בו כמסוכן";
 "SENDING_ANSWERS" = "שולח תשובות...";
 "CONTINUE" = "המשך";
+"CONT" = "המשך";
 "SEND" = "שלח";
 "CANCEL" = "בטל";
 "YES" = "כן";
@@ -450,3 +451,4 @@
 "SHORT_QUESTIONNAIRE" = "שאלון קצר";
 "PLACES_MAKRKED_WITH_HEATMAP" = "המקומות המסוכנים מוצגים בעזרת מפת חום. לחץ המשך";
 "LOADING" = "טוען נתונים...";
+"TAP_CONTINUE" = "לחץ המשך";

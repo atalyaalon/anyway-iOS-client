@@ -2,9 +2,10 @@
 //  KeyboardObserver.swift
 //  Figure8
 //
-//  Created by Artem Shelyuk on 11/22/16.
-//  Copyright © 2016 Filios inc. All rights reserved.
+//  Created by Yigal Omer on 15/08/2019.
+//  Copyright © 2019 Hasadna. All rights reserved.
 //
+
 
 import Foundation
 import UIKit

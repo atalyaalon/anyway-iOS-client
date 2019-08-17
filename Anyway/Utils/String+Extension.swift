@@ -2,8 +2,8 @@
 //  String+Extension.swift
 //  SwiftyPickerPopover
 //
-//  Created by Y.T. Hoshino on 2017/07/24.
-//  Copyright © 2017年 Yuta Hoshino. All rights reserved.
+//  Created by Yigal Omer on 15/08/2019.
+//  Copyright © 2019 Hasadna. All rights reserved.
 //
 
 import Foundation

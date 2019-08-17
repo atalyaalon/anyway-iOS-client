@@ -451,18 +451,19 @@
 "ACC_ID" = "Serial Number";
 "PROVIDER_CODE" = "Provider Type";
 
-"SIGNS_ARE_CLEAR" = "האם הסימונים על הכביש ברורים?";
-"PROBLEM_WITH_SIGN" = "האם קיימת בעייה בתמרור?";
-"WISH_TO_SEND_ANSWERS" = "מעוניין לשלוח אלינו תשובות?" ;
-"WHY_DID_YOU_SUSPECT_THIS_PLACE" = "מדוע חשדת שמקום זה מסוכן?";
-"CHOOSE_A_PLACE" = "בחר מקום על המפה שאתה חושד בו כמסוכן";
-"SENDING_ANSWERS" = "שולח תשובות...";
-"CONTINUE" = "המשך";
-"SEND" = "שלח";
-"CANCEL" = "בטל";
-"YES" = "כן";
-"NO" = "לא";
-"SHORT_QUESTIONNAIRE" = "שאלון קצר";
-"PLACES_MAKRKED_WITH_HEATMAP" = "המקומות המסוכנים מוצגים בעזרת מפת חום. לחץ המשך";
-"LOADING" = "טוען נתונים...";
-
+"SIGNS_ARE_CLEAR" = "Are the signs clear?";
+"PROBLEM_WITH_SIGN" = "Is there a problem with the sign?";
+"WISH_TO_SEND_ANSWERS" = "Would you like to send us your answers?" ;
+"WHY_DID_YOU_SUSPECT_THIS_PLACE" = "Why did you suspect this place?";
+"CHOOSE_A_PLACE" = "Select a place on the map which you think is dangerous";
+"SENDING_ANSWERS" = "Sending answers...";
+"CONTINUE" = "Continue";
+"CONT" = "Cont";
+"SEND" = "Send";
+"CANCEL" = "Cancel";
+"YES" = "Yes";
+"NO" = "No";
+"SHORT_QUESTIONNAIRE" = "Questionnaire";
+"PLACES_MAKRKED_WITH_HEATMAP" = "Dangerous places are displayed with heat-map";
+"LOADING" = "Loading...";
+"TAP_CONTINUE" = "Tap continue";

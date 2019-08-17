@@ -8,10 +8,12 @@
 
 import UIKit
 import GoogleMaps
-//@UIApplicationMain
+
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
+    //public let GOOGLE_PLACES_API_KEY: String = "AIzaSyASfw9p93gn1kEfp6uQdWjYVmX6tJVQVPQ"
+    private let GOOGLE_MAPS_API_KEY: String = "AIzaSyASfw9p93gn1kEfp6uQdWjYVmX6tJVQVPQ"
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
@@ -21,8 +23,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return true
     }
 
-    //public let GOOGLE_PLACES_API_KEY: String = "AIzaSyASfw9p93gn1kEfp6uQdWjYVmX6tJVQVPQ"
-    public let GOOGLE_MAPS_API_KEY: String = "AIzaSyASfw9p93gn1kEfp6uQdWjYVmX6tJVQVPQ"
 
     private func setupGoogleServices() {
         //GMSPlacesClient.provideAPIKey(Config.sharedInstance.GOOGLE_PLACES_API_KEY)

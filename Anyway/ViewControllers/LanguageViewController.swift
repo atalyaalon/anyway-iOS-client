@@ -11,6 +11,10 @@ import UIKit
 class LanguageViewController: UIViewController {
 
     static let segueFromSplit = "choose language segue"
+
+    @IBAction func closeTapped(_ sender: Any) {
+        dismiss(animated: true) { }
+    }
     
     @IBAction func actionLanguage(_ sender: UIButton) {
         defer{
