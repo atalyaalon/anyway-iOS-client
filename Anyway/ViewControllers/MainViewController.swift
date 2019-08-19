@@ -22,19 +22,20 @@ enum MainVCState: Int {
 
 class MainViewController: UIViewController {
 
+    private static let ZOOM: Float = 16
+    private static let YES_NO_BUTTON_WIDTH = 50
+    private static let YES_NO_BUTTON_HEIGHT = 40
+    private static let SNACK_BAR_BG_COLOR = UIColor.purple
+
     @IBOutlet weak var nextButton2: MDCFloatingButton!
     @IBOutlet weak var nextButton: MDCFloatingButton!
     @IBOutlet weak var addressLabel: UILabel!
     @IBOutlet var mapView: GMSMapView!
     @IBOutlet weak var pickTitle: UITextView!
-    private var locationManager = CLLocationManager()
-    private let ZOOM: Float = 16
-    private let BUTTON_WIDTH = 50
-    private let BUTTON_HEIGHT = 40
-    private let SNACK_BAR_BG_COLOR = UIColor.purple
     private let network = Network()
-    private var hud = JGProgressHUD(style: .light)
+    private let hud = JGProgressHUD(style: .light)
     private var filter = Filter()
+    private var locationManager = CLLocationManager()
     private var gradientColors = [UIColor.green, UIColor.red]
     private var gradientStartPoints = [0.02, 0.09] as [NSNumber]
     private var heatmapLayer: GMUHeatmapTileLayer!
@@ -54,7 +55,7 @@ class MainViewController: UIViewController {
         self.initLocationManager()
         setupTitle()
         setupHUD()
-        mapView.animate(toZoom: ZOOM)
+        mapView.animate(toZoom: MainViewController.ZOOM)
         addKeyboardObservers()
         addTapGesture()
         addHeatMapLayer()
@@ -110,20 +111,10 @@ class MainViewController: UIViewController {
     }
 
     @IBAction func nextButtonPressed(_ sender: Any) {
-
-        DispatchQueue.main.async { [weak self]  in
-            guard let self = self else { return }
-            if self.currentState == .placePicked {
-                self.disableFilterAndHelpButtons()
-                self.setTitleWithoutContinue()
-                self.updateInfoIfPossible(filterChanged:false)
-            }
-//            else if self.currentState == .MarkersReceived {
-//                self.setTitleWithoutContinue()
-//                self.pickTitle.text = "SHORT_QUESTIONNAIRE".localized
-//                self.snackbarView = SnackBarView()
-//                self.displayFirstQuestionnaire()
-//            }
+        if self.currentState == .placePicked {
+            self.disableFilterAndHelpButtons()
+            self.setTitleWithoutContinue()
+            self.updateInfoIfPossible(filterChanged:false)
         }
     }
 
@@ -134,11 +125,13 @@ class MainViewController: UIViewController {
         self.displayFirstQuestionnaire()
     }
     fileprivate func setupHelpButton() {
-        helpButton = MDCFloatingButton(frame: CGRect(x: 330, y: 125, width: 26, height: 26))
+        helpButton = MDCFloatingButton(frame: CGRect(x: 370, y: 125, width: 26, height: 26))
         helpButton.setImage(#imageLiteral(resourceName: "information"), for: .normal)
-        helpButton.backgroundColor = UIColor.clear
-        helpButton.setElevation(ShadowElevation(rawValue: 8), for: .normal)
+        helpButton.backgroundColor = UIColor.white
+        helpButton.setElevation(ShadowElevation(rawValue: 12), for: .normal)
         helpButton.setElevation(ShadowElevation(rawValue: 12), for: .highlighted)
+        helpButton.borderWidth = 4
+        helpButton.borderColor = UIColor.black
         helpButton.addTarget(self, action: #selector(handleHelpTap), for: .touchUpInside)
         self.view.addSubview(helpButton)
     }
@@ -150,11 +143,11 @@ class MainViewController: UIViewController {
     }
 
     fileprivate func setupFilterButton() {
-        filterButton = MDCFloatingButton(frame: CGRect(x: 30, y: 125, width: 21, height: 21))
+        filterButton = MDCFloatingButton(frame: CGRect(x: 30, y: 125, width: 23, height: 23))
         //let filterButton = UIButton(frame: CGRect(x: 30, y: 150, width: 26, height: 26))
         filterButton.setImage(#imageLiteral(resourceName: "filter_add"), for: .normal)
-        filterButton.backgroundColor = UIColor.clear
-        filterButton.setElevation(ShadowElevation(rawValue: 8), for: .normal)
+        filterButton.backgroundColor = UIColor.white
+        filterButton.setElevation(ShadowElevation(rawValue: 12), for: .normal)
         filterButton.setElevation(ShadowElevation(rawValue: 12), for: .highlighted)
         filterButton.addTarget(self, action: #selector(handleFilterTap), for: .touchUpInside)
         self.view.addSubview(filterButton)
@@ -313,7 +306,7 @@ class MainViewController: UIViewController {
     private func configAlertTextField(placeHoler: String, keyboardType: UIKeyboardType ) -> TextField.Config {
 
         let textFieldResult: TextField.Config = { textField in
-            textField.left(image: #imageLiteral(resourceName: "user"), color: UIColor(hex: 0x007AFF))
+            //textField.left(image: #imageLiteral(resourceName: "user"), color: UIColor(hex: 0x007AFF))
             textField.leftViewPadding = 16
             textField.leftTextPadding = 12
             textField.borderWidth = 1
@@ -352,7 +345,7 @@ class MainViewController: UIViewController {
         continueButton.cornerRadius = 4
         continueButton.addTarget(self, action:#selector(self.continueButtonClicked), for: .touchUpInside)
         snackView.addSubview(continueButton)
-        snackbarView.showSnackBar(superView: self.view, bgColor: SNACK_BAR_BG_COLOR, snackbarView: snackView)
+        snackbarView.showSnackBar(superView: self.view, bgColor: MainViewController.SNACK_BAR_BG_COLOR, snackbarView: snackView)
     }
 
     private func displaySecondQuestionnaire() {
@@ -360,7 +353,7 @@ class MainViewController: UIViewController {
         let label = UILabel.questionnaireLabel(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 50), text: "SIGNS_ARE_CLEAR".localized)
         snackView.addSubview(label)
        self.addYesNoButtons(toView:snackView, yesAction:#selector(self.yesButtonClicked), noAction:#selector(self.noButtonClicked) )
-        snackbarView.showSnackBar(superView: self.view, bgColor: SNACK_BAR_BG_COLOR, snackbarView: snackView)
+        snackbarView.showSnackBar(superView: self.view, bgColor: MainViewController.SNACK_BAR_BG_COLOR, snackbarView: snackView)
     }
 
     private func displayThirdQuestionnaire() {
@@ -368,7 +361,7 @@ class MainViewController: UIViewController {
         let label = UILabel.questionnaireLabel(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 50), text: "PROBLEM_WITH_SIGN".localized)
         snackView.addSubview(label)
         self.addYesNoButtons(toView:snackView, yesAction:#selector(self.yesButtonClickedLast), noAction:#selector(self.noButtonClickedLast) )
-        snackbarView.showSnackBar(superView: self.view, bgColor: SNACK_BAR_BG_COLOR, snackbarView: snackView)
+        snackbarView.showSnackBar(superView: self.view, bgColor: MainViewController.SNACK_BAR_BG_COLOR, snackbarView: snackView)
     }
 
     private func displayForthQuestionnaire() {
@@ -377,16 +370,16 @@ class MainViewController: UIViewController {
         snackView.addSubview(label)
 
         self.addYesNoButtons(toView:snackView, yesAction:#selector(self.sendButtonClicked), noAction:#selector(self.cancelButtonClicked) )
-        snackbarView.showSnackBar(superView: self.view, bgColor: SNACK_BAR_BG_COLOR, snackbarView: snackView)
+        snackbarView.showSnackBar(superView: self.view, bgColor: MainViewController.SNACK_BAR_BG_COLOR, snackbarView: snackView)
     }
 
     private func addYesNoButtons(toView: UIView, yesAction: Selector, noAction: Selector) {
 
-        let yesButton = UIButton.questionnaireButton(frame: CGRect(x: 150, y: 80, width: BUTTON_WIDTH, height: BUTTON_HEIGHT), title: "YES".localized)
+        let yesButton = UIButton.questionnaireButton(frame: CGRect(x: 150, y: 80, width: MainViewController.YES_NO_BUTTON_WIDTH, height: MainViewController.YES_NO_BUTTON_HEIGHT), title: "YES".localized)
         yesButton.addTarget(self, action:yesAction, for: .touchUpInside)
         toView.addSubview(yesButton)
 
-        let noButton = UIButton.questionnaireButton(frame: CGRect(x: 210, y: 80, width: BUTTON_WIDTH, height: BUTTON_HEIGHT), title: "NO".localized)
+        let noButton = UIButton.questionnaireButton(frame: CGRect(x: 210, y: 80, width: MainViewController.YES_NO_BUTTON_WIDTH, height: MainViewController.YES_NO_BUTTON_HEIGHT), title: "NO".localized)
         noButton.addTarget(self, action:noAction, for: .touchUpInside)
         toView.addSubview(noButton)
     }
@@ -515,7 +508,7 @@ extension MainViewController: GMSMapViewDelegate {
     }
     func cameraMoveToLocation(toLocation: CLLocationCoordinate2D?) {
         if toLocation != nil {
-            self.mapView.camera = GMSCameraPosition.camera(withTarget: toLocation!, zoom: ZOOM)
+            self.mapView.camera = GMSCameraPosition.camera(withTarget: toLocation!, zoom: MainViewController.ZOOM)
         }
     }
 
@@ -546,7 +539,7 @@ extension MainViewController: CLLocationManagerDelegate {
         guard let location = locations.first else {
             return
         }
-        mapView.camera = GMSCameraPosition(target: location.coordinate, zoom: ZOOM, bearing: 0, viewingAngle: 0)
+        mapView.camera = GMSCameraPosition(target: location.coordinate, zoom: MainViewController.ZOOM, bearing: 0, viewingAngle: 0)
         locationManager.stopUpdatingLocation()
         //fetchNearbyPlaces(coordinate: location.coordinate)
     }
