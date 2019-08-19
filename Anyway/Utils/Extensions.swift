@@ -9,14 +9,14 @@
 import Foundation
 
 
-extension UIButton {
-    @IBInspectable var borderWidth: CGFloat {
-        get { return layer.borderWidth }
-        set { layer.borderWidth = newValue
-            layer.borderColor = titleLabel?.textColor.cgColor ?? layer.borderColor
-        }
-    }
-}
+//extension UIButton {
+//    @IBInspectable var borderWidth: CGFloat {
+//        get { return layer.borderWidth }
+//        set { layer.borderWidth = newValue
+//            layer.borderColor = titleLabel?.textColor.cgColor ?? layer.borderColor
+//        }
+//    }
+//}
 
 extension CLLocationCoordinate2D {
     var humanDescription: String {

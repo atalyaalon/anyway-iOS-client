@@ -1,6 +1,6 @@
 //
 //  String+Extension.swift
-//  SwiftyPickerPopover
+//  Anyway
 //
 //  Created by Yigal Omer on 15/08/2019.
 //  Copyright © 2019 Hasadna. All rights reserved.

@@ -136,4 +136,14 @@ extension UIColor {
         }
         self.init(red: CGFloat(red) / 255, green: CGFloat(green) / 255, blue: CGFloat(blue) / 255, alpha: CGFloat(alpha) / 255)
     }
+
+    convenience init(hex: Int) {
+        self.init(hex: hex, alpha: 1.0)
+    }
+    convenience init(hex: Int, alpha: CGFloat) {
+        let r = CGFloat((hex & 0xFF0000) >> 16)/255
+        let g = CGFloat((hex & 0xFF00) >> 8)/255
+        let b = CGFloat(hex & 0xFF)/255
+        self.init(red: r, green: g, blue: b, alpha: alpha)
+    }
 }

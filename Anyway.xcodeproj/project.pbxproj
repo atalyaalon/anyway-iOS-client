@@ -69,6 +69,11 @@
 		9F0EE96F22F861A400D53D4D /* UIButton+Anyway.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F0EE96E22F861A400D53D4D /* UIButton+Anyway.swift */; };
 		9F0EE97122F8699A00D53D4D /* UILabel+Anyway.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F0EE97022F8699A00D53D4D /* UILabel+Anyway.swift */; };
 		9F0EE9732306DDA300D53D4D /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F0EE9722306DDA200D53D4D /* String+Extension.swift */; };
+		9F0EE9752308C92F00D53D4D /* TextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F0EE9742308C92400D53D4D /* TextField.swift */; };
+		9F0EE9772308CA3300D53D4D /* UITextField+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F0EE9762308CA3300D53D4D /* UITextField+Extensions.swift */; };
+		9F0EE9792308CB4C00D53D4D /* UIView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F0EE9782308CB4C00D53D4D /* UIView+Extensions.swift */; };
+		9F0EE97B2308D16500D53D4D /* UIAlertController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F0EE97A2308D16500D53D4D /* UIAlertController+Extensions.swift */; };
+		9F0EE97D2308D34900D53D4D /* TwoTextFieldsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F0EE97C2308D34900D53D4D /* TwoTextFieldsViewController.swift */; };
 		9F2076E1229254540034EABF /* Ben Avigdor.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 9F2076E0229254540034EABF /* Ben Avigdor.gpx */; };
 		9FE0A91B2299098000E7E76A /* GMUWeightedLatLng.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FE0A8D32299098000E7E76A /* GMUWeightedLatLng.m */; };
 		9FE0A91C2299098000E7E76A /* GMUGradient.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FE0A8D62299098000E7E76A /* GMUGradient.m */; };
@@ -195,6 +200,11 @@
 		9F0EE96E22F861A400D53D4D /* UIButton+Anyway.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Anyway.swift"; sourceTree = "<group>"; };
 		9F0EE97022F8699A00D53D4D /* UILabel+Anyway.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+Anyway.swift"; sourceTree = "<group>"; };
 		9F0EE9722306DDA200D53D4D /* String+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
+		9F0EE9742308C92400D53D4D /* TextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextField.swift; sourceTree = "<group>"; };
+		9F0EE9762308CA3300D53D4D /* UITextField+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITextField+Extensions.swift"; sourceTree = "<group>"; };
+		9F0EE9782308CB4C00D53D4D /* UIView+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Extensions.swift"; sourceTree = "<group>"; };
+		9F0EE97A2308D16500D53D4D /* UIAlertController+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIAlertController+Extensions.swift"; sourceTree = "<group>"; };
+		9F0EE97C2308D34900D53D4D /* TwoTextFieldsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TwoTextFieldsViewController.swift; sourceTree = "<group>"; };
 		9F2076E0229254540034EABF /* Ben Avigdor.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "Ben Avigdor.gpx"; sourceTree = "<group>"; };
 		9FE0A8D22299098000E7E76A /* GMUGradient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GMUGradient.h; sourceTree = "<group>"; };
 		9FE0A8D32299098000E7E76A /* GMUWeightedLatLng.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GMUWeightedLatLng.m; sourceTree = "<group>"; };
@@ -488,6 +498,11 @@
 				9F0EE96E22F861A400D53D4D /* UIButton+Anyway.swift */,
 				9F0EE97022F8699A00D53D4D /* UILabel+Anyway.swift */,
 				30DAA0971AC1F95D001F67D2 /* Extensions.swift */,
+				9F0EE9762308CA3300D53D4D /* UITextField+Extensions.swift */,
+				9F0EE9742308C92400D53D4D /* TextField.swift */,
+				9F0EE9782308CB4C00D53D4D /* UIView+Extensions.swift */,
+				9F0EE97A2308D16500D53D4D /* UIAlertController+Extensions.swift */,
+				9F0EE97C2308D34900D53D4D /* TwoTextFieldsViewController.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -843,6 +858,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9F0EE97B2308D16500D53D4D /* UIAlertController+Extensions.swift in Sources */,
 				9FE0A9232299098000E7E76A /* GMUStyleMap.m in Sources */,
 				9F0EE97122F8699A00D53D4D /* UILabel+Anyway.swift in Sources */,
 				9FE0A9292299098000E7E76A /* GMULineString.m in Sources */,
@@ -864,6 +880,7 @@
 				9F0EE8F922F71C1400D53D4D /* OCAlgorithms.m in Sources */,
 				9FE0A92D2299098000E7E76A /* GMUClusterManager.m in Sources */,
 				9F0EE8AA22F715B900D53D4D /* ViewController+FilterScreen.swift in Sources */,
+				9F0EE9752308C92F00D53D4D /* TextField.swift in Sources */,
 				9FE0A9202299098000E7E76A /* GMUGeometryCollection.m in Sources */,
 				9FE0A9302299098000E7E76A /* GMUSimpleClusterAlgorithm.m in Sources */,
 				30BE3E321B7918C90092CEAB /* Constants.swift in Sources */,
@@ -884,6 +901,7 @@
 				9F0EE8BF22F718F300D53D4D /* FilterCellTableViewCell.swift in Sources */,
 				9F0EE8C722F7196F00D53D4D /* Location.swift in Sources */,
 				9F0EE8A922F715B900D53D4D /* ViewController+LocationServices.swift in Sources */,
+				9F0EE9792308CB4C00D53D4D /* UIView+Extensions.swift in Sources */,
 				9FE0A92B2299098000E7E76A /* GQTPointQuadTree.m in Sources */,
 				9F0EE90322F71C1400D53D4D /* JGProgressHUDIndicatorView.m in Sources */,
 				9F0EE8B322F7164600D53D4D /* LanguageViewController.swift in Sources */,
@@ -913,10 +931,12 @@
 				9F0EE8FA22F71C1400D53D4D /* OCMapView.m in Sources */,
 				9F0EE8B222F7164600D53D4D /* HistoryViewController.swift in Sources */,
 				30DAA0981AC1F95D001F67D2 /* Extensions.swift in Sources */,
+				9F0EE97D2308D34900D53D4D /* TwoTextFieldsViewController.swift in Sources */,
 				9FE0A92C2299098000E7E76A /* GQTPointQuadTreeChild.m in Sources */,
 				9FE0A92F2299098000E7E76A /* GMUWrappingDictionaryKey.m in Sources */,
 				9F0EE8C922F7196F00D53D4D /* Vehicle.swift in Sources */,
 				9F0EE9732306DDA300D53D4D /* String+Extension.swift in Sources */,
+				9F0EE9772308CA3300D53D4D /* UITextField+Extensions.swift in Sources */,
 				9F0EE8D222F719E500D53D4D /* Filter.swift in Sources */,
 				9F0EE90722F71C1400D53D4D /* JGProgressHUDPieIndicatorView.m in Sources */,
 				9F0EE8FD22F71C1400D53D4D /* JGProgressHUDIndeterminateIndicatorView.m in Sources */,

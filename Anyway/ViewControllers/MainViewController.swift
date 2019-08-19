@@ -68,7 +68,7 @@ class MainViewController: UIViewController {
 
         // keep reference to  frames
         pickTitleFrameWithoutContinue = pickTitle.frame
-        pickTitleFrameWithContinue = CGRect(x: 0, y: 0, width: pickTitle.frame.width, height: pickTitle.frame.height * 2)
+        pickTitleFrameWithContinue = CGRect(x: 0, y: 0, width: pickTitle.frame.width, height: pickTitle.frame.height * 2 + 10)
         //nextButton.applyOutlinedTheme(withScheme: containerScheme)
 
         setTitleWithoutContinue()
@@ -232,13 +232,71 @@ class MainViewController: UIViewController {
         snackbarView.hideSnackBar()
         restartMainViewState(200)
     }
+
+
+
     @objc func sendButtonClicked() {
         print("send Button Clicked")
         snackbarView.hideSnackBar()
         self.pickTitle.text = "SENDING_ANSWERS".localized
-        restartMainViewState(1500)
+
+        displayMunicipalityForm()
     }
 
+    fileprivate func displayMunicipalityForm() {
+        let alertStyle: UIAlertController.Style = .actionSheet
+        //let alert = UIAlertController(style: alertStyle, title: "טופס רשויות", message: "שליחת תשובות לרשויות")
+        let alert = UIAlertController(style: alertStyle)
+
+        let textFieldOne: TextField.Config = configAlertTextField(placeHoler: "FIRST_NAME".localized, keyboardType: .default )
+
+        let textFieldTwo: TextField.Config = configAlertTextField(placeHoler: "LAST_NAME".localized, keyboardType: .default )
+
+        let textFieldThree: TextField.Config = configAlertTextField(placeHoler: "ID_NUMBER".localized, keyboardType: .phonePad )
+
+        let textFieldFour: TextField.Config = configAlertTextField(placeHoler: "EMAIL".localized, keyboardType: .emailAddress )
+
+        let textFieldFive: TextField.Config = configAlertTextField(placeHoler: "PHONE_NUMBER".localized, keyboardType: .phonePad )
+
+        alert.addFiveTextFields(
+            height: alertStyle == .alert ? 50 : 65,
+            hInset: alertStyle == .alert ? 12 : 0,
+            vInset: alertStyle == .alert ? 12 : 0,
+            textFieldOne: textFieldOne,
+            textFieldTwo: textFieldTwo,
+            textFieldThree: textFieldThree,
+            textFieldFour: textFieldFour,
+            textFieldFive: textFieldFive)
+
+        alert.addAction(title: "SEND_TO_AUTH".localized, style: .cancel) { [weak self] action in
+            self?.restartMainViewState(1000)
+        }
+        alert.show()
+    }
+
+    private func configAlertTextField(placeHoler: String, keyboardType: UIKeyboardType ) -> TextField.Config {
+
+        let textFieldResult: TextField.Config = { textField in
+            textField.left(image: #imageLiteral(resourceName: "user"), color: UIColor(hex: 0x007AFF))
+            textField.leftViewPadding = 16
+            textField.leftTextPadding = 12
+            textField.borderWidth = 1
+            textField.borderColor = UIColor.lightGray.withAlphaComponent(0.5)
+            textField.backgroundColor = nil
+            textField.textColor = .black
+            textField.placeholder = placeHoler
+            textField.clearsOnBeginEditing = true
+            textField.autocapitalizationType = .none
+            textField.keyboardAppearance = .default
+            textField.keyboardType = keyboardType
+            //textField.isSecureTextEntry = true
+            textField.returnKeyType = .done
+            textField.action { textField in
+                print("textField = \(String(describing: textField.text))")
+            }
+        }
+        return textFieldResult
+    }
     private func displayFirstQuestionnaire() {
         let snackView = UIView( frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width - 20.0, height: 170))
 
