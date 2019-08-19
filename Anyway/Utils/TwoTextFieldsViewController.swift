@@ -1,3 +1,11 @@
+//
+//  TwoTextFieldsViewController.swift
+//  Anyway
+//
+//  Created by Yigal Omer on 15/05/2019.
+//  Copyright © 2019 Hasadna. All rights reserved.
+//
+
 import UIKit
 
 extension UIAlertController {
@@ -10,7 +18,6 @@ extension UIAlertController {
     ///   - vInset: bottom margin to button
     ///   - textFieldOne: first textField
     ///   - textFieldTwo: second textField
-    
     func addTwoTextFields(height: CGFloat = 58, hInset: CGFloat = 0, vInset: CGFloat = 0, textFieldOne: TextField.Config?, textFieldTwo: TextField.Config?) {
         let textField = TwoTextFieldsViewController(height: height, hInset: hInset, vInset: vInset, textFieldOne: textFieldOne, textFieldTwo: textFieldTwo)
         set(vc: textField, height: height * 2 + 2 * vInset)
@@ -67,8 +74,6 @@ final class TwoTextFieldsViewController: UIViewController {
         
         configurationOneFor?(textFieldOne)
         configurationTwoFor?(textFieldTwo)
-        
-        //preferredContentSize.height = height * 2 + vInset
     }
 
     init(height: CGFloat,
@@ -105,7 +110,6 @@ final class TwoTextFieldsViewController: UIViewController {
         configurationFourFor?(textFieldFour)
         configurationFiveFor?(textFieldFive)
 
-        //preferredContentSize.height = height * 2 + vInset
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -120,38 +124,6 @@ final class TwoTextFieldsViewController: UIViewController {
         super.viewDidLoad()
 
     }
-
-     func viewDidLayoutSubviews1() {
-        super.viewDidLayoutSubviews()
-
-        textFieldView.width = view.width - hInset * 2
-        textFieldView.height = height * 2
-        textFieldView.center.x = view.center.x
-        textFieldView.center.y = view.center.y
-
-//        textFieldOne.width = textFieldView.width
-//        textFieldOne.height = textFieldView.height / 2
-//        textFieldOne.center.x = textFieldView.width / 2
-//        textFieldOne.center.y = textFieldView.height / 4
-//
-//        textFieldTwo.width = textFieldView.width
-//        textFieldTwo.height = textFieldView.height / 2
-//        textFieldTwo.center.x = textFieldView.width / 2
-//        textFieldTwo.center.y = textFieldView.height - textFieldView.height / 4
-
-
-        textFieldOne.width = textFieldView.width
-        textFieldOne.height = height
-        textFieldOne.center.x = textFieldView.width / 2
-        textFieldOne.center.y = height / 2
-
-        textFieldTwo.width = textFieldView.width
-        textFieldTwo.height = textFieldView.height / 2
-        textFieldTwo.center.x = textFieldView.width / 2
-        textFieldTwo.center.y = textFieldOne.height + height / 2
-
-    }
-
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
 
@@ -169,7 +141,6 @@ final class TwoTextFieldsViewController: UIViewController {
         textFieldTwo.height = height
         textFieldTwo.center.x = textFieldView.width / 2
         textFieldTwo.center.y = height + height / 2
-
 
         textFieldThree.width = textFieldView.width
         textFieldThree.height = height

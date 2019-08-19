@@ -12,29 +12,39 @@ import SnapKit
 import MaterialComponents.MaterialButtons
 //import MaterialComponents.MaterialButtons_Theming
 
+enum MainVCState: Int {
+    case start = 0
+    case placePicked = 1
+    case continueTappedAfterPlacePicked = 2
+    case loadingMarkers = 3
+    case MarkersReceived = 4
+}
+
 class MainViewController: UIViewController {
 
+    @IBOutlet weak var nextButton2: MDCFloatingButton!
     @IBOutlet weak var nextButton: MDCFloatingButton!
     @IBOutlet weak var addressLabel: UILabel!
     @IBOutlet var mapView: GMSMapView!
     @IBOutlet weak var pickTitle: UITextView!
-    var locationManager = CLLocationManager()
-    var pickCount:Int = 0
+    private var locationManager = CLLocationManager()
     private let ZOOM: Float = 16
     private let BUTTON_WIDTH = 50
     private let BUTTON_HEIGHT = 40
     private let SNACK_BAR_BG_COLOR = UIColor.purple
-    let network = Network()
-    var hud = JGProgressHUD(style: .light)
-    var filter = Filter()
+    private let network = Network()
+    private var hud = JGProgressHUD(style: .light)
+    private var filter = Filter()
     private var gradientColors = [UIColor.green, UIColor.red]
     private var gradientStartPoints = [0.02, 0.09] as [NSNumber]
     private var heatmapLayer: GMUHeatmapTileLayer!
-    //private var keyboardObserver: KeyboardObserver = KeyboardObserver()
     private var textView = UITextView()
     private var snackbarView = SnackBarView()
-    var pickTitleFrameWithContinue = CGRect(x: 0, y: 0, width: 0, height:0)
-    var pickTitleFrameWithoutContinue = CGRect(x: 0, y: 0, width: 0, height:0)
+    private var helpButton: MDCFloatingButton!
+    private var filterButton: MDCFloatingButton!
+    private var currentState:MainVCState = .start
+    private var pickTitleFrameWithContinue = CGRect(x: 0, y: 0, width: 0, height:0)
+    private var pickTitleFrameWithoutContinue = CGRect(x: 0, y: 0, width: 0, height:0)
 
 
     override func viewDidLoad() {
@@ -51,10 +61,6 @@ class MainViewController: UIViewController {
         restartMainViewState()
     }
 
-//    override func viewDidAppear(_ animated: Bool) {
-//        self.navigationController?.isNavigationBarHidden = true
-//    }
-
     private func initLocationManager() {
         locationManager.delegate = self
         locationManager.requestWhenInUseAuthorization()
@@ -63,25 +69,31 @@ class MainViewController: UIViewController {
     private func setupTitle() {
         nextButton.setTitle("CONTINUE".localized, for: UIControl.State.normal)
         nextButton.backgroundColor = UIColor.lightGray
+        nextButton.setTitleColor(UIColor.white, for: .normal)
         nextButton.setElevation(ShadowElevation(rawValue: 8), for: .normal)
         nextButton.setElevation(ShadowElevation(rawValue: 12), for: .highlighted)
 
-        // keep reference to  frames
+        nextButton2.setTitle("CONTINUE".localized, for: UIControl.State.normal)
+        nextButton2.backgroundColor = UIColor.lightGray
+        nextButton2.setTitleColor(UIColor.white, for: .normal)
+        nextButton2.setElevation(ShadowElevation(rawValue: 8), for: .normal)
+        nextButton2.setElevation(ShadowElevation(rawValue: 12), for: .highlighted)
+
         pickTitleFrameWithoutContinue = pickTitle.frame
         pickTitleFrameWithContinue = CGRect(x: 0, y: 0, width: pickTitle.frame.width, height: pickTitle.frame.height * 2 + 10)
         //nextButton.applyOutlinedTheme(withScheme: containerScheme)
-
         setTitleWithoutContinue()
     }
     private func setTitleWithContinue() {
         self.nextButton.isHidden = false
+        self.nextButton2.isHidden = false
         self.pickTitle.frame = pickTitleFrameWithContinue
-
         super.updateViewConstraints()
         view.setNeedsUpdateConstraints()
     }
     private func setTitleWithoutContinue() {
         self.nextButton.isHidden = true
+        self.nextButton2.isHidden = true
         self.pickTitle.frame = pickTitleFrameWithoutContinue
         super.updateViewConstraints()
         view.setNeedsUpdateConstraints()
@@ -97,8 +109,32 @@ class MainViewController: UIViewController {
         setupFilterButton()
     }
 
+    @IBAction func nextButtonPressed(_ sender: Any) {
+
+        DispatchQueue.main.async { [weak self]  in
+            guard let self = self else { return }
+            if self.currentState == .placePicked {
+                self.disableFilterAndHelpButtons()
+                self.setTitleWithoutContinue()
+                self.updateInfoIfPossible(filterChanged:false)
+            }
+//            else if self.currentState == .MarkersReceived {
+//                self.setTitleWithoutContinue()
+//                self.pickTitle.text = "SHORT_QUESTIONNAIRE".localized
+//                self.snackbarView = SnackBarView()
+//                self.displayFirstQuestionnaire()
+//            }
+        }
+    }
+
+    @IBAction func nextButon2Tapped(_ sender: Any) {
+        self.setTitleWithoutContinue()
+        self.pickTitle.text = "SHORT_QUESTIONNAIRE".localized
+        self.snackbarView = SnackBarView()
+        self.displayFirstQuestionnaire()
+    }
     fileprivate func setupHelpButton() {
-        let helpButton = MDCFloatingButton(frame: CGRect(x: 330, y: 125, width: 26, height: 26))
+        helpButton = MDCFloatingButton(frame: CGRect(x: 330, y: 125, width: 26, height: 26))
         helpButton.setImage(#imageLiteral(resourceName: "information"), for: .normal)
         helpButton.backgroundColor = UIColor.clear
         helpButton.setElevation(ShadowElevation(rawValue: 8), for: .normal)
@@ -114,23 +150,23 @@ class MainViewController: UIViewController {
     }
 
     fileprivate func setupFilterButton() {
-        let helpButton = MDCFloatingButton(frame: CGRect(x: 30, y: 125, width: 21, height: 21))
-        //let helpButton = UIButton(frame: CGRect(x: 30, y: 150, width: 26, height: 26))
-        helpButton.setImage(#imageLiteral(resourceName: "filter_add"), for: .normal)
-        helpButton.backgroundColor = UIColor.clear
-        helpButton.setElevation(ShadowElevation(rawValue: 8), for: .normal)
-        helpButton.setElevation(ShadowElevation(rawValue: 12), for: .highlighted)
-        helpButton.addTarget(self, action: #selector(handleFilterTap), for: .touchUpInside)
-        self.view.addSubview(helpButton)
+        filterButton = MDCFloatingButton(frame: CGRect(x: 30, y: 125, width: 21, height: 21))
+        //let filterButton = UIButton(frame: CGRect(x: 30, y: 150, width: 26, height: 26))
+        filterButton.setImage(#imageLiteral(resourceName: "filter_add"), for: .normal)
+        filterButton.backgroundColor = UIColor.clear
+        filterButton.setElevation(ShadowElevation(rawValue: 8), for: .normal)
+        filterButton.setElevation(ShadowElevation(rawValue: 12), for: .highlighted)
+        filterButton.addTarget(self, action: #selector(handleFilterTap), for: .touchUpInside)
+        self.view.addSubview(filterButton)
     }
 
     @objc func handleFilterTap(_ sender: UIButton) {
-        print("Help button tapped")
-        let viewController:FilterViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "FilterViewController") as UIViewController as! FilterViewController
-        viewController.filter = filter
-        viewController.delegate = self as FilterScreenDelegate
+        print("Filter button tapped")
+        let filterViewController:FilterViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "FilterViewController") as UIViewController as! FilterViewController
+        filterViewController.filter = filter
+        filterViewController.delegate = self as FilterScreenDelegate
 
-        self.navigationController!.pushViewController(viewController, animated: true)
+        self.navigationController!.pushViewController(filterViewController, animated: true)
         //self.present(viewController, animated: false, completion: nil)
     }
 
@@ -221,7 +257,8 @@ class MainViewController: UIViewController {
 
     fileprivate func restartMainViewState(_ after: Int = 0) {
         DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(after)) {
-            self.pickCount = 0
+            self.enableFilterAndHelpButtons()
+            self.currentState = .start
             self.mapView.clear()
             self.pickTitle.text = "CHOOSE_A_PLACE".localized
         }
@@ -238,8 +275,6 @@ class MainViewController: UIViewController {
     @objc func sendButtonClicked() {
         print("send Button Clicked")
         snackbarView.hideSnackBar()
-        self.pickTitle.text = "SENDING_ANSWERS".localized
-
         displayMunicipalityForm()
     }
 
@@ -269,6 +304,7 @@ class MainViewController: UIViewController {
             textFieldFive: textFieldFive)
 
         alert.addAction(title: "SEND_TO_AUTH".localized, style: .cancel) { [weak self] action in
+            self?.pickTitle.text = "SENDING_ANSWERS".localized
             self?.restartMainViewState(1000)
         }
         alert.show()
@@ -311,7 +347,7 @@ class MainViewController: UIViewController {
         let continueButton = UIButton(frame: CGRect(x: 173, y: 120, width: 60, height: 35))
         continueButton.tintColor = UIColor.black
         continueButton.setTitle("CONT".localized, for: UIControl.State.normal)
-        continueButton.setTitleColor(UIColor.white, for: UIControl.State.normal)
+        continueButton.setTitleColor(UIColor.white, for: .normal)
         continueButton.backgroundColor = UIColor.lightGray
         continueButton.cornerRadius = 4
         continueButton.addTarget(self, action:#selector(self.continueButtonClicked), for: .touchUpInside)
@@ -355,23 +391,14 @@ class MainViewController: UIViewController {
         toView.addSubview(noButton)
     }
 
-    @IBAction func nextButtonPressed(_ sender: Any) {
 
-        DispatchQueue.main.async { [weak self]  in
-             guard let self = self else { return }
-
-            if self.pickCount == 1 {
-                //self.nextButton.isEnabled = false
-                self.setTitleWithoutContinue()
-                self.updateInfoIfPossible(filterChanged:false)
-            } else if self.pickCount == 2 {
-                //self.nextButton.isEnabled = false
-                self.setTitleWithoutContinue()
-                self.pickTitle.text = "SHORT_QUESTIONNAIRE".localized
-                self.snackbarView = SnackBarView()
-                self.displayFirstQuestionnaire()
-            }
-        }
+    private func disableFilterAndHelpButtons(){
+        filterButton.isEnabled = false;
+        helpButton.isEnabled = false;
+    }
+    private func enableFilterAndHelpButtons(){
+        filterButton.isEnabled = true;
+        helpButton.isEnabled = true;
     }
     func addHeatmap(markers: [MarkerAnnotation])  {
         var list = [GMUWeightedLatLng]()
@@ -418,7 +445,7 @@ class MainViewController: UIViewController {
         hud?.show(in: view)
 
         network.getAnnotations(edges, filter: filter) { [weak self] (markers: [MarkerAnnotation], count: Int) in
-            print("finished parsing. markers count : \(markers.count)")
+            print("finished parsing annotations. markers count : \(markers.count)")
             guard let self = self else {return}
             self.removeHeatMapLayer()
             self.addHeatMapLayer()
@@ -427,13 +454,13 @@ class MainViewController: UIViewController {
             //self.addMarkers(markers: markers)
 
             self.hud?.dismiss()
-            self.pickCount = 2
+            self.currentState = .MarkersReceived
             DispatchQueue.main.async { [weak self]  in
                 self?.pickTitle.text = "PLACES_MAKRKED_WITH_HEATMAP".localized
-                self?.setTitleWithContinue()
+                //self?.setTitleWithContinue()
+                self?.nextButton.isHidden = true
+                self?.nextButton2.isHidden = false
             }
-
-
         }
     }
 
@@ -452,16 +479,30 @@ class MainViewController: UIViewController {
             self.addressLabel.text = lines.joined(separator: "\n")
         }
     }
+
+    fileprivate func addMarkerOnTheMap(_ coordinate: CLLocationCoordinate2D) {
+        let marker = GMSMarker()
+        marker.position = CLLocationCoordinate2D(latitude: coordinate.latitude, longitude: coordinate.longitude)
+
+        self.currentState = .placePicked
+        self.pickTitle.text = "TAP_CONTINUE_TO_GET_DANGEROUS_PLACES".localized
+        marker.snippet = ""
+        /// Add the marker on the map
+        marker.map = self.mapView
+
+        //marker.title = "המקום שנבחר כמסוכן"
+        //self.setTitleWithContinue()
+        self.nextButton.isHidden = false
+        self.nextButton2.isHidden = true
+    }
 }
 
 // MARK: - GMSMapViewDelegate
 extension MainViewController: GMSMapViewDelegate {
     
     func mapView(_ mapView: GMSMapView, idleAt position: GMSCameraPosition) {
-        if self.pickCount < 1 {
+        if self.currentState == .start {
             reverseGeocodeCoordinate(position.target)
-        } else {
-            self.updateInfoIfPossible(filterChanged:false)
         }
     }
     func mapView(_ mapView: GMSMapView, willMove gesture: Bool) {
@@ -477,28 +518,15 @@ extension MainViewController: GMSMapViewDelegate {
             self.mapView.camera = GMSCameraPosition.camera(withTarget: toLocation!, zoom: ZOOM)
         }
     }
+
     func mapView(_ mapView: GMSMapView, didTapAt coordinate: CLLocationCoordinate2D) {
-        
-        if self.pickCount >= 1 {
+
+        if self.currentState != .start  {
             mapView.resignFirstResponder()
             return
         }
         reverseGeocodeCoordinate(coordinate)
-        // Creates a marker
-        let marker = GMSMarker()
-        marker.position = CLLocationCoordinate2D(latitude: coordinate.latitude, longitude: coordinate.longitude)
-  
-        self.pickCount += 1
-        self.pickTitle.text = "TAP_CONTINUE_TO_GET_DANGEROUS_PLACES".localized
-        marker.snippet = ""
-        marker.map = self.mapView
-        if self.pickCount == 1 {
-            //marker.title = "המקום שנבחר כמסוכן"
-            //self.nextButton.isHidden = true
-             self.setTitleWithContinue()
-
-            //self.nextBarButton.isEnabled = true
-        }
+        addMarkerOnTheMap(coordinate)
         mapView.resignFirstResponder()
     }
 
@@ -513,25 +541,14 @@ extension MainViewController: CLLocationManagerDelegate {
         guard status == .authorizedWhenInUse else {
             return }
         locationManager.startUpdatingLocation()
-//        mapView.isMyLocationEnabled = true
-//        mapView.settings.myLocationButton = true
     }
-    
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let location = locations.first else {
             return
         }
         mapView.camera = GMSCameraPosition(target: location.coordinate, zoom: ZOOM, bearing: 0, viewingAngle: 0)
         locationManager.stopUpdatingLocation()
-        //locationManager.stopUpdatingLocation()
         //fetchNearbyPlaces(coordinate: location.coordinate)
-    }
-
-    private func newHud() -> JGProgressHUD {
-        let hud = JGProgressHUD(style: .light)
-        hud?.animation = JGProgressHUDFadeZoomAnimation() as JGProgressHUDFadeZoomAnimation
-        hud?.interactionType = JGProgressHUDInteractionType.blockNoTouches
-        return hud!
     }
 }
 
@@ -539,17 +556,12 @@ extension MainViewController: CLLocationManagerDelegate {
 extension MainViewController: FilterScreenDelegate {
 
     func didCancel(_ vc: FilterViewController, filter: Filter) {
-        //dismiss(animated: true, completion: nil)
         self.navigationController?.isNavigationBarHidden = true
         self.navigationController?.popViewController(animated: true)
 
     }
 
     func didSave(_ vc: FilterViewController, filter: Filter) {
-//        dismiss(animated: true) {
-//            self.filter = filter
-//            //self.updateInfoIfPossible( filterChanged: true)
-//        }
         self.navigationController?.isNavigationBarHidden = true
         self.filter = filter
         self.navigationController?.popViewController(animated: true)
