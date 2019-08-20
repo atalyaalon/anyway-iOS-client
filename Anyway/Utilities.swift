@@ -715,13 +715,13 @@ extension FileManager
 {
     class func documentsDir() -> String
     {
-        var paths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true) 
+        let paths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true) 
         return paths[0]
     }
     
     class func cachesDir() -> String
     {
-        var paths = NSSearchPathForDirectoriesInDomains(.cachesDirectory, .userDomainMask, true) 
+        let paths = NSSearchPathForDirectoriesInDomains(.cachesDirectory, .userDomainMask, true) 
         return paths[0]
     }
     

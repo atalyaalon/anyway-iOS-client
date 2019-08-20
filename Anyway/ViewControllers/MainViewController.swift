@@ -434,7 +434,7 @@ extension MainViewController: CLLocationManagerDelegate {
     }
 }
 
-
+// MARK: - FilterScreenDelegate
 extension MainViewController: FilterScreenDelegate {
 
     func didCancel(_ vc: FilterViewController, filter: Filter) {
