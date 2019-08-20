@@ -110,6 +110,15 @@ class MainViewController: UIViewController {
         setupFilterButton()
     }
 
+    fileprivate func restartMainViewState(_ after: Int = 0) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(after)) {
+            self.enableFilterAndHelpButtons()
+            self.currentState = .start
+            self.mapView.clear()
+            self.pickTitle.text = "CHOOSE_A_PLACE".localized
+        }
+    }
+
     @IBAction func nextButtonPressed(_ sender: Any) {
         if self.currentState == .placePicked {
             self.disableFilterAndHelpButtons()
@@ -130,8 +139,8 @@ class MainViewController: UIViewController {
         helpButton.backgroundColor = UIColor.white
         helpButton.setElevation(ShadowElevation(rawValue: 12), for: .normal)
         helpButton.setElevation(ShadowElevation(rawValue: 12), for: .highlighted)
-        helpButton.borderWidth = 4
-        helpButton.borderColor = UIColor.black
+        //        helpButton.borderWidth = 4  not working TODO ?
+        //        helpButton.borderColor = UIColor.black
         helpButton.addTarget(self, action: #selector(handleHelpTap), for: .touchUpInside)
         self.view.addSubview(helpButton)
     }
@@ -162,7 +171,6 @@ class MainViewController: UIViewController {
         self.navigationController!.pushViewController(filterViewController, animated: true)
         //self.present(viewController, animated: false, completion: nil)
     }
-
 
     private func addKeyboardObservers() {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
@@ -205,70 +213,6 @@ class MainViewController: UIViewController {
         heatmapLayer.gradient = GMUGradient(colors: gradientColors,
                                             startPoints: gradientStartPoints,
                                             colorMapSize: 256)
-    }
-
-    @objc func continueButtonClicked() {
-        print("Fist Button Clicked")
-        snackbarView.hideSnackBar()
-        snackbarView = SnackBarView()
-        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(400)) {
-            self.displaySecondQuestionnaire()
-        }
-    }
-    @objc func yesButtonClicked() {
-        print("yes Button Clicked")
-        snackbarView.hideSnackBar()
-        snackbarView = SnackBarView()
-        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(400)) {
-             self.displayThirdQuestionnaire()
-        }
-    }
-    @objc func noButtonClicked() {
-        print("no Button Clicked")
-        snackbarView.hideSnackBar()
-        snackbarView = SnackBarView()
-        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(400)) {
-            self.displayThirdQuestionnaire()
-        }
-    }
-    @objc func yesButtonClickedLast() {
-        print("yes Button Clicked")
-        snackbarView.hideSnackBar()
-        snackbarView = SnackBarView()
-        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(400)) {
-            self.displayForthQuestionnaire()
-        }
-    }
-    @objc func noButtonClickedLast() {
-        print("no Button Clicked")
-        snackbarView.hideSnackBar()
-        snackbarView = SnackBarView()
-        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(400)) {
-            self.displayForthQuestionnaire()
-        }
-    }
-
-    fileprivate func restartMainViewState(_ after: Int = 0) {
-        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(after)) {
-            self.enableFilterAndHelpButtons()
-            self.currentState = .start
-            self.mapView.clear()
-            self.pickTitle.text = "CHOOSE_A_PLACE".localized
-        }
-    }
-
-    @objc func cancelButtonClicked() {
-        print("cancel Button Clicked")
-        snackbarView.hideSnackBar()
-        restartMainViewState(200)
-    }
-
-
-
-    @objc func sendButtonClicked() {
-        print("send Button Clicked")
-        snackbarView.hideSnackBar()
-        displayMunicipalityForm()
     }
 
     fileprivate func displayMunicipalityForm() {
@@ -326,64 +270,6 @@ class MainViewController: UIViewController {
         }
         return textFieldResult
     }
-    private func displayFirstQuestionnaire() {
-        let snackView = UIView( frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width - 20.0, height: 170))
-
-        let label = UILabel.questionnaireLabel(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 50), text: "WHY_DID_YOU_SUSPECT_THIS_PLACE".localized)
-        snackView.addSubview(label)
-        self.textView = UITextView(frame: CGRect(x: 0, y: 50, width: UIScreen.main.bounds.width , height: 50))
-        self.textView.textColor = UIColor.black
-        self.textView.textAlignment = NSTextAlignment.center
-        self.textView.font = UIFont.systemFont(ofSize: 14)
-        self.textView.text = ""
-        snackView.addSubview(self.textView)
-        let continueButton = UIButton(frame: CGRect(x: 173, y: 120, width: 60, height: 35))
-        continueButton.tintColor = UIColor.black
-        continueButton.setTitle("CONT".localized, for: UIControl.State.normal)
-        continueButton.setTitleColor(UIColor.white, for: .normal)
-        continueButton.backgroundColor = UIColor.lightGray
-        continueButton.cornerRadius = 4
-        continueButton.addTarget(self, action:#selector(self.continueButtonClicked), for: .touchUpInside)
-        snackView.addSubview(continueButton)
-        snackbarView.showSnackBar(superView: self.view, bgColor: MainViewController.SNACK_BAR_BG_COLOR, snackbarView: snackView)
-    }
-
-    private func displaySecondQuestionnaire() {
-        let snackView = UIView( frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width - 20.0, height: 130))
-        let label = UILabel.questionnaireLabel(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 50), text: "SIGNS_ARE_CLEAR".localized)
-        snackView.addSubview(label)
-       self.addYesNoButtons(toView:snackView, yesAction:#selector(self.yesButtonClicked), noAction:#selector(self.noButtonClicked) )
-        snackbarView.showSnackBar(superView: self.view, bgColor: MainViewController.SNACK_BAR_BG_COLOR, snackbarView: snackView)
-    }
-
-    private func displayThirdQuestionnaire() {
-        let snackView = UIView( frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width - 20.0, height: 130))
-        let label = UILabel.questionnaireLabel(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 50), text: "PROBLEM_WITH_SIGN".localized)
-        snackView.addSubview(label)
-        self.addYesNoButtons(toView:snackView, yesAction:#selector(self.yesButtonClickedLast), noAction:#selector(self.noButtonClickedLast) )
-        snackbarView.showSnackBar(superView: self.view, bgColor: MainViewController.SNACK_BAR_BG_COLOR, snackbarView: snackView)
-    }
-
-    private func displayForthQuestionnaire() {
-        let snackView = UIView( frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width - 20.0, height: 130))
-        let label = UILabel.questionnaireLabel(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 50), text: "WISH_TO_SEND_ANSWERS".localized)
-        snackView.addSubview(label)
-
-        self.addYesNoButtons(toView:snackView, yesAction:#selector(self.sendButtonClicked), noAction:#selector(self.cancelButtonClicked) )
-        snackbarView.showSnackBar(superView: self.view, bgColor: MainViewController.SNACK_BAR_BG_COLOR, snackbarView: snackView)
-    }
-
-    private func addYesNoButtons(toView: UIView, yesAction: Selector, noAction: Selector) {
-
-        let yesButton = UIButton.questionnaireButton(frame: CGRect(x: 150, y: 80, width: MainViewController.YES_NO_BUTTON_WIDTH, height: MainViewController.YES_NO_BUTTON_HEIGHT), title: "YES".localized)
-        yesButton.addTarget(self, action:yesAction, for: .touchUpInside)
-        toView.addSubview(yesButton)
-
-        let noButton = UIButton.questionnaireButton(frame: CGRect(x: 210, y: 80, width: MainViewController.YES_NO_BUTTON_WIDTH, height: MainViewController.YES_NO_BUTTON_HEIGHT), title: "NO".localized)
-        noButton.addTarget(self, action:noAction, for: .touchUpInside)
-        toView.addSubview(noButton)
-    }
-
 
     private func disableFilterAndHelpButtons(){
         filterButton.isEnabled = false;
@@ -462,33 +348,9 @@ class MainViewController: UIViewController {
         heatmapLayer = nil
     }
 
-    private func reverseGeocodeCoordinate(_ coordinate: CLLocationCoordinate2D) {
-        let geocoder = GMSGeocoder()
-        geocoder.reverseGeocodeCoordinate(coordinate) { response, error in
-            guard let address = response?.firstResult(), let lines = address.lines else {
-                return
-            }
-            print ("address  = \(address)")
-            self.addressLabel.text = lines.joined(separator: "\n")
-        }
-    }
-
-    fileprivate func addMarkerOnTheMap(_ coordinate: CLLocationCoordinate2D) {
-        let marker = GMSMarker()
-        marker.position = CLLocationCoordinate2D(latitude: coordinate.latitude, longitude: coordinate.longitude)
-
-        self.currentState = .placePicked
-        self.pickTitle.text = "TAP_CONTINUE_TO_GET_DANGEROUS_PLACES".localized
-        marker.snippet = ""
-        /// Add the marker on the map
-        marker.map = self.mapView
-
-        //marker.title = "המקום שנבחר כמסוכן"
-        //self.setTitleWithContinue()
-        self.nextButton.isHidden = false
-        self.nextButton2.isHidden = true
-    }
 }
+
+
 
 // MARK: - GMSMapViewDelegate
 extension MainViewController: GMSMapViewDelegate {
@@ -526,6 +388,33 @@ extension MainViewController: GMSMapViewDelegate {
     func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
         return false
     }
+
+    private func reverseGeocodeCoordinate(_ coordinate: CLLocationCoordinate2D) {
+        let geocoder = GMSGeocoder()
+        geocoder.reverseGeocodeCoordinate(coordinate) { response, error in
+            guard let address = response?.firstResult(), let lines = address.lines else {
+                return
+            }
+            print ("address  = \(address)")
+            self.addressLabel.text = lines.joined(separator: "\n")
+        }
+    }
+
+    fileprivate func addMarkerOnTheMap(_ coordinate: CLLocationCoordinate2D) {
+        let marker = GMSMarker()
+        marker.position = CLLocationCoordinate2D(latitude: coordinate.latitude, longitude: coordinate.longitude)
+
+        self.currentState = .placePicked
+        self.pickTitle.text = "TAP_CONTINUE_TO_GET_DANGEROUS_PLACES".localized
+        marker.snippet = ""
+        /// Add the marker on the map
+        marker.map = self.mapView
+
+        //marker.title = "המקום שנבחר כמסוכן"
+        //self.setTitleWithContinue()
+        self.nextButton.isHidden = false
+        self.nextButton2.isHidden = true
+    }
 }
 
 // MARK: - CLLocationManagerDelegate
@@ -551,7 +440,6 @@ extension MainViewController: FilterScreenDelegate {
     func didCancel(_ vc: FilterViewController, filter: Filter) {
         self.navigationController?.isNavigationBarHidden = true
         self.navigationController?.popViewController(animated: true)
-
     }
 
     func didSave(_ vc: FilterViewController, filter: Filter) {
@@ -559,7 +447,116 @@ extension MainViewController: FilterScreenDelegate {
         self.filter = filter
         self.navigationController?.popViewController(animated: true)
     }
-
 }
 
+// MARK: - Questionnaires
+extension MainViewController {
 
+    private func displayFirstQuestionnaire() {
+        let snackView = UIView( frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width - 20.0, height: 170))
+
+        let label = UILabel.questionnaireLabel(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 50), text: "WHY_DID_YOU_SUSPECT_THIS_PLACE".localized)
+        snackView.addSubview(label)
+        self.textView = UITextView(frame: CGRect(x: 0, y: 50, width: UIScreen.main.bounds.width , height: 50))
+        self.textView.textColor = UIColor.black
+        self.textView.textAlignment = NSTextAlignment.center
+        self.textView.font = UIFont.systemFont(ofSize: 14)
+        self.textView.text = ""
+        snackView.addSubview(self.textView)
+        let continueButton = UIButton(frame: CGRect(x: 173, y: 120, width: 60, height: 35))
+        continueButton.tintColor = UIColor.black
+        continueButton.setTitle("CONT".localized, for: UIControl.State.normal)
+        continueButton.setTitleColor(UIColor.white, for: .normal)
+        continueButton.backgroundColor = UIColor.lightGray
+        continueButton.cornerRadius = 4
+        continueButton.addTarget(self, action:#selector(self.continueButtonClicked), for: .touchUpInside)
+        snackView.addSubview(continueButton)
+        snackbarView.showSnackBar(superView: self.view, bgColor: MainViewController.SNACK_BAR_BG_COLOR, snackbarView: snackView)
+    }
+
+    private func displaySecondQuestionnaire() {
+        let snackView = UIView( frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width - 20.0, height: 130))
+        let label = UILabel.questionnaireLabel(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 50), text: "SIGNS_ARE_CLEAR".localized)
+        snackView.addSubview(label)
+        self.addYesNoButtons(toView:snackView, yesAction:#selector(self.yesButtonClicked), noAction:#selector(self.noButtonClicked) )
+        snackbarView.showSnackBar(superView: self.view, bgColor: MainViewController.SNACK_BAR_BG_COLOR, snackbarView: snackView)
+    }
+
+    private func displayThirdQuestionnaire() {
+        let snackView = UIView( frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width - 20.0, height: 130))
+        let label = UILabel.questionnaireLabel(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 50), text: "PROBLEM_WITH_SIGN".localized)
+        snackView.addSubview(label)
+        self.addYesNoButtons(toView:snackView, yesAction:#selector(self.yesButtonClickedLast), noAction:#selector(self.noButtonClickedLast) )
+        snackbarView.showSnackBar(superView: self.view, bgColor: MainViewController.SNACK_BAR_BG_COLOR, snackbarView: snackView)
+    }
+
+    private func displayForthQuestionnaire() {
+        let snackView = UIView( frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width - 20.0, height: 130))
+        let label = UILabel.questionnaireLabel(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 50), text: "WISH_TO_SEND_ANSWERS".localized)
+        snackView.addSubview(label)
+
+        self.addYesNoButtons(toView:snackView, yesAction:#selector(self.sendButtonClicked), noAction:#selector(self.cancelButtonClicked) )
+        snackbarView.showSnackBar(superView: self.view, bgColor: MainViewController.SNACK_BAR_BG_COLOR, snackbarView: snackView)
+    }
+
+    private func addYesNoButtons(toView: UIView, yesAction: Selector, noAction: Selector) {
+
+        let yesButton = UIButton.questionnaireButton(frame: CGRect(x: 150, y: 80, width: MainViewController.YES_NO_BUTTON_WIDTH, height: MainViewController.YES_NO_BUTTON_HEIGHT), title: "YES".localized)
+        yesButton.addTarget(self, action:yesAction, for: .touchUpInside)
+        toView.addSubview(yesButton)
+
+        let noButton = UIButton.questionnaireButton(frame: CGRect(x: 210, y: 80, width: MainViewController.YES_NO_BUTTON_WIDTH, height: MainViewController.YES_NO_BUTTON_HEIGHT), title: "NO".localized)
+        noButton.addTarget(self, action:noAction, for: .touchUpInside)
+        toView.addSubview(noButton)
+    }
+    @objc func continueButtonClicked() {
+        print("Fist Button Clicked")
+        snackbarView.hideSnackBar()
+        snackbarView = SnackBarView()
+        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(100)) {
+            self.displaySecondQuestionnaire()
+        }
+    }
+    @objc func yesButtonClicked() {
+        print("yes Button Clicked")
+        snackbarView.hideSnackBar()
+        snackbarView = SnackBarView()
+        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(100)) {
+            self.displayThirdQuestionnaire()
+        }
+    }
+    @objc func noButtonClicked() {
+        print("no Button Clicked")
+        snackbarView.hideSnackBar()
+        snackbarView = SnackBarView()
+        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(100)) {
+            self.displayThirdQuestionnaire()
+        }
+    }
+    @objc func yesButtonClickedLast() {
+        print("yes Button Clicked")
+        snackbarView.hideSnackBar()
+        snackbarView = SnackBarView()
+        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(100)) {
+            self.displayForthQuestionnaire()
+        }
+    }
+    @objc func noButtonClickedLast() {
+        print("no Button Clicked")
+        snackbarView.hideSnackBar()
+        snackbarView = SnackBarView()
+        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(100)) {
+            self.displayForthQuestionnaire()
+        }
+    }
+    @objc func cancelButtonClicked() {
+        print("cancel Button Clicked")
+        snackbarView.hideSnackBar()
+        restartMainViewState(200)
+    }
+    @objc func sendButtonClicked() {
+        print("send Button Clicked")
+        snackbarView.hideSnackBar()
+        displayMunicipalityForm()
+    }
+}

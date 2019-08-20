@@ -84,7 +84,7 @@ public class SnackBarView:UIView {
         self.addSubview(snackbarView)
         superView.addSubview(self)
         
-        UIView.animate(withDuration: 0.5) { 
+        UIView.animate(withDuration: 0.3) { 
             self.frame = CGRect(x:0,
                                 y: UIScreen.main.bounds.height - (snackbarView.frame.size.height + self.bottomPadding),
                                 width: UIScreen.main.bounds.width,
@@ -104,16 +104,17 @@ public class SnackBarView:UIView {
 
     public func hideSnackBar(){
 
-        //DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(interval)) {
-            UIView.animate(withDuration: 0.5, animations: {
-                self.frame = CGRect(x:0,
-                                    y: UIScreen.main.bounds.height,
-                                    width: UIScreen.main.bounds.width,
-                                    height: self.textViewHeight)
-            }) { (success) in
-                self.removeFromSuperview()
-            }
-      //  }
+        self.removeFromSuperview()
+//        //DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(interval)) {
+//            UIView.animate(withDuration: 0.5, animations: {
+//                self.frame = CGRect(x:0,
+//                                    y: UIScreen.main.bounds.height,
+//                                    width: UIScreen.main.bounds.width,
+//                                    height: self.textViewHeight)
+//            }) { (success) in
+//                self.removeFromSuperview()
+//            }
+//      //  }
 
     }
     
