@@ -1,0 +1,47 @@
+[
+    {
+        "id": 1,
+        "hazardDescription": "Animal",
+        "imageName": "animals"
+    },
+    {
+        "id": 2,
+        "hazardDescription": "no hazia",
+        "imageName": "hazia"
+    },
+    {
+        "id": 3,
+        "hazardDescription": "ducks ahead",
+        "imageName": "animals"
+    },
+    {
+        "id": 4,
+        "hazardDescription": "no sign",
+        "imageName": "mapolet"
+    },
+    {
+        "id": 5,
+        "hazardDescription": "no sign",
+        "imageName": "horse"
+    },
+    {
+        "id": 6,
+        "hazardDescription": "no sign",
+        "imageName": "work"
+    },
+    {
+        "id": 7,
+        "hazardDescription": "no sign",
+        "imageName": "man"
+    },
+    {
+        "id": 8,
+        "hazardDescription": "no sign",
+        "imageName": "animals"
+    },
+    {
+        "id": 9,
+        "hazardDescription": "no sign",
+        "imageName": "hazia"
+    }
+]

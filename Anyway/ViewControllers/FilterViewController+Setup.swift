@@ -61,7 +61,7 @@ extension FilterViewController {
             $0.title = local("FILTER_ROW_fatal")
             $0.value = filter.showFatal
         }.cellUpdate { cell, row in
-                cell.textLabel?.textColor = Color.red
+                cell.textLabel?.textColor = AnywayColor.red
         }.onChange{ [weak self] row in
                 guard let v = row.value else {return}
                 self?.filter.showFatal = v
@@ -71,7 +71,7 @@ extension FilterViewController {
             $0.title = local("FILTER_ROW_severe")
             $0.value = filter.showSevere
         }.cellUpdate { cell, row in
-                cell.textLabel?.textColor = Color.orange
+                cell.textLabel?.textColor = AnywayColor.orange
         }.onChange{ [weak self] row in
                 guard let v = row.value else {return}
                 self?.filter.showSevere = v
@@ -81,7 +81,7 @@ extension FilterViewController {
             $0.title = local("FILTER_ROW_light")
             $0.value = filter.showLight
         }.cellUpdate { cell, row in
-                cell.textLabel?.textColor = Color.yellow
+                cell.textLabel?.textColor = AnywayColor.yellow
         }.onChange{ [weak self] row in
                 guard let v = row.value else {return}
                 self?.filter.showLight = v

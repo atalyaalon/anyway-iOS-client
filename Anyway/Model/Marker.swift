@@ -142,10 +142,10 @@ extension Marker: VisualMarker {
     
     var color: UIColor {
         switch severity {
-        case 1: return Color.red
-        case 2: return Color.orange
-        case 3: return Color.yellow
-        default: return Color.blue //should never happen
+        case 1: return AnywayColor.red
+        case 2: return AnywayColor.orange
+        case 3: return AnywayColor.yellow
+        default: return AnywayColor.blue //should never happen
         }
     }
     

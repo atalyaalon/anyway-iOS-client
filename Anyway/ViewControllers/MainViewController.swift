@@ -10,6 +10,7 @@ import UIKit
 import GoogleMaps
 import SnapKit
 import MaterialComponents.MaterialButtons
+import SwiftUI
 //import MaterialComponents.MaterialButtons_Theming
 
 enum MainVCState: Int {
@@ -120,11 +121,27 @@ class MainViewController: UIViewController {
     }
 
     @IBAction func nextButtonPressed(_ sender: Any) {
-        if self.currentState == .placePicked {
-            self.disableFilterAndHelpButtons()
-            self.setTitleWithoutContinue()
-            self.updateInfoIfPossible(filterChanged:false)
-        }
+//        if self.currentState == .placePicked {
+//            self.disableFilterAndHelpButtons()
+//            self.setTitleWithoutContinue()
+//            self.updateInfoIfPossible(filterChanged:false)
+//        }
+//        if #available(iOS 13.0.0, *) {
+//            let view1 = SelectHazardSwiftUIView()
+//            let host = UIHostingController(rootView:view1)
+//            self.navigationController!.pushViewController(host, animated: true)
+//        } else {
+//            // Fallback on earlier versions
+//        }
+
+
+        let selectHazardViewController:SelectHazardViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "SelectHazardViewController") as UIViewController as! SelectHazardViewController
+
+         //filterViewController.filter = filter
+         //selectHazardViewController.delegate = self as FilterScreenDelegate
+
+         self.navigationController!.pushViewController(selectHazardViewController, animated: true)
+
     }
 
     @IBAction func nextButon2Tapped(_ sender: Any) {
