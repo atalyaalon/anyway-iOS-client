@@ -6,11 +6,11 @@
 //  Copyright © 2019 Hasadna. All rights reserved.
 //
 
-import SwiftUI
+//import SwiftUI
 
 
 
-struct HazardData : Codable, Identifiable {
+struct HazardData : Codable { //}, Identifiable {
   var id: Int
   var hazardDescription: String
   //var lastName: String

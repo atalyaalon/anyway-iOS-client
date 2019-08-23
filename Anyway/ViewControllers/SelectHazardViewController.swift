@@ -12,6 +12,16 @@ class SelectHazardViewController: UIViewController , UICollectionViewDataSource,
 
     let reuseIdentifier = "cell"
     var items = Storage.hazards
+    var selectedItems = Set<IndexPath>()
+
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        self.navigationController?.isNavigationBarHidden = false
+        self.title = "Select issue"
+    }
+
+
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return self.items.count
@@ -24,7 +34,7 @@ class SelectHazardViewController: UIViewController , UICollectionViewDataSource,
 
         // Use the outlet in our custom class to get a reference to the UILabel in the cell
         cell.desc.text = self.items[indexPath.item].hazardDescription
-        cell.backgroundColor = UIColor.cyan // make cell more visible in our example project
+        cell.backgroundColor = UIColor.white // make cell more visible in our example project
         cell.layer.borderColor = UIColor.black.cgColor
         cell.layer.borderWidth = 1
         cell.layer.cornerRadius = 5
@@ -32,25 +42,41 @@ class SelectHazardViewController: UIViewController , UICollectionViewDataSource,
         let image = UIImage(named: self.items[indexPath.item].imageName)!
         //let image = #imageLiteral(resourceName: self.items[indexPath.item].imageName)
         //helpButton.setImage(#imageLiteral(resourceName: "information"), for: .normal)
-        //cell.image.image = image
+        cell.image.image = image
 
         return cell
     }
 
     // change background color when user touches cell
-    func collectionView(_ collectionView: UICollectionView, didHighlightItemAt indexPath: IndexPath) {
+    func collectionView(_ collectionView: UICollectionView, didHighlightItemAt indexPath: IndexPath){
         let cell = collectionView.cellForItem(at: indexPath)
-        cell?.backgroundColor = UIColor.red
+
+//        if selectedItems.insert(indexPath).inserted {
+//            cell?.backgroundColor = UIColor.white
+//        }
+//        else{
+//            cell?.backgroundColor = UIColor.red
+//        }
+
+
+        if selectedItems.contains(indexPath) {
+            selectedItems.remove(indexPath)
+            cell?.backgroundColor = UIColor.white
+        }
+        else{
+            selectedItems.insert(indexPath)
+            cell?.backgroundColor = UIColor.lightGray
+        }
     }
 
     // change background color back when user releases touch
     func collectionView(_ collectionView: UICollectionView, didUnhighlightItemAt indexPath: IndexPath) {
-        let cell = collectionView.cellForItem(at: indexPath)
-        cell?.backgroundColor = UIColor.cyan
+       // let cell = collectionView.cellForItem(at: indexPath)
+       // cell?.backgroundColor = UIColor.cyan
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize{
-        return CGSize(width: 150.0, height: 150.0)
+        return CGSize(width: 100.0, height: 100.0)
     }
 
 //
@@ -59,12 +85,6 @@ class SelectHazardViewController: UIViewController , UICollectionViewDataSource,
 //     }
 
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
-    }
-    
 
     /*
     // MARK: - Navigation

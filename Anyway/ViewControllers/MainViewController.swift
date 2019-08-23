@@ -10,7 +10,7 @@ import UIKit
 import GoogleMaps
 import SnapKit
 import MaterialComponents.MaterialButtons
-import SwiftUI
+//import SwiftUI
 //import MaterialComponents.MaterialButtons_Theming
 
 enum MainVCState: Int {
@@ -266,7 +266,7 @@ class MainViewController: UIViewController {
 
     private func configAlertTextField(placeHoler: String, keyboardType: UIKeyboardType ) -> TextField.Config {
 
-        let textFieldResult: TextField.Config = { textField in
+        let textFieldConfig: TextField.Config = { textField in
             //textField.left(image: #imageLiteral(resourceName: "user"), color: UIColor(hex: 0x007AFF))
             textField.leftViewPadding = 16
             textField.leftTextPadding = 12
@@ -285,7 +285,7 @@ class MainViewController: UIViewController {
                 print("textField = \(String(describing: textField.text))")
             }
         }
-        return textFieldResult
+        return textFieldConfig
     }
 
     private func disableFilterAndHelpButtons(){
