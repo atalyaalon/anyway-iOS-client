@@ -137,8 +137,7 @@ class MainViewController: UIViewController {
 
         let selectHazardViewController:SelectHazardViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "SelectHazardViewController") as UIViewController as! SelectHazardViewController
 
-         //filterViewController.filter = filter
-         //selectHazardViewController.delegate = self as FilterScreenDelegate
+         selectHazardViewController.delegate = self as SelectHazardViewControllerDelegate
 
          self.navigationController!.pushViewController(selectHazardViewController, animated: true)
 
@@ -577,3 +576,19 @@ extension MainViewController {
         displayMunicipalityForm()
     }
 }
+
+extension MainViewController: SelectHazardViewControllerDelegate {
+    func didSelectHazard(selectedItems: Array<Any>?, hazardDescription: String?) {
+        let hazards:Array<HazardData>? = selectedItems as? Array<HazardData>
+
+        print("didSelectHazard Hazard = \(hazards ?? [])  hazardDescription =\(hazardDescription ?? "")")
+        self.navigationController?.isNavigationBarHidden = true
+        self.navigationController?.popViewController(animated: true)
+    }
+
+    func didCancel() {
+        self.navigationController?.isNavigationBarHidden = true
+        self.navigationController?.popViewController(animated: true)
+    }
+}
+

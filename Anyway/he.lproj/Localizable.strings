@@ -464,3 +464,5 @@
 "ID_NUMBER" = "תעודת זהות";
 "EMAIL" = "דואר אלקטרוני";
 "PHONE_NUMBER" = "מספר טלפון";
+"BACK" = "חזור";
+"HAZAED_DETAILS" = "פרטי המפגע";

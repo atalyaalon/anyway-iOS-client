@@ -478,4 +478,5 @@
 "ID_NUMBER" = "Id Number";
 "EMAIL" = "Email";
 "PHONE_NUMBER" = "Phone Number";
-
+"BACK" = "Back";
+"HAZAED_DETAILS" = "Hazard Details";

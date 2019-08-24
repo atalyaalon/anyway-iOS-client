@@ -13,11 +13,10 @@
 struct HazardData : Codable { //}, Identifiable {
   var id: Int
   var hazardDescription: String
-  //var lastName: String
   var imageName: String
 }
 
-struct Storage {
+struct HazardsStorage {
   static var hazards: [HazardData] = load("hazards.json")
 
   static func load<T: Decodable>(_ file: String) -> T {

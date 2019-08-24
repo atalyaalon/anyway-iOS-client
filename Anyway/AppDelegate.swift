@@ -20,6 +20,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         ManualLocalizationWorker.overrideCurrentLocal()
         self.setupGoogleServices()
+
+        self.window = UIWindow(frame: UIScreen.main.bounds)
+        var viewController: UIViewController
+        if FirstLaunch().isFirstLaunch {
+             viewController = UIStoryboard.main.instantiateViewController(withIdentifier: "OnboardingViewController")
+        } else {
+            viewController = UIStoryboard.main.instantiateInitialViewController()!
+        }
+        self.window?.rootViewController = viewController
+        self.window?.makeKeyAndVisible()
         return true
     }
 

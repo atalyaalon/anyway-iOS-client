@@ -10,41 +10,30 @@ import UIKit
 
 class HazardCollectionViewCell: UICollectionViewCell {
 
-    public var desc: UILabel!
-    public var image: UIImageView!
-
+    private var descriptionLabel: UILabel!
+    public var imageView: UIImageView!
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-
         self.setup()
     }
 
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-
         self.setup()
     }
 
-    var otherLabelTitle: String = "" {
+    var descriptionText: String = "" {
         didSet {
-            self.desc.text = self.otherLabelTitle
+            self.descriptionLabel.text = self.descriptionText
         }
     }
 
-    // MARK: - Public
-
-    //    public func setSelected(isSelected: Bool) {
-    //        UIView.animate(withDuration: 0.2) {
-    //            self.selectionView.alpha = isSelected ? 1 : 0
-    //        }
-    //    }
-
     // MARK: - Private
-
     private func setup() {
         self.setupLabel()
         self.setupImage()
+        self.setNeedsUpdateConstraints()
     }
 
     private func setupImage() {
@@ -53,45 +42,47 @@ class HazardCollectionViewCell: UICollectionViewCell {
         view.backgroundColor = .clear
         view.contentMode = .scaleAspectFit
         view.clipsToBounds = true
-
         self.contentView.addSubview(view)
-        self.image = view
+        self.imageView = view
 
         //view.f8.pinEdgesToSuperviewEdges(insets: UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5))
     }
 
     private func setupLabel() {
         let view = UILabel()
-        view.backgroundColor = #colorLiteral(red: 0.9467939734, green: 0.9468161464, blue: 0.9468042254, alpha: 1)
-        view.layer.borderColor = #colorLiteral(red: 0.06666666667, green: 0.5647058824, blue: 0.9803921569, alpha: 1).cgColor
+        //view.backgroundColor = #colorLiteral(red: 0.9467939734, green: 0.9468161464, blue: 0.9468042254, alpha: 1)
+        view.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1).cgColor
         view.layer.borderWidth = 1
         //view.alpha = 0
-
-        self.desc = view
+        view.layer.cornerRadius = 3.0
+        view.layer.borderWidth = 1.0
+        view.layer.borderColor = UIColor.black.cgColor
+        view.font = UIFont.systemFont(ofSize: 10)
+        view.textAlignment = .center
+        self.contentView.addSubview(view)
+        self.descriptionLabel = view
     }
 
     override func updateConstraints() {
 
-        image.snp.remakeConstraints { (make) in
-            make.top.lessThanOrEqualToSuperview().offset(15)
-            make.bottom.greaterThanOrEqualToSuperview().offset(-15)
+        imageView.snp.remakeConstraints { (make) in
+            //make.top.lessThanOrEqualToSuperview().offset(15)
+            //make.bottom.greaterThanOrEqualToSuperview().offset(-15)
+            make.top.equalToSuperview().offset(2)
             make.leading.equalToSuperview().offset(5)
+            //make.height.equalTo(60)
+            //make.width.equalTo(60)
             make.trailing.equalToSuperview().offset(-5)
         }
 
-        desc.snp.remakeConstraints { (make) in
+        descriptionLabel.snp.remakeConstraints { (make) in
             make.leading.equalToSuperview().offset(5)
             make.trailing.equalToSuperview().offset(-5)
-            make.bottom.equalTo(self.image)
-            //make.height.equalTo(self.separatorHeight)
+            make.top.equalTo(self.imageView.snp.bottom).offset(5)
+            make.bottom.equalToSuperview().offset(-5)
+            make.height.equalTo(20)
         }
 
         super.updateConstraints()
     }
-
-    // MARK: - BindableView
-//    typealias BindableType = ChugCategory
-//    func bind(object: BindableType) {
-//        self.categoryIcon.image = UIImage(named: object.iconName)
-//    }
 }
