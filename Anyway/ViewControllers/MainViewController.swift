@@ -30,6 +30,7 @@ class MainViewController: UIViewController {
 
     @IBOutlet weak var nextButton2: MDCFloatingButton!
     @IBOutlet weak var nextButton: MDCFloatingButton!
+    @IBOutlet weak var cancelButton: MDCFloatingButton!
     @IBOutlet weak var addressLabel: UILabel!
     @IBOutlet var mapView: GMSMapView!
     @IBOutlet weak var pickTitle: UITextView!
@@ -75,27 +76,44 @@ class MainViewController: UIViewController {
         nextButton.setElevation(ShadowElevation(rawValue: 8), for: .normal)
         nextButton.setElevation(ShadowElevation(rawValue: 12), for: .highlighted)
 
-        nextButton2.setTitle("CONTINUE".localized, for: UIControl.State.normal)
+        nextButton2.setTitle("CONTINUE_TO_INFORM".localized, for: UIControl.State.normal)
         nextButton2.backgroundColor = UIColor.lightGray
         nextButton2.setTitleColor(UIColor.white, for: .normal)
         nextButton2.setElevation(ShadowElevation(rawValue: 8), for: .normal)
         nextButton2.setElevation(ShadowElevation(rawValue: 12), for: .highlighted)
 
+        cancelButton.setTitle("CANCEL".localized, for: UIControl.State.normal)
+        cancelButton.backgroundColor = UIColor.lightGray
+        cancelButton.setTitleColor(UIColor.white, for: .normal)
+        cancelButton.setElevation(ShadowElevation(rawValue: 8), for: .normal)
+        cancelButton.setElevation(ShadowElevation(rawValue: 12), for: .highlighted)
+
+
+
         pickTitleFrameWithoutContinue = pickTitle.frame
         pickTitleFrameWithContinue = CGRect(x: 0, y: 0, width: pickTitle.frame.width, height: pickTitle.frame.height * 2 + 10)
         //nextButton.applyOutlinedTheme(withScheme: containerScheme)
-        setTitleWithoutContinue()
+        //setTitleWithoutContinue()
     }
-    private func setTitleWithContinue() {
-        self.nextButton.isHidden = false
-        self.nextButton2.isHidden = false
-        self.pickTitle.frame = pickTitleFrameWithContinue
-        super.updateViewConstraints()
-        view.setNeedsUpdateConstraints()
+//    private func setTitleWithContinue() {
+//        self.nextButton.isHidden = false
+//        self.nextButton2.isHidden = false
+//        self.cancelButton.isHidden = false
+//        self.pickTitle.frame = pickTitleFrameWithContinue
+//        super.updateViewConstraints()
+//        view.setNeedsUpdateConstraints()
+//    }
+
+    private func disableAllFloatingButtons() {
+        self.nextButton.isHidden = true
+        self.nextButton2.isHidden = true
+        self.cancelButton.isHidden = true
     }
+
     private func setTitleWithoutContinue() {
         self.nextButton.isHidden = true
         self.nextButton2.isHidden = true
+        self.cancelButton.isHidden = true
         self.pickTitle.frame = pickTitleFrameWithoutContinue
         super.updateViewConstraints()
         view.setNeedsUpdateConstraints()
@@ -117,37 +135,49 @@ class MainViewController: UIViewController {
             self.currentState = .start
             self.mapView.clear()
             self.pickTitle.text = "CHOOSE_A_PLACE".localized
+            self.nextButton.isHidden = true
+            self.nextButton2.isHidden = true
+            self.cancelButton.isHidden = true
+            self.pickTitle.isHidden = false
         }
     }
 
+    fileprivate func startSelectHazardView() {
+        //        if #available(iOS 13.0.0, *) {
+        //            let view1 = SelectHazardSwiftUIView()
+        //            let host = UIHostingController(rootView:view1)
+        //            self.navigationController!.pushViewController(host, animated: true)
+        //        } else {
+        //            // Fallback on earlier versions
+        //        }
+        let selectHazardViewController:SelectHazardViewController = UIStoryboard.main.instantiateViewController(withIdentifier: "SelectHazardViewController") as UIViewController as! SelectHazardViewController
+
+        selectHazardViewController.delegate = self as SelectHazardViewControllerDelegate
+
+        self.navigationController!.pushViewController(selectHazardViewController, animated: true)
+    }
+
     @IBAction func nextButtonPressed(_ sender: Any) {
-//        if self.currentState == .placePicked {
-//            self.disableFilterAndHelpButtons()
-//            self.setTitleWithoutContinue()
-//            self.updateInfoIfPossible(filterChanged:false)
-//        }
-//        if #available(iOS 13.0.0, *) {
-//            let view1 = SelectHazardSwiftUIView()
-//            let host = UIHostingController(rootView:view1)
-//            self.navigationController!.pushViewController(host, animated: true)
-//        } else {
-//            // Fallback on earlier versions
-//        }
 
-
-        let selectHazardViewController:SelectHazardViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "SelectHazardViewController") as UIViewController as! SelectHazardViewController
-
-         selectHazardViewController.delegate = self as SelectHazardViewControllerDelegate
-
-         self.navigationController!.pushViewController(selectHazardViewController, animated: true)
-
+        if self.currentState == .placePicked {
+            self.disableFilterAndHelpButtons()
+            self.disableAllFloatingButtons()
+            self.updateInfoIfPossible(filterChanged:false)
+        }
+        //startSelectHazardView()
     }
 
     @IBAction func nextButon2Tapped(_ sender: Any) {
-        self.setTitleWithoutContinue()
-        self.pickTitle.text = "SHORT_QUESTIONNAIRE".localized
-        self.snackbarView = SnackBarView()
-        self.displayFirstQuestionnaire()
+        //self.disableAllFloatingButtons()
+//        self.pickTitle.text = "SHORT_QUESTIONNAIRE".localized
+//        self.snackbarView = SnackBarView()
+//        self.displayFirstQuestionnaire()
+        startSelectHazardView()
+    }
+
+
+    @IBAction func cancelButtonTapped(_ sender: Any) {
+        restartMainViewState()
     }
     fileprivate func setupHelpButton() {
         helpButton = MDCFloatingButton(frame: CGRect(x: 370, y: 125, width: 26, height: 26))
@@ -295,13 +325,13 @@ class MainViewController: UIViewController {
         filterButton.isEnabled = true;
         helpButton.isEnabled = true;
     }
-    func addHeatmap(markers: [MarkerAnnotation])  {
+    func addHeatmap(markers: [NewMarker])  {
         var list = [GMUWeightedLatLng]()
 
         print ("addHeatmap. markers count \(markers.count)")
         for marker in markers {
-            let lat = marker.coordinate.latitude
-            let lng = marker.coordinate.longitude
+            let lat = marker.latitude
+            let lng = marker.longitude
 
             let coords = GMUWeightedLatLng(coordinate: CLLocationCoordinate2DMake(lat, lng ), intensity: 1.0)
             list.append(coords)
@@ -339,9 +369,18 @@ class MainViewController: UIViewController {
 
         hud?.show(in: view)
 
-        network.getAnnotations(edges, filter: filter) { [weak self] (markers: [MarkerAnnotation], count: Int) in
+        network.getAnnotationsNew(edges, filter: filter) { [weak self] (markers: [NewMarker]?) in
+            guard let self = self else {
+                print("finished parsing annotations. self is nil!!!")
+                return
+            }
+            guard let markers = markers else {
+                print("finished parsing annotations. no markers received")
+                self.displayErrorAlert()
+                self.hud?.dismiss()
+                return
+            }
             print("finished parsing annotations. markers count : \(markers.count)")
-            guard let self = self else {return}
             self.removeHeatMapLayer()
             self.addHeatMapLayer()
 
@@ -355,18 +394,32 @@ class MainViewController: UIViewController {
                 //self?.setTitleWithContinue()
                 self?.nextButton.isHidden = true
                 self?.nextButton2.isHidden = false
+                self?.cancelButton.isHidden = false
             }
         }
     }
+
+    private func displayErrorAlert(error: Error? = nil) {
+
+        let title = "Network Error"
+        let erroDesc = (error == nil) ? "" : error.debugDescription
+        let msg = "Something went wrong \(erroDesc)"
+        let prompt = UIAlertController(title: title, message: msg, preferredStyle: .alert)
+        let cancelText = "OK".localized
+        let cancel = UIAlertAction(title: cancelText, style: .cancel, handler: nil)
+        prompt.addAction(cancel)
+//        prompt.popoverPresentationController?.sourceView = nextButton
+//        prompt.popoverPresentationController?.sourceRect = nextButton.bounds
+//        prompt.popoverPresentationController?.permittedArrowDirections = .any
+        present(prompt, animated: true, completion: nil)
+    }
+
 
     private func removeHeatMapLayer() {
         heatmapLayer.map = nil
         heatmapLayer = nil
     }
-
 }
-
-
 
 // MARK: - GMSMapViewDelegate
 extension MainViewController: GMSMapViewDelegate {
@@ -430,6 +483,7 @@ extension MainViewController: GMSMapViewDelegate {
         //self.setTitleWithContinue()
         self.nextButton.isHidden = false
         self.nextButton2.isHidden = true
+        self.cancelButton.isHidden = true
     }
 }
 
@@ -468,45 +522,11 @@ extension MainViewController: FilterScreenDelegate {
 // MARK: - Questionnaires
 extension MainViewController {
 
-    private func displayFirstQuestionnaire() {
-        let snackView = UIView( frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width - 20.0, height: 170))
+    private func displaySendAnswersQuestionnaire() {
+        self.nextButton2.isHidden = true
+        self.cancelButton.isHidden = true
+        self.pickTitle.isHidden = true
 
-        let label = UILabel.questionnaireLabel(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 50), text: "WHY_DID_YOU_SUSPECT_THIS_PLACE".localized)
-        snackView.addSubview(label)
-        self.textView = UITextView(frame: CGRect(x: 0, y: 50, width: UIScreen.main.bounds.width , height: 50))
-        self.textView.textColor = UIColor.black
-        self.textView.textAlignment = NSTextAlignment.center
-        self.textView.font = UIFont.systemFont(ofSize: 14)
-        self.textView.text = ""
-        snackView.addSubview(self.textView)
-        let continueButton = UIButton(frame: CGRect(x: 173, y: 120, width: 60, height: 35))
-        continueButton.tintColor = UIColor.black
-        continueButton.setTitle("CONT".localized, for: UIControl.State.normal)
-        continueButton.setTitleColor(UIColor.white, for: .normal)
-        continueButton.backgroundColor = UIColor.lightGray
-        continueButton.cornerRadius = 4
-        continueButton.addTarget(self, action:#selector(self.continueButtonClicked), for: .touchUpInside)
-        snackView.addSubview(continueButton)
-        snackbarView.showSnackBar(superView: self.view, bgColor: MainViewController.SNACK_BAR_BG_COLOR, snackbarView: snackView)
-    }
-
-    private func displaySecondQuestionnaire() {
-        let snackView = UIView( frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width - 20.0, height: 130))
-        let label = UILabel.questionnaireLabel(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 50), text: "SIGNS_ARE_CLEAR".localized)
-        snackView.addSubview(label)
-        self.addYesNoButtons(toView:snackView, yesAction:#selector(self.yesButtonClicked), noAction:#selector(self.noButtonClicked) )
-        snackbarView.showSnackBar(superView: self.view, bgColor: MainViewController.SNACK_BAR_BG_COLOR, snackbarView: snackView)
-    }
-
-    private func displayThirdQuestionnaire() {
-        let snackView = UIView( frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width - 20.0, height: 130))
-        let label = UILabel.questionnaireLabel(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 50), text: "PROBLEM_WITH_SIGN".localized)
-        snackView.addSubview(label)
-        self.addYesNoButtons(toView:snackView, yesAction:#selector(self.yesButtonClickedLast), noAction:#selector(self.noButtonClickedLast) )
-        snackbarView.showSnackBar(superView: self.view, bgColor: MainViewController.SNACK_BAR_BG_COLOR, snackbarView: snackView)
-    }
-
-    private func displayForthQuestionnaire() {
         let snackView = UIView( frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width - 20.0, height: 130))
         let label = UILabel.questionnaireLabel(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 50), text: "WISH_TO_SEND_ANSWERS".localized)
         snackView.addSubview(label)
@@ -525,46 +545,7 @@ extension MainViewController {
         noButton.addTarget(self, action:noAction, for: .touchUpInside)
         toView.addSubview(noButton)
     }
-    @objc func continueButtonClicked() {
-        print("Fist Button Clicked")
-        snackbarView.hideSnackBar()
-        snackbarView = SnackBarView()
-        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(100)) {
-            self.displaySecondQuestionnaire()
-        }
-    }
-    @objc func yesButtonClicked() {
-        print("yes Button Clicked")
-        snackbarView.hideSnackBar()
-        snackbarView = SnackBarView()
-        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(100)) {
-            self.displayThirdQuestionnaire()
-        }
-    }
-    @objc func noButtonClicked() {
-        print("no Button Clicked")
-        snackbarView.hideSnackBar()
-        snackbarView = SnackBarView()
-        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(100)) {
-            self.displayThirdQuestionnaire()
-        }
-    }
-    @objc func yesButtonClickedLast() {
-        print("yes Button Clicked")
-        snackbarView.hideSnackBar()
-        snackbarView = SnackBarView()
-        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(100)) {
-            self.displayForthQuestionnaire()
-        }
-    }
-    @objc func noButtonClickedLast() {
-        print("no Button Clicked")
-        snackbarView.hideSnackBar()
-        snackbarView = SnackBarView()
-        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(100)) {
-            self.displayForthQuestionnaire()
-        }
-    }
+
     @objc func cancelButtonClicked() {
         print("cancel Button Clicked")
         snackbarView.hideSnackBar()
@@ -584,6 +565,8 @@ extension MainViewController: SelectHazardViewControllerDelegate {
         print("didSelectHazard Hazard = \(hazards ?? [])  hazardDescription =\(hazardDescription ?? "")")
         self.navigationController?.isNavigationBarHidden = true
         self.navigationController?.popViewController(animated: true)
+
+        displaySendAnswersQuestionnaire()
     }
 
     func didCancel() {

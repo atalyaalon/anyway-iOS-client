@@ -126,7 +126,7 @@ extension Marker {
 
 /// Localized descriptions for Marker
 extension Marker: VisualMarker {
-    //MARK: Localized Info
+  
     
     var localizedSubtype: String {
         return Localization.sug_TEUNA[subtype] ?? ""

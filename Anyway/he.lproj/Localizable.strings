@@ -443,13 +443,14 @@
 "CHOOSE_A_PLACE" = "בחר מקום על המפה שאתה חושד בו כמסוכן";
 "SENDING_ANSWERS" = "שולח תשובות...";
 "CONTINUE" = "המשך";
+"CONTINUE_TO_INFORM" = "דווח על מפגע";
 "CONT" = "המשך";
 "SEND" = "שלח";
 "CANCEL" = "בטל";
 "YES" = "כן";
 "NO" = "לא";
 "SHORT_QUESTIONNAIRE" = "שאלון קצר";
-"PLACES_MAKRKED_WITH_HEATMAP" = "המקומות המסוכנים מוצגים בעזרת מפת חום. לחץ המשך";
+"PLACES_MAKRKED_WITH_HEATMAP" = "המקומות המסוכנים מוצגים בעזרת מפת חום";
 "LOADING" = "טוען נתונים...";
 
 "TAP_CONTINUE" = "לחץ המשך ";
@@ -466,3 +467,4 @@
 "PHONE_NUMBER" = "מספר טלפון";
 "BACK" = "חזור";
 "HAZAED_DETAILS" = "פרטי המפגע";
+"DONE" = "שמור";

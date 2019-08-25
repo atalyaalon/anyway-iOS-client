@@ -58,11 +58,11 @@
                         <viewControllerLayoutGuide type="bottom" id="fev-gO-UnZ"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="iQu-uc-iDB">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sEZ-um-WKY" customClass="GMSMapView">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="971-GA-thi">
@@ -105,7 +105,7 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" alpha="0.69999999999999996" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eQm-xW-TfV">
-                                <rect key="frame" x="20" y="798" width="374" height="33"/>
+                                <rect key="frame" x="20" y="638" width="374" height="33"/>
                                 <color key="backgroundColor" red="0.97000747919999997" green="0.90035343170000004" blue="0.9744523168" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="33" id="RRS-Yc-X1t"/>
@@ -114,14 +114,14 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pmz-dp-6c6" userLabel="Next Button2" customClass="MDCFloatingButton">
-                                <rect key="frame" x="144" y="146" width="126" height="29"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pmz-dp-6c6" userLabel="report" customClass="MDCFloatingButton">
+                                <rect key="frame" x="219" y="146" width="126" height="29"/>
                                 <accessibility key="accessibilityConfiguration">
                                     <bool key="isElement" value="NO"/>
                                 </accessibility>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="29" id="o7h-nS-hZK"/>
-                                    <constraint firstAttribute="width" constant="126" id="wao-Ji-vpi"/>
+                                    <constraint firstAttribute="width" constant="126" id="ZrV-tm-ni4"/>
+                                    <constraint firstAttribute="height" constant="29" id="zUU-qd-Z9y"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <state key="normal" title="Continue">
@@ -143,11 +143,41 @@
                                     <action selector="nextButtonPressed:" destination="GQG-KH-GPO" eventType="touchUpInside" id="ggI-Qr-R7e"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WbW-jP-yzt" userLabel="cancel" customClass="MDCFloatingButton">
+                                <rect key="frame" x="67" y="146" width="126" height="29"/>
+                                <accessibility key="accessibilityConfiguration">
+                                    <bool key="isElement" value="NO"/>
+                                </accessibility>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="29" id="3Ng-ca-tlr"/>
+                                    <constraint firstAttribute="width" constant="126" id="lU6-gx-2Hf"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <state key="normal" title="Cancel">
+                                    <color key="titleColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                        <real key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                        <color key="value" cocoaTouchSystemColor="darkTextColor"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="cancelButtonTapped:" destination="GQG-KH-GPO" eventType="touchUpInside" id="lFt-yB-g6b"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="pmz-dp-6c6" firstAttribute="top" secondItem="971-GA-thi" secondAttribute="bottom" constant="10" id="5hV-wM-9jj"/>
                             <constraint firstAttribute="trailing" secondItem="sEZ-um-WKY" secondAttribute="trailing" id="EC0-kM-WOh"/>
+                            <constraint firstItem="WbW-jP-yzt" firstAttribute="leading" secondItem="iQu-uc-iDB" secondAttribute="leadingMargin" constant="47" id="GzV-m9-56z"/>
+                            <constraint firstItem="WbW-jP-yzt" firstAttribute="top" secondItem="971-GA-thi" secondAttribute="bottom" constant="10" id="Ldy-gK-Oit"/>
                             <constraint firstItem="971-GA-thi" firstAttribute="leading" secondItem="sEZ-um-WKY" secondAttribute="leading" id="M8u-N0-Pla"/>
                             <constraint firstItem="sEZ-um-WKY" firstAttribute="top" secondItem="iQu-uc-iDB" secondAttribute="top" id="UyA-FX-6Gr"/>
                             <constraint firstItem="eQm-xW-TfV" firstAttribute="leading" secondItem="iQu-uc-iDB" secondAttribute="leadingMargin" id="YD6-nX-hOW"/>
@@ -155,9 +185,10 @@
                             <constraint firstItem="fev-gO-UnZ" firstAttribute="top" secondItem="eQm-xW-TfV" secondAttribute="bottom" constant="65" id="aLY-MN-xXv"/>
                             <constraint firstItem="KnO-fV-y68" firstAttribute="centerX" secondItem="iQu-uc-iDB" secondAttribute="centerX" id="bBB-2a-6x2"/>
                             <constraint firstItem="sEZ-um-WKY" firstAttribute="leading" secondItem="iQu-uc-iDB" secondAttribute="leading" id="dkT-Tb-cEZ"/>
-                            <constraint firstItem="pmz-dp-6c6" firstAttribute="centerX" secondItem="iQu-uc-iDB" secondAttribute="centerX" id="iYb-LH-3Hj"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="pmz-dp-6c6" secondAttribute="trailing" constant="49" id="jPj-OT-LFN"/>
                             <constraint firstItem="eQm-xW-TfV" firstAttribute="trailing" secondItem="iQu-uc-iDB" secondAttribute="trailingMargin" id="qZl-dV-09P"/>
                             <constraint firstItem="sEZ-um-WKY" firstAttribute="bottom" secondItem="iQu-uc-iDB" secondAttribute="bottom" id="qv3-TJ-Zz9"/>
+                            <constraint firstItem="pmz-dp-6c6" firstAttribute="leading" secondItem="WbW-jP-yzt" secondAttribute="trailing" constant="26" id="tFG-eB-GnV"/>
                             <constraint firstItem="971-GA-thi" firstAttribute="top" secondItem="DLX-fR-4dK" secondAttribute="bottom" constant="32" id="wC8-4T-3VU"/>
                             <constraint firstItem="KnO-fV-y68" firstAttribute="top" secondItem="971-GA-thi" secondAttribute="bottom" constant="10" id="whx-RI-goE"/>
                         </constraints>
@@ -165,6 +196,7 @@
                     <navigationItem key="navigationItem" id="cJl-eI-WzG"/>
                     <connections>
                         <outlet property="addressLabel" destination="eQm-xW-TfV" id="M5M-Fn-93R"/>
+                        <outlet property="cancelButton" destination="WbW-jP-yzt" id="VBX-AZ-y7b"/>
                         <outlet property="mapView" destination="sEZ-um-WKY" id="SfW-nB-FhO"/>
                         <outlet property="nextButton" destination="KnO-fV-y68" id="M0o-MD-xG6"/>
                         <outlet property="nextButton2" destination="pmz-dp-6c6" id="A8P-29-mY7"/>
@@ -562,7 +594,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Minor collision with a parked vehicle occured." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lD7-9x-NG8">
-                                                    <rect key="frame" x="20" y="8" width="335" height="48"/>
+                                                    <rect key="frame" x="20" y="8" width="374" height="48"/>
                                                     <fontDescription key="fontDescription" type="system" weight="medium" pointSize="20"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -574,7 +606,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="760" text="Tuesday, October 21, 7:00 am" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="v4t-q9-Nis">
-                                                    <rect key="frame" x="20" y="96.666666666666671" width="335" height="18"/>
+                                                    <rect key="frame" x="20" y="96.666666666666671" width="374" height="18"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -657,7 +689,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Urban, not an intersection" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LV7-lh-mO9">
-                                                    <rect key="frame" x="112.66666666666667" y="8.0000000000000018" width="242.33333333333331" height="27.666666666666671"/>
+                                                    <rect key="frame" x="112.66666666666666" y="8.0000000000000018" width="281.33333333333337" height="27.666666666666671"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -1325,6 +1357,6 @@ ANYWAY מציגה על גבי מפה תאונות דרכים עם נפגעים (
         <image name="sadna_logo" width="66.666664123535156" height="66.666664123535156"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="yZX-wZ-FZA"/>
+        <segue reference="rDf-Am-TDZ"/>
     </inferredMetricsTieBreakers>
 </document>

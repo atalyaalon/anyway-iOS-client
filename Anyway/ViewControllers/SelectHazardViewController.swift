@@ -107,34 +107,26 @@ class SelectHazardViewController: UIViewController  {
     }
 
     private func setupNavigationBar() {
-        self.rightBarButtonItem = UIBarButtonItem(title: "Done",
+        self.rightBarButtonItem = UIBarButtonItem(title: "DONE".localized,
                                                   style: .done,
                                                   target: self,
-                                                  action: #selector(doneBarButtonItemAction(sender:)))
-
-        addCustomBackButton()
-
+                                                  action: #selector(doneBarButtonItemAction))
         self.navigationItem.setRightBarButton(self.rightBarButtonItem, animated: false)
+
+
+        let leftBarButtonItem: UIBarButtonItem = UIBarButtonItem(title: "BACK".localized,
+                                                  style: .done,
+                                                  target: self,
+                                                  action: #selector(onBackButtonClick))
+        self.navigationItem.setLeftBarButton(leftBarButtonItem, animated: false)
+
+
         self.navigationItem.title = "פרטי המפגע"
         self.navigationItem.rightBarButtonItem?.isEnabled = false
         self.navigationController?.navigationBar.isTranslucent = false;
         self.navigationController?.navigationBar.barTintColor = backgroundColor
     }
 
-    func addCustomBackButton() {
-        let backButton: UIButton = UIButton(type: .custom)
-        backButton.setTitle("BACK".localized, for: .normal)
-        backButton.setTitleColor(UIColor.f8Blue, for: .normal)
-        //backButton.setImage(#imageLiteral(resourceName: "icon_back"), for: .normal)
-        backButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: -20, bottom: 0, right: 0)
-        backButton.titleEdgeInsets = UIEdgeInsets(top: 0, left: -10, bottom: 0, right: 0)
-        backButton.sizeToFit()
-        backButton.addTarget(self, action: #selector(onBackButtonClick), for: .touchUpInside)
-
-        let backBarButtonItem: UIBarButtonItem = UIBarButtonItem(customView: backButton)
-
-        self.navigationItem.leftBarButtonItem = backBarButtonItem
-    }
 
     @objc func onBackButtonClick() {
         print("On back button click called. Am I on main thread? \(Thread.isMainThread)")
@@ -146,7 +138,7 @@ class SelectHazardViewController: UIViewController  {
     }
 
     // MARK: - Actions
-    @objc func doneBarButtonItemAction(sender: UIButton) {
+    @objc func doneBarButtonItemAction() {
         self.currentResponder?.resignFirstResponder()
 
         var array: Array<HazardData>? = nil
@@ -157,8 +149,6 @@ class SelectHazardViewController: UIViewController  {
             }
         }
         self.delegate?.didSelectHazard(selectedItems: array, hazardDescription: hazardDescTextView.text)
-
-
     }
 
     // MARK: - Actions

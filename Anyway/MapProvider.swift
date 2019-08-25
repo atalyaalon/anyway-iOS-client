@@ -244,7 +244,103 @@ class Network {
         currentRequest = request
         
     }
-    
+
+
+
+
+    func getAnnotationsNew(_ edges: Edges, filter: Filter, anots: (( [NewMarker]?)->Void )? ){
+
+        let ne_lat = edges.ne.latitude // 32.158091269627874
+        let ne_lng = edges.ne.longitude // 34.88087036877948
+        let sw_lat = edges.sw.latitude // 32.146882347101766
+        let sw_lng = edges.sw.longitude // 34.858318355382266
+        let startDate = Int(filter.startDate.timeIntervalSince1970)
+        let endDate = Int(filter.endDate.timeIntervalSince1970)
+
+        print("Fetching with filter:\n\(filter.description)")
+
+        let params: [String : Any] = [
+            "show_markers" : 1, // should always be on to get markers...
+            "show_discussions" : 0, // currently app doesn't support discussions...
+            "ne_lat" : ne_lat,
+            "ne_lng" : ne_lng,
+            "sw_lat" : sw_lat,
+            "sw_lng" : sw_lng,
+            "zoom"   : 16, // minimum = 16
+            "thin_markers" : 1, //not used (server logic determenines this)
+            "start_date"   : startDate,
+            "end_date"     : endDate,
+            "show_fatal"   : filter.showFatal ? 1 : "",
+            "show_severe"  : filter.showSevere ? 1 : "",
+            "show_light"   : filter.showLight ? 1 : "",
+            "accurate" : filter.showAccurate ? 1 : "",
+            "approx" : filter.showInaccurate ? 1 : "",
+            "show_intersection" : filter.showIntersection.value,
+            "show_lane" : filter.showLane.value,
+            "show_urban" : filter.showUrban.value,
+            "show_day" : filter.weekday.rawValue,
+            "show_holiday" : filter.holiday.rawValue,
+            "show_time" : filter.dayTime.rawValue,
+            "weather" : filter.weather.rawValue,
+
+            // New filter options, currently hardcoded
+            // TODO: Add these as options in filter with UI
+            "start_time" : 25,
+            "end_time" : 25,
+            "road" : 0,
+            "separation" : 0,
+            "surface" : 0,
+            "acctype" : 0,
+            "controlmeasure" : 0,
+            "district" : 0,
+            "case_type" : 0
+        ]
+
+
+        //print("params: \(params)")
+        cancelRequestIfNeeded()
+
+        UIApplication.shared.isNetworkActivityIndicatorVisible = true
+
+        let request = Alamofire.request(
+            "http://www.anyway.co.il/markers",
+            //method: .get,
+            parameters: params
+            //encoding: URLEncoding.`default`,
+            //headers: nil
+        )
+
+        var markers:NewMarkers? = nil
+
+        let task = request.responseString(completionHandler: { (response: DataResponse<String>) in
+
+            switch response.result {
+                case .success:
+                    if let jsonString = response.result.value ,let jsonData = jsonString.data(using: .utf8)  {
+                        //print(jsonString)
+                        let decoder = JSONDecoder()
+                        do {
+                            markers = try decoder.decode(NewMarkers.self, from: jsonData)
+                        } catch {
+                            print(error)
+                        }
+                    }
+                case .failure(let err):
+                    print("Error! \(err)")
+                }
+            anots?(markers?.markers)
+
+//            return Disposables.create {
+//                task.cancel()
+//            }
+            //task.cancel()
+
+        })
+
+        currentRequest = request
+
+    }
+
     /*
         Checking for coliding Marker group and creating MarkerGroup for them
     */
