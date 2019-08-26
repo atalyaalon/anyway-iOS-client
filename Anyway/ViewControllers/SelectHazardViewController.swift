@@ -18,8 +18,11 @@ public protocol SelectHazardViewControllerDelegate: class {
 
 
 
-class SelectHazardViewController: UIViewController  {
+class SelectHazardViewController: UIViewController {
 
+    private var scrollView: UIScrollView!
+    private var contentView: UIView!
+    private var customStackView : UIView!
     private var collectionView: UICollectionView!
     private var rightBarButtonItem: UIBarButtonItem?
     private let reuseIdentifier = "cell"
@@ -28,12 +31,12 @@ class SelectHazardViewController: UIViewController  {
     private var currentResponder: UIResponder?
     private var otherLabel: UILabel!
     private var hazardDescTextView: UITextView!
-    private var customStackView : UIView!
     private let padding: CGFloat = 15
     private let backgroundColor: UIColor = UIColor.purple
     private var placeholderLabel : UILabel!
+    private var tapGesture: UITapGestureRecognizer!
     public weak var delegate: SelectHazardViewControllerDelegate?
-
+    private var activeField: UITextField?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,13 +44,98 @@ class SelectHazardViewController: UIViewController  {
         setupView()
     }
 
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        addKeyboardObservers()
+        addTapGesture()
+    }
+
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        removeKeyboardObservers()
+        removeTapGesture()
+    }
+
+
+    private func addKeyboardObservers() {
+
+        NotificationCenter.default.addObserver(self, selector: #selector(SelectHazardViewController.keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+
+        NotificationCenter.default.addObserver(self, selector: #selector(SelectHazardViewController.keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+
+    private func removeKeyboardObservers() {
+        NotificationCenter.default.removeObserver(self)
+    }
+
+    private func addTapGesture() {
+        tapGesture = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
+        view.addGestureRecognizer(tapGesture)
+        disableKeyboardDissmissingByTap()
+    }
+
+    private func removeTapGesture() {
+        customStackView.removeGestureRecognizer(tapGesture)
+    }
+
+    private func enableKeyboardDissmissingByTap() {
+        self.tapGesture.isEnabled = true
+    }
+
+    private func disableKeyboardDissmissingByTap() {
+        self.tapGesture.isEnabled = false
+    }
+
+
+    @objc func keyboardWillHide(_ aNotification: NSNotification) {
+
+        let contentInsets: UIEdgeInsets = .zero
+        self.scrollView.contentInset = contentInsets
+        self.scrollView.scrollIndicatorInsets = contentInsets
+        disableKeyboardDissmissingByTap()
+    }
+
+    @objc func keyboardWillShow(_ aNotification: NSNotification) {
+
+        if let kbSize = (aNotification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
+
+            print("keyboard = \(kbSize)")
+
+            let contentInsets: UIEdgeInsets = UIEdgeInsets(top: 0.0, left: 0.0, bottom: kbSize.height, right: 0.0)
+
+            scrollView.contentInset = contentInsets
+            scrollView.scrollIndicatorInsets = contentInsets
+
+            var aRect: CGRect = self.view.frame
+
+            aRect.size.height -= kbSize.height
+            enableKeyboardDissmissingByTap()
+
+            //if !aRect.contains(hazardDescTextView.frame.origin) {
+                self.scrollView.scrollRectToVisible(hazardDescTextView.frame, animated: true)
+            //}
+        }
+
+    }
+
+    @objc func hideKeyboard() {
+        view.endEditing(true)
+        self.hazardDescTextView.endEditing(true)
+    }
+
+
     //
     // MARK: Private
     //
     private func setupView() {
+
+        setupScrollView()
+        setupContentView()
+
         customStackView = UIView()
         customStackView.backgroundColor = backgroundColor
-        view.addSubview(customStackView)
+        self.contentView.addSubview(customStackView)
+
         setupNavigationBar()
         setupCollectionView()
         setupOtherLabel()
@@ -56,6 +144,24 @@ class SelectHazardViewController: UIViewController  {
         self.view.setNeedsUpdateConstraints()
         self.view.updateConstraintsIfNeeded()
     }
+
+    private func setupScrollView() {
+        let view = UIScrollView()
+        view.backgroundColor = UIColor.clear
+
+        self.view.addSubview(view)
+        self.scrollView = view
+    }
+
+    private func setupContentView() {
+        let view = UIView()
+        view.backgroundColor = UIColor.clear
+        view.clipsToBounds = true
+
+        self.scrollView.addSubview(view)
+        self.contentView = view
+    }
+
     private func setupCollectionView() {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
@@ -77,8 +183,9 @@ class SelectHazardViewController: UIViewController  {
         view.textColor = UIColor.f8BlackText
         view.font = UIFont.systemFont(ofSize: 19)
         view.textAlignment = .center
-        view.text = "אחר"
-        self.view.addSubview(view)
+        view.text = "ELSE".localized
+        //self.view.addSubview(view)
+        self.contentView.addSubview(view)
         self.otherLabel = view
     }
 
@@ -92,7 +199,9 @@ class SelectHazardViewController: UIViewController  {
         view.layer.cornerRadius = 4.0
         view.layer.borderWidth = 2.0
         view.layer.borderColor = UIColor.black.cgColor
-        self.view.addSubview(view)
+
+        //self.view.addSubview(view)
+        self.contentView.addSubview(view)
         self.hazardDescTextView = view
         self.hazardDescTextView.delegate = self
 
@@ -161,6 +270,18 @@ class SelectHazardViewController: UIViewController  {
     //
     override func updateViewConstraints() {
 
+        scrollView.snp.remakeConstraints { (make) in
+            make.top.equalTo(self.topLayoutGuide.snp.bottom)
+            make.bottom.equalTo(bottomLayoutGuide.snp.top)
+            make.leading.equalToSuperview()
+            make.trailing.equalToSuperview()
+        }
+
+        contentView.snp.remakeConstraints { (make) in
+            make.edges.equalToSuperview()
+            make.width.equalToSuperview()
+            make.height.equalToSuperview().priority(250)
+        }
         self.customStackView.snp.remakeConstraints({ (make: ConstraintMaker) in
             make.leading.equalToSuperview().offset(0)
             make.trailing.equalToSuperview().offset(0)
@@ -210,11 +331,16 @@ extension SelectHazardViewController: UITextViewDelegate {
 
     private func textFieldDidBeginEditing(_ textField: UITextField) {
         self.currentResponder = textField
+        activeField = textField
     }
 
     func textViewDidChange(_ textView: UITextView) {
         placeholderLabel.isHidden = !textView.text.isEmpty
         self.navigationItem.rightBarButtonItem?.isEnabled = !textView.text.isEmpty
+    }
+
+    private func textFieldDidEndEditing(_ textField: UITextField) {
+        activeField = nil
     }
 }
 
@@ -260,6 +386,7 @@ extension SelectHazardViewController: UICollectionViewDelegate {
     // change background color when user touches cell
     func collectionView(_ collectionView: UICollectionView, didHighlightItemAt indexPath: IndexPath){
         let cell = collectionView.cellForItem(at: indexPath)
+        //hideKeyboard()
 
         if selectedItems.contains(indexPath) {
             selectedItems.remove(indexPath)
