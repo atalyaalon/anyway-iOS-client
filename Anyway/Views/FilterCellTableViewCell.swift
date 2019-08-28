@@ -20,7 +20,7 @@ class FilterCellTableViewCell: UITableViewCell {
     }
     
     var filterType: FilterType?
-    weak var filter: Filter? { didSet{ updateCellUI() } }
+    var filter: Filter? { didSet{ updateCellUI() } }
     
     @IBOutlet weak var btnSwitch: UISwitch! { didSet{ updateCellUI() } }
     @IBOutlet weak var titleLabel: UILabel! { didSet{ updateCellUI() } }

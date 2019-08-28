@@ -25,7 +25,8 @@ class InfoViewController: UIViewController {
     }
     
     @IBAction func dismissAction() {
-        dismiss(animated: true) { }
+        //dismiss(animated: true) { }
+        self.navigationController?.popViewController(animated: true)
     }
     
     @IBAction func moroInfoLinkAction() {

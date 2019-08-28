@@ -483,3 +483,5 @@
 "HAZAED_DETAILS" = "Hazard Details";
 "DONE" = "Done";
 "ELSE" = "Else";
+"SELECT_IMAGE_ALERT_ACTION_SELECT_FROM_ALBUM" = "Select from album";
+"SELECT_IMAGE_ALERT_ACTION_TAKE_PHOTO" = "Take a photo";

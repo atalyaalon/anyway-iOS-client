@@ -23,7 +23,6 @@ struct NewMarker: Codable {
 
 //[{"accident_severity":3,"created":"2019-06-26T11:00:00","id":"2019034183","latitude":32.0693479016437,"location_accuracy":1,"longitude":34.7877873216838,"provider_code":3}
 
-    //"accident_severity":3,"created":"2019-06-26T11:00:00","id":"2019034183","latitude":32.0693479016437,"location_accuracy":1,"longitude":34.7877873216838,"provider_code":3}
     var accident_severity: Int
     var created: String
     var id: String

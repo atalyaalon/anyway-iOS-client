@@ -10,8 +10,8 @@ import UIKit
 import Eureka
 
 protocol FilterScreenDelegate: class {
-    func didCancel(_ vc: FilterViewController, filter: Filter)
-    func didSave(_ vc: FilterViewController, filter: Filter)
+    func didCancel()
+    func didSave(filter: Filter)
 }
 
 class FilterViewController: FormViewController {
@@ -31,11 +31,11 @@ class FilterViewController: FormViewController {
     }
 
     @IBAction func actionSave(_ sender: UIBarButtonItem) {
-        delegate?.didSave(self, filter: filter)
+        delegate?.didSave(filter: filter)
     }
     
     @IBAction func actionCancel(_ sender: UIBarButtonItem) {
-        delegate?.didCancel(self, filter: filter)
+        delegate?.didCancel()
     }
     
 }

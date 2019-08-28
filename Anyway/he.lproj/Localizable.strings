@@ -469,3 +469,5 @@
 "HAZAED_DETAILS" = "פרטי המפגע";
 "DONE" = "שמור";
 "ELSE" = "אחר";
+"SELECT_IMAGE_ALERT_ACTION_SELECT_FROM_ALBUM" = "בחר תמונה מאלבום התמונות";
+"SELECT_IMAGE_ALERT_ACTION_TAKE_PHOTO" = "צלם תמונה";

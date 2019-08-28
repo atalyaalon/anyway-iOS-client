@@ -68,7 +68,7 @@ enum WeatherType: Int {
     }
 }
 
-open class Filter {
+public struct Filter {
     var startDate = Date(timeIntervalSince1970: 1356991200) { didSet{ valueChanged() } } // Default: Jan 1st 2013
     var endDate = Date() { didSet{ valueChanged() } }  // Default: Now
    

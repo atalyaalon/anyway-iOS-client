@@ -48,6 +48,7 @@ PODS:
   - Realm/Headers (3.17.3)
   - RealmSwift (3.17.3):
     - Realm (= 3.17.3)
+  - RSKImageCropper (2.2.3)
   - RxCocoa (5.0.0):
     - RxRelay (~> 5)
     - RxSwift (~> 5)
@@ -70,6 +71,7 @@ DEPENDENCIES:
   - MaterialComponents/Buttons
   - MBProgressHUD (~> 1.1.0)
   - RealmSwift
+  - RSKImageCropper
   - RxCocoa (~> 5)
   - RxGoogleMaps
   - RxSwift (~> 5)
@@ -88,6 +90,7 @@ SPEC REPOS:
     - MDFTextAccessibility
     - Realm
     - RealmSwift
+    - RSKImageCropper
     - RxCocoa
     - RxGoogleMaps
     - RxRelay
@@ -106,6 +109,7 @@ SPEC CHECKSUMS:
   MDFTextAccessibility: 85c09a1bd9c321f494348e632a25063bcda35a53
   Realm: 5a1d9d47bfc101dd597668b1a8af4288a2557f6d
   RealmSwift: b7fdc2d18616621c31df5c7a398a45a2163f8eb0
+  RSKImageCropper: a446db0e8444a036b34f3c43db01b2373baa4b2a
   RxCocoa: fcf32050ac00d801f34a7f71d5e8e7f23026dcd8
   RxGoogleMaps: 5d8a91a26dc9e3f703c5be09424e3ecf7f607328
   RxRelay: 4f7409406a51a55cd88483f21ed898c234d60f18
@@ -114,6 +118,6 @@ SPEC CHECKSUMS:
   SwiftLocation: a3c3bc2023118171ef3572188a31def94aa0892c
   SwiftyJSON: 070dabdcb1beb81b247c65ffa3a79dbbfb3b48aa
 
-PODFILE CHECKSUM: dda4b4c39b5e907574226ea41474d3a288ae32b8
+PODFILE CHECKSUM: 2af246facda9085a91091ef519dd20b80121258c
 
-COCOAPODS: 1.6.1
+COCOAPODS: 1.7.5

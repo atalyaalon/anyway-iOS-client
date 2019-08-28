@@ -10,6 +10,7 @@ import UIKit
 import GoogleMaps
 import SnapKit
 import MaterialComponents.MaterialButtons
+import RSKImageCropper
 //import SwiftUI
 //import MaterialComponents.MaterialButtons_Theming
 
@@ -34,9 +35,8 @@ class MainViewController: UIViewController {
     @IBOutlet weak var addressLabel: UILabel!
     @IBOutlet var mapView: GMSMapView!
     @IBOutlet weak var pickTitle: UITextView!
-    private let network = Network()
-    private let hud = JGProgressHUD(style: .light)
-    private var filter = Filter()
+
+    private var mainViewModel: MainViewOutput! //MainViewModel
     private var locationManager = CLLocationManager()
     private var gradientColors = [UIColor.green, UIColor.red]
     private var gradientStartPoints = [0.02, 0.09] as [NSNumber]
@@ -46,19 +46,19 @@ class MainViewController: UIViewController {
     private var helpButton: MDCFloatingButton!
     private var filterButton: MDCFloatingButton!
     private var currentState:MainVCState = .start
-    private var pickTitleFrameWithContinue = CGRect(x: 0, y: 0, width: 0, height:0)
-    private var pickTitleFrameWithoutContinue = CGRect(x: 0, y: 0, width: 0, height:0)
+    private var selectedImageView: UIImageView!
 
 
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController?.isNavigationBarHidden = true
+        mainViewModel = MainViewModel(viewController: self)
         self.setupMapView()
         self.initLocationManager()
         setupTitle()
-        setupHUD()
+        //setupHUD()
         mapView.animate(toZoom: MainViewController.ZOOM)
-        addKeyboardObservers()
+        //addKeyboardObservers()
         addTapGesture()
         addHeatMapLayer()
         restartMainViewState()
@@ -87,37 +87,8 @@ class MainViewController: UIViewController {
         cancelButton.setTitleColor(UIColor.white, for: .normal)
         cancelButton.setElevation(ShadowElevation(rawValue: 8), for: .normal)
         cancelButton.setElevation(ShadowElevation(rawValue: 12), for: .highlighted)
-
-
-
-        pickTitleFrameWithoutContinue = pickTitle.frame
-        pickTitleFrameWithContinue = CGRect(x: 0, y: 0, width: pickTitle.frame.width, height: pickTitle.frame.height * 2 + 10)
-        //nextButton.applyOutlinedTheme(withScheme: containerScheme)
-        //setTitleWithoutContinue()
-    }
-//    private func setTitleWithContinue() {
-//        self.nextButton.isHidden = false
-//        self.nextButton2.isHidden = false
-//        self.cancelButton.isHidden = false
-//        self.pickTitle.frame = pickTitleFrameWithContinue
-//        super.updateViewConstraints()
-//        view.setNeedsUpdateConstraints()
-//    }
-
-    private func disableAllFloatingButtons() {
-        self.nextButton.isHidden = true
-        self.nextButton2.isHidden = true
-        self.cancelButton.isHidden = true
     }
 
-    private func setTitleWithoutContinue() {
-        self.nextButton.isHidden = true
-        self.nextButton2.isHidden = true
-        self.cancelButton.isHidden = true
-        self.pickTitle.frame = pickTitleFrameWithoutContinue
-        super.updateViewConstraints()
-        view.setNeedsUpdateConstraints()
-    }
     private func setupMapView() {
         mapView.isTrafficEnabled   = false
         mapView.isHidden           = false
@@ -129,31 +100,16 @@ class MainViewController: UIViewController {
         setupFilterButton()
     }
 
-    fileprivate func restartMainViewState(_ after: Int = 0) {
-        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(after)) {
-            self.enableFilterAndHelpButtons()
-            self.currentState = .start
-            self.mapView.clear()
-            self.pickTitle.text = "CHOOSE_A_PLACE".localized
-            self.nextButton.isHidden = true
-            self.nextButton2.isHidden = true
-            self.cancelButton.isHidden = true
-            self.pickTitle.isHidden = false
-        }
+    private func disableAllFloatingButtons() {
+        self.nextButton.isHidden = true
+        self.nextButton2.isHidden = true
+        self.cancelButton.isHidden = true
     }
 
     fileprivate func startSelectHazardView() {
-        //        if #available(iOS 13.0.0, *) {
-        //            let view1 = SelectHazardSwiftUIView()
-        //            let host = UIHostingController(rootView:view1)
-        //            self.navigationController!.pushViewController(host, animated: true)
-        //        } else {
-        //            // Fallback on earlier versions
-        //        }
         let selectHazardViewController:SelectHazardViewController = UIStoryboard.main.instantiateViewController(withIdentifier: "SelectHazardViewController") as UIViewController as! SelectHazardViewController
 
         selectHazardViewController.delegate = self as SelectHazardViewControllerDelegate
-
         self.navigationController!.pushViewController(selectHazardViewController, animated: true)
     }
 
@@ -164,17 +120,11 @@ class MainViewController: UIViewController {
             self.disableAllFloatingButtons()
             self.updateInfoIfPossible(filterChanged:false)
         }
-        //startSelectHazardView()
     }
 
     @IBAction func nextButon2Tapped(_ sender: Any) {
-        //self.disableAllFloatingButtons()
-//        self.pickTitle.text = "SHORT_QUESTIONNAIRE".localized
-//        self.snackbarView = SnackBarView()
-//        self.displayFirstQuestionnaire()
         startSelectHazardView()
     }
-
 
     @IBAction func cancelButtonTapped(_ sender: Any) {
         restartMainViewState()
@@ -191,15 +141,8 @@ class MainViewController: UIViewController {
         self.view.addSubview(helpButton)
     }
 
-    @objc func handleHelpTap(_ sender: UIButton) {
-        print("Help button tapped")
-        let viewController:UIViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "InfoViewController") as UIViewController
-        self.present(viewController, animated: false, completion: nil)
-    }
-
     fileprivate func setupFilterButton() {
         filterButton = MDCFloatingButton(frame: CGRect(x: 30, y: 125, width: 23, height: 23))
-        //let filterButton = UIButton(frame: CGRect(x: 30, y: 150, width: 26, height: 26))
         filterButton.setImage(#imageLiteral(resourceName: "filter_add"), for: .normal)
         filterButton.backgroundColor = UIColor.white
         filterButton.setElevation(ShadowElevation(rawValue: 12), for: .normal)
@@ -208,14 +151,12 @@ class MainViewController: UIViewController {
         self.view.addSubview(filterButton)
     }
 
-    @objc func handleFilterTap(_ sender: UIButton) {
-        print("Filter button tapped")
-        let filterViewController:FilterViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "FilterViewController") as UIViewController as! FilterViewController
-        filterViewController.filter = filter
-        filterViewController.delegate = self as FilterScreenDelegate
+    @objc func handleHelpTap(_ sender: UIButton) {
+        mainViewModel?.handleHelpTap()
+    }
 
-        self.navigationController!.pushViewController(filterViewController, animated: true)
-        //self.present(viewController, animated: false, completion: nil)
+    @objc func handleFilterTap(_ sender: UIButton) {
+        mainViewModel?.handleFilterTap()
     }
 
     private func addKeyboardObservers() {
@@ -240,11 +181,6 @@ class MainViewController: UIViewController {
     private func addTapGesture() {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
         view.addGestureRecognizer(tapGesture)
-    }
-
-    private func setupHUD() {
-        hud?.animation = JGProgressHUDFadeZoomAnimation() as JGProgressHUDFadeZoomAnimation
-        hud?.interactionType = JGProgressHUDInteractionType.blockNoTouches
     }
 
     @objc func hideKeyboard() {
@@ -342,7 +278,6 @@ class MainViewController: UIViewController {
     }
 
     fileprivate func addMarkers(markers: [MarkerAnnotation]) {
-
         for marker in markers {
             let googleMarker: GMSMarker = GMSMarker() // Allocating Marker
             googleMarker.title =  marker.title ?? ""
@@ -367,27 +302,22 @@ class MainViewController: UIViewController {
         //let bottomRightCorner: CLLocationCoordinate2D = projection.nearRight
         let edges:Edges = (ne: topRightCorner, sw: bottomLeftCorner)
 
-        hud?.show(in: view)
+        mainViewModel?.getAnnotations(edges) { [weak self] (markers: [NewMarker]?) in
 
-        network.getAnnotationsNew(edges, filter: filter) { [weak self] (markers: [NewMarker]?) in
+        //network.getAnnotationsNew(edges, filter: filter) { [weak self] (markers: [NewMarker]?) in
             guard let self = self else {
                 print("finished parsing annotations. self is nil!!!")
                 return
             }
             guard let markers = markers else {
-                print("finished parsing annotations. no markers received")
-                self.displayErrorAlert()
-                self.hud?.dismiss()
                 return
             }
-            print("finished parsing annotations. markers count : \(markers.count)")
             self.removeHeatMapLayer()
             self.addHeatMapLayer()
 
             self.addHeatmap(markers: markers)
             //self.addMarkers(markers: markers)
 
-            self.hud?.dismiss()
             self.currentState = .MarkersReceived
             DispatchQueue.main.async { [weak self]  in
                 self?.pickTitle.text = "PLACES_MAKRKED_WITH_HEATMAP".localized
@@ -398,22 +328,6 @@ class MainViewController: UIViewController {
             }
         }
     }
-
-    private func displayErrorAlert(error: Error? = nil) {
-
-        let title = "Network Error"
-        let erroDesc = (error == nil) ? "" : error.debugDescription
-        let msg = "Something went wrong \(erroDesc)"
-        let prompt = UIAlertController(title: title, message: msg, preferredStyle: .alert)
-        let cancelText = "OK".localized
-        let cancel = UIAlertAction(title: cancelText, style: .cancel, handler: nil)
-        prompt.addAction(cancel)
-//        prompt.popoverPresentationController?.sourceView = nextButton
-//        prompt.popoverPresentationController?.sourceRect = nextButton.bounds
-//        prompt.popoverPresentationController?.permittedArrowDirections = .any
-        present(prompt, animated: true, completion: nil)
-    }
-
 
     private func removeHeatMapLayer() {
         heatmapLayer.map = nil
@@ -478,7 +392,6 @@ extension MainViewController: GMSMapViewDelegate {
         marker.snippet = ""
         /// Add the marker on the map
         marker.map = self.mapView
-
         //marker.title = "המקום שנבחר כמסוכן"
         //self.setTitleWithContinue()
         self.nextButton.isHidden = false
@@ -501,21 +414,6 @@ extension MainViewController: CLLocationManagerDelegate {
         mapView.camera = GMSCameraPosition(target: location.coordinate, zoom: MainViewController.ZOOM, bearing: 0, viewingAngle: 0)
         locationManager.stopUpdatingLocation()
         //fetchNearbyPlaces(coordinate: location.coordinate)
-    }
-}
-
-// MARK: - FilterScreenDelegate
-extension MainViewController: FilterScreenDelegate {
-
-    func didCancel(_ vc: FilterViewController, filter: Filter) {
-        self.navigationController?.isNavigationBarHidden = true
-        self.navigationController?.popViewController(animated: true)
-    }
-
-    func didSave(_ vc: FilterViewController, filter: Filter) {
-        self.navigationController?.isNavigationBarHidden = true
-        self.filter = filter
-        self.navigationController?.popViewController(animated: true)
     }
 }
 
@@ -565,7 +463,6 @@ extension MainViewController: SelectHazardViewControllerDelegate {
         print("didSelectHazard Hazard = \(hazards ?? [])  hazardDescription =\(hazardDescription ?? "")")
         self.navigationController?.isNavigationBarHidden = true
         self.navigationController?.popViewController(animated: true)
-
         displaySendAnswersQuestionnaire()
     }
 
@@ -574,4 +471,73 @@ extension MainViewController: SelectHazardViewControllerDelegate {
         self.navigationController?.popViewController(animated: true)
     }
 }
+
+// MARK: - RSKImageCropViewControllerDelegate
+extension MainViewController : RSKImageCropViewControllerDelegate {
+
+    func imageCropViewControllerDidCancelCrop(_ controller: RSKImageCropViewController) {
+        self.mainViewModel?.closeImagePicker()
+    }
+
+    func imageCropViewController(_ controller: RSKImageCropViewController, didCropImage croppedImage: UIImage, usingCropRect cropRect: CGRect, rotationAngle: CGFloat) {
+        DispatchQueue.main.async {
+            self.selectedImageView.image = croppedImage
+            self.mainViewModel?.closeImagePicker()
+        }
+    }
+}
+
+// MARK: - MainViewInput
+extension MainViewController : MainViewInput {
+
+    func showImagPickerScreen(_ pickerController: UIImagePickerController, animated: Bool) {
+        self.present(pickerController, animated: animated)
+    }
+
+    func showAlert(_ alert: UIAlertController, animated: Bool) {
+        self.present(alert, animated: animated)
+    }
+
+    public func displayErrorAlert(error: Error? = nil) {
+
+        let title = "Network Error"
+        var erroDesc = ""
+        if let err = error {
+            erroDesc = err.localizedDescription
+        }
+        //let erroDesc = (error == nil) ? "" : error.debugDescription
+        let msg = "Something went wrong \(erroDesc)"
+        let prompt = UIAlertController(title: title, message: msg, preferredStyle: .alert)
+        let cancelText = "OK".localized
+        let cancel = UIAlertAction(title: cancelText, style: .cancel, handler: nil)
+        prompt.addAction(cancel)
+        //        prompt.popoverPresentationController?.sourceView = nextButton
+        //        prompt.popoverPresentationController?.sourceRect = nextButton.bounds
+        //        prompt.popoverPresentationController?.permittedArrowDirections = .any
+        present(prompt, animated: true, completion: nil)
+    }
+    
+    func pushViewController(_ vc: UIViewController, animated: Bool) {
+        self.navigationController!.pushViewController(vc, animated: animated)
+    }
+    
+    func popViewController( animated: Bool) {
+        self.navigationController?.popViewController(animated: animated)
+        self.navigationController?.isNavigationBarHidden = true
+    }
+
+    func restartMainViewState(_ after: Int = 0) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(after)) {
+            self.enableFilterAndHelpButtons()
+            self.currentState = .start
+            self.mapView.clear()
+            self.pickTitle.text = "CHOOSE_A_PLACE".localized
+            self.nextButton.isHidden = true
+            self.nextButton2.isHidden = true
+            self.cancelButton.isHidden = true
+            self.pickTitle.isHidden = false
+        }
+    }
+}
+
 

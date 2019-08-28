@@ -17,6 +17,7 @@ target 'Anyway' do
     pod 'MBProgressHUD', '~> 1.1.0'
     pod 'SnapKit', '~> 4.0.0'
     pod 'MaterialComponents/Buttons'
+    pod 'RSKImageCropper'
     #pod 'MaterialComponents/Buttons+Theming'
     #pod 'MaterialComponents/schemes/Color'
 
