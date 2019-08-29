@@ -109,6 +109,8 @@
 		9F2076E1229254540034EABF /* Ben Avigdor.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 9F2076E0229254540034EABF /* Ben Avigdor.gpx */; };
 		9F5A1EAD2316DD6D001F537E /* MainViewOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F5A1EAC2316DD6D001F537E /* MainViewOutput.swift */; };
 		9F5A1EAF2316DE02001F537E /* MainViewInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F5A1EAE2316DE02001F537E /* MainViewInput.swift */; };
+		9F5A1EB123173135001F537E /* ViewOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F5A1EB023173135001F537E /* ViewOutput.swift */; };
+		9F5A1EB3231731BB001F537E /* ViewInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F5A1EB2231731BB001F537E /* ViewInput.swift */; };
 		9F691440231257CB00D60153 /* NewMarker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F69143F231257CB00D60153 /* NewMarker.swift */; };
 		9F6AC2452311865900EF5F31 /* FirstLaunch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F6AC2442311865900EF5F31 /* FirstLaunch.swift */; };
 		9F6AC247231189FC00EF5F31 /* UIStoryboard+Anyway.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F6AC246231189FC00EF5F31 /* UIStoryboard+Anyway.swift */; };
@@ -304,6 +306,8 @@
 		9F2076E0229254540034EABF /* Ben Avigdor.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "Ben Avigdor.gpx"; sourceTree = "<group>"; };
 		9F5A1EAC2316DD6D001F537E /* MainViewOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewOutput.swift; sourceTree = "<group>"; };
 		9F5A1EAE2316DE02001F537E /* MainViewInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewInput.swift; sourceTree = "<group>"; };
+		9F5A1EB023173135001F537E /* ViewOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewOutput.swift; sourceTree = "<group>"; };
+		9F5A1EB2231731BB001F537E /* ViewInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewInput.swift; sourceTree = "<group>"; };
 		9F69143F231257CB00D60153 /* NewMarker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewMarker.swift; sourceTree = "<group>"; };
 		9F6AC2442311865900EF5F31 /* FirstLaunch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstLaunch.swift; sourceTree = "<group>"; };
 		9F6AC246231189FC00EF5F31 /* UIStoryboard+Anyway.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIStoryboard+Anyway.swift"; sourceTree = "<group>"; };
@@ -430,7 +434,9 @@
 			isa = PBXGroup;
 			children = (
 				9F0EE8A122F7158700D53D4D /* MainViewController.swift */,
+				9F5A1EB023173135001F537E /* ViewOutput.swift */,
 				9F5A1EAC2316DD6D001F537E /* MainViewOutput.swift */,
+				9F5A1EB2231731BB001F537E /* ViewInput.swift */,
 				9F5A1EAE2316DE02001F537E /* MainViewInput.swift */,
 				9F1F6F07230EDE4500AD5A8D /* SelectHazardViewController.swift */,
 				9F1F6F09230EE24C00AD5A8D /* HazardCollectionViewCell.swift */,
@@ -999,6 +1005,7 @@
 				9F0EE9DC230C8DE100D53D4D /* GMUGroundOverlay.m in Sources */,
 				9F0EE8FB22F71C1400D53D4D /* OCDistance.m in Sources */,
 				9F0EE8B122F7164600D53D4D /* FilterViewController.swift in Sources */,
+				9F5A1EB3231731BB001F537E /* ViewInput.swift in Sources */,
 				9F0EE8B622F7164600D53D4D /* AccidentsViewController.swift in Sources */,
 				9F0EE9CE230C8DE100D53D4D /* GMUDefaultClusterIconGenerator.m in Sources */,
 				9F6E35922313F8AB00A8457F /* AnywayAPI.swift in Sources */,
@@ -1027,6 +1034,7 @@
 				9F6E35852313E9DC00A8457F /* MainViewModel.swift in Sources */,
 				9F0EE8B222F7164600D53D4D /* HistoryViewController.swift in Sources */,
 				30DAA0981AC1F95D001F67D2 /* Extensions.swift in Sources */,
+				9F5A1EB123173135001F537E /* ViewOutput.swift in Sources */,
 				9F1F6F04230E848200AD5A8D /* QGrid.swift in Sources */,
 				9F0EE97D2308D34900D53D4D /* TwoTextFieldsViewController.swift in Sources */,
 				9F0EE8C922F7196F00D53D4D /* Vehicle.swift in Sources */,

@@ -11,16 +11,7 @@ import GoogleMaps
 import SnapKit
 import MaterialComponents.MaterialButtons
 import RSKImageCropper
-//import SwiftUI
 //import MaterialComponents.MaterialButtons_Theming
-
-enum MainVCState: Int {
-    case start = 0
-    case placePicked = 1
-    case continueTappedAfterPlacePicked = 2
-    case loadingMarkers = 3
-    case MarkersReceived = 4
-}
 
 class MainViewController: UIViewController {
 
@@ -29,7 +20,7 @@ class MainViewController: UIViewController {
     private static let YES_NO_BUTTON_HEIGHT = 40
     private static let SNACK_BAR_BG_COLOR = UIColor.purple
 
-    @IBOutlet weak var nextButton2: MDCFloatingButton!
+    @IBOutlet weak var reportButton: MDCFloatingButton!
     @IBOutlet weak var nextButton: MDCFloatingButton!
     @IBOutlet weak var cancelButton: MDCFloatingButton!
     @IBOutlet weak var addressLabel: UILabel!
@@ -37,56 +28,20 @@ class MainViewController: UIViewController {
     @IBOutlet weak var pickTitle: UITextView!
 
     private var mainViewModel: MainViewOutput! //MainViewModel
-    private var locationManager = CLLocationManager()
     private var gradientColors = [UIColor.green, UIColor.red]
     private var gradientStartPoints = [0.02, 0.09] as [NSNumber]
     private var heatmapLayer: GMUHeatmapTileLayer!
-    private var textView = UITextView()
     private var snackbarView = SnackBarView()
     private var helpButton: MDCFloatingButton!
     private var filterButton: MDCFloatingButton!
-    private var currentState:MainVCState = .start
+    //private var currentState:MainVCState = .start
     private var selectedImageView: UIImageView!
 
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationController?.isNavigationBarHidden = true
         mainViewModel = MainViewModel(viewController: self)
-        self.setupMapView()
-        self.initLocationManager()
-        setupTitle()
-        //setupHUD()
-        mapView.animate(toZoom: MainViewController.ZOOM)
-        //addKeyboardObservers()
-        addTapGesture()
-        addHeatMapLayer()
-        restartMainViewState()
-    }
-
-    private func initLocationManager() {
-        locationManager.delegate = self
-        locationManager.requestWhenInUseAuthorization()
-        locationManager.startUpdatingLocation()
-    }
-    private func setupTitle() {
-        nextButton.setTitle("CONTINUE".localized, for: UIControl.State.normal)
-        nextButton.backgroundColor = UIColor.lightGray
-        nextButton.setTitleColor(UIColor.white, for: .normal)
-        nextButton.setElevation(ShadowElevation(rawValue: 8), for: .normal)
-        nextButton.setElevation(ShadowElevation(rawValue: 12), for: .highlighted)
-
-        nextButton2.setTitle("CONTINUE_TO_INFORM".localized, for: UIControl.State.normal)
-        nextButton2.backgroundColor = UIColor.lightGray
-        nextButton2.setTitleColor(UIColor.white, for: .normal)
-        nextButton2.setElevation(ShadowElevation(rawValue: 8), for: .normal)
-        nextButton2.setElevation(ShadowElevation(rawValue: 12), for: .highlighted)
-
-        cancelButton.setTitle("CANCEL".localized, for: UIControl.State.normal)
-        cancelButton.backgroundColor = UIColor.lightGray
-        cancelButton.setTitleColor(UIColor.white, for: .normal)
-        cancelButton.setElevation(ShadowElevation(rawValue: 8), for: .normal)
-        cancelButton.setElevation(ShadowElevation(rawValue: 12), for: .highlighted)
+        mainViewModel.viewDidLoad()
     }
 
     private func setupMapView() {
@@ -98,38 +53,30 @@ class MainViewController: UIViewController {
         mapView.settings.compassButton = true
         setupHelpButton()
         setupFilterButton()
+        mapView.animate(toZoom: MainViewController.ZOOM)
     }
 
-    private func disableAllFloatingButtons() {
-        self.nextButton.isHidden = true
-        self.nextButton2.isHidden = true
-        self.cancelButton.isHidden = true
+    private func setupTitle() {
+        nextButton.setTitle("CONTINUE".localized, for: UIControl.State.normal)
+        nextButton.backgroundColor = UIColor.lightGray
+        nextButton.setTitleColor(UIColor.white, for: .normal)
+        nextButton.setElevation(ShadowElevation(rawValue: 8), for: .normal)
+        nextButton.setElevation(ShadowElevation(rawValue: 12), for: .highlighted)
+
+        reportButton.setTitle("CONTINUE_TO_INFORM".localized, for: UIControl.State.normal)
+        reportButton.backgroundColor = UIColor.lightGray
+        reportButton.setTitleColor(UIColor.white, for: .normal)
+        reportButton.setElevation(ShadowElevation(rawValue: 8), for: .normal)
+        reportButton.setElevation(ShadowElevation(rawValue: 12), for: .highlighted)
+
+        cancelButton.setTitle("CANCEL".localized, for: UIControl.State.normal)
+        cancelButton.backgroundColor = UIColor.lightGray
+        cancelButton.setTitleColor(UIColor.white, for: .normal)
+        cancelButton.setElevation(ShadowElevation(rawValue: 8), for: .normal)
+        cancelButton.setElevation(ShadowElevation(rawValue: 12), for: .highlighted)
     }
 
-    fileprivate func startSelectHazardView() {
-        let selectHazardViewController:SelectHazardViewController = UIStoryboard.main.instantiateViewController(withIdentifier: "SelectHazardViewController") as UIViewController as! SelectHazardViewController
-
-        selectHazardViewController.delegate = self as SelectHazardViewControllerDelegate
-        self.navigationController!.pushViewController(selectHazardViewController, animated: true)
-    }
-
-    @IBAction func nextButtonPressed(_ sender: Any) {
-
-        if self.currentState == .placePicked {
-            self.disableFilterAndHelpButtons()
-            self.disableAllFloatingButtons()
-            self.updateInfoIfPossible(filterChanged:false)
-        }
-    }
-
-    @IBAction func nextButon2Tapped(_ sender: Any) {
-        startSelectHazardView()
-    }
-
-    @IBAction func cancelButtonTapped(_ sender: Any) {
-        restartMainViewState()
-    }
-    fileprivate func setupHelpButton() {
+    private func setupHelpButton() {
         helpButton = MDCFloatingButton(frame: CGRect(x: 370, y: 125, width: 26, height: 26))
         helpButton.setImage(#imageLiteral(resourceName: "information"), for: .normal)
         helpButton.backgroundColor = UIColor.white
@@ -141,7 +88,7 @@ class MainViewController: UIViewController {
         self.view.addSubview(helpButton)
     }
 
-    fileprivate func setupFilterButton() {
+    private func setupFilterButton() {
         filterButton = MDCFloatingButton(frame: CGRect(x: 30, y: 125, width: 23, height: 23))
         filterButton.setImage(#imageLiteral(resourceName: "filter_add"), for: .normal)
         filterButton.backgroundColor = UIColor.white
@@ -150,139 +97,36 @@ class MainViewController: UIViewController {
         filterButton.addTarget(self, action: #selector(handleFilterTap), for: .touchUpInside)
         self.view.addSubview(filterButton)
     }
+    @IBAction func nextButtonPressed(_ sender: Any) {
+        let mapRectangle: GMSVisibleRegion = mapView.projection.visibleRegion()
+//        self.pickTitle.text = "LOADING".localized
+        mainViewModel.handleNextButtonTap(mapRectangle)
+    }
+    @IBAction func cancelButtonTapped(_ sender: Any) {
+        mainViewModel.handleCancelButtonTapped()
+    }
 
-    @objc func handleHelpTap(_ sender: UIButton) {
+    @IBAction func reportButtonTapped(_ sender: Any) {
+        mainViewModel.handleReportButtonTapped()
+    }
+    @objc private func handleHelpTap(_ sender: UIButton) {
         mainViewModel?.handleHelpTap()
     }
 
-    @objc func handleFilterTap(_ sender: UIButton) {
+    @objc private func handleFilterTap(_ sender: UIButton) {
         mainViewModel?.handleFilterTap()
     }
 
-    private func addKeyboardObservers() {
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
-    }
-
-    @objc func keyboardWillShow(notification: NSNotification) {
-        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
-            if self.view.frame.origin.y == 0 {
-                self.view.frame.origin.y -= keyboardSize.height
-            }
-        }
-    }
-
-    @objc func keyboardWillHide(notification: NSNotification) {
-        if self.view.frame.origin.y != 0 {
-            self.view.frame.origin.y = 0
-        }
-    }
-
-    private func addTapGesture() {
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
-        view.addGestureRecognizer(tapGesture)
-    }
-
-    @objc func hideKeyboard() {
-        view.endEditing(true)
-        self.textView.endEditing(true)
-    }
-
-    fileprivate func addHeatMapLayer() {
-        heatmapLayer = GMUHeatmapTileLayer()
-        heatmapLayer.radius = 80
-        heatmapLayer.opacity = 0.9
-        heatmapLayer.gradient = GMUGradient(colors: gradientColors,
-                                            startPoints: gradientStartPoints,
-                                            colorMapSize: 256)
-    }
-
-    fileprivate func displayMunicipalityForm() {
-        let alertStyle: UIAlertController.Style = .actionSheet
-        //let alert = UIAlertController(style: alertStyle, title: "טופס רשויות", message: "שליחת תשובות לרשויות")
-        let alert = UIAlertController(style: alertStyle)
-
-        let textFieldOne: TextField.Config = configAlertTextField(placeHoler: "FIRST_NAME".localized, keyboardType: .default )
-
-        let textFieldTwo: TextField.Config = configAlertTextField(placeHoler: "LAST_NAME".localized, keyboardType: .default )
-
-        let textFieldThree: TextField.Config = configAlertTextField(placeHoler: "ID_NUMBER".localized, keyboardType: .phonePad )
-
-        let textFieldFour: TextField.Config = configAlertTextField(placeHoler: "EMAIL".localized, keyboardType: .emailAddress )
-
-        let textFieldFive: TextField.Config = configAlertTextField(placeHoler: "PHONE_NUMBER".localized, keyboardType: .phonePad )
-
-        alert.addFiveTextFields(
-            height: alertStyle == .alert ? 50 : 65,
-            hInset: alertStyle == .alert ? 12 : 0,
-            vInset: alertStyle == .alert ? 12 : 0,
-            textFieldOne: textFieldOne,
-            textFieldTwo: textFieldTwo,
-            textFieldThree: textFieldThree,
-            textFieldFour: textFieldFour,
-            textFieldFive: textFieldFive)
-
-        alert.addAction(title: "SEND_TO_AUTH".localized, style: .cancel) { [weak self] action in
-            self?.pickTitle.text = "SENDING_ANSWERS".localized
-            self?.restartMainViewState(1000)
-        }
-        alert.show()
-    }
-
-    private func configAlertTextField(placeHoler: String, keyboardType: UIKeyboardType ) -> TextField.Config {
-
-        let textFieldConfig: TextField.Config = { textField in
-            //textField.left(image: #imageLiteral(resourceName: "user"), color: UIColor(hex: 0x007AFF))
-            textField.leftViewPadding = 16
-            textField.leftTextPadding = 12
-            textField.borderWidth = 1
-            textField.borderColor = UIColor.lightGray.withAlphaComponent(0.5)
-            textField.backgroundColor = nil
-            textField.textColor = .black
-            textField.placeholder = placeHoler
-            textField.clearsOnBeginEditing = true
-            textField.autocapitalizationType = .none
-            textField.keyboardAppearance = .default
-            textField.keyboardType = keyboardType
-            //textField.isSecureTextEntry = true
-            textField.returnKeyType = .done
-            textField.action { textField in
-                print("textField = \(String(describing: textField.text))")
-            }
-        }
-        return textFieldConfig
-    }
-
-    private func disableFilterAndHelpButtons(){
-        filterButton.isEnabled = false;
-        helpButton.isEnabled = false;
-    }
     private func enableFilterAndHelpButtons(){
         filterButton.isEnabled = true;
         helpButton.isEnabled = true;
     }
-    func addHeatmap(markers: [NewMarker])  {
-        var list = [GMUWeightedLatLng]()
 
-        print ("addHeatmap. markers count \(markers.count)")
-        for marker in markers {
-            let lat = marker.latitude
-            let lng = marker.longitude
-
-            let coords = GMUWeightedLatLng(coordinate: CLLocationCoordinate2DMake(lat, lng ), intensity: 1.0)
-            list.append(coords)
-        }
-        // Add the latlng list to the heatmap layer.
-        heatmapLayer.weightedData = list
-        self.heatmapLayer.map = self.mapView
-    }
-
-    fileprivate func addMarkers(markers: [MarkerAnnotation]) {
+    private func addMarkers(markers: [MarkerAnnotation]) {
         for marker in markers {
             let googleMarker: GMSMarker = GMSMarker() // Allocating Marker
             googleMarker.title =  marker.title ?? ""
             googleMarker.snippet = marker.subtitle ?? ""
-            //googleMarker.icon = marker.
             googleMarker.appearAnimation = .pop // Appearing animation
             googleMarker.position = marker.coordinate
             DispatchQueue.main.async {
@@ -291,57 +135,13 @@ class MainViewController: UIViewController {
         }
     }
 
-    func updateInfoIfPossible( filterChanged: Bool) {
-
-        print("Getting Annotations...")
-        self.pickTitle.text = "LOADING".localized
-        let projection = mapView.projection.visibleRegion()
-        //let topLeftCorner: CLLocationCoordinate2D = projection.farLeft
-        let topRightCorner: CLLocationCoordinate2D = projection.farRight
-        let bottomLeftCorner: CLLocationCoordinate2D = projection.nearLeft
-        //let bottomRightCorner: CLLocationCoordinate2D = projection.nearRight
-        let edges:Edges = (ne: topRightCorner, sw: bottomLeftCorner)
-
-        mainViewModel?.getAnnotations(edges) { [weak self] (markers: [NewMarker]?) in
-
-        //network.getAnnotationsNew(edges, filter: filter) { [weak self] (markers: [NewMarker]?) in
-            guard let self = self else {
-                print("finished parsing annotations. self is nil!!!")
-                return
-            }
-            guard let markers = markers else {
-                return
-            }
-            self.removeHeatMapLayer()
-            self.addHeatMapLayer()
-
-            self.addHeatmap(markers: markers)
-            //self.addMarkers(markers: markers)
-
-            self.currentState = .MarkersReceived
-            DispatchQueue.main.async { [weak self]  in
-                self?.pickTitle.text = "PLACES_MAKRKED_WITH_HEATMAP".localized
-                //self?.setTitleWithContinue()
-                self?.nextButton.isHidden = true
-                self?.nextButton2.isHidden = false
-                self?.cancelButton.isHidden = false
-            }
-        }
-    }
-
-    private func removeHeatMapLayer() {
-        heatmapLayer.map = nil
-        heatmapLayer = nil
-    }
 }
 
 // MARK: - GMSMapViewDelegate
 extension MainViewController: GMSMapViewDelegate {
     
     func mapView(_ mapView: GMSMapView, idleAt position: GMSCameraPosition) {
-        if self.currentState == .start {
-            reverseGeocodeCoordinate(position.target)
-        }
+        mainViewModel?.handleCameraMovedToPosition(coordinate: position.target)
     }
     func mapView(_ mapView: GMSMapView, willMove gesture: Bool) {
         if (gesture) {
@@ -358,80 +158,16 @@ extension MainViewController: GMSMapViewDelegate {
     }
 
     func mapView(_ mapView: GMSMapView, didTapAt coordinate: CLLocationCoordinate2D) {
-
-        if self.currentState != .start  {
-            mapView.resignFirstResponder()
-            return
-        }
-        reverseGeocodeCoordinate(coordinate)
-        addMarkerOnTheMap(coordinate)
-        mapView.resignFirstResponder()
+        mainViewModel?.handleTapOnTheMap(coordinate: coordinate)
     }
 
     func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
         return false
     }
-
-    private func reverseGeocodeCoordinate(_ coordinate: CLLocationCoordinate2D) {
-        let geocoder = GMSGeocoder()
-        geocoder.reverseGeocodeCoordinate(coordinate) { response, error in
-            guard let address = response?.firstResult(), let lines = address.lines else {
-                return
-            }
-            print ("address  = \(address)")
-            self.addressLabel.text = lines.joined(separator: "\n")
-        }
-    }
-
-    fileprivate func addMarkerOnTheMap(_ coordinate: CLLocationCoordinate2D) {
-        let marker = GMSMarker()
-        marker.position = CLLocationCoordinate2D(latitude: coordinate.latitude, longitude: coordinate.longitude)
-
-        self.currentState = .placePicked
-        self.pickTitle.text = "TAP_CONTINUE_TO_GET_DANGEROUS_PLACES".localized
-        marker.snippet = ""
-        /// Add the marker on the map
-        marker.map = self.mapView
-        //marker.title = "המקום שנבחר כמסוכן"
-        //self.setTitleWithContinue()
-        self.nextButton.isHidden = false
-        self.nextButton2.isHidden = true
-        self.cancelButton.isHidden = true
-    }
-}
-
-// MARK: - CLLocationManagerDelegate
-extension MainViewController: CLLocationManagerDelegate {
-    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
-        guard status == .authorizedWhenInUse else {
-            return }
-        locationManager.startUpdatingLocation()
-    }
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        guard let location = locations.first else {
-            return
-        }
-        mapView.camera = GMSCameraPosition(target: location.coordinate, zoom: MainViewController.ZOOM, bearing: 0, viewingAngle: 0)
-        locationManager.stopUpdatingLocation()
-        //fetchNearbyPlaces(coordinate: location.coordinate)
-    }
 }
 
 // MARK: - Questionnaires
 extension MainViewController {
-
-    private func displaySendAnswersQuestionnaire() {
-        self.nextButton2.isHidden = true
-        self.cancelButton.isHidden = true
-        self.pickTitle.isHidden = true
-
-        let snackView = UIView( frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width - 20.0, height: 130))
-        let label = UILabel.questionnaireLabel(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 50), text: "WISH_TO_SEND_ANSWERS".localized)
-        snackView.addSubview(label)
-
-        self.addYesNoButtons(toView:snackView, yesAction:#selector(self.sendButtonClicked), noAction:#selector(self.cancelButtonClicked) )
-        snackbarView.showSnackBar(superView: self.view, bgColor: MainViewController.SNACK_BAR_BG_COLOR, snackbarView: snackView)
-    }
 
     private func addYesNoButtons(toView: UIView, yesAction: Selector, noAction: Selector) {
 
@@ -444,33 +180,19 @@ extension MainViewController {
         toView.addSubview(noButton)
     }
 
-    @objc func cancelButtonClicked() {
-        print("cancel Button Clicked")
+    @objc private func cancelSendButtonClicked() {
+        print("cancel send Button Clicked")
         snackbarView.hideSnackBar()
-        restartMainViewState(200)
+        mainViewModel?.handleCancelSendButtonTap()
+
     }
-    @objc func sendButtonClicked() {
+    @objc private func sendButtonClicked() {
         print("send Button Clicked")
         snackbarView.hideSnackBar()
-        displayMunicipalityForm()
+        mainViewModel?.handleSendToMunicipalityTap()
     }
 }
 
-extension MainViewController: SelectHazardViewControllerDelegate {
-    func didSelectHazard(selectedItems: Array<Any>?, hazardDescription: String?) {
-        let hazards:Array<HazardData>? = selectedItems as? Array<HazardData>
-
-        print("didSelectHazard Hazard = \(hazards ?? [])  hazardDescription =\(hazardDescription ?? "")")
-        self.navigationController?.isNavigationBarHidden = true
-        self.navigationController?.popViewController(animated: true)
-        displaySendAnswersQuestionnaire()
-    }
-
-    func didCancel() {
-        self.navigationController?.isNavigationBarHidden = true
-        self.navigationController?.popViewController(animated: true)
-    }
-}
 
 // MARK: - RSKImageCropViewControllerDelegate
 extension MainViewController : RSKImageCropViewControllerDelegate {
@@ -489,6 +211,12 @@ extension MainViewController : RSKImageCropViewControllerDelegate {
 
 // MARK: - MainViewInput
 extension MainViewController : MainViewInput {
+   
+    func setupView() {
+        self.navigationController?.isNavigationBarHidden = true
+        self.setupMapView()
+        setupTitle()
+    }
 
     func showImagPickerScreen(_ pickerController: UIImagePickerController, animated: Bool) {
         self.present(pickerController, animated: animated)
@@ -499,7 +227,6 @@ extension MainViewController : MainViewInput {
     }
 
     public func displayErrorAlert(error: Error? = nil) {
-
         let title = "Network Error"
         var erroDesc = ""
         if let err = error {
@@ -526,17 +253,96 @@ extension MainViewController : MainViewInput {
         self.navigationController?.isNavigationBarHidden = true
     }
 
-    func restartMainViewState(_ after: Int = 0) {
-        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(after)) {
-            self.enableFilterAndHelpButtons()
-            self.currentState = .start
-            self.mapView.clear()
-            self.pickTitle.text = "CHOOSE_A_PLACE".localized
-            self.nextButton.isHidden = true
-            self.nextButton2.isHidden = true
-            self.cancelButton.isHidden = true
-            self.pickTitle.isHidden = false
+    func displaySendAnswersQuestionnaire() {
+        let snackView = UIView( frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width - 20.0, height: 130))
+        let label = UILabel.questionnaireLabel(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 50), text: "WISH_TO_SEND_ANSWERS".localized)
+        snackView.addSubview(label)
+
+        self.addYesNoButtons(toView:snackView, yesAction:#selector(self.sendButtonClicked), noAction:#selector(self.cancelSendButtonClicked) )
+        snackbarView.showSnackBar(superView: self.view, bgColor: MainViewController.SNACK_BAR_BG_COLOR, snackbarView: snackView)
+    }
+
+    func addCoordinateListToHeatMap(coordinateList: [GMUWeightedLatLng]) {
+        // Add the latlng list to the heatmap layer.
+        heatmapLayer.weightedData = coordinateList
+        self.heatmapLayer.map = self.mapView
+    }
+
+    func removeHeatMapLayer() {
+        heatmapLayer.map = nil
+        heatmapLayer = nil
+    }
+
+    func addHeatMapLayer() {
+        heatmapLayer = GMUHeatmapTileLayer()
+        heatmapLayer.radius = 80
+        heatmapLayer.opacity = 0.9
+        heatmapLayer.gradient = GMUGradient(colors: gradientColors, startPoints: gradientStartPoints,colorMapSize: 256)
+    }
+
+    func disableAllFloatingButtons() {
+        self.nextButton.isHidden = true
+        self.reportButton.isHidden = true
+        self.cancelButton.isHidden = true
+    }
+
+    func disableFilterAndHelpButtons(){
+        filterButton.isEnabled = false;
+        helpButton.isEnabled = false;
+    }
+
+    func setActionForState(state: MainVCState) {
+
+        switch state {
+        case .start:
+            DispatchQueue.main.async {
+                self.enableFilterAndHelpButtons()
+                self.mapView.clear()
+                self.pickTitle.text = "CHOOSE_A_PLACE".localized
+                self.disableAllFloatingButtons()
+                self.pickTitle.isHidden = false
+            }
+        case .placePicked:
+            DispatchQueue.main.async {
+                self.pickTitle.text = "TAP_CONTINUE_TO_GET_DANGEROUS_PLACES".localized
+                self.nextButton.isHidden = false
+                self.reportButton.isHidden = true
+                self.cancelButton.isHidden = true
+            }
+        case .continueTappedAfterPlacePicked:
+            DispatchQueue.main.async { [weak self]  in
+                self?.pickTitle.text = "LOADING".localized
+                self?.disableFilterAndHelpButtons()
+                self?.disableAllFloatingButtons()
+            }
+        case .markersReceived:
+            DispatchQueue.main.async { [weak self]  in
+                self?.pickTitle.text = "PLACES_MAKRKED_WITH_HEATMAP".localized
+                self?.nextButton.isHidden = true
+                self?.reportButton.isHidden = false
+                self?.cancelButton.isHidden = false
+            }
+        case .hazardSelected:
+            DispatchQueue.main.async { [weak self]  in
+                self?.disableAllFloatingButtons()
+                self?.pickTitle.isHidden = true
+            }
         }
+    }
+
+    func setCameraPosition(coordinate : CLLocationCoordinate2D) {
+        mapView.camera = GMSCameraPosition(target: coordinate, zoom: MainViewController.ZOOM, bearing: 0, viewingAngle: 0)
+    }
+
+    func setAddressLabel(address: String) {
+        self.addressLabel.text = address
+    }
+
+    func setMarkerOnTheMap(coordinate: CLLocationCoordinate2D) {
+        let marker = GMSMarker()
+        marker.position = CLLocationCoordinate2D(latitude: coordinate.latitude, longitude: coordinate.longitude)
+        // marker.snippet = ""
+        marker.map = self.mapView
     }
 }
 

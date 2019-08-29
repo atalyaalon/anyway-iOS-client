@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol MainViewInput: class {
+protocol MainViewInput: ViewInput {
 
     func displayErrorAlert(error: Error?)
 
@@ -20,5 +20,29 @@ protocol MainViewInput: class {
 
     func popViewController( animated: Bool)
 
-    func restartMainViewState(_ after: Int)
+    //func restartMainViewState(_ after: Int)
+
+    func displaySendAnswersQuestionnaire()
+
+    func addCoordinateListToHeatMap(coordinateList: [GMUWeightedLatLng])
+
+    func removeHeatMapLayer()
+
+    func addHeatMapLayer()
+
+    func disableFilterAndHelpButtons()
+
+    func disableAllFloatingButtons()
+    
+    //func setMainViewState(state: MainVCState)
+
+    func setCameraPosition(coordinate : CLLocationCoordinate2D)
+
+    func setAddressLabel(address: String)
+
+    func setActionForState(state: MainVCState)
+    
+    func setMarkerOnTheMap(coordinate: CLLocationCoordinate2D)
+
+    
 }

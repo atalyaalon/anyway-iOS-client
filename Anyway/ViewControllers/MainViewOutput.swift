@@ -9,28 +9,32 @@
 import UIKit
 
 
-protocol MainViewOutput {
+protocol MainViewOutput : ViewOutput {
 
 
     func handleFilterTap()
-    
+
     func handleHelpTap()
 
-    func getAnnotations(_ edges: Edges, anotations: (( [NewMarker]?)->Void )? )
+    //func getAnnotations(_ edges: Edges, response: ()->Void  )
 
     func closeImagePicker()
 
-//    func obtainChatId() -> Id<Chat>?
-//
-//    func obtainParticipantId() -> Id<Adult>?
-//
-//    func setChatTitle(_ title: String)
-//
-//    func setChatSubtitle(_ subtitle: String)
-//
-//    func setupView(messageList: [Message])
-//
-//    func appendView(withPreviousMessagesList: [Message])
+    func handleReportButtonTapped()
+
+    func handleSendToMunicipalityTap()
+
+    func handleNextButtonTap(_ mapRectangle: GMSVisibleRegion)
+
+    func handleCancelButtonTapped()
+
+    func handleCancelSendButtonTap()
+
+    func handleTapOnTheMap(coordinate: CLLocationCoordinate2D)
+
+    func handleCameraMovedToPosition(coordinate: CLLocationCoordinate2D)
+
+
 
 }
 

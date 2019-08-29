@@ -139,7 +139,7 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
-                                    <action selector="nextButon2Tapped:" destination="GQG-KH-GPO" eventType="touchUpInside" id="YHZ-zR-jHK"/>
+                                    <action selector="reportButtonTapped:" destination="GQG-KH-GPO" eventType="touchUpInside" id="YHZ-zR-jHK"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WbW-jP-yzt" userLabel="cancel" customClass="MDCFloatingButton">
@@ -198,8 +198,8 @@
                         <outlet property="cancelButton" destination="WbW-jP-yzt" id="VBX-AZ-y7b"/>
                         <outlet property="mapView" destination="sEZ-um-WKY" id="SfW-nB-FhO"/>
                         <outlet property="nextButton" destination="KnO-fV-y68" id="M0o-MD-xG6"/>
-                        <outlet property="nextButton2" destination="pmz-dp-6c6" id="A8P-29-mY7"/>
                         <outlet property="pickTitle" destination="971-GA-thi" id="VRz-bs-NWf"/>
+                        <outlet property="reportButton" destination="pmz-dp-6c6" id="A8P-29-mY7"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="G5Q-TS-pSb" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -369,7 +369,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="בחר/י שפה Choose Language" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PJN-6J-MDt">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="בחר/י שפה Choose Language" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PJN-6J-MDt" userLabel="Choose Language">
                                 <rect key="frame" x="130" y="322.33333333333331" width="154.33333333333337" height="45.666666666666686"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="19"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -391,13 +391,13 @@
                                     <action selector="actionLanguage:" destination="TSo-9K-Am6" eventType="touchUpInside" id="2dI-Md-1wQ"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ניתן לשנות את הבחירה בהמשך You can change that later" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wB9-x5-zJY">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ניתן לשנות את הבחירה בהמשך You can change that later" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wB9-x5-zJY" userLabel="You can change that later">
                                 <rect key="frame" x="121.33333333333333" y="678.33333333333337" width="171.33333333333337" height="33.666666666666629"/>
                                 <fontDescription key="fontDescription" type="italicSystem" pointSize="14"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="שינויים יבואו לידי ביטוי בהפעלה הבאה Changes will be visible on next launch" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wly-fg-4Hd">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="שינויים יבואו לידי ביטוי בהפעלה הבאה Changes will be visible on next launch" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wly-fg-4Hd" userLabel="Changes will be visible on next launch">
                                 <rect key="frame" x="84.666666666666671" y="376" width="244.66666666666663" height="33.666666666666686"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <color key="textColor" red="0.33333333333333331" green="0.33333333333333331" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -1356,6 +1356,6 @@ ANYWAY מציגה על גבי מפה תאונות דרכים עם נפגעים (
         <image name="sadna_logo" width="66.666664123535156" height="66.666664123535156"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="rDf-Am-TDZ"/>
+        <segue reference="yZX-wZ-FZA"/>
     </inferredMetricsTieBreakers>
 </document>

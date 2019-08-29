@@ -8,6 +8,16 @@
 
 import UIKit
 import RSKImageCropper
+import GoogleMaps
+
+enum MainVCState: Int {
+    case start = 0
+    case placePicked = 1
+    case continueTappedAfterPlacePicked = 2
+    case markersReceived = 3
+    case hazardSelected = 4
+}
+
 
 class MainViewModel: NSObject, UINavigationControllerDelegate {
  
@@ -20,6 +30,8 @@ class MainViewModel: NSObject, UINavigationControllerDelegate {
     private weak var cropDelegate: RSKImageCropViewControllerDelegate?
     private weak var imagePickerController: UIImagePickerController?
     private var filter = Filter()
+    private var locationManager = CLLocationManager()
+    private var currentState:MainVCState = .start
 
 
     init(viewController: MainViewInput?) {
@@ -30,6 +42,11 @@ class MainViewModel: NSObject, UINavigationControllerDelegate {
         self.cropDelegate = viewController as? RSKImageCropViewControllerDelegate
     }
 
+    private func initLocationManager() {
+        locationManager.delegate = self
+        locationManager.requestWhenInUseAuthorization()
+        locationManager.startUpdatingLocation()
+    }
 
     func openImagePickerScreen(delegate: RSKImageCropViewControllerDelegate) {
         let pickerController = UIImagePickerController()
@@ -65,9 +82,10 @@ class MainViewModel: NSObject, UINavigationControllerDelegate {
         self.view?.showAlert(selecetImageAlert, animated: true)
     }
 
-    func showHUD() {
+    private func showHUD() {
         DispatchQueue.main.async {
             if let view = self.view as? UIViewController {
+                self.hud?.isHidden = false
                 self.hud?.show(in: view.view, animated:true);
                 //hud.mode = .indeterminate
                 self.hud?.textLabel.text = "LOADING".localized
@@ -75,7 +93,7 @@ class MainViewModel: NSObject, UINavigationControllerDelegate {
         }
     }
 
-    func hideHUD() {
+    private func hideHUD() {
         DispatchQueue.main.async {
             self.hud?.isHidden = true
         }
@@ -84,32 +102,101 @@ class MainViewModel: NSObject, UINavigationControllerDelegate {
 
     //let imageData = selectedImageView?.image?.jpegData(compressionQuality: 0.8)
     
+    private func startSelectHazardView() {
+        let selectHazardViewController:SelectHazardViewController = UIStoryboard.main.instantiateViewController(withIdentifier: "SelectHazardViewController") as UIViewController as! SelectHazardViewController
+
+        selectHazardViewController.delegate = self as SelectHazardViewControllerDelegate
+        self.view?.pushViewController(selectHazardViewController, animated: true)
+    }
+
+    private func configAlertTextField(placeHoler: String, keyboardType: UIKeyboardType ) -> TextField.Config {
+
+        let textFieldConfig: TextField.Config = { (textField:TextField) in
+            //textField.left(image: #imageLiteral(resourceName: "user"), color: UIColor(hex: 0x007AFF))
+            textField.leftViewPadding = 16
+            textField.leftTextPadding = 12
+            textField.borderWidth = 1
+            textField.borderColor = UIColor.lightGray.withAlphaComponent(0.5)
+            textField.backgroundColor = nil
+            textField.textColor = .black
+            textField.placeholder = placeHoler
+            textField.clearsOnBeginEditing = true
+            textField.autocapitalizationType = .none
+            textField.keyboardAppearance = .default
+            textField.keyboardType = keyboardType
+            //textField.isSecureTextEntry = true
+            textField.returnKeyType = .done
+            textField.action { textField in
+                print("textField = \(String(describing: textField.text))")
+            }
+        }
+        return textFieldConfig
+    }
+
+    private func addHeatmap(markers: [NewMarker])  {
+        var list = [GMUWeightedLatLng]()
+        print ("addHeatmap. markers count \(markers.count)")
+        for marker in markers {
+            let lat = marker.latitude
+            let lng = marker.longitude
+
+            let coords = GMUWeightedLatLng(coordinate: CLLocationCoordinate2DMake(lat, lng ), intensity: 1.0)
+            list.append(coords)
+        }
+        view?.addCoordinateListToHeatMap(coordinateList: list)
+     }
 
 
-}
-
-
-
-// MARK: - FilterScreenDelegate
-extension MainViewModel: MainViewOutput {
-
-    func getAnnotations(_ edges: Edges, anotations: (( [NewMarker]?)->Void )? ){
+    func getAnnotations(_ edges: Edges) {
 
         showHUD()
 
         self.api.getAnnotationsRequest(edges, filter: filter) { (markers: [NewMarker]?) in
 
             self.hideHUD()
-            if markers == nil ||  markers?.count == 0  {
-                print("finished parsing annotations. no markers received")
+            guard let markers = markers else {
+                print("finished parsing annotations. ERROR markers ar nil")
                 self.view?.displayErrorAlert(error: nil)
-                self.view?.restartMainViewState(0)
+                self.setMainViewState(state: .start)
                 return
             }
-            print("finished parsing annotations. markers count : \(String(describing: markers?.count))")
+            if  markers.count == 0  {
+                print("finished parsing annotations. no markers received")
+                self.view?.displayErrorAlert(error: nil)
+                self.setMainViewState(state: .start)
+                return
+            }
+            print("finished parsing annotations. markers count : \(String(describing: markers.count))")
 
-            anotations?(markers)
+            self.view?.removeHeatMapLayer()
+            self.view?.addHeatMapLayer()
+
+            self.addHeatmap(markers: markers)
+
+            self.setMainViewState(state: .markersReceived)
+            //anotations?(markers)
         }
+    }
+
+    func setMainViewState(state:MainVCState) {
+        self.currentState = state
+        view?.setActionForState(state: self.currentState)
+    }
+
+}
+
+
+
+// MARK: - MainViewOutput
+extension MainViewModel: MainViewOutput {
+
+
+    func viewDidLoad() {
+
+        self.view?.setupView()
+        self.initLocationManager()
+        self.view?.addHeatMapLayer()
+        self.setMainViewState(state: .start)
     }
 
     func handleFilterTap() {
@@ -133,6 +220,101 @@ extension MainViewModel: MainViewOutput {
         self.imagePickerController = nil
 
     }
+
+    func handleReportButtonTapped() {
+        startSelectHazardView()
+    }
+
+
+    func handleSendToMunicipalityTap() {
+        let alertStyle: UIAlertController.Style = .actionSheet
+        //let alert = UIAlertController(style: alertStyle, title: "טופס רשויות", message: "שליחת תשובות לרשויות")
+        let alert = UIAlertController(style: alertStyle)
+
+        let textFieldOne: TextField.Config = configAlertTextField(placeHoler: "FIRST_NAME".localized, keyboardType: .default )
+
+        let textFieldTwo: TextField.Config = configAlertTextField(placeHoler: "LAST_NAME".localized, keyboardType: .default )
+
+        let textFieldThree: TextField.Config = configAlertTextField(placeHoler: "ID_NUMBER".localized, keyboardType: .phonePad )
+
+        let textFieldFour: TextField.Config = configAlertTextField(placeHoler: "EMAIL".localized, keyboardType: .emailAddress )
+
+        let textFieldFive: TextField.Config = configAlertTextField(placeHoler: "PHONE_NUMBER".localized, keyboardType: .phonePad )
+
+        alert.addFiveTextFields(
+            height: alertStyle == .alert ? 50 : 65,
+            hInset: alertStyle == .alert ? 12 : 0,
+            vInset: alertStyle == .alert ? 12 : 0,
+            textFieldOne: textFieldOne,
+            textFieldTwo: textFieldTwo,
+            textFieldThree: textFieldThree,
+            textFieldFour: textFieldFour,
+            textFieldFive: textFieldFive)
+
+        alert.addAction(title: "SEND_TO_AUTH".localized, style: .cancel) { [weak self] action in
+            //self?.pickTitle.text = "SENDING_ANSWERS".localized
+            self?.setMainViewState(state: .start)
+        }
+
+        self.view?.showAlert(alert, animated: true)
+    }
+    func handleNextButtonTap(_ mapRectangle: GMSVisibleRegion) {
+
+        let topRightCorner: CLLocationCoordinate2D = mapRectangle.farRight
+        let bottomLeftCorner: CLLocationCoordinate2D = mapRectangle.nearLeft
+        let edges:Edges = (ne: topRightCorner, sw: bottomLeftCorner)
+
+        self.setMainViewState(state: .continueTappedAfterPlacePicked)
+
+        self.getAnnotations(edges)
+    }
+    func handleCancelButtonTapped() {
+        self.setMainViewState(state: .start)
+    }
+
+    func handleCancelSendButtonTap() {
+        self.setMainViewState(state: .start)
+    }
+
+    func handleTapOnTheMap(coordinate: CLLocationCoordinate2D){
+        if self.currentState != .start  {
+            //mapView.resignFirstResponder()
+            return
+        }
+
+        reverseGeocodeCoordinate(coordinate)
+        addMarkerOnTheMap(coordinate)
+        
+    }
+
+    func handleCameraMovedToPosition(coordinate: CLLocationCoordinate2D) {
+        if self.currentState == .start {
+            reverseGeocodeCoordinate(coordinate)
+        }
+    }
+
+
+    private func reverseGeocodeCoordinate(_ coordinate: CLLocationCoordinate2D) {
+        let geocoder = GMSGeocoder()
+        geocoder.reverseGeocodeCoordinate(coordinate) { response, error in
+            guard let address = response?.firstResult(), let lines = address.lines else {
+                return
+            }
+            print ("address  = \(address)")
+            self.view?.setAddressLabel(address: lines.joined(separator: "\n"))
+            //self.addressLabel.text = lines.joined(separator: "\n")
+        }
+    }
+
+    private func addMarkerOnTheMap(_ coordinate: CLLocationCoordinate2D) {
+        let marker = GMSMarker()
+        marker.position = CLLocationCoordinate2D(latitude: coordinate.latitude, longitude: coordinate.longitude)
+
+        self.setMainViewState(state: .placePicked)
+        view?.setMarkerOnTheMap(coordinate: coordinate)
+
+    }
+
 }
 
 // MARK: - FilterScreenDelegate
@@ -144,6 +326,23 @@ extension MainViewModel: FilterScreenDelegate {
 
     func didSave(filter: Filter) {
         self.filter = filter
+        view?.popViewController(animated: true)
+    }
+}
+
+// MARK: - SelectHazardViewControllerDelegate
+extension MainViewModel: SelectHazardViewControllerDelegate {
+    func didSelectHazard(selectedItems: Array<Any>?, hazardDescription: String?) {
+        let hazards:Array<HazardData>? = selectedItems as? Array<HazardData>
+
+        print("didSelectHazard Hazard = \(hazards ?? [])  hazardDescription =\(hazardDescription ?? "")")
+        view?.popViewController(animated: true)
+
+        self.setMainViewState(state: .hazardSelected)
+        view?.displaySendAnswersQuestionnaire()
+    }
+
+    func didCancelHazard() {
         view?.popViewController(animated: true)
     }
 }
@@ -168,4 +367,24 @@ extension MainViewModel: UIImagePickerControllerDelegate {
         }
     }
 }
+
+// MARK: - CLLocationManagerDelegate
+extension MainViewModel: CLLocationManagerDelegate {
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        guard status == .authorizedWhenInUse else {
+            return }
+        locationManager.startUpdatingLocation()
+    }
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        guard let location = locations.first else {
+            return
+        }
+        view?.setCameraPosition(coordinate: location.coordinate)
+        
+        locationManager.stopUpdatingLocation()
+
+        //fetchNearbyPlaces(coordinate: location.coordinate)
+    }
+}
+
 

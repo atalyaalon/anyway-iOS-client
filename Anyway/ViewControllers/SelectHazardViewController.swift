@@ -13,7 +13,7 @@ import SnapKit
 public protocol SelectHazardViewControllerDelegate: class {
 
     func didSelectHazard(selectedItems: Array<Any>?, hazardDescription: String?)
-    func didCancel() 
+    func didCancelHazard() 
 }
 
 
@@ -56,7 +56,6 @@ class SelectHazardViewController: UIViewController {
         removeKeyboardObservers()
         removeTapGesture()
     }
-
 
     private func addKeyboardObservers() {
 
@@ -123,7 +122,6 @@ class SelectHazardViewController: UIViewController {
         view.endEditing(true)
         self.hazardDescTextView.endEditing(true)
     }
-
 
     //
     // MARK: Private
@@ -243,7 +241,7 @@ class SelectHazardViewController: UIViewController {
         if Thread.callStackSymbols.count > 2 {
             print("Who called me: \(Thread.callStackSymbols[2])")
         }
-        delegate?.didCancel()
+        delegate?.didCancelHazard()
         //self.navigationController?.popViewController(animated: true)
     }
 
@@ -264,7 +262,7 @@ class SelectHazardViewController: UIViewController {
     // MARK: - Actions
     @objc func backBarButtonItemAction(sender: UIButton) {
         self.currentResponder?.resignFirstResponder()
-        delegate?.didCancel()
+        delegate?.didCancelHazard()
     }
     //
     // MARK: Layout
