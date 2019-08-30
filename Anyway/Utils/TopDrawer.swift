@@ -29,6 +29,8 @@ public class TopDrawer: UIView {
     private var drawerHeight: CGFloat?
 
     private var _isVisible: Bool = true
+
+    private var yesButton = CAShapeLayer()
     //private var textlayer = CATextLayer()
 
 
@@ -127,7 +129,7 @@ private extension TopDrawer {
 
         let textlayer = CATextLayer()
         //let stingWidth:CGFloat = labelText?.widthOfString(usingFont : UIFont.systemFont(ofSize: 16)) ?? 0 + 0
-        textlayer.frame = CGRect(x: 0, y:frame.height - 50, width: frame.width , height: 18)
+        textlayer.frame = CGRect(x: 0, y:frame.height - 40, width: frame.width , height: 18)
         textlayer.fontSize = 16
         textlayer.alignmentMode = .center
         textlayer.string = labelText
@@ -139,6 +141,28 @@ private extension TopDrawer {
 
         layer.addSublayer(textlayer)
 
+
+
+
+
+        //let yesButton = CAShapeLayer()
+        yesButton.path = UIBezierPath(roundedRect: CGRect(x: 100, y: frame.height - 80, width: 40, height: 40), cornerRadius: 6).cgPath
+        yesButton.fillColor = UIColor.red.cgColor
+        yesButton.shadowOpacity = 0.7
+        yesButton.shadowRadius = 10.0
+        yesButton.contents = UIImage(named: "user")?.cgImage
+        //layer.addSublayer(yesButton)
+
+//        let animation = CAKeyframeAnimation()
+//        animation.keyPath = "transform.scale"
+//        animation.values = [0, 0.2*1, -0.2*1, 0.2*1, 0]
+//        animation.keyTimes = [0, 0.2, 0.4, 0.6, 0.8, 1]
+//        //animation.timingFunction = getTimingFunction(curve: curve)
+//        animation.duration = CFTimeInterval(3)
+//        animation.isAdditive = true
+//        animation.repeatCount = 1
+//        animation.beginTime = CACurrentMediaTime()
+//        yesButton.add(animation, forKey: "pop")
 //        let grooveSize: CGSize = CGSize(width: 24.0, height: 2.125)
 //
 //        for index in 0 ..< 2 {
@@ -160,6 +184,37 @@ private extension TopDrawer {
 
         //addGestureRecognizer(panGestureRecognizer)
     }
+
+//        if  ((yesButton.path?.contains(point))!){
+//            print("tuoch button - event \(event) \(event?.type) \(event?.subtype) ")
+//        }
+//
+//        return self
+//    }
+
+    override public func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        let touch = touches.first
+
+        let point = (touch?.location(in: self))!
+
+        if  ((yesButton.path?.contains(point))!){
+            print("tuoch button - event \(event) \(event?.type) \(event?.subtype) ")
+
+        }
+//
+//        guard let point = touch?.location(in: imageView) else { return }
+//        guard let sublayers = imageView.layer.sublayers as? [CAShapeLayer] else { return }
+//
+//        for layer in sublayers {
+//            if let path = layer.path, path.contains(point) {
+//                print(layer)
+//            }
+//        }
+    }
+
+//    override func hitTest(point: CGPoint, withEvent event: UIEvent?) -> UIView? {
+//        return self.path.containsPoint(point) ? self : nil
+//    }
 
     @objc func didPanDrawer(_ gestureRecognizer: UIPanGestureRecognizer) {
         if [.began, .changed].contains(gestureRecognizer.state) {

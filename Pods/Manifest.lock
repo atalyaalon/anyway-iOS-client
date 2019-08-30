@@ -60,6 +60,7 @@ PODS:
     - RxSwift (~> 5)
   - RxSwift (5.0.0)
   - SnapKit (4.0.1)
+  - Spring (1.0.6)
   - SwiftLocation (3.2.3):
     - SwiftyJSON (~> 4.0.0-alpha.1)
   - SwiftyJSON (4.0.0)
@@ -76,6 +77,7 @@ DEPENDENCIES:
   - RxGoogleMaps
   - RxSwift (~> 5)
   - SnapKit (~> 4.0.0)
+  - Spring (from `https://github.com/MengTo/Spring.git`)
   - SwiftLocation
   - SwiftyJSON
 
@@ -99,6 +101,15 @@ SPEC REPOS:
     - SwiftLocation
     - SwiftyJSON
 
+EXTERNAL SOURCES:
+  Spring:
+    :git: https://github.com/MengTo/Spring.git
+
+CHECKOUT OPTIONS:
+  Spring:
+    :commit: 50d92a5b9e08848387ae95bf44c6ad20834f7083
+    :git: https://github.com/MengTo/Spring.git
+
 SPEC CHECKSUMS:
   Alamofire: ae5c501addb7afdbb13687d7f2f722c78734c2d3
   Eureka: 28ea296f06710f6745266b71f17862048941a32d
@@ -115,9 +126,10 @@ SPEC CHECKSUMS:
   RxRelay: 4f7409406a51a55cd88483f21ed898c234d60f18
   RxSwift: 8b0671caa829a763bbce7271095859121cbd895f
   SnapKit: 0de968a9fec17499afa29683b05d0c775b6d1c29
+  Spring: 3d113f14575ef79aec9c5f906dfa4f5001c03254
   SwiftLocation: a3c3bc2023118171ef3572188a31def94aa0892c
   SwiftyJSON: 070dabdcb1beb81b247c65ffa3a79dbbfb3b48aa
 
-PODFILE CHECKSUM: 2af246facda9085a91091ef519dd20b80121258c
+PODFILE CHECKSUM: ebccb847f5fc6b2340462c791e5febc9a3decb9a
 
 COCOAPODS: 1.7.5

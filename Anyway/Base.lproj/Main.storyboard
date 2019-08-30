@@ -578,7 +578,7 @@
                         <viewControllerLayoutGuide type="bottom" id="U6W-Ye-Qcs"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="2vr-Fk-HUK">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="672"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="Fk7-Eq-26z">
@@ -766,7 +766,7 @@
                         <viewControllerLayoutGuide type="bottom" id="Hhe-TW-Xi8"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="qQL-3E-FnB">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="825"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="i2U-g3-eNt">
@@ -792,20 +792,20 @@
                                         </connections>
                                     </button>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Em2-NV-DRo" userLabel="Seperator">
-                                        <rect key="frame" x="64" y="114.66666666666666" width="192" height="1"/>
+                                        <rect key="frame" x="64" y="93" width="192" height="1"/>
                                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="1" id="Kkl-9O-Wan"/>
                                         </constraints>
                                     </view>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="משפיעים בכל דרך" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c5w-2M-nJU">
-                                        <rect key="frame" x="63.666666666666657" y="123.66666666666666" width="192.99999999999997" height="35"/>
+                                        <rect key="frame" x="63.666666666666657" y="102" width="192.99999999999997" height="35"/>
                                         <fontDescription key="fontDescription" type="system" weight="thin" pointSize="29"/>
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SQC-Jd-2iJ">
-                                        <rect key="frame" x="18" y="166.66666666666663" width="284" height="478"/>
+                                        <rect key="frame" x="18" y="145" width="284" height="478"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="478" id="E42-U6-NCr"/>
                                         </constraints>
@@ -836,10 +836,10 @@ ANYWAY מציגה על גבי מפה תאונות דרכים עם נפגעים (
                                         </connections>
                                     </button>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="anyway big logo" translatesAutoresizingMaskIntoConstraints="NO" id="XRC-qu-oN2">
-                                        <rect key="frame" x="89.666666666666671" y="68" width="140.66666666666663" height="37.666666666666657"/>
+                                        <rect key="frame" x="152" y="68" width="16" height="16"/>
                                     </imageView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wcD-nt-HIs">
-                                        <rect key="frame" x="14.666666666666657" y="620.66666666666663" width="291" height="30"/>
+                                        <rect key="frame" x="14.666666666666657" y="599" width="291" height="30"/>
                                         <state key="normal" title="למידע נוסף: העמוד שלנו באתר הסדנה לידע ציבורי">
                                             <color key="titleColor" red="0.070588235294117646" green="0.55294117647058827" blue="0.82745098039215681" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -849,19 +849,19 @@ ANYWAY מציגה על גבי מפה תאונות דרכים עם נפגעים (
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="770" verticalCompressionResistancePriority="250" text="Hasadna" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jdk-sO-5fr">
-                                        <rect key="frame" x="113.66666666666669" y="672.66666666666663" width="117" height="37"/>
+                                        <rect key="frame" x="63" y="651" width="117" height="37"/>
                                         <fontDescription key="fontDescription" type="system" weight="light" pointSize="31"/>
                                         <color key="textColor" red="0.070588235294117646" green="0.55294117647058827" blue="0.82745098039215681" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" image="sadna_logo" translatesAutoresizingMaskIntoConstraints="NO" id="g6g-zS-DDt">
-                                        <rect key="frame" x="32.000000000000007" y="658.66666666666663" width="66.666666666666686" height="66.666666666666629"/>
+                                        <rect key="frame" x="32" y="637" width="16" height="16"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="g6g-zS-DDt" secondAttribute="height" multiplier="1:1" id="lMp-gi-X7E"/>
                                         </constraints>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="TopLeft" horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="770" verticalCompressionResistancePriority="250" text="The Workshop for Public Knowledge" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="W6a-lU-jj5">
-                                        <rect key="frame" x="114.66666666666667" y="709.66666666666663" width="175.33333333333331" height="17"/>
+                                        <rect key="frame" x="64" y="688" width="226" height="17"/>
                                         <fontDescription key="fontDescription" type="system" weight="light" pointSize="14"/>
                                         <color key="textColor" red="0.070588235289999995" green="0.55294117649999996" blue="0.82745098039999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
