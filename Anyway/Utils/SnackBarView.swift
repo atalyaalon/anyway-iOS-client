@@ -134,13 +134,8 @@ private class PaddingLabel: UILabel {
     
     override func drawText(in rect: CGRect) {
         let insets = UIEdgeInsets.init(top: topInset, left: leftInset, bottom: bottomInset, right: rightInset)
-        //super.drawText(in: UIEdgeInsetsInsetRect(rect, insets))
-
-        //public func inset(by insets: UIEdgeInsets) -> CGRect
-        //let rect2 = rect.inset(by: insets)
-
+        
         super.drawText(in: rect.inset(by: insets))
-        //var rect = CGRect.inset(rect) //inset(by: insets)
     }
     
     override var intrinsicContentSize: CGSize {

@@ -67,7 +67,7 @@
                             </view>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="971-GA-thi">
                                 <rect key="frame" x="0.0" y="96" width="414" height="40"/>
-                                <color key="backgroundColor" red="0.87450980392156863" green="0.8666666666666667" blue="0.98039215686274506" alpha="0.90520654965753422" colorSpace="custom" customColorSpace="displayP3"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="Nct-GR-hzp"/>
                                 </constraints>
@@ -578,7 +578,7 @@
                         <viewControllerLayoutGuide type="bottom" id="U6W-Ye-Qcs"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="2vr-Fk-HUK">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="672"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="Fk7-Eq-26z">
@@ -766,7 +766,7 @@
                         <viewControllerLayoutGuide type="bottom" id="Hhe-TW-Xi8"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="qQL-3E-FnB">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="825"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="i2U-g3-eNt">

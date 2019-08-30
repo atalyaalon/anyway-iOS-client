@@ -36,6 +36,7 @@ class MainViewController: UIViewController {
     private var filterButton: MDCFloatingButton!
     //private var currentState:MainVCState = .start
     private var selectedImageView: UIImageView!
+    private var topDrawer: TopDrawer?
 
 
     override func viewDidLoad() {
@@ -216,6 +217,7 @@ extension MainViewController : MainViewInput {
         self.navigationController?.isNavigationBarHidden = true
         self.setupMapView()
         setupTitle()
+        //self.view.addSubview(topDrawer)
     }
 
     func showImagPickerScreen(_ pickerController: UIImagePickerController, animated: Bool) {
@@ -295,29 +297,41 @@ extension MainViewController : MainViewInput {
 
         switch state {
         case .start:
+            //DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(2)) {
             DispatchQueue.main.async {
                 self.enableFilterAndHelpButtons()
                 self.mapView.clear()
-                self.pickTitle.text = "CHOOSE_A_PLACE".localized
+                //self.pickTitle.text = "CHOOSE_A_PLACE".localized
                 self.disableAllFloatingButtons()
-                self.pickTitle.isHidden = false
+                self.pickTitle.isHidden = true
+
+                self.topDrawer = TopDrawer(text: "CHOOSE_A_PLACE".localized)
+                self.view.addSubview(self.topDrawer!)
+
+//                DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(3)) {
+//                    self.topDrawer?.toggleVisibility()
+//                }
             }
         case .placePicked:
             DispatchQueue.main.async {
-                self.pickTitle.text = "TAP_CONTINUE_TO_GET_DANGEROUS_PLACES".localized
+                //self.pickTitle.text = "TAP_CONTINUE_TO_GET_DANGEROUS_PLACES".localized
+                self.topDrawer?.setText(text: "TAP_CONTINUE_TO_GET_DANGEROUS_PLACES".localized)
                 self.nextButton.isHidden = false
                 self.reportButton.isHidden = true
                 self.cancelButton.isHidden = true
             }
         case .continueTappedAfterPlacePicked:
             DispatchQueue.main.async { [weak self]  in
-                self?.pickTitle.text = "LOADING".localized
+                //self?.pickTitle.text = "LOADING".localized
+                self?.topDrawer?.toggleVisibility()
                 self?.disableFilterAndHelpButtons()
                 self?.disableAllFloatingButtons()
             }
         case .markersReceived:
             DispatchQueue.main.async { [weak self]  in
-                self?.pickTitle.text = "PLACES_MAKRKED_WITH_HEATMAP".localized
+                self?.topDrawer?.toggleVisibility()
+                self?.topDrawer?.setText(text:"PLACES_MAKRKED_WITH_HEATMAP".localized)
+                //self?.pickTitle.text = "PLACES_MAKRKED_WITH_HEATMAP".localized
                 self?.nextButton.isHidden = true
                 self?.reportButton.isHidden = false
                 self?.cancelButton.isHidden = false
@@ -325,7 +339,8 @@ extension MainViewController : MainViewInput {
         case .hazardSelected:
             DispatchQueue.main.async { [weak self]  in
                 self?.disableAllFloatingButtons()
-                self?.pickTitle.isHidden = true
+                self?.topDrawer?.toggleVisibility()
+                //self?.pickTitle.isHidden = true
             }
         }
     }
