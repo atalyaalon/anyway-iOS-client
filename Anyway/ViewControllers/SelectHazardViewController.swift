@@ -32,7 +32,8 @@ class SelectHazardViewController: UIViewController {
     private var otherLabel: UILabel!
     private var hazardDescTextView: UITextView!
     private let padding: CGFloat = 15
-    private let backgroundColor: UIColor = UIColor.purple
+    //private let backgroundColor: UIColor = UIColor.purple
+    private let backgroundColor: UIColor = UIColor.f8Silver//.withAlphaComponent(0.525)
     private var placeholderLabel : UILabel!
     private var tapGesture: UITapGestureRecognizer!
     public weak var delegate: SelectHazardViewControllerDelegate?
@@ -132,7 +133,7 @@ class SelectHazardViewController: UIViewController {
         setupContentView()
 
         customStackView = UIView()
-        customStackView.backgroundColor = backgroundColor
+        customStackView.backgroundColor = self.backgroundColor
         self.contentView.addSubview(customStackView)
 
         setupNavigationBar()
@@ -168,7 +169,7 @@ class SelectHazardViewController: UIViewController {
         layout.minimumInteritemSpacing = 1
 
         let view = UICollectionView(frame: CGRect.zero, collectionViewLayout: layout)
-        view.backgroundColor = backgroundColor
+        view.backgroundColor = self.backgroundColor
         customStackView.addSubview(view)
         self.collectionView = view
         self.collectionView.dataSource = self

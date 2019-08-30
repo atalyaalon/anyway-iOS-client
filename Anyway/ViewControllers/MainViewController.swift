@@ -217,6 +217,7 @@ extension MainViewController : MainViewInput {
         self.navigationController?.isNavigationBarHidden = true
         self.setupMapView()
         setupTitle()
+        self.topDrawer = TopDrawer()
         //self.view.addSubview(topDrawer)
     }
 
@@ -305,17 +306,14 @@ extension MainViewController : MainViewInput {
                 self.disableAllFloatingButtons()
                 self.pickTitle.isHidden = true
 
-                self.topDrawer = TopDrawer(text: "CHOOSE_A_PLACE".localized)
+                self.topDrawer?.setText(text: "CHOOSE_A_PLACE".localized)
                 self.view.addSubview(self.topDrawer!)
 
-//                DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(3)) {
-//                    self.topDrawer?.toggleVisibility()
-//                }
             }
         case .placePicked:
             DispatchQueue.main.async {
                 //self.pickTitle.text = "TAP_CONTINUE_TO_GET_DANGEROUS_PLACES".localized
-                self.topDrawer?.setText(text: "TAP_CONTINUE_TO_GET_DANGEROUS_PLACES".localized)
+                self.topDrawer?.setText(text: "TAP_CONTINUE_TO_GET_DANGEROUS_PLACES".localized, drawerHeight: 120.0)
                 self.nextButton.isHidden = false
                 self.reportButton.isHidden = true
                 self.cancelButton.isHidden = true

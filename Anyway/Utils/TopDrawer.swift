@@ -10,6 +10,8 @@ import Foundation
 import UIKit
 
 public class TopDrawer: UIView {
+
+
     public var isVisible: Bool {
         get { return _isVisible }
         set {
@@ -17,11 +19,14 @@ public class TopDrawer: UIView {
             toggleVisibility()
         }
     }
-    public func setText(text: String){
+    public func setText(text: String, drawerHeight: CGFloat? = nil){
+        if let drawerHeight = drawerHeight {
+            self.drawerHeight = drawerHeight
+        }
         setupView(labelText: text)
     }
 
-    //public var labelText: String?
+    private var drawerHeight: CGFloat?
 
     private var _isVisible: Bool = true
     //private var textlayer = CATextLayer()
@@ -40,10 +45,16 @@ public class TopDrawer: UIView {
 //        self.init()
 //        self.labelText = text
 //    }
-    public init(text: String? = nil) {
+    public init(text: String? = nil, drawerHeight: CGFloat? = nil) {
         //self.labelText = text
         super.init(frame: .zero)
+        if let drawerHeight = drawerHeight {
+            self.drawerHeight = drawerHeight
+        }else{
+            self.drawerHeight =  Constants.minimumVisibleHeight
+        }
         setupView(labelText: text)
+
     }
 
 
@@ -73,8 +84,13 @@ public class TopDrawer: UIView {
 
 private extension TopDrawer {
     func setupView(labelText: String?) {
-        frame = startingFrame()
 
+        frame = CGRect(
+            x: 0.0,
+            y: -(Constants.height - self.drawerHeight!),// Constants.minimumVisibleHeight),
+            width: UIScreen.main.bounds.size.width,
+            height: Constants.height
+        )
         backgroundColor = UIColor.lightGray.withAlphaComponent(0.825)
 
         if let sublayers = layer.sublayers {
@@ -109,12 +125,9 @@ private extension TopDrawer {
         borderLayer.fillColor = UIColor.clear.cgColor
         layer.addSublayer(borderLayer)
 
-        //layer.re
-        //labelText = "yigal omer"
         let textlayer = CATextLayer()
-        //"yigal omer".widthOfString
         //let stingWidth:CGFloat = labelText?.widthOfString(usingFont : UIFont.systemFont(ofSize: 16)) ?? 0 + 0
-        textlayer.frame = CGRect(x: 0, y: 640, width: frame.width , height: 18)
+        textlayer.frame = CGRect(x: 0, y:frame.height - 50, width: frame.width , height: 18)
         textlayer.fontSize = 16
         textlayer.alignmentMode = .center
         textlayer.string = labelText
@@ -126,26 +139,26 @@ private extension TopDrawer {
 
         layer.addSublayer(textlayer)
 
-        let grooveSize: CGSize = CGSize(width: 24.0, height: 2.125)
+//        let grooveSize: CGSize = CGSize(width: 24.0, height: 2.125)
+//
+//        for index in 0 ..< 2 {
+//            let x: CGFloat = (bounds.size.width / 2.0) - (grooveSize.width / 2.0)
+//            let y: CGFloat = bounds.size.height - (grooveSize.height * 3.025) - (CGFloat(index) * (grooveSize.height * 2.5))
+//
+//            let linePath = UIBezierPath()
+//            linePath.move(to: CGPoint(x: x, y: y))
+//            linePath.addLine(to: CGPoint(x: x + grooveSize.width, y: y))
+//
+//            let shapeLayer = CAShapeLayer()
+//            shapeLayer.path = linePath.cgPath
+//            shapeLayer.strokeColor = UIColor.black.withAlphaComponent(0.625).cgColor
+//            shapeLayer.lineWidth = grooveSize.height
+//            shapeLayer.fillColor = UIColor.clear.cgColor
+//
+//            layer.addSublayer(shapeLayer)
+//        }
 
-        for index in 0 ..< 2 {
-            let x: CGFloat = (bounds.size.width / 2.0) - (grooveSize.width / 2.0)
-            let y: CGFloat = bounds.size.height - (grooveSize.height * 3.025) - (CGFloat(index) * (grooveSize.height * 2.5))
-
-            let linePath = UIBezierPath()
-            linePath.move(to: CGPoint(x: x, y: y))
-            linePath.addLine(to: CGPoint(x: x + grooveSize.width, y: y))
-
-            let shapeLayer = CAShapeLayer()
-            shapeLayer.path = linePath.cgPath
-            shapeLayer.strokeColor = UIColor.black.withAlphaComponent(0.625).cgColor
-            shapeLayer.lineWidth = grooveSize.height
-            shapeLayer.fillColor = UIColor.clear.cgColor
-
-            layer.addSublayer(shapeLayer)
-        }
-
-        addGestureRecognizer(panGestureRecognizer)
+        //addGestureRecognizer(panGestureRecognizer)
     }
 
     @objc func didPanDrawer(_ gestureRecognizer: UIPanGestureRecognizer) {
