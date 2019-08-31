@@ -17,9 +17,9 @@ import RSKImageCropper
 class MainViewController: UIViewController {
 
     private static let ZOOM: Float = 16
-    private static let YES_NO_BUTTON_WIDTH = 50
-    private static let YES_NO_BUTTON_HEIGHT = 40
-    private static let SNACK_BAR_BG_COLOR = UIColor.purple
+    private let BIG_DRAWER_HEIGHT:CGFloat = 150.0
+    private let SMALL_DRAWER_HEIGHT:CGFloat = 120.0
+    private let BIG_DRAWER_BUTTON_HEIGHT_OFFSET:CGFloat = 30.0
 
     //@IBOutlet weak var drawer: SpringView!
     @IBOutlet weak var addressLabel: UILabel!
@@ -44,7 +44,6 @@ class MainViewController: UIViewController {
     }
 
     @IBAction func openDrawer(_ sender: Any) {
-
 //        self.drawer.isHidden = false
 //        self.drawer.duration = 1.0
 //        self.drawer.damping = 0.8
@@ -64,19 +63,19 @@ class MainViewController: UIViewController {
     }
 
     private func setupHelpButton() {
-        helpButton = MDCFloatingButton(frame: CGRect(x: 370, y: 125, width: 26, height: 26))
+        helpButton = MDCFloatingButton(frame: CGRect(x: UIScreen.main.bounds.width - 50, y: 130, width: 26, height: 26))
         helpButton.setImage(#imageLiteral(resourceName: "information"), for: .normal)
         helpButton.backgroundColor = UIColor.white
         helpButton.setElevation(ShadowElevation(rawValue: 12), for: .normal)
         helpButton.setElevation(ShadowElevation(rawValue: 12), for: .highlighted)
-        //        helpButton.borderWidth = 4  not working TODO ?
-        //        helpButton.borderColor = UIColor.black
+                //helpButton.layer.borderWidth  = 6 // not working TODO ?
+               //helpButton.layer.borderColor = UIColor.black.cgColor
         helpButton.addTarget(self, action: #selector(handleHelpTap), for: .touchUpInside)
         self.view.addSubview(helpButton)
     }
 
     private func setupFilterButton() {
-        filterButton = MDCFloatingButton(frame: CGRect(x: 30, y: 125, width: 23, height: 23))
+        filterButton = MDCFloatingButton(frame: CGRect(x: UIScreen.main.bounds.minX + 30 , y: 130, width: 23, height: 23))
         filterButton.setImage(#imageLiteral(resourceName: "filter_add"), for: .normal)
         filterButton.backgroundColor = UIColor.white
         filterButton.setElevation(ShadowElevation(rawValue: 12), for: .normal)
@@ -113,26 +112,22 @@ class MainViewController: UIViewController {
 
     @objc private func nextButtonTapped(_ sender: Any) {
         let mapRectangle: GMSVisibleRegion = mapView.projection.visibleRegion()
-        //self.pickTitle.text = "LOADING".localized
-        mainViewModel.handleNextButtonTap(mapRectangle)
+        mainViewModel.handleNextButtonTap(mapRectangle) //Loading annotations
     }
-    @objc private func cancelButtonTapped1(_ sender: Any) {
-        mainViewModel.handleCancelButtonTapped()
+    @objc private func cancelButtonTapped(_ sender: Any) {
+        mainViewModel.handleCancelButtonTap()
     }
-
-    @objc private func reportButtonTapped1(_ sender: Any) {
+    @objc private func reportButtonTapped(_ sender: Any) {
         self.topDrawer?.setVisibility(visible: false)
-        mainViewModel.handleReportButtonTapped()
+        mainViewModel.handleReportButtonTap()
     }
-
-    @objc private func cancelSendButtonClicked() {
+    @objc private func cancelSendButtonTapped() {
         print("cancel send Button Clicked")
         //snackbarView.hideSnackBar()
         self.topDrawer?.setVisibility(visible: false)
         mainViewModel?.handleCancelSendButtonTap()
-
     }
-    @objc private func sendButtonClicked() {
+    @objc private func sendButtonTapped() {
         print("send Button Clicked")
         //snackbarView.hideSnackBar()
         self.topDrawer?.setVisibility(visible: false)
@@ -188,7 +183,6 @@ extension MainViewController : MainViewInput {
     func setupView() {
         self.navigationController?.isNavigationBarHidden = true
         self.setupMapView()
-        //setupTitle()
         self.topDrawer = TopDrawer()
         self.view.addSubview(topDrawer!)
     }
@@ -255,47 +249,27 @@ extension MainViewController : MainViewInput {
 
         switch state {
         case .start:
-            DispatchQueue.main.async {
+            DispatchQueue.main.async { [weak self]  in
+                guard let self = self else { return }
                 self.enableFilterAndHelpButtons()
                 self.mapView.clear()
                 self.topDrawer?.subviews.forEach({ $0.removeFromSuperview() })
-                self.topDrawer?.setText(text: "CHOOSE_A_PLACE".localized, drawerHeight: 120)
+                self.topDrawer?.setText(text: "CHOOSE_A_PLACE".localized, drawerHeight: self.SMALL_DRAWER_HEIGHT)
                 self.topDrawer?.setVisibility(visible: true)
-//                DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(3)) {
-//                    self.topDrawer?.setVisibility(visible: false)
-//                }
-//                DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(6)) {
-//                    self.topDrawer?.setVisibility(visible: true)
-//                }
             }
         case .placePicked:
-            DispatchQueue.main.async {
+            DispatchQueue.main.async { [weak self]  in
+                guard let self = self else { return }
                 self.disableFilterAndHelpButtons()
                 self.topDrawer?.subviews.forEach({ $0.removeFromSuperview() })
-                let nextButtonX = UIScreen.main.bounds.size.width/2 + 10
-                let nextButton = MDCFloatingButton(frame: CGRect(x: nextButtonX, y: 630, width: 100, height: 30))
-                nextButton.setTitle("CONTINUE".localized, for: UIControl.State.normal)
-                nextButton.backgroundColor = UIColor.lightGray
-                nextButton.setTitleColor(UIColor.white, for: .normal)
-                nextButton.setElevation(ShadowElevation(rawValue: 8), for: .normal)
-                nextButton.setElevation(ShadowElevation(rawValue: 12), for: .highlighted)
-                nextButton.addTarget(self, action: #selector(self.nextButtonTapped), for: .touchUpInside)
+                self.addTowButtons(toView: self.topDrawer,
+                              firstButtonText: "CONTINUE".localized,
+                              secondButtonText: "CANCEL".localized,
+                              firstButtonAction: #selector(self.nextButtonTapped),
+                              secondButtonAction: #selector(self.cancelButtonTapped))
 
-                let cancelButtonX = UIScreen.main.bounds.size.width/2 - 110
-                let cancelButton = MDCFloatingButton(frame: CGRect(x: cancelButtonX, y: 630, width: 100, height: 30))
-                cancelButton.setTitle("CANCEL".localized, for: UIControl.State.normal)
-                cancelButton.backgroundColor = UIColor.lightGray
-                cancelButton.setTitleColor(UIColor.white, for: .normal)
-                cancelButton.setElevation(ShadowElevation(rawValue: 8), for: .normal)
-                cancelButton.setElevation(ShadowElevation(rawValue: 12), for: .highlighted)
-                cancelButton.addTarget(self, action: #selector(self.cancelButtonTapped1), for: .touchUpInside)
-
-                self.topDrawer?.addSubview(nextButton)
-                self.topDrawer?.addSubview(cancelButton)
-
-                self.topDrawer?.setText(text: "TAP_CONTINUE_TO_GET_DANGEROUS_PLACES".localized, drawerHeight: 150.0)
+                self.topDrawer?.setText(text: "TAP_CONTINUE_TO_GET_DANGEROUS_PLACES".localized, drawerHeight: self.BIG_DRAWER_HEIGHT)
                 self.topDrawer?.setVisibility(visible: true)
-
             }
         case .continueTappedAfterPlacePicked:
             DispatchQueue.main.async { [weak self]  in
@@ -304,30 +278,17 @@ extension MainViewController : MainViewInput {
             }
         case .markersReceived:
             DispatchQueue.main.async { [weak self]  in
-                self?.topDrawer?.subviews.forEach({ $0.removeFromSuperview() })
+                guard let self = self else { return  }
 
-                let reportButtonX = UIScreen.main.bounds.size.width/2 + 10
-                let reportButton = MDCFloatingButton(frame: CGRect(x: reportButtonX, y: 630, width: 100, height: 30))
-                reportButton.setTitle("CONTINUE_TO_INFORM".localized, for: UIControl.State.normal)
-                reportButton.backgroundColor = UIColor.lightGray
-                reportButton.setTitleColor(UIColor.white, for: .normal)
-                reportButton.setElevation(ShadowElevation(rawValue: 8), for: .normal)
-                reportButton.setElevation(ShadowElevation(rawValue: 12), for: .highlighted)
-                reportButton.addTarget(self, action: #selector(self?.reportButtonTapped1), for: .touchUpInside)
+                self.topDrawer?.subviews.forEach({ $0.removeFromSuperview() })
 
-                let cancelButtonX = UIScreen.main.bounds.size.width/2 - 110
-                let cancelButton = MDCFloatingButton(frame: CGRect(x: cancelButtonX, y: 630, width: 100, height: 30))
-                cancelButton.setTitle("CANCEL".localized, for: UIControl.State.normal)
-                cancelButton.backgroundColor = UIColor.lightGray
-                cancelButton.setTitleColor(UIColor.white, for: .normal)
-                cancelButton.setElevation(ShadowElevation(rawValue: 8), for: .normal)
-                cancelButton.setElevation(ShadowElevation(rawValue: 12), for: .highlighted)
-                cancelButton.addTarget(self, action: #selector(self?.cancelButtonTapped1), for: .touchUpInside)
+                self.addTowButtons(toView: self.topDrawer,
+                                   firstButtonText: "CONTINUE_TO_INFORM".localized,
+                                   secondButtonText: "CANCEL".localized,
+                                   firstButtonAction: #selector(self.reportButtonTapped),
+                                   secondButtonAction: #selector(self.cancelButtonTapped))
 
-                self?.topDrawer?.addSubview(reportButton)
-                self?.topDrawer?.addSubview(cancelButton)
-
-                self?.topDrawer?.setText(text:"PLACES_MAKRKED_WITH_HEATMAP".localized, drawerHeight: 150)
+                self.topDrawer?.setText(text:"PLACES_MAKRKED_WITH_HEATMAP".localized, drawerHeight: 150)
                 //self?.topDrawer?.setVisibility(visible: true)
 //                DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(14)) {
 //                    self?.topDrawer?.setVisibility(visible: true)
@@ -336,35 +297,47 @@ extension MainViewController : MainViewInput {
             }
         case .hazardSelected:
             DispatchQueue.main.async { [weak self]  in
+                guard let self = self else { return  }
+                self.topDrawer?.subviews.forEach({ $0.removeFromSuperview() })
+                self.addTowButtons(toView: self.topDrawer,
+                                   firstButtonText: "YES".localized,
+                                   secondButtonText: "NO".localized,
+                                   firstButtonAction: #selector(self.sendButtonTapped),
+                                   secondButtonAction: #selector(self.cancelSendButtonTapped))
 
-                self?.topDrawer?.subviews.forEach({ $0.removeFromSuperview() })
-
-                let yesButtonX = UIScreen.main.bounds.size.width/2 + 10
-                let yesButton = MDCFloatingButton(frame: CGRect(x: yesButtonX, y: 630, width: 100, height: 30))
-                yesButton.setTitle("YES".localized, for: UIControl.State.normal)
-                yesButton.backgroundColor = UIColor.lightGray
-                yesButton.setTitleColor(UIColor.white, for: .normal)
-                yesButton.setElevation(ShadowElevation(rawValue: 8), for: .normal)
-                yesButton.setElevation(ShadowElevation(rawValue: 12), for: .highlighted)
-                yesButton.addTarget(self, action: #selector(self?.sendButtonClicked), for: .touchUpInside)
-
-                let noButtonX = UIScreen.main.bounds.size.width/2 - 110
-                let noButton = MDCFloatingButton(frame: CGRect(x: noButtonX, y: 630, width: 100, height: 30))
-                noButton.setTitle("NO".localized, for: UIControl.State.normal)
-                noButton.backgroundColor = UIColor.lightGray
-                noButton.setTitleColor(UIColor.white, for: .normal)
-                noButton.setElevation(ShadowElevation(rawValue: 8), for: .normal)
-                noButton.setElevation(ShadowElevation(rawValue: 12), for: .highlighted)
-                noButton.addTarget(self, action: #selector(self?.cancelSendButtonClicked), for: .touchUpInside)
-
-                self?.topDrawer?.addSubview(yesButton)
-                self?.topDrawer?.addSubview(noButton)
-
-                self?.topDrawer?.setText(text:"WISH_TO_SEND_ANSWERS".localized, drawerHeight: 150)
-                self?.topDrawer?.setVisibility(visible: true)
-
+                self.topDrawer?.setText(text:"WISH_TO_SEND_ANSWERS".localized, drawerHeight: 150)
+                self.topDrawer?.setVisibility(visible: true)
             }
         }
+    }
+
+    private func addTowButtons(toView: UIView?,
+                               firstButtonText: String,
+                               secondButtonText: String,
+                               firstButtonAction: Selector,
+                               secondButtonAction: Selector) {
+
+        let buttonY = UIScreen.main.bounds.size.height - self.BIG_DRAWER_HEIGHT  - self.BIG_DRAWER_BUTTON_HEIGHT_OFFSET
+        let firstButtonX = UIScreen.main.bounds.size.width/2 + 10
+        let firstButton = MDCFloatingButton(frame: CGRect(x: firstButtonX, y: buttonY, width: 100, height: 30))
+        firstButton.setTitle(firstButtonText, for: UIControl.State.normal)
+        firstButton.backgroundColor = UIColor.lightGray
+        firstButton.setTitleColor(UIColor.white, for: .normal)
+        firstButton.setElevation(ShadowElevation(rawValue: 8), for: .normal)
+        firstButton.setElevation(ShadowElevation(rawValue: 12), for: .highlighted)
+        firstButton.addTarget(self, action: firstButtonAction, for: .touchUpInside)
+
+        let secondButtonX = UIScreen.main.bounds.size.width/2 - 110
+        let secondButton = MDCFloatingButton(frame: CGRect(x: secondButtonX, y: buttonY, width: 100, height: 30))
+        secondButton.setTitle(secondButtonText, for: UIControl.State.normal)
+        secondButton.backgroundColor = UIColor.lightGray
+        secondButton.setTitleColor(UIColor.white, for: .normal)
+        secondButton.setElevation(ShadowElevation(rawValue: 8), for: .normal)
+        secondButton.setElevation(ShadowElevation(rawValue: 12), for: .highlighted)
+        secondButton.addTarget(self, action: secondButtonAction, for: .touchUpInside)
+
+        toView?.addSubview(firstButton)
+        toView?.addSubview(secondButton)
     }
 
     func setCameraPosition(coordinate : CLLocationCoordinate2D) {
@@ -383,7 +356,9 @@ extension MainViewController : MainViewInput {
     }
 }
 
-
+//private static let YES_NO_BUTTON_WIDTH = 50
+//private static let YES_NO_BUTTON_HEIGHT = 40
+//private static let SNACK_BAR_BG_COLOR = UIColor.purple
 
 //    func displaySendAnswersQuestionnaire() {
 //        let snackView = UIView( frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width - 20.0, height: 130))

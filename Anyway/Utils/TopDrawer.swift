@@ -83,7 +83,7 @@ public class TopDrawer: UIView {
         let newFrame: CGRect = visible ? startingFrame() : hiddenFrame()
 
         UIView.animate(
-            withDuration: 1.2,
+            withDuration: 0.8,
             delay: 0.0,
             usingSpringWithDamping: 2.0,
             initialSpringVelocity: 0.75,
@@ -229,7 +229,7 @@ private extension TopDrawer {
             layer.addSublayer(shapeLayer)
         }
 
-        //addGestureRecognizer(panGestureRecognizer)
+        addGestureRecognizer(panGestureRecognizer)
     }
 
 //    override public func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView?{

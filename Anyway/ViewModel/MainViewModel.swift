@@ -221,7 +221,7 @@ extension MainViewModel: MainViewOutput {
 
     }
 
-    func handleReportButtonTapped() {
+    func handleReportButtonTap() {
         startSelectHazardView()
     }
 
@@ -268,7 +268,7 @@ extension MainViewModel: MainViewOutput {
 
         self.getAnnotations(edges)
     }
-    func handleCancelButtonTapped() {
+    func handleCancelButtonTap() {
         self.setMainViewState(state: .start)
     }
 

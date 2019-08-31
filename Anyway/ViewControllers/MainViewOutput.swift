@@ -20,13 +20,13 @@ protocol MainViewOutput : ViewOutput {
 
     func closeImagePicker()
 
-    func handleReportButtonTapped()
+    func handleReportButtonTap()
 
     func handleSendToMunicipalityTap()
 
     func handleNextButtonTap(_ mapRectangle: GMSVisibleRegion)
 
-    func handleCancelButtonTapped()
+    func handleCancelButtonTap()
 
     func handleCancelSendButtonTap()
 
