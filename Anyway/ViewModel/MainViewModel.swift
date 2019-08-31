@@ -281,10 +281,8 @@ extension MainViewModel: MainViewOutput {
             //mapView.resignFirstResponder()
             return
         }
-
         reverseGeocodeCoordinate(coordinate)
         addMarkerOnTheMap(coordinate)
-        
     }
 
     func handleCameraMovedToPosition(coordinate: CLLocationCoordinate2D) {
@@ -292,7 +290,6 @@ extension MainViewModel: MainViewOutput {
             reverseGeocodeCoordinate(coordinate)
         }
     }
-
 
     private func reverseGeocodeCoordinate(_ coordinate: CLLocationCoordinate2D) {
         let geocoder = GMSGeocoder()

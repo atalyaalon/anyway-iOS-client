@@ -175,6 +175,37 @@ extension MainViewController : RSKImageCropViewControllerDelegate {
             self.mainViewModel?.closeImagePicker()
         }
     }
+
+    private func addTowButtons(toView: UIView?,
+                               firstButtonText: String,
+                               secondButtonText: String,
+                               firstButtonAction: Selector,
+                               secondButtonAction: Selector) {
+
+        toView?.subviews.forEach({ $0.removeFromSuperview() })
+
+        let buttonY = UIScreen.main.bounds.size.height - self.BIG_DRAWER_HEIGHT  - self.BIG_DRAWER_BUTTON_HEIGHT_OFFSET
+        let firstButtonX = UIScreen.main.bounds.size.width/2 + 10
+        let firstButton = MDCFloatingButton(frame: CGRect(x: firstButtonX, y: buttonY, width: 100, height: 30))
+        firstButton.setTitle(firstButtonText, for: UIControl.State.normal)
+        firstButton.backgroundColor = UIColor.lightGray
+        firstButton.setTitleColor(UIColor.white, for: .normal)
+        firstButton.setElevation(ShadowElevation(rawValue: 8), for: .normal)
+        firstButton.setElevation(ShadowElevation(rawValue: 12), for: .highlighted)
+        firstButton.addTarget(self, action: firstButtonAction, for: .touchUpInside)
+
+        let secondButtonX = UIScreen.main.bounds.size.width/2 - 110
+        let secondButton = MDCFloatingButton(frame: CGRect(x: secondButtonX, y: buttonY, width: 100, height: 30))
+        secondButton.setTitle(secondButtonText, for: UIControl.State.normal)
+        secondButton.backgroundColor = UIColor.lightGray
+        secondButton.setTitleColor(UIColor.white, for: .normal)
+        secondButton.setElevation(ShadowElevation(rawValue: 8), for: .normal)
+        secondButton.setElevation(ShadowElevation(rawValue: 12), for: .highlighted)
+        secondButton.addTarget(self, action: secondButtonAction, for: .touchUpInside)
+
+        toView?.addSubview(firstButton)
+        toView?.addSubview(secondButton)
+    }
 }
 
 // MARK: - MainViewInput
@@ -261,7 +292,6 @@ extension MainViewController : MainViewInput {
             DispatchQueue.main.async { [weak self]  in
                 guard let self = self else { return }
                 self.disableFilterAndHelpButtons()
-                self.topDrawer?.subviews.forEach({ $0.removeFromSuperview() })
                 self.addTowButtons(toView: self.topDrawer,
                               firstButtonText: "CONTINUE".localized,
                               secondButtonText: "CANCEL".localized,
@@ -274,14 +304,10 @@ extension MainViewController : MainViewInput {
         case .continueTappedAfterPlacePicked:
             DispatchQueue.main.async { [weak self]  in
                 self?.topDrawer?.setVisibility(visible: false)
-                self?.disableFilterAndHelpButtons()
             }
         case .markersReceived:
             DispatchQueue.main.async { [weak self]  in
                 guard let self = self else { return  }
-
-                self.topDrawer?.subviews.forEach({ $0.removeFromSuperview() })
-
                 self.addTowButtons(toView: self.topDrawer,
                                    firstButtonText: "CONTINUE_TO_INFORM".localized,
                                    secondButtonText: "CANCEL".localized,
@@ -297,8 +323,7 @@ extension MainViewController : MainViewInput {
             }
         case .hazardSelected:
             DispatchQueue.main.async { [weak self]  in
-                guard let self = self else { return  }
-                self.topDrawer?.subviews.forEach({ $0.removeFromSuperview() })
+                guard let self = self else { return }
                 self.addTowButtons(toView: self.topDrawer,
                                    firstButtonText: "YES".localized,
                                    secondButtonText: "NO".localized,
@@ -309,35 +334,6 @@ extension MainViewController : MainViewInput {
                 self.topDrawer?.setVisibility(visible: true)
             }
         }
-    }
-
-    private func addTowButtons(toView: UIView?,
-                               firstButtonText: String,
-                               secondButtonText: String,
-                               firstButtonAction: Selector,
-                               secondButtonAction: Selector) {
-
-        let buttonY = UIScreen.main.bounds.size.height - self.BIG_DRAWER_HEIGHT  - self.BIG_DRAWER_BUTTON_HEIGHT_OFFSET
-        let firstButtonX = UIScreen.main.bounds.size.width/2 + 10
-        let firstButton = MDCFloatingButton(frame: CGRect(x: firstButtonX, y: buttonY, width: 100, height: 30))
-        firstButton.setTitle(firstButtonText, for: UIControl.State.normal)
-        firstButton.backgroundColor = UIColor.lightGray
-        firstButton.setTitleColor(UIColor.white, for: .normal)
-        firstButton.setElevation(ShadowElevation(rawValue: 8), for: .normal)
-        firstButton.setElevation(ShadowElevation(rawValue: 12), for: .highlighted)
-        firstButton.addTarget(self, action: firstButtonAction, for: .touchUpInside)
-
-        let secondButtonX = UIScreen.main.bounds.size.width/2 - 110
-        let secondButton = MDCFloatingButton(frame: CGRect(x: secondButtonX, y: buttonY, width: 100, height: 30))
-        secondButton.setTitle(secondButtonText, for: UIControl.State.normal)
-        secondButton.backgroundColor = UIColor.lightGray
-        secondButton.setTitleColor(UIColor.white, for: .normal)
-        secondButton.setElevation(ShadowElevation(rawValue: 8), for: .normal)
-        secondButton.setElevation(ShadowElevation(rawValue: 12), for: .highlighted)
-        secondButton.addTarget(self, action: secondButtonAction, for: .touchUpInside)
-
-        toView?.addSubview(firstButton)
-        toView?.addSubview(secondButton)
     }
 
     func setCameraPosition(coordinate : CLLocationCoordinate2D) {
