@@ -70,7 +70,7 @@ class MainViewController: UIViewController {
         helpButton.setElevation(ShadowElevation(rawValue: 12), for: .highlighted)
                 //helpButton.layer.borderWidth  = 6 // not working TODO ?
                //helpButton.layer.borderColor = UIColor.black.cgColor
-        helpButton.addTarget(self, action: #selector(handleHelpTap), for: .touchUpInside)
+        helpButton.addTarget(self, action: #selector(helpButtonTapped), for: .touchUpInside)
         self.view.addSubview(helpButton)
     }
 
@@ -80,16 +80,8 @@ class MainViewController: UIViewController {
         filterButton.backgroundColor = UIColor.white
         filterButton.setElevation(ShadowElevation(rawValue: 12), for: .normal)
         filterButton.setElevation(ShadowElevation(rawValue: 12), for: .highlighted)
-        filterButton.addTarget(self, action: #selector(handleFilterTap), for: .touchUpInside)
+        filterButton.addTarget(self, action: #selector(filterButtonTap), for: .touchUpInside)
         self.view.addSubview(filterButton)
-    }
-
-    @objc private func handleHelpTap(_ sender: UIButton) {
-        mainViewModel?.handleHelpTap()
-    }
-
-    @objc private func handleFilterTap(_ sender: UIButton) {
-        mainViewModel?.handleFilterTap()
     }
 
     private func enableFilterAndHelpButtons(){
@@ -110,6 +102,12 @@ class MainViewController: UIViewController {
         }
     }
 
+    @objc private func helpButtonTapped(_ sender: UIButton) {
+        mainViewModel?.handleHelpTap()
+    }
+    @objc private func filterButtonTap(_ sender: UIButton) {
+        mainViewModel?.handleFilterTap()
+    }
     @objc private func nextButtonTapped(_ sender: Any) {
         let mapRectangle: GMSVisibleRegion = mapView.projection.visibleRegion()
         mainViewModel.handleNextButtonTap(mapRectangle) //Loading annotations
@@ -118,13 +116,11 @@ class MainViewController: UIViewController {
         mainViewModel.handleCancelButtonTap()
     }
     @objc private func reportButtonTapped(_ sender: Any) {
-        self.topDrawer?.setVisibility(visible: false)
         mainViewModel.handleReportButtonTap()
     }
     @objc private func cancelSendButtonTapped() {
         print("cancel send Button Clicked")
         //snackbarView.hideSnackBar()
-        self.topDrawer?.setVisibility(visible: false)
         mainViewModel?.handleCancelSendButtonTap()
     }
     @objc private func sendButtonTapped() {
@@ -302,6 +298,10 @@ extension MainViewController : MainViewInput {
                 self.topDrawer?.setVisibility(visible: true)
             }
         case .continueTappedAfterPlacePicked:
+            DispatchQueue.main.async { [weak self]  in
+                self?.topDrawer?.setVisibility(visible: false)
+            }
+        case .reportTapped:
             DispatchQueue.main.async { [weak self]  in
                 self?.topDrawer?.setVisibility(visible: false)
             }

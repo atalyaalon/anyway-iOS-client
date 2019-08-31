@@ -14,8 +14,9 @@ enum MainVCState: Int {
     case start = 0
     case placePicked = 1
     case continueTappedAfterPlacePicked = 2
-    case markersReceived = 3
-    case hazardSelected = 4
+    case reportTapped = 3
+    case markersReceived = 4
+    case hazardSelected = 5
 }
 
 
@@ -222,6 +223,7 @@ extension MainViewModel: MainViewOutput {
     }
 
     func handleReportButtonTap() {
+        self.setMainViewState(state: .reportTapped)
         startSelectHazardView()
     }
 
