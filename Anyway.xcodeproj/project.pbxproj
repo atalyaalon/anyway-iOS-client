@@ -128,6 +128,7 @@
 		9F7732E423141DC300FB022A /* Incident.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F7732E323141DC300FB022A /* Incident.swift */; };
 		9F8BDE2B23191DC5001BDDA1 /* TopDrawer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F8BDE2A23191DC4001BDDA1 /* TopDrawer.swift */; };
 		9F8BDE2D23197EBE001BDDA1 /* QuestionBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F8BDE2C23197EBE001BDDA1 /* QuestionBarViewController.swift */; };
+		9F8BDE39231B2670001BDDA1 /* PlaceHolderTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F8BDE38231B2670001BDDA1 /* PlaceHolderTextView.swift */; };
 		D780B83056A321F7A86B0BFA /* Pods_Anyway.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60483B6CF861F474FF1CC114 /* Pods_Anyway.framework */; };
 /* End PBXBuildFile section */
 
@@ -328,6 +329,7 @@
 		9F8BDE2A23191DC4001BDDA1 /* TopDrawer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TopDrawer.swift; sourceTree = "<group>"; };
 		9F8BDE2C23197EBE001BDDA1 /* QuestionBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionBarViewController.swift; sourceTree = "<group>"; };
 		9F8BDE2E23198EA3001BDDA1 /* Spring.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Spring.framework; path = Anyway/Spring.framework; sourceTree = "<group>"; };
+		9F8BDE38231B2670001BDDA1 /* PlaceHolderTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceHolderTextView.swift; sourceTree = "<group>"; };
 		A72C13C132E386EC44C00CA4 /* Pods-Anyway.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Anyway.debug.xcconfig"; path = "Target Support Files/Pods-Anyway/Pods-Anyway.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -578,6 +580,7 @@
 				9F0EE97A2308D16500D53D4D /* UIAlertController+Extensions.swift */,
 				9F0EE97C2308D34900D53D4D /* TwoTextFieldsViewController.swift */,
 				9F6AC246231189FC00EF5F31 /* UIStoryboard+Anyway.swift */,
+				9F8BDE38231B2670001BDDA1 /* PlaceHolderTextView.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -923,6 +926,7 @@
 				"${BUILT_PRODUCTS_DIR}/RxRelay/RxRelay.framework",
 				"${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
+				"${BUILT_PRODUCTS_DIR}/Spring/Spring.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftLocation/SwiftLocation.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
 			);
@@ -941,6 +945,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxRelay.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Spring.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftLocation.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
 			);
@@ -1054,6 +1059,7 @@
 				9F6E35952313F8AB00A8457F /* APICall.swift in Sources */,
 				9F0EE9732306DDA300D53D4D /* String+Extension.swift in Sources */,
 				9F0EE9772308CA3300D53D4D /* UITextField+Extensions.swift in Sources */,
+				9F8BDE39231B2670001BDDA1 /* PlaceHolderTextView.swift in Sources */,
 				9F0EE9D5230C8DE100D53D4D /* GMUKMLParser.m in Sources */,
 				9F0EE8D222F719E500D53D4D /* Filter.swift in Sources */,
 				9F0EE90722F71C1400D53D4D /* JGProgressHUDPieIndicatorView.m in Sources */,
