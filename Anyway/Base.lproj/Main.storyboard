@@ -82,7 +82,9 @@
                                     <constraint firstAttribute="width" constant="137" id="XXd-WS-A35"/>
                                     <constraint firstAttribute="height" constant="65" id="wn4-U1-Y4M"/>
                                 </constraints>
-                                <state key="normal" title="questions"/>
+                                <state key="normal" title="questions">
+                                    <color key="titleColor" red="0.49803921568627452" green="0.66274509803921566" blue="0.77647058823529413" alpha="0.98373287671232879" colorSpace="calibratedRGB"/>
+                                </state>
                                 <connections>
                                     <action selector="openDrawer:" destination="GQG-KH-GPO" eventType="touchUpInside" id="ScN-k5-1M5"/>
                                 </connections>

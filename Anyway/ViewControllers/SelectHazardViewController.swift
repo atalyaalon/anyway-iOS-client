@@ -196,6 +196,11 @@ class SelectHazardViewController: UIViewController {
     private func setupImage() {
         if let view = self.incidentImageView {
             self.customStackView.addSubview(view)
+            view.contentMode = .center
+            view.translatesAutoresizingMaskIntoConstraints = false
+            view.backgroundColor = .clear
+            view.clipsToBounds = false
+            view.contentMode = .scaleAspectFit
             self.incidentImageView = view
         }
     }
@@ -218,6 +223,9 @@ class SelectHazardViewController: UIViewController {
         let view = UICollectionView(frame: CGRect.zero, collectionViewLayout: layout)
         view.backgroundColor = self.backgroundColor
         customStackView.addSubview(view)
+        let contentInsets: UIEdgeInsets = UIEdgeInsets(top: 10.0, left: 10.0, bottom: 10.0, right: 10.0)
+        view.contentInset = contentInsets
+        view.contentMode = .center
         self.collectionView = view
         self.collectionView.dataSource = self
         self.collectionView.delegate = self
@@ -367,10 +375,10 @@ class SelectHazardViewController: UIViewController {
         })
 
         self.collectionView.snp.remakeConstraints({ (make: ConstraintMaker) in
-            make.leading.equalToSuperview().offset(edgesPadding)
+            make.leading.equalToSuperview().offset(edgesPadding - 10)
             make.top.equalTo(incidentTypesLabel.snp.bottom).offset(topPadding)
-            make.left.equalTo(edgesPadding)
-            make.height.equalTo(350)
+            make.left.equalTo(edgesPadding - 10)
+            make.height.equalTo(370)
         })
 
         self.otherLabel.snp.remakeConstraints({ (make: ConstraintMaker) in
@@ -451,7 +459,7 @@ extension SelectHazardViewController: UICollectionViewDataSource {
 // MARK: - UICollectionViewDelegate
 extension SelectHazardViewController: UICollectionViewDelegate {
 
-    // change background color when user touches cell
+    // change background color and shadow when user selects cell
     func collectionView(_ collectionView: UICollectionView, didHighlightItemAt indexPath: IndexPath){
         let cell = collectionView.cellForItem(at: indexPath)
         //hideKeyboard()
@@ -459,10 +467,12 @@ extension SelectHazardViewController: UICollectionViewDelegate {
         if selectedItems.contains(indexPath) {
             selectedItems.remove(indexPath)
             cell?.backgroundColor = UIColor.white
+            cell?.layer.shadowColor = UIColor.black.cgColor
         }
         else{
             selectedItems.insert(indexPath)
-            cell?.backgroundColor = UIColor.f8Blue
+            cell?.backgroundColor = UIColor.init(hexString: "7FA9C6")
+            cell?.layer.shadowColor = UIColor.white.cgColor
         }
         self.navigationItem.rightBarButtonItem?.isEnabled = selectedItems.count > 0
     }
