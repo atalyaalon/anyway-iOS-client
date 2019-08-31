@@ -17,42 +17,37 @@ public protocol SelectHazardViewControllerDelegate: class {
 }
 
 
-
 class SelectHazardViewController: UIViewController {
+
+    private let edgesPadding: CGFloat = 25
+    private let topPadding: CGFloat = 7
+    private let labelHeight: CGFloat = 30
+    private let collectionViewInsets: CGFloat = 10
 
     private var scrollView: UIScrollView!
     private var contentView: UIView!
     private var customStackView : UIView!
-
     private var imageOfTheIncidentLabel: UILabel!
     public var  incidentImageView: UIImageView?
     public var  incidentTypesLabel: UILabel!
     private var collectionView: UICollectionView!
-
     private var otherLabel: UILabel!
     private var hazardDescTextView: UITextView!
-
     private var rightBarButtonItem: UIBarButtonItem?
     private let reuseIdentifier = "cell"
     private var items: [HazardData] = HazardsStorage.hazards
     private var selectedItems = Set<IndexPath>()
     private var currentResponder: UIResponder?
 
-    private let edgesPadding: CGFloat = 25
-    private let topPadding: CGFloat = 7
-    //private let backgroundColor: UIColor = UIColor.purple
-    private let backgroundColor: UIColor = UIColor.white//.withAlphaComponent(0.525)
+    private let backgroundColor: UIColor = UIColor.white//.withAlphaComponent(0.525) //UIColor.purple
     private var placeholderLabel : UILabel!
     private var tapGesture: UITapGestureRecognizer!
     private var activeField: UITextField?
-
     public weak var delegate: SelectHazardViewControllerDelegate?
 
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationController?.isNavigationBarHidden = false
-        //self.navigationController?.navigationBar.isTranslucent = false
         setupView()
     }
 
@@ -73,6 +68,7 @@ class SelectHazardViewController: UIViewController {
     //
     private func setupView() {
 
+        self.navigationController?.isNavigationBarHidden = false
         setupScrollView()
         setupContentView()
         setupStackView()
@@ -80,16 +76,13 @@ class SelectHazardViewController: UIViewController {
         setupImage()
         setupIncidentTypesLabel()
         setupCollectionView()
-
         setupOtherLabel()
         setupTextView()
         setupNavigationBar()
 
-
         self.view.setNeedsUpdateConstraints()
         self.view.updateConstraintsIfNeeded()
     }
-
 
     private func addKeyboardObservers() {
 
@@ -120,7 +113,6 @@ class SelectHazardViewController: UIViewController {
         self.tapGesture.isEnabled = false
     }
 
-
     @objc func keyboardWillHide(_ aNotification: NSNotification) {
 
         let contentInsets: UIEdgeInsets = .zero
@@ -144,12 +136,10 @@ class SelectHazardViewController: UIViewController {
 
             aRect.size.height -= kbSize.height
             enableKeyboardDissmissingByTap()
-
             //if !aRect.contains(hazardDescTextView.frame.origin) {
                 self.scrollView.scrollRectToVisible(hazardDescTextView.frame, animated: true)
             //}
         }
-
     }
 
     @objc func hideKeyboard() {
@@ -157,11 +147,9 @@ class SelectHazardViewController: UIViewController {
         self.hazardDescTextView.endEditing(true)
     }
 
-
     private func setupScrollView() {
         let view = UIScrollView()
         view.backgroundColor = UIColor.clear
-
         self.view.addSubview(view)
         self.scrollView = view
     }
@@ -170,7 +158,6 @@ class SelectHazardViewController: UIViewController {
         let view = UIView()
         view.backgroundColor = UIColor.clear
         view.clipsToBounds = true
-
         self.scrollView.addSubview(view)
         self.contentView = view
     }
@@ -223,7 +210,7 @@ class SelectHazardViewController: UIViewController {
         let view = UICollectionView(frame: CGRect.zero, collectionViewLayout: layout)
         view.backgroundColor = self.backgroundColor
         customStackView.addSubview(view)
-        let contentInsets: UIEdgeInsets = UIEdgeInsets(top: 10.0, left: 10.0, bottom: 10.0, right: 10.0)
+        let contentInsets: UIEdgeInsets = UIEdgeInsets(top: collectionViewInsets, left: collectionViewInsets, bottom: collectionViewInsets, right: collectionViewInsets)
         view.contentInset = contentInsets
         view.contentMode = .center
         self.collectionView = view
@@ -288,14 +275,12 @@ class SelectHazardViewController: UIViewController {
 
         self.navigationItem.title = "REPORT_AN_INCIDENT".localized
         self.navigationItem.rightBarButtonItem?.isEnabled = false
-        self.navigationController?.navigationBar.isTranslucent = false;
-        self.navigationController?.navigationBar.barTintColor = UIColor.init(hexString: "3764BC")//backgroundColor
 
         let nav = self.navigationController?.navigationBar
+        nav?.isTranslucent = false;
+        nav?.barTintColor = UIColor.init(hexString: "3764BC")//backgroundColor
         nav?.barStyle = UIBarStyle.black
-        //nav?.tintColor = UIColor.white
         nav?.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
-        //self.navigationController?.navigationBar
     }
 
 
@@ -354,7 +339,7 @@ class SelectHazardViewController: UIViewController {
         self.imageOfTheIncidentLabel.snp.remakeConstraints({ (make: ConstraintMaker) in
             make.top.equalToSuperview().offset(topPadding)
             make.leading.equalToSuperview().offset(edgesPadding)
-            make.height.equalTo(30)
+            make.height.equalTo(labelHeight)
         })
 
         self.incidentImageView?.snp.remakeConstraints({ (make: ConstraintMaker) in
@@ -371,19 +356,19 @@ class SelectHazardViewController: UIViewController {
             }else{
                 make.top.equalTo(imageOfTheIncidentLabel.snp.bottom).offset(edgesPadding)
             }
-            make.height.equalTo(30)
+            make.height.equalTo(labelHeight)
         })
 
         self.collectionView.snp.remakeConstraints({ (make: ConstraintMaker) in
-            make.leading.equalToSuperview().offset(edgesPadding - 10)
+            make.leading.equalToSuperview().offset(edgesPadding - collectionViewInsets)
             make.top.equalTo(incidentTypesLabel.snp.bottom).offset(topPadding)
-            make.left.equalTo(edgesPadding - 10)
+            make.left.equalTo(edgesPadding - collectionViewInsets)
             make.height.equalTo(370)
         })
 
         self.otherLabel.snp.remakeConstraints({ (make: ConstraintMaker) in
             make.leading.equalToSuperview().offset(edgesPadding)
-            make.height.equalTo(30)
+            make.height.equalTo(labelHeight)
             make.top.equalTo(self.collectionView.snp.bottom).offset(edgesPadding)
         })
 
