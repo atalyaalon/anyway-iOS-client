@@ -77,7 +77,7 @@
                             </label>
                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="byN-Nl-6Kn">
                                 <rect key="frame" x="133" y="318" width="137" height="65"/>
-                                <color key="backgroundColor" red="0.99215686270000003" green="0.46666666670000001" blue="0.1333333333" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="0.2156862745" green="0.3921568627" blue="0.73725490199999999" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="137" id="XXd-WS-A35"/>
                                     <constraint firstAttribute="height" constant="65" id="wn4-U1-Y4M"/>

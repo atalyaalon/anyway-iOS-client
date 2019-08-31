@@ -468,6 +468,15 @@
 "BACK" = "חזור";
 "HAZAED_DETAILS" = "פרטי המפגע";
 "DONE" = "שמור";
-"ELSE" = "אחר";
+"ELSE" = "הערות";
 "SELECT_IMAGE_ALERT_ACTION_SELECT_FROM_ALBUM" = "בחר תמונה מאלבום התמונות";
 "SELECT_IMAGE_ALERT_ACTION_TAKE_PHOTO" = "צלם תמונה";
+
+"SELECT_IMAGE_ALERT_TITLE" = "הוסף תמונה";
+"SELECT_IMAGE_ALERT_ACTION_SELECT_FROM_ALBUM" = "בחר תמונה מהאלבום";
+"SELECT_IMAGE_ALERT_ACTION_TAKE_PHOTO" = "צלם תמונה";
+"SELECT_IMAGE" = "בחר תמונה";
+
+"IMAGE_OF_THE_INCIDENGT" = "תמונה של המפגע";
+"INCIDENGT_TYPE" = "סוג המפגע";
+"REPORT_AN_INCIDENT" = "דיווח על מפגע";

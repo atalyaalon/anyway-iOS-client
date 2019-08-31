@@ -482,6 +482,16 @@
 "BACK" = "Back";
 "HAZAED_DETAILS" = "Hazard Details";
 "DONE" = "Done";
-"ELSE" = "Else";
+"ELSE" = "Comments";
 "SELECT_IMAGE_ALERT_ACTION_SELECT_FROM_ALBUM" = "Select from album";
 "SELECT_IMAGE_ALERT_ACTION_TAKE_PHOTO" = "Take a photo";
+
+"SELECT_IMAGE_ALERT_TITLE" = "Add a picture";
+"SELECT_IMAGE_ALERT_ACTION_SELECT_FROM_ALBUM" = "Select from album";
+"SELECT_IMAGE_ALERT_ACTION_TAKE_PHOTO" = "Take a photo";
+"SELECT_IMAGE" = "Select image";
+
+"IMAGE_OF_THE_INCIDENGT" = "Image of the incident";
+"INCIDENGT_TYPE" = "Incidengt type";
+
+"REPORT_AN_INCIDENT" = "Report an incident";

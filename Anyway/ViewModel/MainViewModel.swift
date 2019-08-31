@@ -33,6 +33,7 @@ class MainViewModel: NSObject, UINavigationControllerDelegate {
     private var filter = Filter()
     private var locationManager = CLLocationManager()
     private var currentState:MainVCState = .start
+    private var selectedImageView: UIImageView!
 
 
     init(viewController: MainViewInput?) {
@@ -40,7 +41,9 @@ class MainViewModel: NSObject, UINavigationControllerDelegate {
         let sessionConfiguration: URLSessionConfiguration = URLSessionConfiguration.default
         sessionConfiguration.timeoutIntervalForRequest = TIMEOUT_INTERVAL_FOR_REQUEST
         self.api = AnywayAPIImpl(sessionConfiguration: sessionConfiguration)
-        self.cropDelegate = viewController as? RSKImageCropViewControllerDelegate
+        super.init()
+        self.cropDelegate = self
+        self.selectedImageView =  UIImageView()
     }
 
     private func initLocationManager() {
@@ -72,14 +75,14 @@ class MainViewModel: NSObject, UINavigationControllerDelegate {
     func showSelectImageAlert() {
         let selecetImageAlert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
 
-        selecetImageAlert.addAction(UIAlertAction(title: "select_image_alert_action_take_photo".localized, style: .default) { [unowned self] _ in
+        selecetImageAlert.addAction(UIAlertAction(title: "SELECT_IMAGE_ALERT_ACTION_TAKE_PHOTO".localized, style: .default) { [unowned self] _ in
             self.openCameraScreen(delegate: self.cropDelegate!)
         })
-        selecetImageAlert.addAction(UIAlertAction(title: "select_image_alert_action_select_from_album".localized, style: .default) { [unowned self] _ in
+        selecetImageAlert.addAction(UIAlertAction(title: "SELECT_IMAGE_ALERT_ACTION_SELECT_FROM_ALBUM".localized, style: .default) { [unowned self] _ in
             self.openImagePickerScreen(delegate: self.cropDelegate!)
         })
 
-        selecetImageAlert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+        selecetImageAlert.addAction(UIAlertAction(title: "CANCEL".localized, style: .cancel))
         self.view?.showAlert(selecetImageAlert, animated: true)
     }
 
@@ -107,6 +110,8 @@ class MainViewModel: NSObject, UINavigationControllerDelegate {
         let selectHazardViewController:SelectHazardViewController = UIStoryboard.main.instantiateViewController(withIdentifier: "SelectHazardViewController") as UIViewController as! SelectHazardViewController
 
         selectHazardViewController.delegate = self as SelectHazardViewControllerDelegate
+        selectHazardViewController.incidentImageView = self.selectedImageView
+
         self.view?.pushViewController(selectHazardViewController, animated: true)
     }
 
@@ -157,14 +162,21 @@ class MainViewModel: NSObject, UINavigationControllerDelegate {
             self.hideHUD()
             guard let markers = markers else {
                 print("finished parsing annotations. ERROR markers ar nil")
-                self.view?.displayErrorAlert(error: nil)
-                self.setMainViewState(state: .start)
+
+                //YIGAL TODO UNCOMMENT - JUST FOR TETSING
+                //self.view?.displayErrorAlert(error: nil)
+                //self.setMainViewState(state: .start)
+                self.setMainViewState(state: .markersReceived)
                 return
             }
             if  markers.count == 0  {
                 print("finished parsing annotations. no markers received")
-                self.view?.displayErrorAlert(error: nil)
-                self.setMainViewState(state: .start)
+
+                //YIGAL TODO UNCOMMENT - JUST FOR TETSING
+                //self.view?.displayErrorAlert(error: nil)
+                //self.setMainViewState(state: .start)
+
+                self.setMainViewState(state: .markersReceived)
                 return
             }
             print("finished parsing annotations. markers count : \(String(describing: markers.count))")
@@ -185,6 +197,8 @@ class MainViewModel: NSObject, UINavigationControllerDelegate {
     }
 
 }
+
+
 
 
 
@@ -222,10 +236,7 @@ extension MainViewModel: MainViewOutput {
 
     }
 
-    func handleReportButtonTap() {
-        self.setMainViewState(state: .reportTapped)
-        startSelectHazardView()
-    }
+
 
 
     func handleSendToMunicipalityTap() {
@@ -269,6 +280,12 @@ extension MainViewModel: MainViewOutput {
         self.setMainViewState(state: .continueTappedAfterPlacePicked)
 
         self.getAnnotations(edges)
+    }
+
+    func handleReportButtonTap() {
+        self.setMainViewState(state: .reportTapped)
+        //startSelectHazardView()
+        showSelectImageAlert()
     }
     func handleCancelButtonTap() {
         self.setMainViewState(state: .start)
@@ -358,11 +375,27 @@ extension MainViewModel: UIImagePickerControllerDelegate {
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
 
         if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
-            let viewController = RSKImageCropViewController(image: image, cropMode: .square)
+            let viewController = RSKImageCropViewController(image: image, cropMode: .circle)
             viewController.delegate = self.cropDelegate
             picker.pushViewController(viewController, animated: true)
         } else {
             self.imagePickerController = nil
+        }
+    }
+}
+
+// MARK: - RSKImageCropViewControllerDelegate
+extension MainViewModel : RSKImageCropViewControllerDelegate {
+
+    func imageCropViewControllerDidCancelCrop(_ controller: RSKImageCropViewController) {
+        self.closeImagePicker()
+    }
+
+    func imageCropViewController(_ controller: RSKImageCropViewController, didCropImage croppedImage: UIImage, usingCropRect cropRect: CGRect, rotationAngle: CGFloat) {
+        DispatchQueue.main.async {
+            self.selectedImageView.image = croppedImage
+            self.closeImagePicker()
+            self.startSelectHazardView()
         }
     }
 }

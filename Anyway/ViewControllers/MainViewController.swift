@@ -32,7 +32,7 @@ class MainViewController: UIViewController {
     //private var snackbarView = SnackBarView()
     private var helpButton: MDCFloatingButton!
     private var filterButton: MDCFloatingButton!
-    private var selectedImageView: UIImageView!
+    //private var selectedImageView: UIImageView!
     private var topDrawer: TopDrawer?
 
 
@@ -129,48 +129,6 @@ class MainViewController: UIViewController {
         self.topDrawer?.setVisibility(visible: false)
         mainViewModel?.handleSendToMunicipalityTap()
     }
-}
-
-// MARK: - GMSMapViewDelegate
-extension MainViewController: GMSMapViewDelegate {
-    
-    func mapView(_ mapView: GMSMapView, idleAt position: GMSCameraPosition) {
-        mainViewModel?.handleCameraMovedToPosition(coordinate: position.target)
-    }
-    func mapView(_ mapView: GMSMapView, willMove gesture: Bool) {
-        if (gesture) {
-            mapView.selectedMarker = nil
-        }
-    }
-    func mapView(_ mapView: GMSMapView, markerInfoContents marker: GMSMarker) -> UIView? {
-        return nil
-    }
-    func cameraMoveToLocation(toLocation: CLLocationCoordinate2D?) {
-        if toLocation != nil {
-            self.mapView.camera = GMSCameraPosition.camera(withTarget: toLocation!, zoom: MainViewController.ZOOM)
-        }
-    }
-    func mapView(_ mapView: GMSMapView, didTapAt coordinate: CLLocationCoordinate2D) {
-        mainViewModel?.handleTapOnTheMap(coordinate: coordinate)
-    }
-    func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
-        return false
-    }
-}
-
-// MARK: - RSKImageCropViewControllerDelegate
-extension MainViewController : RSKImageCropViewControllerDelegate {
-
-    func imageCropViewControllerDidCancelCrop(_ controller: RSKImageCropViewController) {
-        self.mainViewModel?.closeImagePicker()
-    }
-
-    func imageCropViewController(_ controller: RSKImageCropViewController, didCropImage croppedImage: UIImage, usingCropRect cropRect: CGRect, rotationAngle: CGFloat) {
-        DispatchQueue.main.async {
-            self.selectedImageView.image = croppedImage
-            self.mainViewModel?.closeImagePicker()
-        }
-    }
 
     private func addTowButtons(toView: UIView?,
                                firstButtonText: String,
@@ -203,6 +161,48 @@ extension MainViewController : RSKImageCropViewControllerDelegate {
         toView?.addSubview(secondButton)
     }
 }
+
+// MARK: - GMSMapViewDelegate
+extension MainViewController: GMSMapViewDelegate {
+    
+    func mapView(_ mapView: GMSMapView, idleAt position: GMSCameraPosition) {
+        mainViewModel?.handleCameraMovedToPosition(coordinate: position.target)
+    }
+    func mapView(_ mapView: GMSMapView, willMove gesture: Bool) {
+        if (gesture) {
+            mapView.selectedMarker = nil
+        }
+    }
+    func mapView(_ mapView: GMSMapView, markerInfoContents marker: GMSMarker) -> UIView? {
+        return nil
+    }
+    func cameraMoveToLocation(toLocation: CLLocationCoordinate2D?) {
+        if toLocation != nil {
+            self.mapView.camera = GMSCameraPosition.camera(withTarget: toLocation!, zoom: MainViewController.ZOOM)
+        }
+    }
+    func mapView(_ mapView: GMSMapView, didTapAt coordinate: CLLocationCoordinate2D) {
+        mainViewModel?.handleTapOnTheMap(coordinate: coordinate)
+    }
+    func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
+        return false
+    }
+}
+
+//// MARK: - RSKImageCropViewControllerDelegate
+//extension MainViewController : RSKImageCropViewControllerDelegate {
+//
+//    func imageCropViewControllerDidCancelCrop(_ controller: RSKImageCropViewController) {
+//        self.mainViewModel?.closeImagePicker()
+//    }
+//
+//    func imageCropViewController(_ controller: RSKImageCropViewController, didCropImage croppedImage: UIImage, usingCropRect cropRect: CGRect, rotationAngle: CGFloat) {
+//        DispatchQueue.main.async {
+//            self.selectedImageView.image = croppedImage
+//            self.mainViewModel?.closeImagePicker()
+//        }
+//    }
+//}
 
 // MARK: - MainViewInput
 extension MainViewController : MainViewInput {

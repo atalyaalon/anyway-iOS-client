@@ -23,21 +23,31 @@ class SelectHazardViewController: UIViewController {
     private var scrollView: UIScrollView!
     private var contentView: UIView!
     private var customStackView : UIView!
+
+    private var imageOfTheIncidentLabel: UILabel!
+    public var  incidentImageView: UIImageView?
+    public var  incidentTypesLabel: UILabel!
     private var collectionView: UICollectionView!
+
+    private var otherLabel: UILabel!
+    private var hazardDescTextView: UITextView!
+
     private var rightBarButtonItem: UIBarButtonItem?
     private let reuseIdentifier = "cell"
     private var items: [HazardData] = HazardsStorage.hazards
     private var selectedItems = Set<IndexPath>()
     private var currentResponder: UIResponder?
-    private var otherLabel: UILabel!
-    private var hazardDescTextView: UITextView!
-    private let padding: CGFloat = 15
+
+    private let edgesPadding: CGFloat = 25
+    private let topPadding: CGFloat = 7
     //private let backgroundColor: UIColor = UIColor.purple
-    private let backgroundColor: UIColor = UIColor.f8Silver//.withAlphaComponent(0.525)
+    private let backgroundColor: UIColor = UIColor.white//.withAlphaComponent(0.525)
     private var placeholderLabel : UILabel!
     private var tapGesture: UITapGestureRecognizer!
-    public weak var delegate: SelectHazardViewControllerDelegate?
     private var activeField: UITextField?
+
+    public weak var delegate: SelectHazardViewControllerDelegate?
+
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -57,6 +67,29 @@ class SelectHazardViewController: UIViewController {
         removeKeyboardObservers()
         removeTapGesture()
     }
+
+    //
+    // MARK: Private
+    //
+    private func setupView() {
+
+        setupScrollView()
+        setupContentView()
+        setupStackView()
+        setupImageOfTheIncidentLabel()
+        setupImage()
+        setupIncidentTypesLabel()
+        setupCollectionView()
+
+        setupOtherLabel()
+        setupTextView()
+        setupNavigationBar()
+
+
+        self.view.setNeedsUpdateConstraints()
+        self.view.updateConstraintsIfNeeded()
+    }
+
 
     private func addKeyboardObservers() {
 
@@ -124,26 +157,6 @@ class SelectHazardViewController: UIViewController {
         self.hazardDescTextView.endEditing(true)
     }
 
-    //
-    // MARK: Private
-    //
-    private func setupView() {
-
-        setupScrollView()
-        setupContentView()
-
-        customStackView = UIView()
-        customStackView.backgroundColor = self.backgroundColor
-        self.contentView.addSubview(customStackView)
-
-        setupNavigationBar()
-        setupCollectionView()
-        setupOtherLabel()
-        setupTextView()
-
-        self.view.setNeedsUpdateConstraints()
-        self.view.updateConstraintsIfNeeded()
-    }
 
     private func setupScrollView() {
         let view = UIScrollView()
@@ -162,6 +175,40 @@ class SelectHazardViewController: UIViewController {
         self.contentView = view
     }
 
+    private func setupStackView() {
+
+        customStackView = UIView()
+        customStackView.backgroundColor = self.backgroundColor
+        self.contentView.addSubview(customStackView)
+    }
+
+    private func setupImageOfTheIncidentLabel() {
+        let view: UILabel = UILabel()
+        view.textColor = UIColor.f8BlackText
+        view.font = UIFont.systemFont(ofSize: 17)
+        view.textAlignment = .center
+        view.text = "IMAGE_OF_THE_INCIDENGT".localized
+        //self.view.addSubview(view)
+        self.customStackView.addSubview(view)
+        self.imageOfTheIncidentLabel = view
+    }
+
+    private func setupImage() {
+        if let view = self.incidentImageView {
+            self.customStackView.addSubview(view)
+            self.incidentImageView = view
+        }
+    }
+
+    private func setupIncidentTypesLabel() {
+        let view: UILabel = UILabel()
+        view.textColor = UIColor.f8BlackText
+        view.font = UIFont.systemFont(ofSize: 17)
+        view.textAlignment = .center
+        view.text = "INCIDENGT_TYPE".localized
+        self.customStackView.addSubview(view)
+        self.incidentTypesLabel = view
+    }
     private func setupCollectionView() {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
@@ -185,7 +232,7 @@ class SelectHazardViewController: UIViewController {
         view.textAlignment = .center
         view.text = "ELSE".localized
         //self.view.addSubview(view)
-        self.contentView.addSubview(view)
+        self.customStackView.addSubview(view)
         self.otherLabel = view
     }
 
@@ -197,11 +244,10 @@ class SelectHazardViewController: UIViewController {
         view.font = UIFont.systemFont(ofSize: 14)
         //view.place = ""
         view.layer.cornerRadius = 4.0
-        view.layer.borderWidth = 2.0
+        view.layer.borderWidth = 1.0
         view.layer.borderColor = UIColor.black.cgColor
 
-        //self.view.addSubview(view)
-        self.contentView.addSubview(view)
+        self.customStackView.addSubview(view)
         self.hazardDescTextView = view
         self.hazardDescTextView.delegate = self
 
@@ -220,20 +266,28 @@ class SelectHazardViewController: UIViewController {
                                                   style: .done,
                                                   target: self,
                                                   action: #selector(doneBarButtonItemAction))
+        rightBarButtonItem?.tintColor = UIColor.white
         self.navigationItem.setRightBarButton(self.rightBarButtonItem, animated: false)
 
 
         let leftBarButtonItem: UIBarButtonItem = UIBarButtonItem(title: "BACK".localized,
-                                                  style: .done,
+                                                  style: .plain,
                                                   target: self,
                                                   action: #selector(onBackButtonClick))
+        leftBarButtonItem.tintColor = UIColor.white
         self.navigationItem.setLeftBarButton(leftBarButtonItem, animated: false)
 
 
-        self.navigationItem.title = "פרטי המפגע"
+        self.navigationItem.title = "REPORT_AN_INCIDENT".localized
         self.navigationItem.rightBarButtonItem?.isEnabled = false
         self.navigationController?.navigationBar.isTranslucent = false;
-        self.navigationController?.navigationBar.barTintColor = backgroundColor
+        self.navigationController?.navigationBar.barTintColor = UIColor.init(hexString: "3764BC")//backgroundColor
+
+        let nav = self.navigationController?.navigationBar
+        nav?.barStyle = UIBarStyle.black
+        //nav?.tintColor = UIColor.white
+        nav?.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
+        //self.navigationController?.navigationBar
     }
 
 
@@ -271,8 +325,8 @@ class SelectHazardViewController: UIViewController {
     override func updateViewConstraints() {
 
         scrollView.snp.remakeConstraints { (make) in
-            make.top.equalTo(self.topLayoutGuide.snp.bottom)
-            make.bottom.equalTo(bottomLayoutGuide.snp.top)
+            make.top.equalToSuperview()
+            make.bottom.equalToSuperview()
             make.leading.equalToSuperview()
             make.trailing.equalToSuperview()
         }
@@ -286,41 +340,55 @@ class SelectHazardViewController: UIViewController {
             make.leading.equalToSuperview().offset(0)
             make.trailing.equalToSuperview().offset(0)
             make.top.equalToSuperview().offset(0)
-            make.height.equalTo(400)
+            make.height.equalToSuperview().offset(0)//equalTo(400)
          })
 
+        self.imageOfTheIncidentLabel.snp.remakeConstraints({ (make: ConstraintMaker) in
+            make.top.equalToSuperview().offset(topPadding)
+            make.leading.equalToSuperview().offset(edgesPadding)
+            make.height.equalTo(30)
+        })
+
+        self.incidentImageView?.snp.remakeConstraints({ (make: ConstraintMaker) in
+            make.leading.equalToSuperview().offset(edgesPadding)
+            make.height.equalTo(100)
+            make.width.equalTo(100)
+            make.top.equalTo(imageOfTheIncidentLabel.snp.bottom).offset(topPadding)
+        })
+
+        self.incidentTypesLabel.snp.remakeConstraints({ (make: ConstraintMaker) in
+            make.leading.equalToSuperview().offset(edgesPadding)
+            if let incidentImageView = self.incidentImageView{
+                make.top.equalTo(incidentImageView.snp.bottom).offset(edgesPadding)
+            }else{
+                make.top.equalTo(imageOfTheIncidentLabel.snp.bottom).offset(edgesPadding)
+            }
+            make.height.equalTo(30)
+        })
+
         self.collectionView.snp.remakeConstraints({ (make: ConstraintMaker) in
-            make.leading.equalToSuperview().offset(padding)
-            //make.trailing.equalToSuperview().offset(padding)
-            //make.top.equalToSuperview().offset(0)
-            make.top.equalTo(padding)
-            make.left.equalTo(padding)
-            make.bottom.equalToSuperview()
-            //make.bottom.equalTo(self.otherLabel.snp.top).offset(2)
+            make.leading.equalToSuperview().offset(edgesPadding)
+            make.top.equalTo(incidentTypesLabel.snp.bottom).offset(topPadding)
+            make.left.equalTo(edgesPadding)
+            make.height.equalTo(350)
         })
 
         self.otherLabel.snp.remakeConstraints({ (make: ConstraintMaker) in
-            make.leading.equalToSuperview().offset(15)
-            //make.trailing.equalToSuperview().offset(-15)
-            //make.height.equalTo(100)
-            make.top.equalTo(self.collectionView.snp.bottom).offset(10)
-            make.bottom.equalTo(self.hazardDescTextView.snp.top).offset(-12)
+            make.leading.equalToSuperview().offset(edgesPadding)
+            make.height.equalTo(30)
+            make.top.equalTo(self.collectionView.snp.bottom).offset(edgesPadding)
         })
 
         self.hazardDescTextView.snp.remakeConstraints({ (make: ConstraintMaker) in
-            make.leading.equalToSuperview().offset(15)
-            make.trailing.equalToSuperview().offset(-15)
-            //make.top.equalTo(self.otherLabel.snp.bottom).offset(30)
-            make.bottom.equalToSuperview().offset(-170)
+            make.leading.equalToSuperview().offset(edgesPadding)
+            make.trailing.equalToSuperview().offset(-edgesPadding)
+            make.top.equalTo(self.otherLabel.snp.bottom).offset(topPadding)
+            make.height.equalTo(100)
         })
 
         self.placeholderLabel.snp.remakeConstraints({ (make: ConstraintMaker) in
-            //make.leading.equalToSuperview().offset(9)
             make.top.equalToSuperview().offset(9)
-            make.trailing.equalToSuperview().offset(-220)
-            //make.right.equalTo(9)
-            //make.bottom.equalToSuperview().offset(0)
-            //make.bottom.equalTo(self.textView.snp.top).offset(-12)
+            make.trailing.equalToSuperview().offset(-225)
         })
         super.updateViewConstraints()
     }
@@ -414,7 +482,7 @@ extension SelectHazardViewController: UICollectionViewDelegateFlowLayout {
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return 15
+        return edgesPadding
     }
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
