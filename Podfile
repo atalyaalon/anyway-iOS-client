@@ -18,7 +18,7 @@ target 'Anyway' do
     pod 'SnapKit', '~> 4.0.0'
     pod 'MaterialComponents/Buttons'
     pod 'RSKImageCropper'
-    pod 'Spring', :git => 'https://github.com/MengTo/Spring.git'
+    #pod 'Spring', :git => 'https://github.com/MengTo/Spring.git'
     #pod 'MaterialComponents/Buttons+Theming'
     #pod 'MaterialComponents/schemes/Color'
 

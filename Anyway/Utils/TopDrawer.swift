@@ -30,8 +30,8 @@ public class TopDrawer: UIView {
 
     private var _isVisible: Bool = true
 
-    private var yesButton = CAShapeLayer()
-    //private var textlayer = CATextLayer()
+    //private var yesButton = CAShapeLayer()
+    private var textlayer: CATextLayer?
 
 
     private lazy var panGestureRecognizer: UIPanGestureRecognizer = {
@@ -59,10 +59,43 @@ public class TopDrawer: UIView {
 
     }
 
-
+    public override init(frame: CGRect) {
+        super.init(frame: frame)
+        setupView()
+    }
 
     required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        super.init(coder: aDecoder)
+        setupView()
+    }
+
+
+//    required init?(coder aDecoder: NSCoder) {
+//        fatalError("init(coder:) has not been implemented")
+//    }
+    public func setVisibility(visible: Bool) {
+        if _isVisible && visible {
+            return
+        }
+        if !_isVisible && !visible {
+            return
+        }
+        let newFrame: CGRect = visible ? startingFrame() : hiddenFrame()
+
+        UIView.animate(
+            withDuration: 1.2,
+            delay: 0.0,
+            usingSpringWithDamping: 2.0,
+            initialSpringVelocity: 0.75,
+            options: .curveEaseOut,
+            animations: {
+                self.frame = newFrame
+                self.layoutIfNeeded()
+        }
+        ) { _ in
+            self._isVisible.toggle()
+        }
+
     }
 
     public func toggleVisibility() {
@@ -85,20 +118,25 @@ public class TopDrawer: UIView {
 }
 
 private extension TopDrawer {
-    func setupView(labelText: String?) {
+
+    func setupView(labelText: String? = nil) {
 
         frame = CGRect(
             x: 0.0,
-            y: -(Constants.height - self.drawerHeight!),// Constants.minimumVisibleHeight),
+            y: -(Constants.height - (self.drawerHeight ?? Constants.minimumVisibleHeight) ),// Constants.minimumVisibleHeight),
             width: UIScreen.main.bounds.size.width,
             height: Constants.height
         )
+        //frame = startingFrame()
         backgroundColor = UIColor.lightGray.withAlphaComponent(0.825)
 
-        if let sublayers = layer.sublayers {
-            for sublayer in sublayers {
-                sublayer.removeFromSuperlayer()
-            }
+//        if let sublayers = layer.sublayers {
+//            for sublayer in sublayers {
+//                sublayer.removeFromSuperlayer()
+//            }
+//        }
+        if textlayer != nil {
+            textlayer?.removeFromSuperlayer()
         }
 
         // Keep the drawer at the top of the visible hierarchy
@@ -127,9 +165,14 @@ private extension TopDrawer {
         borderLayer.fillColor = UIColor.clear.cgColor
         layer.addSublayer(borderLayer)
 
-        let textlayer = CATextLayer()
+        textlayer = CATextLayer()
+        guard let textlayer = textlayer  else { return }
+        var textHeightOfset:CGFloat = 100.0
+        if self.drawerHeight == nil  ||  self.drawerHeight == 120 {
+            textHeightOfset = 50.0
+        }
         //let stingWidth:CGFloat = labelText?.widthOfString(usingFont : UIFont.systemFont(ofSize: 16)) ?? 0 + 0
-        textlayer.frame = CGRect(x: 0, y:frame.height - 40, width: frame.width , height: 18)
+        textlayer.frame = CGRect(x: 0, y:frame.height - textHeightOfset, width: frame.width , height: 18)
         textlayer.fontSize = 16
         textlayer.alignmentMode = .center
         textlayer.string = labelText
@@ -146,11 +189,11 @@ private extension TopDrawer {
 
 
         //let yesButton = CAShapeLayer()
-        yesButton.path = UIBezierPath(roundedRect: CGRect(x: 100, y: frame.height - 80, width: 40, height: 40), cornerRadius: 6).cgPath
-        yesButton.fillColor = UIColor.red.cgColor
-        yesButton.shadowOpacity = 0.7
-        yesButton.shadowRadius = 10.0
-        yesButton.contents = UIImage(named: "user")?.cgImage
+//        yesButton.path = UIBezierPath(roundedRect: CGRect(x: 100, y: frame.height - 80, width: 40, height: 40), cornerRadius: 6).cgPath
+//        yesButton.fillColor = UIColor.red.cgColor
+//        yesButton.shadowOpacity = 0.7
+//        yesButton.shadowRadius = 10.0
+//        yesButton.contents = UIImage(named: "user")?.cgImage
         //layer.addSublayer(yesButton)
 
 //        let animation = CAKeyframeAnimation()
@@ -163,28 +206,33 @@ private extension TopDrawer {
 //        animation.repeatCount = 1
 //        animation.beginTime = CACurrentMediaTime()
 //        yesButton.add(animation, forKey: "pop")
-//        let grooveSize: CGSize = CGSize(width: 24.0, height: 2.125)
-//
-//        for index in 0 ..< 2 {
-//            let x: CGFloat = (bounds.size.width / 2.0) - (grooveSize.width / 2.0)
-//            let y: CGFloat = bounds.size.height - (grooveSize.height * 3.025) - (CGFloat(index) * (grooveSize.height * 2.5))
-//
-//            let linePath = UIBezierPath()
-//            linePath.move(to: CGPoint(x: x, y: y))
-//            linePath.addLine(to: CGPoint(x: x + grooveSize.width, y: y))
-//
-//            let shapeLayer = CAShapeLayer()
-//            shapeLayer.path = linePath.cgPath
-//            shapeLayer.strokeColor = UIColor.black.withAlphaComponent(0.625).cgColor
-//            shapeLayer.lineWidth = grooveSize.height
-//            shapeLayer.fillColor = UIColor.clear.cgColor
-//
-//            layer.addSublayer(shapeLayer)
-//        }
+
+
+        
+
+        let grooveSize: CGSize = CGSize(width: 24.0, height: 2.125)
+
+        for index in 0 ..< 2 {
+            let x: CGFloat = (bounds.size.width / 2.0) - (grooveSize.width / 2.0)
+            let y: CGFloat = bounds.size.height - (grooveSize.height * 3.025) - (CGFloat(index) * (grooveSize.height * 2.5))
+
+            let linePath = UIBezierPath()
+            linePath.move(to: CGPoint(x: x, y: y))
+            linePath.addLine(to: CGPoint(x: x + grooveSize.width, y: y))
+
+            let shapeLayer = CAShapeLayer()
+            shapeLayer.path = linePath.cgPath
+            shapeLayer.strokeColor = UIColor.black.withAlphaComponent(0.625).cgColor
+            shapeLayer.lineWidth = grooveSize.height
+            shapeLayer.fillColor = UIColor.clear.cgColor
+
+            layer.addSublayer(shapeLayer)
+        }
 
         //addGestureRecognizer(panGestureRecognizer)
     }
 
+//    override public func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView?{
 //        if  ((yesButton.path?.contains(point))!){
 //            print("tuoch button - event \(event) \(event?.type) \(event?.subtype) ")
 //        }
@@ -192,25 +240,25 @@ private extension TopDrawer {
 //        return self
 //    }
 
-    override public func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        let touch = touches.first
-
-        let point = (touch?.location(in: self))!
-
-        if  ((yesButton.path?.contains(point))!){
-            print("tuoch button - event \(event) \(event?.type) \(event?.subtype) ")
-
-        }
+//    override public func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+//        let touch = touches.first
 //
-//        guard let point = touch?.location(in: imageView) else { return }
-//        guard let sublayers = imageView.layer.sublayers as? [CAShapeLayer] else { return }
+//        let point = (touch?.location(in: self))!
 //
-//        for layer in sublayers {
-//            if let path = layer.path, path.contains(point) {
-//                print(layer)
-//            }
+//        if  ((yesButton.path?.contains(point))!){
+//            print("tuoch button - event \(event) \(event?.type) \(event?.subtype) ")
+//
 //        }
-    }
+////
+////        guard let point = touch?.location(in: imageView) else { return }
+////        guard let sublayers = imageView.layer.sublayers as? [CAShapeLayer] else { return }
+////
+////        for layer in sublayers {
+////            if let path = layer.path, path.contains(point) {
+////                print(layer)
+////            }
+////        }
+//    }
 
 //    override func hitTest(point: CGPoint, withEvent event: UIEvent?) -> UIView? {
 //        return self.path.containsPoint(point) ? self : nil
@@ -254,7 +302,7 @@ private extension TopDrawer {
     func startingFrame() -> CGRect {
         return CGRect(
             x: 0.0,
-            y: -(Constants.height - Constants.minimumVisibleHeight),
+            y: -(Constants.height - (self.drawerHeight ?? Constants.minimumVisibleHeight)),
             width: UIScreen.main.bounds.size.width,
             height: Constants.height
         )

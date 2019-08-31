@@ -22,7 +22,7 @@ protocol MainViewInput: ViewInput {
 
     //func restartMainViewState(_ after: Int)
 
-    func displaySendAnswersQuestionnaire()
+    //func displaySendAnswersQuestionnaire()
 
     func addCoordinateListToHeatMap(coordinateList: [GMUWeightedLatLng])
 
@@ -32,7 +32,7 @@ protocol MainViewInput: ViewInput {
 
     func disableFilterAndHelpButtons()
 
-    func disableAllFloatingButtons()
+    //func disableAllFloatingButtons()
     
     //func setMainViewState(state: MainVCState)
 

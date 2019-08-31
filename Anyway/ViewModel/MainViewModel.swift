@@ -339,7 +339,7 @@ extension MainViewModel: SelectHazardViewControllerDelegate {
         view?.popViewController(animated: true)
 
         self.setMainViewState(state: .hazardSelected)
-        view?.displaySendAnswersQuestionnaire()
+        //view?.displaySendAnswersQuestionnaire()
     }
 
     func didCancelHazard() {

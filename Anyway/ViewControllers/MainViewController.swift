@@ -12,6 +12,7 @@ import SnapKit
 import MaterialComponents.MaterialButtons
 import RSKImageCropper
 //import MaterialComponents.MaterialButtons_Theming
+//import Spring
 
 class MainViewController: UIViewController {
 
@@ -20,21 +21,17 @@ class MainViewController: UIViewController {
     private static let YES_NO_BUTTON_HEIGHT = 40
     private static let SNACK_BAR_BG_COLOR = UIColor.purple
 
-    @IBOutlet weak var reportButton: MDCFloatingButton!
-    @IBOutlet weak var nextButton: MDCFloatingButton!
-    @IBOutlet weak var cancelButton: MDCFloatingButton!
+    //@IBOutlet weak var drawer: SpringView!
     @IBOutlet weak var addressLabel: UILabel!
     @IBOutlet var mapView: GMSMapView!
-    @IBOutlet weak var pickTitle: UITextView!
 
     private var mainViewModel: MainViewOutput! //MainViewModel
     private var gradientColors = [UIColor.green, UIColor.red]
     private var gradientStartPoints = [0.02, 0.09] as [NSNumber]
     private var heatmapLayer: GMUHeatmapTileLayer!
-    private var snackbarView = SnackBarView()
+    //private var snackbarView = SnackBarView()
     private var helpButton: MDCFloatingButton!
     private var filterButton: MDCFloatingButton!
-    //private var currentState:MainVCState = .start
     private var selectedImageView: UIImageView!
     private var topDrawer: TopDrawer?
 
@@ -43,8 +40,17 @@ class MainViewController: UIViewController {
         super.viewDidLoad()
         mainViewModel = MainViewModel(viewController: self)
         mainViewModel.viewDidLoad()
+        //self.drawer.isHidden = true
     }
 
+    @IBAction func openDrawer(_ sender: Any) {
+
+//        self.drawer.isHidden = false
+//        self.drawer.duration = 1.0
+//        self.drawer.damping = 0.8
+//        self.drawer.animation = "squeezeUp"
+//        self.drawer.animate()
+    }
     private func setupMapView() {
         mapView.isTrafficEnabled   = false
         mapView.isHidden           = false
@@ -55,26 +61,6 @@ class MainViewController: UIViewController {
         setupHelpButton()
         setupFilterButton()
         mapView.animate(toZoom: MainViewController.ZOOM)
-    }
-
-    private func setupTitle() {
-        nextButton.setTitle("CONTINUE".localized, for: UIControl.State.normal)
-        nextButton.backgroundColor = UIColor.lightGray
-        nextButton.setTitleColor(UIColor.white, for: .normal)
-        nextButton.setElevation(ShadowElevation(rawValue: 8), for: .normal)
-        nextButton.setElevation(ShadowElevation(rawValue: 12), for: .highlighted)
-
-        reportButton.setTitle("CONTINUE_TO_INFORM".localized, for: UIControl.State.normal)
-        reportButton.backgroundColor = UIColor.lightGray
-        reportButton.setTitleColor(UIColor.white, for: .normal)
-        reportButton.setElevation(ShadowElevation(rawValue: 8), for: .normal)
-        reportButton.setElevation(ShadowElevation(rawValue: 12), for: .highlighted)
-
-        cancelButton.setTitle("CANCEL".localized, for: UIControl.State.normal)
-        cancelButton.backgroundColor = UIColor.lightGray
-        cancelButton.setTitleColor(UIColor.white, for: .normal)
-        cancelButton.setElevation(ShadowElevation(rawValue: 8), for: .normal)
-        cancelButton.setElevation(ShadowElevation(rawValue: 12), for: .highlighted)
     }
 
     private func setupHelpButton() {
@@ -98,18 +84,7 @@ class MainViewController: UIViewController {
         filterButton.addTarget(self, action: #selector(handleFilterTap), for: .touchUpInside)
         self.view.addSubview(filterButton)
     }
-    @IBAction func nextButtonPressed(_ sender: Any) {
-        let mapRectangle: GMSVisibleRegion = mapView.projection.visibleRegion()
-//        self.pickTitle.text = "LOADING".localized
-        mainViewModel.handleNextButtonTap(mapRectangle)
-    }
-    @IBAction func cancelButtonTapped(_ sender: Any) {
-        mainViewModel.handleCancelButtonTapped()
-    }
 
-    @IBAction func reportButtonTapped(_ sender: Any) {
-        mainViewModel.handleReportButtonTapped()
-    }
     @objc private func handleHelpTap(_ sender: UIButton) {
         mainViewModel?.handleHelpTap()
     }
@@ -136,6 +111,33 @@ class MainViewController: UIViewController {
         }
     }
 
+    @objc private func nextButtonTapped(_ sender: Any) {
+        let mapRectangle: GMSVisibleRegion = mapView.projection.visibleRegion()
+        //self.pickTitle.text = "LOADING".localized
+        mainViewModel.handleNextButtonTap(mapRectangle)
+    }
+    @objc private func cancelButtonTapped1(_ sender: Any) {
+        mainViewModel.handleCancelButtonTapped()
+    }
+
+    @objc private func reportButtonTapped1(_ sender: Any) {
+        self.topDrawer?.setVisibility(visible: false)
+        mainViewModel.handleReportButtonTapped()
+    }
+
+    @objc private func cancelSendButtonClicked() {
+        print("cancel send Button Clicked")
+        //snackbarView.hideSnackBar()
+        self.topDrawer?.setVisibility(visible: false)
+        mainViewModel?.handleCancelSendButtonTap()
+
+    }
+    @objc private func sendButtonClicked() {
+        print("send Button Clicked")
+        //snackbarView.hideSnackBar()
+        self.topDrawer?.setVisibility(visible: false)
+        mainViewModel?.handleSendToMunicipalityTap()
+    }
 }
 
 // MARK: - GMSMapViewDelegate
@@ -157,43 +159,13 @@ extension MainViewController: GMSMapViewDelegate {
             self.mapView.camera = GMSCameraPosition.camera(withTarget: toLocation!, zoom: MainViewController.ZOOM)
         }
     }
-
     func mapView(_ mapView: GMSMapView, didTapAt coordinate: CLLocationCoordinate2D) {
         mainViewModel?.handleTapOnTheMap(coordinate: coordinate)
     }
-
     func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
         return false
     }
 }
-
-// MARK: - Questionnaires
-extension MainViewController {
-
-    private func addYesNoButtons(toView: UIView, yesAction: Selector, noAction: Selector) {
-
-        let yesButton = UIButton.questionnaireButton(frame: CGRect(x: 150, y: 80, width: MainViewController.YES_NO_BUTTON_WIDTH, height: MainViewController.YES_NO_BUTTON_HEIGHT), title: "YES".localized)
-        yesButton.addTarget(self, action:yesAction, for: .touchUpInside)
-        toView.addSubview(yesButton)
-
-        let noButton = UIButton.questionnaireButton(frame: CGRect(x: 210, y: 80, width: MainViewController.YES_NO_BUTTON_WIDTH, height: MainViewController.YES_NO_BUTTON_HEIGHT), title: "NO".localized)
-        noButton.addTarget(self, action:noAction, for: .touchUpInside)
-        toView.addSubview(noButton)
-    }
-
-    @objc private func cancelSendButtonClicked() {
-        print("cancel send Button Clicked")
-        snackbarView.hideSnackBar()
-        mainViewModel?.handleCancelSendButtonTap()
-
-    }
-    @objc private func sendButtonClicked() {
-        print("send Button Clicked")
-        snackbarView.hideSnackBar()
-        mainViewModel?.handleSendToMunicipalityTap()
-    }
-}
-
 
 // MARK: - RSKImageCropViewControllerDelegate
 extension MainViewController : RSKImageCropViewControllerDelegate {
@@ -212,13 +184,13 @@ extension MainViewController : RSKImageCropViewControllerDelegate {
 
 // MARK: - MainViewInput
 extension MainViewController : MainViewInput {
-   
+
     func setupView() {
         self.navigationController?.isNavigationBarHidden = true
         self.setupMapView()
-        setupTitle()
+        //setupTitle()
         self.topDrawer = TopDrawer()
-        //self.view.addSubview(topDrawer)
+        self.view.addSubview(topDrawer!)
     }
 
     func showImagPickerScreen(_ pickerController: UIImagePickerController, animated: Bool) {
@@ -256,15 +228,6 @@ extension MainViewController : MainViewInput {
         self.navigationController?.isNavigationBarHidden = true
     }
 
-    func displaySendAnswersQuestionnaire() {
-        let snackView = UIView( frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width - 20.0, height: 130))
-        let label = UILabel.questionnaireLabel(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 50), text: "WISH_TO_SEND_ANSWERS".localized)
-        snackView.addSubview(label)
-
-        self.addYesNoButtons(toView:snackView, yesAction:#selector(self.sendButtonClicked), noAction:#selector(self.cancelSendButtonClicked) )
-        snackbarView.showSnackBar(superView: self.view, bgColor: MainViewController.SNACK_BAR_BG_COLOR, snackbarView: snackView)
-    }
-
     func addCoordinateListToHeatMap(coordinateList: [GMUWeightedLatLng]) {
         // Add the latlng list to the heatmap layer.
         heatmapLayer.weightedData = coordinateList
@@ -283,12 +246,6 @@ extension MainViewController : MainViewInput {
         heatmapLayer.gradient = GMUGradient(colors: gradientColors, startPoints: gradientStartPoints,colorMapSize: 256)
     }
 
-    func disableAllFloatingButtons() {
-        self.nextButton.isHidden = true
-        self.reportButton.isHidden = true
-        self.cancelButton.isHidden = true
-    }
-
     func disableFilterAndHelpButtons(){
         filterButton.isEnabled = false;
         helpButton.isEnabled = false;
@@ -298,47 +255,114 @@ extension MainViewController : MainViewInput {
 
         switch state {
         case .start:
-            //DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(2)) {
             DispatchQueue.main.async {
                 self.enableFilterAndHelpButtons()
                 self.mapView.clear()
-                //self.pickTitle.text = "CHOOSE_A_PLACE".localized
-                self.disableAllFloatingButtons()
-                self.pickTitle.isHidden = true
-
-                self.topDrawer?.setText(text: "CHOOSE_A_PLACE".localized)
-                self.view.addSubview(self.topDrawer!)
-
+                self.topDrawer?.subviews.forEach({ $0.removeFromSuperview() })
+                self.topDrawer?.setText(text: "CHOOSE_A_PLACE".localized, drawerHeight: 120)
+                self.topDrawer?.setVisibility(visible: true)
+//                DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(3)) {
+//                    self.topDrawer?.setVisibility(visible: false)
+//                }
+//                DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(6)) {
+//                    self.topDrawer?.setVisibility(visible: true)
+//                }
             }
         case .placePicked:
             DispatchQueue.main.async {
-                //self.pickTitle.text = "TAP_CONTINUE_TO_GET_DANGEROUS_PLACES".localized
-                self.topDrawer?.setText(text: "TAP_CONTINUE_TO_GET_DANGEROUS_PLACES".localized, drawerHeight: 120.0)
-                self.nextButton.isHidden = false
-                self.reportButton.isHidden = true
-                self.cancelButton.isHidden = true
+                self.disableFilterAndHelpButtons()
+                self.topDrawer?.subviews.forEach({ $0.removeFromSuperview() })
+                let nextButtonX = UIScreen.main.bounds.size.width/2 + 10
+                let nextButton = MDCFloatingButton(frame: CGRect(x: nextButtonX, y: 630, width: 100, height: 30))
+                nextButton.setTitle("CONTINUE".localized, for: UIControl.State.normal)
+                nextButton.backgroundColor = UIColor.lightGray
+                nextButton.setTitleColor(UIColor.white, for: .normal)
+                nextButton.setElevation(ShadowElevation(rawValue: 8), for: .normal)
+                nextButton.setElevation(ShadowElevation(rawValue: 12), for: .highlighted)
+                nextButton.addTarget(self, action: #selector(self.nextButtonTapped), for: .touchUpInside)
+
+                let cancelButtonX = UIScreen.main.bounds.size.width/2 - 110
+                let cancelButton = MDCFloatingButton(frame: CGRect(x: cancelButtonX, y: 630, width: 100, height: 30))
+                cancelButton.setTitle("CANCEL".localized, for: UIControl.State.normal)
+                cancelButton.backgroundColor = UIColor.lightGray
+                cancelButton.setTitleColor(UIColor.white, for: .normal)
+                cancelButton.setElevation(ShadowElevation(rawValue: 8), for: .normal)
+                cancelButton.setElevation(ShadowElevation(rawValue: 12), for: .highlighted)
+                cancelButton.addTarget(self, action: #selector(self.cancelButtonTapped1), for: .touchUpInside)
+
+                self.topDrawer?.addSubview(nextButton)
+                self.topDrawer?.addSubview(cancelButton)
+
+                self.topDrawer?.setText(text: "TAP_CONTINUE_TO_GET_DANGEROUS_PLACES".localized, drawerHeight: 150.0)
+                self.topDrawer?.setVisibility(visible: true)
+
             }
         case .continueTappedAfterPlacePicked:
             DispatchQueue.main.async { [weak self]  in
-                //self?.pickTitle.text = "LOADING".localized
-                self?.topDrawer?.toggleVisibility()
+                self?.topDrawer?.setVisibility(visible: false)
                 self?.disableFilterAndHelpButtons()
-                self?.disableAllFloatingButtons()
             }
         case .markersReceived:
             DispatchQueue.main.async { [weak self]  in
-                self?.topDrawer?.toggleVisibility()
-                self?.topDrawer?.setText(text:"PLACES_MAKRKED_WITH_HEATMAP".localized)
-                //self?.pickTitle.text = "PLACES_MAKRKED_WITH_HEATMAP".localized
-                self?.nextButton.isHidden = true
-                self?.reportButton.isHidden = false
-                self?.cancelButton.isHidden = false
+                self?.topDrawer?.subviews.forEach({ $0.removeFromSuperview() })
+
+                let reportButtonX = UIScreen.main.bounds.size.width/2 + 10
+                let reportButton = MDCFloatingButton(frame: CGRect(x: reportButtonX, y: 630, width: 100, height: 30))
+                reportButton.setTitle("CONTINUE_TO_INFORM".localized, for: UIControl.State.normal)
+                reportButton.backgroundColor = UIColor.lightGray
+                reportButton.setTitleColor(UIColor.white, for: .normal)
+                reportButton.setElevation(ShadowElevation(rawValue: 8), for: .normal)
+                reportButton.setElevation(ShadowElevation(rawValue: 12), for: .highlighted)
+                reportButton.addTarget(self, action: #selector(self?.reportButtonTapped1), for: .touchUpInside)
+
+                let cancelButtonX = UIScreen.main.bounds.size.width/2 - 110
+                let cancelButton = MDCFloatingButton(frame: CGRect(x: cancelButtonX, y: 630, width: 100, height: 30))
+                cancelButton.setTitle("CANCEL".localized, for: UIControl.State.normal)
+                cancelButton.backgroundColor = UIColor.lightGray
+                cancelButton.setTitleColor(UIColor.white, for: .normal)
+                cancelButton.setElevation(ShadowElevation(rawValue: 8), for: .normal)
+                cancelButton.setElevation(ShadowElevation(rawValue: 12), for: .highlighted)
+                cancelButton.addTarget(self, action: #selector(self?.cancelButtonTapped1), for: .touchUpInside)
+
+                self?.topDrawer?.addSubview(reportButton)
+                self?.topDrawer?.addSubview(cancelButton)
+
+                self?.topDrawer?.setText(text:"PLACES_MAKRKED_WITH_HEATMAP".localized, drawerHeight: 150)
+                //self?.topDrawer?.setVisibility(visible: true)
+//                DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(14)) {
+//                    self?.topDrawer?.setVisibility(visible: true)
+//                }
+
             }
         case .hazardSelected:
             DispatchQueue.main.async { [weak self]  in
-                self?.disableAllFloatingButtons()
-                self?.topDrawer?.toggleVisibility()
-                //self?.pickTitle.isHidden = true
+
+                self?.topDrawer?.subviews.forEach({ $0.removeFromSuperview() })
+
+                let yesButtonX = UIScreen.main.bounds.size.width/2 + 10
+                let yesButton = MDCFloatingButton(frame: CGRect(x: yesButtonX, y: 630, width: 100, height: 30))
+                yesButton.setTitle("YES".localized, for: UIControl.State.normal)
+                yesButton.backgroundColor = UIColor.lightGray
+                yesButton.setTitleColor(UIColor.white, for: .normal)
+                yesButton.setElevation(ShadowElevation(rawValue: 8), for: .normal)
+                yesButton.setElevation(ShadowElevation(rawValue: 12), for: .highlighted)
+                yesButton.addTarget(self, action: #selector(self?.sendButtonClicked), for: .touchUpInside)
+
+                let noButtonX = UIScreen.main.bounds.size.width/2 - 110
+                let noButton = MDCFloatingButton(frame: CGRect(x: noButtonX, y: 630, width: 100, height: 30))
+                noButton.setTitle("NO".localized, for: UIControl.State.normal)
+                noButton.backgroundColor = UIColor.lightGray
+                noButton.setTitleColor(UIColor.white, for: .normal)
+                noButton.setElevation(ShadowElevation(rawValue: 8), for: .normal)
+                noButton.setElevation(ShadowElevation(rawValue: 12), for: .highlighted)
+                noButton.addTarget(self, action: #selector(self?.cancelSendButtonClicked), for: .touchUpInside)
+
+                self?.topDrawer?.addSubview(yesButton)
+                self?.topDrawer?.addSubview(noButton)
+
+                self?.topDrawer?.setText(text:"WISH_TO_SEND_ANSWERS".localized, drawerHeight: 150)
+                self?.topDrawer?.setVisibility(visible: true)
+
             }
         }
     }
@@ -359,4 +383,26 @@ extension MainViewController : MainViewInput {
     }
 }
 
+
+
+//    func displaySendAnswersQuestionnaire() {
+//        let snackView = UIView( frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width - 20.0, height: 130))
+//        let label = UILabel.questionnaireLabel(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 50), text: "WISH_TO_SEND_ANSWERS".localized)
+//        snackView.addSubview(label)
+//
+//        self.addYesNoButtons(toView:snackView, yesAction:#selector(self.sendButtonClicked), noAction:#selector(self.cancelSendButtonClicked) )
+//        snackbarView.showSnackBar(superView: self.view, bgColor: MainViewController.SNACK_BAR_BG_COLOR, snackbarView: snackView)
+//    }
+
+
+//private func addYesNoButtons(toView: UIView, yesAction: Selector, noAction: Selector) {
+//
+//    let yesButton = UIButton.questionnaireButton(frame: CGRect(x: 150, y: 80, width: MainViewController.YES_NO_BUTTON_WIDTH, height: MainViewController.YES_NO_BUTTON_HEIGHT), title: "YES".localized)
+//    yesButton.addTarget(self, action:yesAction, for: .touchUpInside)
+//    toView.addSubview(yesButton)
+//
+//    let noButton = UIButton.questionnaireButton(frame: CGRect(x: 210, y: 80, width: MainViewController.YES_NO_BUTTON_WIDTH, height: MainViewController.YES_NO_BUTTON_HEIGHT), title: "NO".localized)
+//    noButton.addTarget(self, action:noAction, for: .touchUpInside)
+//    toView.addSubview(noButton)
+//}
 
