@@ -21,9 +21,6 @@ enum MainVCState: Int {
 
 
 class MainViewModel: NSObject, UINavigationControllerDelegate {
- 
-
-    let TIMEOUT_INTERVAL_FOR_REQUEST: Double = 15
 
     private var api: AnywayAPIImpl
     private let hud = JGProgressHUD(style: .light)
@@ -33,17 +30,17 @@ class MainViewModel: NSObject, UINavigationControllerDelegate {
     private var filter = Filter()
     private var locationManager = CLLocationManager()
     private var currentState:MainVCState = .start
-    private var selectedImageView: UIImageView!
+    private var selectedImageView: UIImageView?
 
 
     init(viewController: MainViewInput?) {
         self.view = viewController
         let sessionConfiguration: URLSessionConfiguration = URLSessionConfiguration.default
-        sessionConfiguration.timeoutIntervalForRequest = TIMEOUT_INTERVAL_FOR_REQUEST
+        sessionConfiguration.timeoutIntervalForRequest = Config.TIMEOUT_INTERVAL_FOR_REQUEST
         self.api = AnywayAPIImpl(sessionConfiguration: sessionConfiguration)
         super.init()
         self.cropDelegate = self
-        self.selectedImageView =  UIImageView()
+        //self.selectedImageView =  UIImageView()
     }
 
     private func initLocationManager() {
@@ -82,6 +79,11 @@ class MainViewModel: NSObject, UINavigationControllerDelegate {
             self.openImagePickerScreen(delegate: self.cropDelegate!)
         })
 
+        selecetImageAlert.addAction(UIAlertAction(title: "SKIP".localized, style: .default) { [unowned self] _ in
+            self.startSelectHazardView()
+            //self.openImagePickerScreen(delegate: self.cropDelegate!)
+        })
+
         selecetImageAlert.addAction(UIAlertAction(title: "CANCEL".localized, style: .cancel))
         self.view?.showAlert(selecetImageAlert, animated: true)
     }
@@ -107,12 +109,12 @@ class MainViewModel: NSObject, UINavigationControllerDelegate {
     //let imageData = selectedImageView?.image?.jpegData(compressionQuality: 0.8)
     
     private func startSelectHazardView() {
-        let selectHazardViewController:SelectHazardViewController = UIStoryboard.main.instantiateViewController(withIdentifier: "SelectHazardViewController") as UIViewController as! SelectHazardViewController
+        let ReportIncidentViewController:ReportIncidentViewController = UIStoryboard.main.instantiateViewController(withIdentifier: "ReportIncidentViewController") as UIViewController as! ReportIncidentViewController
 
-        selectHazardViewController.delegate = self as SelectHazardViewControllerDelegate
-        selectHazardViewController.incidentImageView = self.selectedImageView
+        ReportIncidentViewController.delegate = self as ReportIncidentViewControllerDelegate
+        ReportIncidentViewController.incidentImageView = self.selectedImageView
 
-        self.view?.pushViewController(selectHazardViewController, animated: true)
+        self.view?.pushViewController(ReportIncidentViewController, animated: true)
     }
 
     private func configAlertTextField(placeHoler: String, keyboardType: UIKeyboardType ) -> TextField.Config {
@@ -346,20 +348,16 @@ extension MainViewModel: FilterScreenDelegate {
     }
 }
 
-// MARK: - SelectHazardViewControllerDelegate
-extension MainViewModel: SelectHazardViewControllerDelegate {
+// MARK: - ReportIncidentViewControllerDelegate
+extension MainViewModel: ReportIncidentViewControllerDelegate {
 
     func didSelectHazard(incidentData: Incident?) {
 
         view?.popViewController(animated: true)
 
        // self.setMainViewState(state: .hazardSelected)
-
         self.setMainViewState(state: .start)
-
     }
-
-
 
     func didCancelHazard() {
         view?.popViewController(animated: true)
@@ -396,7 +394,8 @@ extension MainViewModel : RSKImageCropViewControllerDelegate {
 
     func imageCropViewController(_ controller: RSKImageCropViewController, didCropImage croppedImage: UIImage, usingCropRect cropRect: CGRect, rotationAngle: CGFloat) {
         DispatchQueue.main.async {
-            self.selectedImageView.image = croppedImage
+            self.selectedImageView = UIImageView()
+            self.selectedImageView?.image = croppedImage
             self.closeImagePicker()
             self.startSelectHazardView()
         }

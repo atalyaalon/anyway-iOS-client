@@ -1,5 +1,5 @@
 //
-//  SelectHazardViewController.swift
+//  ReportIncidentViewController.swift
 //  Anyway
 //
 //  Created by Yigal Omer on 22/08/2019.
@@ -9,20 +9,25 @@
 import UIKit
 import SnapKit
 import Spring
+import RSKImageCropper
 
-protocol SelectHazardViewControllerDelegate: class {
+protocol ReportIncidentViewControllerDelegate: class {
 
     func didSelectHazard(incidentData: Incident?)
     func didCancelHazard() 
 }
 
 
-class SelectHazardViewController: UIViewController {
+class ReportIncidentViewController: UIViewController {
 
     private let edgesPadding: CGFloat = 25
     private let topPadding: CGFloat = 7
     private let labelHeight: CGFloat = 30
     private let collectionViewInsets: CGFloat = 10
+
+    private var reportIncidentModel: ReportIncidentOutput! //ReportIncidentViewModel
+
+    private var addImageModel: AddImageOutput! //AddImageViewModel
 
     private var scrollView: UIScrollView!
     private var contentView : UIView!
@@ -37,7 +42,7 @@ class SelectHazardViewController: UIViewController {
     private var addUserDetailsView: SpringView!
     private var sendButton: UIButton!
 
-    private var rightBarButtonItem: UIBarButtonItem?
+    //private var rightBarButtonItem: UIBarButtonItem?
     private let reuseIdentifier = "cell"
     private var items: [HazardData] = HazardsStorage.hazards
     private var selectedItems = Set<Int>()
@@ -46,12 +51,17 @@ class SelectHazardViewController: UIViewController {
     private let backgroundColor: UIColor = UIColor.white//.withAlphaComponent(0.525) //UIColor.purple
     private var placeholderLabel : UILabel!
     private var tapGesture: UITapGestureRecognizer!
-    private var activeField: UITextView?
-    public weak var delegate: SelectHazardViewControllerDelegate?
+    private var imageTapGesture: UITapGestureRecognizer!
 
+    private var activeField: UITextView?
+    public weak var delegate: ReportIncidentViewControllerDelegate?
+
+    private weak var cropDelegate: RSKImageCropViewControllerDelegate?
+    private weak var imagePickerController: UIImagePickerController?
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        addImageModel = AddImageViewModel(viewController: self)
         setupView()
     }
 
@@ -70,7 +80,7 @@ class SelectHazardViewController: UIViewController {
     //
     // MARK: Private
     //
-    private func setupView() {
+    internal func setupView() {
 
         self.navigationController?.isNavigationBarHidden = false
         setupScrollView()
@@ -105,9 +115,9 @@ class SelectHazardViewController: UIViewController {
 
     private func addKeyboardObservers() {
 
-        NotificationCenter.default.addObserver(self, selector: #selector(SelectHazardViewController.keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(ReportIncidentViewController.keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
 
-        NotificationCenter.default.addObserver(self, selector: #selector(SelectHazardViewController.keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(ReportIncidentViewController.keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
 
     private func removeKeyboardObservers() {
@@ -163,7 +173,6 @@ class SelectHazardViewController: UIViewController {
     }
 
     private func setupContentView() {
-
         let view = UIView()
         view.backgroundColor = UIColor.clear
         view.clipsToBounds = true
@@ -177,21 +186,40 @@ class SelectHazardViewController: UIViewController {
         view.font = UIFont.systemFont(ofSize: 17)
         view.textAlignment = .center
         view.text = "IMAGE_OF_THE_INCIDENGT".localized
-        //self.view.addSubview(view)
         self.contentView.addSubview(view)
         self.imageOfTheIncidentLabel = view
     }
 
     private func setupImage() {
+
+        // If image was received from mainVC use it. else create one and set the place holder image
         if let view = self.incidentImageView {
             self.contentView.addSubview(view)
-            view.contentMode = .center
-            view.translatesAutoresizingMaskIntoConstraints = false
-            view.backgroundColor = .clear
-            view.clipsToBounds = false
-            view.contentMode = .scaleAspectFit
-            self.incidentImageView = view
         }
+        else {
+            self.incidentImageView = UIImageView()
+            self.incidentImageView?.image = #imageLiteral(resourceName: "plus2")
+            self.incidentImageView?.maskWith(color: UIColor.lightGray)
+            imageTapGesture = UITapGestureRecognizer(target: self, action: #selector(imageTapped))
+            self.incidentImageView?.addGestureRecognizer(imageTapGesture)
+            self.incidentImageView?.isUserInteractionEnabled = true
+            self.contentView.addSubview(self.incidentImageView!)
+        }
+
+        self.incidentImageView?.contentMode = .center
+        self.incidentImageView?.translatesAutoresizingMaskIntoConstraints = false
+        self.incidentImageView?.backgroundColor = .clear
+        self.incidentImageView?.clipsToBounds = false
+        self.incidentImageView?.contentMode = .scaleToFill
+        self.incidentImageView?.frame = CGRect(x: 0, y: 0, width: 100, height: 100)
+        self.incidentImageView?.layer.cornerRadius = 50
+        self.incidentImageView?.layer.masksToBounds = true
+        self.incidentImageView?.clipsToBounds = true
+    }
+
+    @objc func imageTapped() {
+        print("image tapped")
+        addImageModel.showSelectImageAlert(false)
     }
 
     private func setupIncidentTypesLabel() {
@@ -318,7 +346,9 @@ class SelectHazardViewController: UIViewController {
         view.damping = 0.8
         view.animation = "pop"
 
-        func addTextView(_ textView:UITextView, _ index:CGFloat, _ placeHolder: String ){
+        func addTextView(_ index:CGFloat, _ placeHolder: String ) {
+
+            let textView = UITextView()
             textView.backgroundColor = .white
             textView.isEditable = true
             textView.font = UIFont.systemFont(ofSize: 14)
@@ -337,20 +367,20 @@ class SelectHazardViewController: UIViewController {
             view.addSubview(textView)
         }
 
-        let firstNameTextView = UITextView()
-        addTextView(firstNameTextView, 0, "שם פרטי")
 
-        let lastNameTextView = UITextView()
-        addTextView(lastNameTextView, 1, "שם משפחה")
+        addTextView(0, "שם פרטי")
 
-        let idTextView = UITextView()
-        addTextView(idTextView, 2, "תעודת זהות")
+        //let lastNameTextView = UITextView()
+        addTextView(1, "שם משפחה")
 
-        let emailTextView = UITextView()
-        addTextView(emailTextView, 3, "דואר אלקטרוני")
+        //let idTextView = UITextView()
+        addTextView(2, "תעודת זהות")
 
-        let phoneTextView = UITextView()
-        addTextView(phoneTextView, 4, "מספר טלפון")
+        //let emailTextView = UITextView()
+        addTextView(3, "דואר אלקטרוני")
+
+        //let phoneTextView = UITextView()
+        addTextView(4, "מספר טלפון")
 
         view.isHidden = true
 
@@ -415,33 +445,22 @@ class SelectHazardViewController: UIViewController {
                         print("index = \(index) subView text = \(String(describing: subView.text))")
                         print("userDetailArray  = \(userDetailArray)")
                         userDetailArray.insert( subView.text, at: index)
-                        //userDetailArray[index] = subView.text
                     }
                 }else{
-                    print("addUserDetailsView has unidentified subviews")
-                    //return false
+                    print("ERROR addUserDetailsView has unidentified subviews")
                 }
             }
             incidentData.fist_name = userDetailArray[0]
             incidentData.last_name = userDetailArray[1]
             incidentData.id = userDetailArray[2]
             incidentData.email = userDetailArray[3]
-            incidentData.phone_number = userDetailArray[5]
+            incidentData.phone_number = userDetailArray[4]
         }
 
-
         self.delegate?.didSelectHazard(incidentData: incidentData)
-
-        //mainViewModel?.handleHelpTap()
     }
-    private func setupNavigationBar() {
-        self.rightBarButtonItem = UIBarButtonItem(title: "DONE".localized,
-                                                  style: .done,
-                                                  target: self,
-                                                  action: #selector(doneBarButtonItemAction))
-        rightBarButtonItem?.tintColor = UIColor.white
-        self.navigationItem.setRightBarButton(self.rightBarButtonItem, animated: false)
 
+    private func setupNavigationBar() {
 
         let leftBarButtonItem: UIBarButtonItem = UIBarButtonItem(title: "BACK".localized,
                                                   style: .plain,
@@ -449,10 +468,7 @@ class SelectHazardViewController: UIViewController {
                                                   action: #selector(onBackButtonClick))
         leftBarButtonItem.tintColor = UIColor.white
         self.navigationItem.setLeftBarButton(leftBarButtonItem, animated: false)
-
-
         self.navigationItem.title = "REPORT_AN_INCIDENT".localized
-        self.navigationItem.rightBarButtonItem?.isEnabled = false
 
         let nav = self.navigationController?.navigationBar
         nav?.isTranslucent = false;
@@ -461,28 +477,12 @@ class SelectHazardViewController: UIViewController {
         nav?.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
     }
 
-
     @objc func onBackButtonClick() {
         print("On back button click called. Am I on main thread? \(Thread.isMainThread)")
         if Thread.callStackSymbols.count > 2 {
             print("Who called me: \(Thread.callStackSymbols[2])")
         }
         delegate?.didCancelHazard()
-        //self.navigationController?.popViewController(animated: true)
-    }
-
-    // MARK: - Actions
-    @objc func doneBarButtonItemAction() {
-        self.currentResponder?.resignFirstResponder()
-
-        var array: Array<HazardData>? = nil
-        if self.selectedItems.count > 0 {
-            array = Array<HazardData>()
-            for indexPath in self.selectedItems {
-                array?.append(self.items[indexPath])
-            }
-        }
-        //self.delegate?.didSelectHazard(selectedItems: array, hazardDescription: hazardDescTextView.text)
     }
 
     // MARK: - Actions
@@ -579,7 +579,6 @@ class SelectHazardViewController: UIViewController {
             make.trailing.equalToSuperview().offset(-edgesPadding)
             make.leading.equalToSuperview().offset(edgesPadding)
             make.height.equalTo(210)
-
         })
 
         self.sendButton.snp.remakeConstraints({ (make: ConstraintMaker) in
@@ -590,14 +589,12 @@ class SelectHazardViewController: UIViewController {
             make.height.equalTo(40)
 
         })
-
-
         super.updateViewConstraints()
     }
 }
 
 // MARK: - UITextViewDelegate
-extension SelectHazardViewController: UITextViewDelegate {
+extension ReportIncidentViewController: UITextViewDelegate {
 
      func textViewDidBeginEditing(_ textView: UITextView) {
         self.currentResponder = textView
@@ -645,7 +642,6 @@ extension SelectHazardViewController: UITextViewDelegate {
         else{
             self.sendButton.backgroundColor = UIColor.lightGray
         }
-
     }
 
     func textViewDidEndEditing(_ textView: UITextView) {
@@ -656,7 +652,7 @@ extension SelectHazardViewController: UITextViewDelegate {
 }
 
 // MARK: - UICollectionViewDataSource
-extension SelectHazardViewController: UICollectionViewDataSource {
+extension ReportIncidentViewController: UICollectionViewDataSource {
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return self.items.count
@@ -692,12 +688,11 @@ extension SelectHazardViewController: UICollectionViewDataSource {
 }
 
 // MARK: - UICollectionViewDelegate
-extension SelectHazardViewController: UICollectionViewDelegate {
+extension ReportIncidentViewController: UICollectionViewDelegate {
 
     // change background color and shadow when user selects cell
     func collectionView(_ collectionView: UICollectionView, didHighlightItemAt indexPath: IndexPath){
         let cell = collectionView.cellForItem(at: indexPath)
-        //hideKeyboard()
 
         let itemNumber : Int = indexPath.item
         print ("itemNumber = \(itemNumber) selected")
@@ -732,7 +727,7 @@ extension SelectHazardViewController: UICollectionViewDelegate {
 }
 
 // MARK: - UICollectionViewDelegateFlowLayout
-extension SelectHazardViewController: UICollectionViewDelegateFlowLayout {
+extension ReportIncidentViewController: UICollectionViewDelegateFlowLayout {
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize{
         return CGSize(width: 100.0, height: 100.0)
@@ -747,3 +742,21 @@ extension SelectHazardViewController: UICollectionViewDelegateFlowLayout {
         return 10
     }
 }
+
+// MARK: - AddImageInput
+extension ReportIncidentViewController: AddImageInput {
+
+    func showImagPickerScreen(_ pickerController: UIImagePickerController, animated: Bool) {
+        self.present(pickerController, animated: animated)
+    }
+
+    func showAlert(_ alert: UIAlertController, animated: Bool) {
+        self.present(alert, animated: animated)
+    }
+
+    func setSelectedImage(image: UIImage) {
+        self.incidentImageView?.image = image
+    }
+}
+
+

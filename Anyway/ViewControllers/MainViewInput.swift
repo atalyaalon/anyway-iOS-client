@@ -14,8 +14,7 @@ protocol MainViewInput: ViewInput {
 
     func showImagPickerScreen(_ pickerController: UIImagePickerController, animated: Bool)
 
-    func showAlert(_ alert: UIAlertController, animated: Bool)
-
+ 
     func pushViewController(_ vc: UIViewController, animated: Bool)
 
     func popViewController( animated: Bool)

@@ -15,6 +15,11 @@ let fallbackStartLocationCoordinate = CLLocationCoordinate2D(latitude: 32.158091
 let appLaunchZoomRadius = 0.005
 
 
+struct Config {
+
+    static let TIMEOUT_INTERVAL_FOR_REQUEST: Double = 15
+}
+
 struct AnywayColor {
     static var red = UIColor(red:0.856, green:0.123, blue:0.168, alpha:1)
     static var orange = UIColor(red:1, green:0.626, blue:0, alpha:1)

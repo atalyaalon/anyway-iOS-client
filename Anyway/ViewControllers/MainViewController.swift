@@ -32,7 +32,6 @@ class MainViewController: UIViewController {
     //private var snackbarView = SnackBarView()
     private var helpButton: MDCFloatingButton!
     private var filterButton: MDCFloatingButton!
-    //private var selectedImageView: UIImageView!
     private var topDrawer: TopDrawer?
 
 
@@ -40,16 +39,8 @@ class MainViewController: UIViewController {
         super.viewDidLoad()
         mainViewModel = MainViewModel(viewController: self)
         mainViewModel.viewDidLoad()
-        //self.drawer.isHidden = true
     }
 
-    @IBAction func openDrawer(_ sender: Any) {
-//        self.drawer.isHidden = false
-//        self.drawer.duration = 1.0
-//        self.drawer.damping = 0.8
-//        self.drawer.animation = "squeezeUp"
-//        self.drawer.animate()
-    }
     private func setupMapView() {
         mapView.isTrafficEnabled   = false
         mapView.isHidden           = false

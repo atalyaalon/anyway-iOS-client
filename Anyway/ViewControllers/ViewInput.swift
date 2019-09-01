@@ -11,4 +11,7 @@ import UIKit
 protocol ViewInput: class {
 
     func setupView()
+
+    func showAlert(_ alert: UIAlertController, animated: Bool)
+
 }
