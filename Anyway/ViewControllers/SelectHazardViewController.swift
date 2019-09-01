@@ -576,24 +576,25 @@ extension SelectHazardViewController: UITextViewDelegate {
      func textViewDidBeginEditing(_ textView: UITextView) {
         self.currentResponder = textView
         activeField = textView
-//        if textView.textColor == UIColor.lightGray {
-//            textView.text = nil
-//            textView.textColor = UIColor.black
-//        }
+        if textView.textColor == UIColor.lightGray {
+            textView.text = nil
+            textView.textColor = UIColor.black
+        }
     }
 
     private func isAllAddUserDetailsViewSubviewsNotEmpty() -> Bool {
 
         for subView in self.addUserDetailsView.subviews {
             if let subView = subView as? UITextView {
-                if subView.text.isEmpty {
-                    return true
+                if subView.text.isEmpty  || subView.textColor == UIColor.lightGray {
+                    return false
                 }
             }else{
                 print("addUserDetailsView has unidentified subviews")
+                return false
             }
         }
-        return false
+        return true
     }
 
     func textViewDidChange(_ textView: UITextView) {
