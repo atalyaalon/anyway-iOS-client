@@ -75,30 +75,14 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="byN-Nl-6Kn">
-                                <rect key="frame" x="133" y="318" width="137" height="65"/>
-                                <color key="backgroundColor" red="0.2156862745" green="0.3921568627" blue="0.73725490199999999" alpha="1" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="137" id="XXd-WS-A35"/>
-                                    <constraint firstAttribute="height" constant="65" id="wn4-U1-Y4M"/>
-                                </constraints>
-                                <state key="normal" title="questions">
-                                    <color key="titleColor" red="0.49803921568627452" green="0.66274509803921566" blue="0.77647058823529413" alpha="0.98373287671232879" colorSpace="calibratedRGB"/>
-                                </state>
-                                <connections>
-                                    <action selector="openDrawer:" destination="GQG-KH-GPO" eventType="touchUpInside" id="ScN-k5-1M5"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="sEZ-um-WKY" secondAttribute="trailing" id="EC0-kM-WOh"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="byN-Nl-6Kn" secondAttribute="trailing" constant="124" id="F2l-Tx-Rex"/>
                             <constraint firstItem="sEZ-um-WKY" firstAttribute="top" secondItem="iQu-uc-iDB" secondAttribute="top" id="UyA-FX-6Gr"/>
                             <constraint firstItem="eQm-xW-TfV" firstAttribute="leading" secondItem="iQu-uc-iDB" secondAttribute="leadingMargin" id="YD6-nX-hOW"/>
                             <constraint firstItem="fev-gO-UnZ" firstAttribute="top" secondItem="eQm-xW-TfV" secondAttribute="bottom" constant="65" id="aLY-MN-xXv"/>
                             <constraint firstItem="sEZ-um-WKY" firstAttribute="leading" secondItem="iQu-uc-iDB" secondAttribute="leading" id="dkT-Tb-cEZ"/>
-                            <constraint firstItem="byN-Nl-6Kn" firstAttribute="leading" secondItem="iQu-uc-iDB" secondAttribute="leadingMargin" constant="113" id="eUT-vy-bY4"/>
                             <constraint firstItem="eQm-xW-TfV" firstAttribute="trailing" secondItem="iQu-uc-iDB" secondAttribute="trailingMargin" id="qZl-dV-09P"/>
                             <constraint firstItem="sEZ-um-WKY" firstAttribute="bottom" secondItem="iQu-uc-iDB" secondAttribute="bottom" id="qv3-TJ-Zz9"/>
                         </constraints>

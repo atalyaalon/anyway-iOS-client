@@ -10,9 +10,7 @@ import UIKit
 import GoogleMaps
 import SnapKit
 import MaterialComponents.MaterialButtons
-import RSKImageCropper
 //import MaterialComponents.MaterialButtons_Theming
-//import Spring
 
 class MainViewController: UIViewController {
 
@@ -21,7 +19,6 @@ class MainViewController: UIViewController {
     private let SMALL_DRAWER_HEIGHT:CGFloat = 120.0
     private let BIG_DRAWER_BUTTON_HEIGHT_OFFSET:CGFloat = 30.0
 
-    //@IBOutlet weak var drawer: SpringView!
     @IBOutlet weak var addressLabel: UILabel!
     @IBOutlet var mapView: GMSMapView!
 
@@ -34,8 +31,6 @@ class MainViewController: UIViewController {
     private var filterButton: MDCFloatingButton!
     private var topDrawer: TopDrawer?
     private var addImageModel: AddImageOutput! //AddImageViewModel
-
-
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -112,17 +107,6 @@ class MainViewController: UIViewController {
     @objc private func reportButtonTapped(_ sender: Any) {
         //addImageModel.showSelectImageAlert(true)
         mainViewModel.handleReportButtonTap()
-    }
-    @objc private func cancelSendButtonTapped() {
-        print("cancel send Button Clicked")
-        //snackbarView.hideSnackBar()
-        mainViewModel?.handleCancelSendButtonTap()
-    }
-    @objc private func sendButtonTapped() {
-        print("send Button Clicked")
-        //snackbarView.hideSnackBar()
-        self.topDrawer?.setVisibility(visible: false)
-        mainViewModel?.handleSendToMunicipalityTap()
     }
 
     private func addTowButtons(toView: UIView?,
@@ -208,7 +192,6 @@ extension MainViewController : MainViewInput {
         if let err = error {
             erroDesc = err.localizedDescription
         }
-        //let erroDesc = (error == nil) ? "" : error.debugDescription
         let msg = "Something went wrong \(erroDesc)"
         let prompt = UIAlertController(title: title, message: msg, preferredStyle: .alert)
         let cancelText = "OK".localized
@@ -282,11 +265,6 @@ extension MainViewController : MainViewInput {
                 self?.topDrawer?.setVisibility(visible: false)
 
             }
-        case .reportTapped:
-            DispatchQueue.main.async { [weak self]  in
-                self?.topDrawer?.setVisibility(visible: false)
-                self?.addImageModel.showSelectImageAlert(true)
-            }
         case .markersReceived:
             DispatchQueue.main.async { [weak self]  in
                 guard let self = self else { return  }
@@ -298,22 +276,14 @@ extension MainViewController : MainViewInput {
 
                 self.topDrawer?.setText(text:"PLACES_MAKRKED_WITH_HEATMAP".localized, drawerHeight: 150)
                 //self?.topDrawer?.setVisibility(visible: true)
-//                DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(14)) {
-//                    self?.topDrawer?.setVisibility(visible: true)
-//                }
-
+                // DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(14)) {
+                // self?.topDrawer?.setVisibility(visible: true)
+                // }
             }
-        case .hazardSelected:
+        case .reportTapped:
             DispatchQueue.main.async { [weak self]  in
-                guard let self = self else { return }
-                self.addTowButtons(toView: self.topDrawer,
-                                   firstButtonText: "YES".localized,
-                                   secondButtonText: "NO".localized,
-                                   firstButtonAction: #selector(self.sendButtonTapped),
-                                   secondButtonAction: #selector(self.cancelSendButtonTapped))
-
-                self.topDrawer?.setText(text:"WISH_TO_SEND_ANSWERS".localized, drawerHeight: 150)
-                self.topDrawer?.setVisibility(visible: true)
+                self?.topDrawer?.setVisibility(visible: false)
+                self?.addImageModel.showSelectImageAlert(true)
             }
         }
     }
@@ -337,41 +307,10 @@ extension MainViewController : MainViewInput {
 // MARK: - AddImageInput
 extension MainViewController: AddImageInput {
 
-//    func showImagPickerScreen(_ pickerController: UIImagePickerController, animated: Bool) {
-//        self.present(pickerController, animated: animated)
-//    }
-//
-//    func showAlert(_ alert: UIAlertController, animated: Bool) {
-//        self.present(alert, animated: animated)
-//    }
-
     func setSelectedImage(image: UIImage) {
-        mainViewModel.setSelectedImage(image: image)
-        //self.incidentImageView?.image = image
+        mainViewModel.handleSelectedImage(image: image)
+    }
+    func skipSelectedWhenAddingImage() {
+        mainViewModel.handleSkipSelectedWhenAddingImage()
     }
 }
-//private static let YES_NO_BUTTON_WIDTH = 50
-//private static let YES_NO_BUTTON_HEIGHT = 40
-//private static let SNACK_BAR_BG_COLOR = UIColor.purple
-
-//    func displaySendAnswersQuestionnaire() {
-//        let snackView = UIView( frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width - 20.0, height: 130))
-//        let label = UILabel.questionnaireLabel(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 50), text: "WISH_TO_SEND_ANSWERS".localized)
-//        snackView.addSubview(label)
-//
-//        self.addYesNoButtons(toView:snackView, yesAction:#selector(self.sendButtonClicked), noAction:#selector(self.cancelSendButtonClicked) )
-//        snackbarView.showSnackBar(superView: self.view, bgColor: MainViewController.SNACK_BAR_BG_COLOR, snackbarView: snackView)
-//    }
-
-
-//private func addYesNoButtons(toView: UIView, yesAction: Selector, noAction: Selector) {
-//
-//    let yesButton = UIButton.questionnaireButton(frame: CGRect(x: 150, y: 80, width: MainViewController.YES_NO_BUTTON_WIDTH, height: MainViewController.YES_NO_BUTTON_HEIGHT), title: "YES".localized)
-//    yesButton.addTarget(self, action:yesAction, for: .touchUpInside)
-//    toView.addSubview(yesButton)
-//
-//    let noButton = UIButton.questionnaireButton(frame: CGRect(x: 210, y: 80, width: MainViewController.YES_NO_BUTTON_WIDTH, height: MainViewController.YES_NO_BUTTON_HEIGHT), title: "NO".localized)
-//    noButton.addTarget(self, action:noAction, for: .touchUpInside)
-//    toView.addSubview(noButton)
-//}
-

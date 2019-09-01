@@ -102,8 +102,9 @@ extension AddImageViewModel: AddImageOutput {
 
         if withSkip {
             selecetImageAlert.addAction(UIAlertAction(title: "SKIP".localized, style: .default) { (action: UIAlertAction) in
+
+                self.view?.skipSelectedWhenAddingImage()
                 //self.startSelectHazardView()
-                //self.openImagePickerScreen(delegate: self.cropDelegate!)
             })
         }
 

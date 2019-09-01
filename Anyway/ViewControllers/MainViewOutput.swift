@@ -22,7 +22,7 @@ protocol MainViewOutput : ViewOutput {
 
     func handleReportButtonTap()
 
-    func handleSendToMunicipalityTap()
+    //func handleSendToMunicipalityTap()
 
     func handleNextButtonTap(_ mapRectangle: GMSVisibleRegion)
 
@@ -34,7 +34,9 @@ protocol MainViewOutput : ViewOutput {
 
     func handleCameraMovedToPosition(coordinate: CLLocationCoordinate2D)
 
-    func setSelectedImage(image: UIImage)
+    func handleSelectedImage(image: UIImage)
+
+    func handleSkipSelectedWhenAddingImage()
 
 }
 

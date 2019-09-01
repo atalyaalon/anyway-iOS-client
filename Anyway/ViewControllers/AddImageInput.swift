@@ -13,4 +13,7 @@ protocol AddImageInput: ViewInput {
     func showImagPickerScreen(_ pickerController: UIImagePickerController, animated: Bool)
 
     func setSelectedImage(image: UIImage)
+
+    func skipSelectedWhenAddingImage()
+
 }

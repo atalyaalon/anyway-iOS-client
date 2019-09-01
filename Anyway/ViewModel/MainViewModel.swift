@@ -14,11 +14,10 @@ enum MainVCState: Int {
     case start = 0
     case placePicked = 1
     case continueTappedAfterPlacePicked = 2
-    case reportTapped = 3
-    case markersReceived = 4
-    case hazardSelected = 5
+    case markersReceived = 3
+    case reportTapped = 4
+    //case hazardSelected = 5
 }
-
 
 class MainViewModel: NSObject, UINavigationControllerDelegate {
 
@@ -60,7 +59,6 @@ class MainViewModel: NSObject, UINavigationControllerDelegate {
             self.hud?.isHidden = true
         }
     }
-
     //let imageData = selectedImageView?.image?.jpegData(compressionQuality: 0.8)
     
     private func startSelectHazardView() {
@@ -70,30 +68,6 @@ class MainViewModel: NSObject, UINavigationControllerDelegate {
         ReportIncidentViewController.incidentImageView = self.selectedImageView
 
         self.view?.pushViewController(ReportIncidentViewController, animated: true)
-    }
-
-    private func configAlertTextField(placeHoler: String, keyboardType: UIKeyboardType ) -> TextField.Config {
-
-        let textFieldConfig: TextField.Config = { (textField:TextField) in
-            //textField.left(image: #imageLiteral(resourceName: "user"), color: UIColor(hex: 0x007AFF))
-            textField.leftViewPadding = 16
-            textField.leftTextPadding = 12
-            textField.borderWidth = 1
-            textField.borderColor = UIColor.lightGray.withAlphaComponent(0.5)
-            textField.backgroundColor = nil
-            textField.textColor = .black
-            textField.placeholder = placeHoler
-            textField.clearsOnBeginEditing = true
-            textField.autocapitalizationType = .none
-            textField.keyboardAppearance = .default
-            textField.keyboardType = keyboardType
-            //textField.isSecureTextEntry = true
-            textField.returnKeyType = .done
-            textField.action { textField in
-                print("textField = \(String(describing: textField.text))")
-            }
-        }
-        return textFieldConfig
     }
 
     private func addHeatmap(markers: [NewMarker])  {
@@ -132,17 +106,13 @@ class MainViewModel: NSObject, UINavigationControllerDelegate {
                 //YIGAL TODO UNCOMMENT - JUST FOR TETSING
                 //self.view?.displayErrorAlert(error: nil)
                 //self.setMainViewState(state: .start)
-
                 self.setMainViewState(state: .markersReceived)
                 return
             }
             print("finished parsing annotations. markers count : \(String(describing: markers.count))")
-
             self.view?.removeHeatMapLayer()
             self.view?.addHeatMapLayer()
-
             self.addHeatmap(markers: markers)
-
             self.setMainViewState(state: .markersReceived)
             //anotations?(markers)
         }
@@ -153,7 +123,6 @@ class MainViewModel: NSObject, UINavigationControllerDelegate {
         view?.setActionForState(state: self.currentState)
     }
 }
-
 
 // MARK: - MainViewOutput
 extension MainViewModel: MainViewOutput {
@@ -181,52 +150,17 @@ extension MainViewModel: MainViewOutput {
         self.view?.pushViewController(helpViewController, animated: true)
     }
 
-    func handleSendToMunicipalityTap() {
-        let alertStyle: UIAlertController.Style = .actionSheet
-        //let alert = UIAlertController(style: alertStyle, title: "טופס רשויות", message: "שליחת תשובות לרשויות")
-        let alert = UIAlertController(style: alertStyle)
-
-        let textFieldOne: TextField.Config = configAlertTextField(placeHoler: "FIRST_NAME".localized, keyboardType: .default )
-
-        let textFieldTwo: TextField.Config = configAlertTextField(placeHoler: "LAST_NAME".localized, keyboardType: .default )
-
-        let textFieldThree: TextField.Config = configAlertTextField(placeHoler: "ID_NUMBER".localized, keyboardType: .phonePad )
-
-        let textFieldFour: TextField.Config = configAlertTextField(placeHoler: "EMAIL".localized, keyboardType: .emailAddress )
-
-        let textFieldFive: TextField.Config = configAlertTextField(placeHoler: "PHONE_NUMBER".localized, keyboardType: .phonePad )
-
-        alert.addFiveTextFields(
-            height: alertStyle == .alert ? 50 : 65,
-            hInset: alertStyle == .alert ? 12 : 0,
-            vInset: alertStyle == .alert ? 12 : 0,
-            textFieldOne: textFieldOne,
-            textFieldTwo: textFieldTwo,
-            textFieldThree: textFieldThree,
-            textFieldFour: textFieldFour,
-            textFieldFive: textFieldFive)
-
-        alert.addAction(title: "SEND_TO_AUTH".localized, style: .cancel) { [weak self] action in
-            //self?.pickTitle.text = "SENDING_ANSWERS".localized
-            self?.setMainViewState(state: .start)
-        }
-
-        self.view?.showAlert(alert, animated: true)
-    }
     func handleNextButtonTap(_ mapRectangle: GMSVisibleRegion) {
 
         let topRightCorner: CLLocationCoordinate2D = mapRectangle.farRight
         let bottomLeftCorner: CLLocationCoordinate2D = mapRectangle.nearLeft
         let edges:Edges = (ne: topRightCorner, sw: bottomLeftCorner)
-
         self.setMainViewState(state: .continueTappedAfterPlacePicked)
-
         self.getAnnotations(edges)
     }
 
     func handleReportButtonTap() {
         self.setMainViewState(state: .reportTapped)
-        //startSelectHazardView()
         //showSelectImageAlert()
     }
     func handleCancelButtonTap() {
@@ -239,7 +173,6 @@ extension MainViewModel: MainViewOutput {
 
     func handleTapOnTheMap(coordinate: CLLocationCoordinate2D){
         if self.currentState != .start  {
-            //mapView.resignFirstResponder()
             return
         }
         reverseGeocodeCoordinate(coordinate)
@@ -270,17 +203,18 @@ extension MainViewModel: MainViewOutput {
 
         self.setMainViewState(state: .placePicked)
         view?.setMarkerOnTheMap(coordinate: coordinate)
-
     }
 
-    func setSelectedImage(image: UIImage) {
+    func handleSelectedImage(image: UIImage) {
 
         self.selectedImageView = UIImageView()
         self.selectedImageView?.image = image
-
         self.startSelectHazardView()
     }
 
+    func handleSkipSelectedWhenAddingImage(){
+        self.startSelectHazardView()
+    }
 }
 
 // MARK: - FilterScreenDelegate
@@ -300,10 +234,7 @@ extension MainViewModel: FilterScreenDelegate {
 extension MainViewModel: ReportIncidentViewControllerDelegate {
 
     func didSelectHazard(incidentData: Incident?) {
-
         view?.popViewController(animated: true)
-
-       // self.setMainViewState(state: .hazardSelected)
         self.setMainViewState(state: .start)
     }
 
@@ -311,44 +242,6 @@ extension MainViewModel: ReportIncidentViewControllerDelegate {
         view?.popViewController(animated: true)
     }
 }
-
-
-// MARK: - UIImagePickerControllerDelegate
-//extension MainViewModel: UIImagePickerControllerDelegate {
-//
-//    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-//        self.imagePickerController = nil
-//        picker.dismiss(animated: true)
-//    }
-//
-//    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
-//
-//        if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
-//            let viewController = RSKImageCropViewController(image: image, cropMode: .circle)
-//            viewController.delegate = self.cropDelegate
-//            picker.pushViewController(viewController, animated: true)
-//        } else {
-//            self.imagePickerController = nil
-//        }
-//    }
-//}
-
-// MARK: - RSKImageCropViewControllerDelegate
-//extension MainViewModel : RSKImageCropViewControllerDelegate {
-//
-//    func imageCropViewControllerDidCancelCrop(_ controller: RSKImageCropViewController) {
-//        self.closeImagePicker()
-//    }
-//
-//    func imageCropViewController(_ controller: RSKImageCropViewController, didCropImage croppedImage: UIImage, usingCropRect cropRect: CGRect, rotationAngle: CGFloat) {
-//        DispatchQueue.main.async {
-//            self.selectedImageView = UIImageView()
-//            self.selectedImageView?.image = croppedImage
-//            self.closeImagePicker()
-//            self.startSelectHazardView()
-//        }
-//    }
-//}
 
 // MARK: - CLLocationManagerDelegate
 extension MainViewModel: CLLocationManagerDelegate {
@@ -362,9 +255,7 @@ extension MainViewModel: CLLocationManagerDelegate {
             return
         }
         view?.setCameraPosition(coordinate: location.coordinate)
-        
         locationManager.stopUpdatingLocation()
-
         //fetchNearbyPlaces(coordinate: location.coordinate)
     }
 }

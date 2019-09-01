@@ -284,6 +284,7 @@ class ReportIncidentViewController: UIViewController {
         placeholderLabel.text = "תאר את פרטי המפגע"
         placeholderLabel.font = UIFont.italicSystemFont(ofSize: 14)
         placeholderLabel.sizeToFit()
+        //placeholderLabel.textAlignment = .right
         hazardDescTextView.addSubview(placeholderLabel)
         //placeholderLabel.frame.origin = CGPoint(x: 10, y: 10)
         placeholderLabel.textColor = UIColor.lightGray
@@ -555,10 +556,19 @@ class ReportIncidentViewController: UIViewController {
 
         self.placeholderLabel.snp.remakeConstraints({ (make: ConstraintMaker) in
             //make.leading.equalToSuperview().offset(10)
+
             make.top.equalToSuperview().offset(2)
             make.height.equalTo(labelHeight)
-            make.trailing.equalToSuperview().offset(-205)
+            make.trailing.equalToSuperview().offset(-UIScreen.main.bounds.size.width/1.75 ) //UIScreen.main.bounds.size.width/10 + 20)
         })
+
+
+//        self.placeholderLabel.snp.remakeConstraints({ (make: ConstraintMaker) in
+//            //make.leading.equalToSuperview().offset(10)
+//            make.top.equalToSuperview().offset(2)
+//            make.height.equalTo(labelHeight)
+//            make.trailing.equalToSuperview().offset(-205)
+//        })
 
         self.switchLabel.snp.remakeConstraints({ (make: ConstraintMaker) in
             make.leading.equalToSuperview().offset(edgesPadding)
@@ -622,7 +632,7 @@ extension ReportIncidentViewController: UITextViewDelegate {
                 if subView.text.isEmpty  || subView.textColor == UIColor.lightGray {
                     return false
                 }
-            }else{
+            } else {
                 print("addUserDetailsView has unidentified subviews")
                 return false
             }
@@ -648,7 +658,6 @@ extension ReportIncidentViewController: UITextViewDelegate {
         activeField = nil
         textView.resignFirstResponder()
     }
-
 }
 
 // MARK: - UICollectionViewDataSource
@@ -678,13 +687,9 @@ extension ReportIncidentViewController: UICollectionViewDataSource {
         cell.layer.shadowPath = UIBezierPath(roundedRect: cell.bounds, cornerRadius: cell.contentView.layer.cornerRadius).cgPath
 
         let image = UIImage(named: self.items[indexPath.item].imageName)!
-        //let image = #imageLiteral(resourceName: self.items[indexPath.item].imageName)
-        //helpButton.setImage(#imageLiteral(resourceName: "information"), for: .normal)
         cell.imageView.image = image
-
         return cell
     }
-
 }
 
 // MARK: - UICollectionViewDelegate
@@ -718,7 +723,6 @@ extension ReportIncidentViewController: UICollectionViewDelegate {
             self.sendButton.backgroundColor = UIColor.lightGray
         }
     }
-
     // change background color back when user releases touch
     func collectionView(_ collectionView: UICollectionView, didUnhighlightItemAt indexPath: IndexPath) {
         // let cell = collectionView.cellForItem(at: indexPath)
@@ -745,6 +749,9 @@ extension ReportIncidentViewController: UICollectionViewDelegateFlowLayout {
 
 // MARK: - AddImageInput
 extension ReportIncidentViewController: AddImageInput {
+
+    func skipSelectedWhenAddingImage() {
+    }
 
     func showImagPickerScreen(_ pickerController: UIImagePickerController, animated: Bool) {
         self.present(pickerController, animated: animated)

@@ -11,11 +11,6 @@ import RSKImageCropper
 
 enum ReportIncidentVCState: Int {
     case start = 0
-//    case placePicked = 1
-//    case continueTappedAfterPlacePicked = 2
-//    case reportTapped = 3
-//    case markersReceived = 4
-//    case hazardSelected = 5
 }
 
 class ReportIncidentViewModel: NSObject {
