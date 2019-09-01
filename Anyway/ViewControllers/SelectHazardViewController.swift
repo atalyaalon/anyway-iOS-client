@@ -10,9 +10,9 @@ import UIKit
 import SnapKit
 import Spring
 
-public protocol SelectHazardViewControllerDelegate: class {
+protocol SelectHazardViewControllerDelegate: class {
 
-    func didSelectHazard(selectedItems: Array<Any>?, hazardDescription: String?)
+    func didSelectHazard(incidentData: Incident?)
     func didCancelHazard() 
 }
 
@@ -25,14 +25,13 @@ class SelectHazardViewController: UIViewController {
     private let collectionViewInsets: CGFloat = 10
 
     private var scrollView: UIScrollView!
-    //private var contentView: UIView!
-    private var customStackView : UIView!
+    private var contentView : UIView!
     private var imageOfTheIncidentLabel: UILabel!
     public var  incidentImageView: UIImageView?
     public var  incidentTypesLabel: UILabel!
     private var collectionView: UICollectionView!
     private var otherLabel: UILabel!
-    private var hazardDescTextView: PlaceHolderTextView!
+    private var hazardDescTextView: UITextView!
     private var switchLabel: UILabel!
     private var switchControl: UISwitch!
     private var addUserDetailsView: SpringView!
@@ -41,7 +40,7 @@ class SelectHazardViewController: UIViewController {
     private var rightBarButtonItem: UIBarButtonItem?
     private let reuseIdentifier = "cell"
     private var items: [HazardData] = HazardsStorage.hazards
-    private var selectedItems = Set<IndexPath>()
+    private var selectedItems = Set<Int>()
     private var currentResponder: UIResponder?
 
     private let backgroundColor: UIColor = UIColor.white//.withAlphaComponent(0.525) //UIColor.purple
@@ -76,7 +75,7 @@ class SelectHazardViewController: UIViewController {
         self.navigationController?.isNavigationBarHidden = false
         setupScrollView()
         //setupContentView()
-        setupStackView()
+        setupContentView()
         setupImageOfTheIncidentLabel()
         setupImage()
         setupIncidentTypesLabel()
@@ -90,8 +89,6 @@ class SelectHazardViewController: UIViewController {
         setupNavigationBar()
         activeField = self.hazardDescTextView
 
-        //scrollView.updateContentView()
-
         self.view.setNeedsUpdateConstraints()
         self.view.updateConstraintsIfNeeded()
     }
@@ -102,7 +99,7 @@ class SelectHazardViewController: UIViewController {
         for view: UIView in scrollView.subviews {
             contentRect = contentRect.union(view.frame)
         }
-        contentRect.size.height = contentRect.size.height + 400
+        contentRect.size.height = contentRect.size.height
         scrollView.contentSize = contentRect.size
     }
 
@@ -119,12 +116,11 @@ class SelectHazardViewController: UIViewController {
 
     private func addTapGesture() {
         tapGesture = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
-        view.addGestureRecognizer(tapGesture)
-        disableKeyboardDissmissingByTap()
+        contentView.addGestureRecognizer(tapGesture)
     }
 
     private func removeTapGesture() {
-        customStackView.removeGestureRecognizer(tapGesture)
+        contentView.removeGestureRecognizer(tapGesture)
     }
 
     private func enableKeyboardDissmissingByTap() {
@@ -146,31 +142,11 @@ class SelectHazardViewController: UIViewController {
     @objc func keyboardWillShow(_ aNotification: NSNotification) {
 
         if let kbSize = (aNotification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
-
             print("keyboard rect = \(kbSize)")
-
             let contentInsets: UIEdgeInsets = UIEdgeInsets(top: 0.0, left: 0.0, bottom: kbSize.height, right: 0.0)
-
             scrollView.contentInset = contentInsets
             scrollView.scrollIndicatorInsets = contentInsets
-
-            print("activeField rect = \(String(describing: activeField?.frame))")
-
-            var frameToScrollTo: CGRect = self.hazardDescTextView.frame
-            if (activeField != self.hazardDescTextView ) {
-                 print("activeField is not hazardDescTextView")
-                frameToScrollTo = addUserDetailsView.frame
-            }
-
-            var aRect: CGRect = self.view.frame
-
-            aRect.size.height -= kbSize.height
             enableKeyboardDissmissingByTap()
-            //if !aRect.contains(hazardDescTextView.frame.origin) {
-            if let activeField = activeField {
-                //self.scrollView.scrollRectToVisible(frameToScrollTo, animated: true)
-            }
-            //}
         }
     }
 
@@ -182,29 +158,17 @@ class SelectHazardViewController: UIViewController {
     private func setupScrollView() {
         let view = UIScrollView()
         view.backgroundColor = UIColor.clear
-
-        //view.contentSize = CGSize(width: self.view.frame.width, height: 2000)
         self.view.addSubview(view)
         self.scrollView = view
     }
 
-//    private func setupContentView() {
-//        let view = UIView()
-//        view.backgroundColor = UIColor.clear
-//        view.clipsToBounds = true
-//        self.scrollView.addSubview(view)
-//        self.contentView = view
-//    }
-
-
-
-    private func setupStackView() {
+    private func setupContentView() {
 
         let view = UIView()
         view.backgroundColor = UIColor.clear
         view.clipsToBounds = true
         self.scrollView.addSubview(view)
-        self.customStackView = view
+        self.contentView = view
     }
 
     private func setupImageOfTheIncidentLabel() {
@@ -214,13 +178,13 @@ class SelectHazardViewController: UIViewController {
         view.textAlignment = .center
         view.text = "IMAGE_OF_THE_INCIDENGT".localized
         //self.view.addSubview(view)
-        self.customStackView.addSubview(view)
+        self.contentView.addSubview(view)
         self.imageOfTheIncidentLabel = view
     }
 
     private func setupImage() {
         if let view = self.incidentImageView {
-            self.customStackView.addSubview(view)
+            self.contentView.addSubview(view)
             view.contentMode = .center
             view.translatesAutoresizingMaskIntoConstraints = false
             view.backgroundColor = .clear
@@ -236,7 +200,7 @@ class SelectHazardViewController: UIViewController {
         view.font = UIFont.systemFont(ofSize: 17)
         view.textAlignment = .center
         view.text = "INCIDENGT_TYPE".localized
-        self.customStackView.addSubview(view)
+        self.contentView.addSubview(view)
         self.incidentTypesLabel = view
     }
     private func setupCollectionView() {
@@ -247,7 +211,7 @@ class SelectHazardViewController: UIViewController {
 
         let view = UICollectionView(frame: CGRect.zero, collectionViewLayout: layout)
         view.backgroundColor = self.backgroundColor
-        customStackView.addSubview(view)
+        contentView.addSubview(view)
         let contentInsets: UIEdgeInsets = UIEdgeInsets(top: collectionViewInsets, left: collectionViewInsets, bottom: collectionViewInsets, right: collectionViewInsets)
         view.contentInset = contentInsets
         view.contentMode = .center
@@ -265,7 +229,7 @@ class SelectHazardViewController: UIViewController {
         view.textAlignment = .center
         view.text = "ELSE".localized
         //self.view.addSubview(view)
-        self.customStackView.addSubview(view)
+        self.contentView.addSubview(view)
         self.otherLabel = view
     }
 
@@ -280,10 +244,10 @@ class SelectHazardViewController: UIViewController {
         view.layer.borderWidth = 1.0
         view.layer.borderColor = UIColor.black.cgColor
         view.returnKeyType = UIReturnKeyType.done
-        view.placeholder = "describe bla bla"
-        view.placeholderColor = UIColor.lightGray
+        //view.placeholder = "describe bla bla"
+        //view.placeholderColor = UIColor.lightGray
 
-        self.customStackView.addSubview(view)
+        self.contentView.addSubview(view)
         self.hazardDescTextView = view
         self.hazardDescTextView.delegate = self
 
@@ -304,13 +268,13 @@ class SelectHazardViewController: UIViewController {
         view.font = UIFont.systemFont(ofSize: 17)
         view.textAlignment = .center
         view.text = "REPORT_TO_MUNICIPALITY".localized
-        self.customStackView.addSubview(view)
+        self.contentView.addSubview(view)
         self.switchLabel = view
     }
     private func setupSwitchControlView() {
         let view = UISwitch()
         view.addTarget(self, action: #selector(valueChanged), for: .valueChanged)
-        self.customStackView.addSubview(view)
+        self.contentView.addSubview(view)
         self.switchControl = view
 
     }
@@ -342,12 +306,9 @@ class SelectHazardViewController: UIViewController {
         }
     }
 
-
     private func setupAddUserDetailsView(){
         let view = SpringView()
-        //view.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width-40, height: 200)
         view.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width-40, height: 210)
-        //view.backgroundColor = UIColor.f8LightGray
         view.layer.cornerRadius = 5.0
         view.layer.borderWidth = 1.0
         view.layer.borderColor = UIColor.black.cgColor
@@ -357,16 +318,15 @@ class SelectHazardViewController: UIViewController {
         view.damping = 0.8
         view.animation = "pop"
 
-        func addTextView(_ textView:PlaceHolderTextView, _ index:CGFloat, _ placeHolder: String ){
-            //let testView = UITextView()
+        func addTextView(_ textView:UITextView, _ index:CGFloat, _ placeHolder: String ){
             textView.backgroundColor = .white
             textView.isEditable = true
             textView.font = UIFont.systemFont(ofSize: 14)
             textView.layer.cornerRadius = 4.0
             textView.layer.borderWidth = 1.0
             textView.layer.borderColor = UIColor.black.cgColor
-            textView.placeholder = placeHolder
-            textView.placeholderColor = UIColor.lightGray
+            //textView.placeholder = placeHolder
+            //textView.placeholderColor = UIColor.lightGray
             textView.textColor = UIColor.lightGray
             textView.delegate = self
             textView.text = placeHolder
@@ -377,24 +337,24 @@ class SelectHazardViewController: UIViewController {
             view.addSubview(textView)
         }
 
-        let firstNameTextView = PlaceHolderTextView()
+        let firstNameTextView = UITextView()
         addTextView(firstNameTextView, 0, "שם פרטי")
 
-        let lastNameTextView = PlaceHolderTextView()
+        let lastNameTextView = UITextView()
         addTextView(lastNameTextView, 1, "שם משפחה")
 
-        let idTextView = PlaceHolderTextView()
+        let idTextView = UITextView()
         addTextView(idTextView, 2, "תעודת זהות")
 
-        let emailTextView = PlaceHolderTextView()
+        let emailTextView = UITextView()
         addTextView(emailTextView, 3, "דואר אלקטרוני")
 
-        let phoneTextView = PlaceHolderTextView()
+        let phoneTextView = UITextView()
         addTextView(phoneTextView, 4, "מספר טלפון")
 
         view.isHidden = true
 
-        self.customStackView.addSubview(view)
+        self.contentView.addSubview(view)
         self.addUserDetailsView = view
     }
 
@@ -404,16 +364,74 @@ class SelectHazardViewController: UIViewController {
         view.clipsToBounds = true
         view.setTitleColor(UIColor.white, for: UIControl.State.normal)
         view.backgroundColor = UIColor.lightGray
-        view.layer.cornerRadius = 4
+        //view.layer.cornerRadius = 4
         view.tintColor = UIColor.black
         view.setTitle("שלח", for: UIControl.State.normal)
 
+        view.layer.borderColor = UIColor.black.cgColor
+        view.layer.borderWidth = 1
+        view.layer.cornerRadius = 5
+        // Shadow is not working TODO YIGAL
+//        view.layer.shadowColor = UIColor.black.cgColor
+//        view.layer.shadowOffset = CGSize(width: 4.0, height: 2.0)
+//        view.layer.shadowRadius = 5.0
+//        view.layer.shadowOpacity = 0.5
+        //view.layer.masksToBounds = false
+        //view.layer.shadowPath = UIBezierPath(roundedRect: view.bounds, cornerRadius: view.layer.cornerRadius).cgPath
+
         view.addTarget(self, action: #selector(sendButtonTapped), for: .touchUpInside)
-        self.customStackView.addSubview(view)
+        self.contentView.addSubview(view)
         self.sendButton = view
     }
 
     @objc private func sendButtonTapped(_ sender: UIButton) {
+        sender.layer.shadowColor = UIColor.white.cgColor
+
+        var array: Array<HazardData>? = nil
+        if self.selectedItems.count > 0 {
+            array = Array<HazardData>()
+            for item in self.selectedItems {
+                array?.append(self.items[item])
+            }
+        }
+        var incidentData: Incident = Incident()
+        incidentData.signs_on_the_road_not_clear = self.selectedItems.contains(0)
+        incidentData.sidewalk_is_blocked = self.selectedItems.contains(1)
+        incidentData.pothole = self.selectedItems.contains(2)
+        incidentData.no_sign = self.selectedItems.contains(3)
+        incidentData.road_hazard = self.selectedItems.contains(4)
+        incidentData.no_light = self.selectedItems.contains(5)
+        incidentData.crossing_missing = self.selectedItems.contains(6)
+        incidentData.signs_problem = self.selectedItems.contains(7)
+        incidentData.street_light_issue = self.selectedItems.contains(8)
+
+        incidentData.send_to_monicipality = self.switchControl.isOn
+        var userDetailArray:Array<String> = Array<String>()
+        if self.switchControl.isOn {
+
+            for  (index, subView)  in self.addUserDetailsView.subviews.enumerated() {
+                if let subView = subView as? UITextView {
+                    if !subView.text.isEmpty  && subView.textColor != UIColor.lightGray {
+                        print("index = \(index) subView text = \(String(describing: subView.text))")
+                        print("userDetailArray  = \(userDetailArray)")
+                        userDetailArray.insert( subView.text, at: index)
+                        //userDetailArray[index] = subView.text
+                    }
+                }else{
+                    print("addUserDetailsView has unidentified subviews")
+                    //return false
+                }
+            }
+            incidentData.fist_name = userDetailArray[0]
+            incidentData.last_name = userDetailArray[1]
+            incidentData.id = userDetailArray[2]
+            incidentData.email = userDetailArray[3]
+            incidentData.phone_number = userDetailArray[5]
+        }
+
+
+        self.delegate?.didSelectHazard(incidentData: incidentData)
+
         //mainViewModel?.handleHelpTap()
     }
     private func setupNavigationBar() {
@@ -461,10 +479,10 @@ class SelectHazardViewController: UIViewController {
         if self.selectedItems.count > 0 {
             array = Array<HazardData>()
             for indexPath in self.selectedItems {
-                array?.append(self.items[indexPath.item])
+                array?.append(self.items[indexPath])
             }
         }
-        self.delegate?.didSelectHazard(selectedItems: array, hazardDescription: hazardDescTextView.text)
+        //self.delegate?.didSelectHazard(selectedItems: array, hazardDescription: hazardDescTextView.text)
     }
 
     // MARK: - Actions
@@ -485,21 +503,11 @@ class SelectHazardViewController: UIViewController {
             //make.height.equalTo(1500.0)
         }
 
-//        contentView.snp.remakeConstraints { (make) in
-//            make.edges.equalToSuperview()
-//            make.width.equalToSuperview()
-//            make.height.equalToSuperview().priority(250)
-//        }
-        self.customStackView.snp.remakeConstraints({ (make: ConstraintMaker) in
+        self.contentView.snp.remakeConstraints({ (make: ConstraintMaker) in
             make.edges.equalToSuperview()
             make.width.equalToSuperview()
-            make.height.equalTo(1300)
+            make.height.equalTo(1100)
             //make.height.equalToSuperview().priority(250)
-
-//            make.leading.equalToSuperview().offset(0)
-//            make.trailing.equalToSuperview().offset(0)
-//            make.top.equalToSuperview().offset(0)
-//            make.height.equalToSuperview().offset(0)//equalTo(400)
          })
 
         self.imageOfTheIncidentLabel.snp.remakeConstraints({ (make: ConstraintMaker) in
@@ -546,8 +554,10 @@ class SelectHazardViewController: UIViewController {
         })
 
         self.placeholderLabel.snp.remakeConstraints({ (make: ConstraintMaker) in
-            make.top.equalToSuperview().offset(9)
-            make.trailing.equalToSuperview().offset(-225)
+            //make.leading.equalToSuperview().offset(10)
+            make.top.equalToSuperview().offset(2)
+            make.height.equalTo(labelHeight)
+            make.trailing.equalToSuperview().offset(-205)
         })
 
         self.switchLabel.snp.remakeConstraints({ (make: ConstraintMaker) in
@@ -625,7 +635,6 @@ extension SelectHazardViewController: UITextViewDelegate {
 
     func textViewDidChange(_ textView: UITextView) {
         placeholderLabel.isHidden = !hazardDescTextView.text.isEmpty
-        //self.navigationItem.rightBarButtonItem?.isEnabled = !textView.text.isEmpty
 
         if self.switchControl.isOn && isAllAddUserDetailsViewSubviewsNotEmpty() && (!hazardDescTextView.text.isEmpty || selectedItems.count > 0){
             self.sendButton.backgroundColor = UIColor.init(hexString: "3764BC")
@@ -690,13 +699,16 @@ extension SelectHazardViewController: UICollectionViewDelegate {
         let cell = collectionView.cellForItem(at: indexPath)
         //hideKeyboard()
 
-        if selectedItems.contains(indexPath) {
-            selectedItems.remove(indexPath)
+        let itemNumber : Int = indexPath.item
+        print ("itemNumber = \(itemNumber) selected")
+        
+        if selectedItems.contains(itemNumber) {
+            selectedItems.remove(itemNumber)
             cell?.backgroundColor = UIColor.white
             cell?.layer.shadowColor = UIColor.black.cgColor
         }
         else{
-            selectedItems.insert(indexPath)
+            selectedItems.insert(itemNumber)
             cell?.backgroundColor = UIColor.init(hexString: "7FA9C6")
             cell?.layer.shadowColor = UIColor.white.cgColor
         }
@@ -710,9 +722,6 @@ extension SelectHazardViewController: UICollectionViewDelegate {
         else{
             self.sendButton.backgroundColor = UIColor.lightGray
         }
-
-
-        //self.navigationItem.rightBarButtonItem?.isEnabled = selectedItems.count > 0
     }
 
     // change background color back when user releases touch

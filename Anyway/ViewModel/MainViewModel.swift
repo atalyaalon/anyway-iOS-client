@@ -348,15 +348,18 @@ extension MainViewModel: FilterScreenDelegate {
 
 // MARK: - SelectHazardViewControllerDelegate
 extension MainViewModel: SelectHazardViewControllerDelegate {
-    func didSelectHazard(selectedItems: Array<Any>?, hazardDescription: String?) {
-        let hazards:Array<HazardData>? = selectedItems as? Array<HazardData>
 
-        print("didSelectHazard Hazard = \(hazards ?? [])  hazardDescription =\(hazardDescription ?? "")")
+    func didSelectHazard(incidentData: Incident?) {
+
         view?.popViewController(animated: true)
 
-        self.setMainViewState(state: .hazardSelected)
-        //view?.displaySendAnswersQuestionnaire()
+       // self.setMainViewState(state: .hazardSelected)
+
+        self.setMainViewState(state: .start)
+
     }
+
+
 
     func didCancelHazard() {
         view?.popViewController(animated: true)

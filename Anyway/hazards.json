@@ -1,46 +1,46 @@
 [
     {
-        "id": 1,
+        "id": 0,
         "hazardDescription": "Signs not clear",
         "imageName": "animals"
     },
     {
-        "id": 2,
+        "id": 1,
         "hazardDescription": "Sidewalk is blocked",
         "imageName": "horse"
     },
     {
-        "id": 3,
+        "id": 2,
         "hazardDescription": "pothole",
         "imageName": "bor"
     },
     {
-        "id": 4,
+        "id": 3,
         "hazardDescription": "no sign",
         "imageName": "man"
     },
     {
-        "id": 5,
+        "id": 4,
         "hazardDescription": "hazard",
         "imageName": "slip"
     },
     {
-        "id": 6,
+        "id": 5,
         "hazardDescription": "no light",
         "imageName": "2ways"
     },
     {
-        "id": 7,
+        "id": 6,
         "hazardDescription": "crossing missing",
         "imageName": "hazia"
     },
     {
-        "id": 8,
+        "id": 7,
         "hazardDescription": "sign issue",
         "imageName": "carslip"
     },
     {
-        "id": 9,
+        "id": 8,
         "hazardDescription": "Street light issue",
         "imageName": "man"
     }

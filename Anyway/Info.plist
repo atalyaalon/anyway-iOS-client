@@ -53,6 +53,8 @@
 			</dict>
 		</dict>
 	</dict>
+	<key>NSCameraUsageDescription</key>
+	<string>נשתמש במצלמה לצילום המפגע</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>נשתמש במיקום שלך כדי להציג את מצב הכבישים מסביבך</string>
 	<key>UILaunchStoryboardName</key>
