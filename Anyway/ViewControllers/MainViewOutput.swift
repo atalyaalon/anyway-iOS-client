@@ -18,7 +18,7 @@ protocol MainViewOutput : ViewOutput {
 
     //func getAnnotations(_ edges: Edges, response: ()->Void  )
 
-    func closeImagePicker()
+    //func closeImagePicker()
 
     func handleReportButtonTap()
 
@@ -34,7 +34,7 @@ protocol MainViewOutput : ViewOutput {
 
     func handleCameraMovedToPosition(coordinate: CLLocationCoordinate2D)
 
-
+    func setSelectedImage(image: UIImage)
 
 }
 

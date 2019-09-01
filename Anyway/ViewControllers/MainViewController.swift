@@ -33,11 +33,14 @@ class MainViewController: UIViewController {
     private var helpButton: MDCFloatingButton!
     private var filterButton: MDCFloatingButton!
     private var topDrawer: TopDrawer?
+    private var addImageModel: AddImageOutput! //AddImageViewModel
+
 
 
     override func viewDidLoad() {
         super.viewDidLoad()
         mainViewModel = MainViewModel(viewController: self)
+        addImageModel = AddImageViewModel(viewController: self)
         mainViewModel.viewDidLoad()
     }
 
@@ -107,6 +110,7 @@ class MainViewController: UIViewController {
         mainViewModel.handleCancelButtonTap()
     }
     @objc private func reportButtonTapped(_ sender: Any) {
+        //addImageModel.showSelectImageAlert(true)
         mainViewModel.handleReportButtonTap()
     }
     @objc private func cancelSendButtonTapped() {
@@ -179,21 +183,6 @@ extension MainViewController: GMSMapViewDelegate {
         return false
     }
 }
-
-//// MARK: - RSKImageCropViewControllerDelegate
-//extension MainViewController : RSKImageCropViewControllerDelegate {
-//
-//    func imageCropViewControllerDidCancelCrop(_ controller: RSKImageCropViewController) {
-//        self.mainViewModel?.closeImagePicker()
-//    }
-//
-//    func imageCropViewController(_ controller: RSKImageCropViewController, didCropImage croppedImage: UIImage, usingCropRect cropRect: CGRect, rotationAngle: CGFloat) {
-//        DispatchQueue.main.async {
-//            self.selectedImageView.image = croppedImage
-//            self.mainViewModel?.closeImagePicker()
-//        }
-//    }
-//}
 
 // MARK: - MainViewInput
 extension MainViewController : MainViewInput {
@@ -291,10 +280,12 @@ extension MainViewController : MainViewInput {
         case .continueTappedAfterPlacePicked:
             DispatchQueue.main.async { [weak self]  in
                 self?.topDrawer?.setVisibility(visible: false)
+
             }
         case .reportTapped:
             DispatchQueue.main.async { [weak self]  in
                 self?.topDrawer?.setVisibility(visible: false)
+                self?.addImageModel.showSelectImageAlert(true)
             }
         case .markersReceived:
             DispatchQueue.main.async { [weak self]  in
@@ -343,6 +334,22 @@ extension MainViewController : MainViewInput {
     }
 }
 
+// MARK: - AddImageInput
+extension MainViewController: AddImageInput {
+
+//    func showImagPickerScreen(_ pickerController: UIImagePickerController, animated: Bool) {
+//        self.present(pickerController, animated: animated)
+//    }
+//
+//    func showAlert(_ alert: UIAlertController, animated: Bool) {
+//        self.present(alert, animated: animated)
+//    }
+
+    func setSelectedImage(image: UIImage) {
+        mainViewModel.setSelectedImage(image: image)
+        //self.incidentImageView?.image = image
+    }
+}
 //private static let YES_NO_BUTTON_WIDTH = 50
 //private static let YES_NO_BUTTON_HEIGHT = 40
 //private static let SNACK_BAR_BG_COLOR = UIColor.purple

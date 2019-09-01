@@ -25,13 +25,10 @@ class MainViewModel: NSObject, UINavigationControllerDelegate {
     private var api: AnywayAPIImpl
     private let hud = JGProgressHUD(style: .light)
     weak var view: MainViewInput?
-    private weak var cropDelegate: RSKImageCropViewControllerDelegate?
-    private weak var imagePickerController: UIImagePickerController?
     private var filter = Filter()
     private var locationManager = CLLocationManager()
     private var currentState:MainVCState = .start
     private var selectedImageView: UIImageView?
-
 
     init(viewController: MainViewInput?) {
         self.view = viewController
@@ -39,53 +36,12 @@ class MainViewModel: NSObject, UINavigationControllerDelegate {
         sessionConfiguration.timeoutIntervalForRequest = Config.TIMEOUT_INTERVAL_FOR_REQUEST
         self.api = AnywayAPIImpl(sessionConfiguration: sessionConfiguration)
         super.init()
-        self.cropDelegate = self
-        //self.selectedImageView =  UIImageView()
-    }
+     }
 
     private func initLocationManager() {
         locationManager.delegate = self
         locationManager.requestWhenInUseAuthorization()
         locationManager.startUpdatingLocation()
-    }
-
-    func openImagePickerScreen(delegate: RSKImageCropViewControllerDelegate) {
-        let pickerController = UIImagePickerController()
-        pickerController.sourceType = .photoLibrary
-        pickerController.allowsEditing = false
-        pickerController.delegate = self
-        self.imagePickerController = pickerController
-        self.view?.showImagPickerScreen(pickerController, animated: true)
-    }
-
-    func openCameraScreen(delegate: RSKImageCropViewControllerDelegate) {
-        let pickerController = UIImagePickerController()
-        pickerController.sourceType = .camera
-        pickerController.allowsEditing = false
-        pickerController.cameraCaptureMode = .photo
-        pickerController.delegate = self
-        self.imagePickerController = pickerController
-        self.view?.showImagPickerScreen(pickerController, animated: true)
-    }
-
-    // MARK: - Select image alert
-    func showSelectImageAlert() {
-        let selecetImageAlert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-
-        selecetImageAlert.addAction(UIAlertAction(title: "SELECT_IMAGE_ALERT_ACTION_TAKE_PHOTO".localized, style: .default) { [unowned self] _ in
-            self.openCameraScreen(delegate: self.cropDelegate!)
-        })
-        selecetImageAlert.addAction(UIAlertAction(title: "SELECT_IMAGE_ALERT_ACTION_SELECT_FROM_ALBUM".localized, style: .default) { [unowned self] _ in
-            self.openImagePickerScreen(delegate: self.cropDelegate!)
-        })
-
-        selecetImageAlert.addAction(UIAlertAction(title: "SKIP".localized, style: .default) { [unowned self] _ in
-            self.startSelectHazardView()
-            //self.openImagePickerScreen(delegate: self.cropDelegate!)
-        })
-
-        selecetImageAlert.addAction(UIAlertAction(title: "CANCEL".localized, style: .cancel))
-        self.view?.showAlert(selecetImageAlert, animated: true)
     }
 
     private func showHUD() {
@@ -104,7 +60,6 @@ class MainViewModel: NSObject, UINavigationControllerDelegate {
             self.hud?.isHidden = true
         }
     }
-
 
     //let imageData = selectedImageView?.image?.jpegData(compressionQuality: 0.8)
     
@@ -197,19 +152,13 @@ class MainViewModel: NSObject, UINavigationControllerDelegate {
         self.currentState = state
         view?.setActionForState(state: self.currentState)
     }
-
 }
-
-
-
 
 
 // MARK: - MainViewOutput
 extension MainViewModel: MainViewOutput {
 
-
     func viewDidLoad() {
-
         self.view?.setupView()
         self.initLocationManager()
         self.view?.addHeatMapLayer()
@@ -231,15 +180,6 @@ extension MainViewModel: MainViewOutput {
         let helpViewController:UIViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "InfoViewController") as UIViewController
         self.view?.pushViewController(helpViewController, animated: true)
     }
-
-    func closeImagePicker() {
-        self.imagePickerController?.dismiss(animated: true)
-        self.imagePickerController = nil
-
-    }
-
-
-
 
     func handleSendToMunicipalityTap() {
         let alertStyle: UIAlertController.Style = .actionSheet
@@ -287,7 +227,7 @@ extension MainViewModel: MainViewOutput {
     func handleReportButtonTap() {
         self.setMainViewState(state: .reportTapped)
         //startSelectHazardView()
-        showSelectImageAlert()
+        //showSelectImageAlert()
     }
     func handleCancelButtonTap() {
         self.setMainViewState(state: .start)
@@ -333,6 +273,14 @@ extension MainViewModel: MainViewOutput {
 
     }
 
+    func setSelectedImage(image: UIImage) {
+
+        self.selectedImageView = UIImageView()
+        self.selectedImageView?.image = image
+
+        self.startSelectHazardView()
+    }
+
 }
 
 // MARK: - FilterScreenDelegate
@@ -366,41 +314,41 @@ extension MainViewModel: ReportIncidentViewControllerDelegate {
 
 
 // MARK: - UIImagePickerControllerDelegate
-extension MainViewModel: UIImagePickerControllerDelegate {
-
-    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-        self.imagePickerController = nil
-        picker.dismiss(animated: true)
-    }
-
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
-
-        if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
-            let viewController = RSKImageCropViewController(image: image, cropMode: .circle)
-            viewController.delegate = self.cropDelegate
-            picker.pushViewController(viewController, animated: true)
-        } else {
-            self.imagePickerController = nil
-        }
-    }
-}
+//extension MainViewModel: UIImagePickerControllerDelegate {
+//
+//    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+//        self.imagePickerController = nil
+//        picker.dismiss(animated: true)
+//    }
+//
+//    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
+//
+//        if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
+//            let viewController = RSKImageCropViewController(image: image, cropMode: .circle)
+//            viewController.delegate = self.cropDelegate
+//            picker.pushViewController(viewController, animated: true)
+//        } else {
+//            self.imagePickerController = nil
+//        }
+//    }
+//}
 
 // MARK: - RSKImageCropViewControllerDelegate
-extension MainViewModel : RSKImageCropViewControllerDelegate {
-
-    func imageCropViewControllerDidCancelCrop(_ controller: RSKImageCropViewController) {
-        self.closeImagePicker()
-    }
-
-    func imageCropViewController(_ controller: RSKImageCropViewController, didCropImage croppedImage: UIImage, usingCropRect cropRect: CGRect, rotationAngle: CGFloat) {
-        DispatchQueue.main.async {
-            self.selectedImageView = UIImageView()
-            self.selectedImageView?.image = croppedImage
-            self.closeImagePicker()
-            self.startSelectHazardView()
-        }
-    }
-}
+//extension MainViewModel : RSKImageCropViewControllerDelegate {
+//
+//    func imageCropViewControllerDidCancelCrop(_ controller: RSKImageCropViewController) {
+//        self.closeImagePicker()
+//    }
+//
+//    func imageCropViewController(_ controller: RSKImageCropViewController, didCropImage croppedImage: UIImage, usingCropRect cropRect: CGRect, rotationAngle: CGFloat) {
+//        DispatchQueue.main.async {
+//            self.selectedImageView = UIImageView()
+//            self.selectedImageView?.image = croppedImage
+//            self.closeImagePicker()
+//            self.startSelectHazardView()
+//        }
+//    }
+//}
 
 // MARK: - CLLocationManagerDelegate
 extension MainViewModel: CLLocationManagerDelegate {
