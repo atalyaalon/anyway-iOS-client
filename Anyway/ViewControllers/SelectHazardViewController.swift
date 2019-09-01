@@ -25,7 +25,7 @@ class SelectHazardViewController: UIViewController {
     private let collectionViewInsets: CGFloat = 10
 
     private var scrollView: UIScrollView!
-    private var contentView: UIView!
+    //private var contentView: UIView!
     private var customStackView : UIView!
     private var imageOfTheIncidentLabel: UILabel!
     public var  incidentImageView: UIImageView?
@@ -75,7 +75,7 @@ class SelectHazardViewController: UIViewController {
 
         self.navigationController?.isNavigationBarHidden = false
         setupScrollView()
-        setupContentView()
+        //setupContentView()
         setupStackView()
         setupImageOfTheIncidentLabel()
         setupImage()
@@ -88,6 +88,7 @@ class SelectHazardViewController: UIViewController {
         setupAddUserDetailsView()
         setupSendButton()
         setupNavigationBar()
+        activeField = self.hazardDescTextView
 
         //scrollView.updateContentView()
 
@@ -146,21 +147,29 @@ class SelectHazardViewController: UIViewController {
 
         if let kbSize = (aNotification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
 
-            print("keyboard = \(kbSize)")
+            print("keyboard rect = \(kbSize)")
 
             let contentInsets: UIEdgeInsets = UIEdgeInsets(top: 0.0, left: 0.0, bottom: kbSize.height, right: 0.0)
 
             scrollView.contentInset = contentInsets
             scrollView.scrollIndicatorInsets = contentInsets
 
+            print("activeField rect = \(String(describing: activeField?.frame))")
+
+            var frameToScrollTo: CGRect = self.hazardDescTextView.frame
+            if (activeField != self.hazardDescTextView ) {
+                 print("activeField is not hazardDescTextView")
+                frameToScrollTo = addUserDetailsView.frame
+            }
+
             var aRect: CGRect = self.view.frame
 
             aRect.size.height -= kbSize.height
             enableKeyboardDissmissingByTap()
             //if !aRect.contains(hazardDescTextView.frame.origin) {
-            //if let activeField = activeField {
-                self.scrollView.scrollRectToVisible(hazardDescTextView.frame, animated: true)
-            //}
+            if let activeField = activeField {
+                //self.scrollView.scrollRectToVisible(frameToScrollTo, animated: true)
+            }
             //}
         }
     }
@@ -179,21 +188,23 @@ class SelectHazardViewController: UIViewController {
         self.scrollView = view
     }
 
-    private func setupContentView() {
-        let view = UIView()
-        view.backgroundColor = UIColor.clear
-        view.clipsToBounds = true
-        self.scrollView.addSubview(view)
-        self.contentView = view
-    }
+//    private func setupContentView() {
+//        let view = UIView()
+//        view.backgroundColor = UIColor.clear
+//        view.clipsToBounds = true
+//        self.scrollView.addSubview(view)
+//        self.contentView = view
+//    }
 
 
 
     private func setupStackView() {
 
-        customStackView = UIView()
-        customStackView.backgroundColor = self.backgroundColor
-        self.contentView.addSubview(customStackView)
+        let view = UIView()
+        view.backgroundColor = UIColor.clear
+        view.clipsToBounds = true
+        self.scrollView.addSubview(view)
+        self.customStackView = view
     }
 
     private func setupImageOfTheIncidentLabel() {
@@ -468,22 +479,27 @@ class SelectHazardViewController: UIViewController {
 
         scrollView.snp.remakeConstraints { (make) in
             make.top.equalToSuperview()
-            //make.bottom.equalToSuperview()
+            make.bottom.equalToSuperview()
             make.leading.equalToSuperview()
             make.trailing.equalToSuperview()
-            make.height.equalTo(2000.0)
+            //make.height.equalTo(1500.0)
         }
 
-        contentView.snp.remakeConstraints { (make) in
+//        contentView.snp.remakeConstraints { (make) in
+//            make.edges.equalToSuperview()
+//            make.width.equalToSuperview()
+//            make.height.equalToSuperview().priority(250)
+//        }
+        self.customStackView.snp.remakeConstraints({ (make: ConstraintMaker) in
             make.edges.equalToSuperview()
             make.width.equalToSuperview()
-            make.height.equalToSuperview().priority(250)
-        }
-        self.customStackView.snp.remakeConstraints({ (make: ConstraintMaker) in
-            make.leading.equalToSuperview().offset(0)
-            make.trailing.equalToSuperview().offset(0)
-            make.top.equalToSuperview().offset(0)
-            make.height.equalToSuperview().offset(0)//equalTo(400)
+            make.height.equalTo(1300)
+            //make.height.equalToSuperview().priority(250)
+
+//            make.leading.equalToSuperview().offset(0)
+//            make.trailing.equalToSuperview().offset(0)
+//            make.top.equalToSuperview().offset(0)
+//            make.height.equalToSuperview().offset(0)//equalTo(400)
          })
 
         self.imageOfTheIncidentLabel.snp.remakeConstraints({ (make: ConstraintMaker) in
@@ -576,6 +592,16 @@ extension SelectHazardViewController: UITextViewDelegate {
      func textViewDidBeginEditing(_ textView: UITextView) {
         self.currentResponder = textView
         activeField = textView
+
+        var frameToScrollTo: CGRect = self.hazardDescTextView.frame
+        if (activeField != self.hazardDescTextView ) {
+            print("activeField is not hazardDescTextView")
+            frameToScrollTo = addUserDetailsView.frame
+        }
+        //if let activeField = activeField {
+            self.scrollView.scrollRectToVisible(frameToScrollTo, animated: true)
+        //}
+
         if textView.textColor == UIColor.lightGray {
             textView.text = nil
             textView.textColor = UIColor.black
@@ -613,14 +639,11 @@ extension SelectHazardViewController: UITextViewDelegate {
 
     }
 
-    private func textFieldDidEndEditing(_ textView: UITextView) {
+    func textViewDidEndEditing(_ textView: UITextView) {
         activeField = nil
+        textView.resignFirstResponder()
     }
 
-    func textFieldShouldReturn(textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
-        return true
-    }
 }
 
 // MARK: - UICollectionViewDataSource
