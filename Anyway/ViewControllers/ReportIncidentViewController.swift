@@ -18,7 +18,7 @@ protocol ReportIncidentViewControllerDelegate: class {
 }
 
 
-class ReportIncidentViewController: UIViewController {
+class ReportIncidentViewController: BaseViewController {
 
     private let edgesPadding: CGFloat = 25
     private let topPadding: CGFloat = 7
@@ -80,7 +80,7 @@ class ReportIncidentViewController: UIViewController {
     //
     // MARK: Private
     //
-    internal func setupView() {
+    internal override func setupView() {
 
         self.navigationController?.isNavigationBarHidden = false
         setupScrollView()
@@ -347,6 +347,35 @@ class ReportIncidentViewController: UIViewController {
         view.damping = 0.8
         view.animation = "pop"
 
+
+        func addTextView2(factory: (() -> UITextView),  index:CGFloat,  placeHolder: String, config: ((UITextView, CGFloat, String) -> Void)  ) {
+
+            let textView: UITextView  = factory()
+            config(textView,index,placeHolder)
+        }
+
+
+        addTextView2(factory:{ () in
+                return  UITextView()
+            },index: 0 , placeHolder: "FIRST_NAME".localized , config: { (textView,index,placeHolder) in
+
+                textView.backgroundColor = .white
+                textView.isEditable = true
+                textView.font = UIFont.systemFont(ofSize: 14)
+                textView.layer.cornerRadius = 4.0
+                textView.layer.borderWidth = 1.0
+                textView.layer.borderColor = UIColor.black.cgColor
+                textView.textColor = UIColor.lightGray
+                textView.delegate = self
+                textView.text = placeHolder
+
+                let y: CGFloat = 10 + index*10.0 + index * 30.0
+
+                textView.frame = CGRect(x: 10, y: y, width: UIScreen.main.bounds.size.width-70, height: 30)
+                view.addSubview(textView)
+            }
+        )
+
         func addTextView(_ index:CGFloat, _ placeHolder: String ) {
 
             let textView = UITextView()
@@ -356,8 +385,6 @@ class ReportIncidentViewController: UIViewController {
             textView.layer.cornerRadius = 4.0
             textView.layer.borderWidth = 1.0
             textView.layer.borderColor = UIColor.black.cgColor
-            //textView.placeholder = placeHolder
-            //textView.placeholderColor = UIColor.lightGray
             textView.textColor = UIColor.lightGray
             textView.delegate = self
             textView.text = placeHolder
@@ -367,21 +394,11 @@ class ReportIncidentViewController: UIViewController {
             textView.frame = CGRect(x: 10, y: y, width: UIScreen.main.bounds.size.width-70, height: 30)
             view.addSubview(textView)
         }
-
-
-        addTextView(0, "שם פרטי")
-
-        //let lastNameTextView = UITextView()
-        addTextView(1, "שם משפחה")
-
-        //let idTextView = UITextView()
-        addTextView(2, "תעודת זהות")
-
-        //let emailTextView = UITextView()
-        addTextView(3, "דואר אלקטרוני")
-
-        //let phoneTextView = UITextView()
-        addTextView(4, "מספר טלפון")
+        //addTextView(0, "FIRST_NAME".localized)
+        addTextView(1, "LAST_NAME".localized)
+        addTextView(2, "ID_NUMBER".localized)
+        addTextView(3, "EMAIL".localized)
+        addTextView(4, "PHONE_NUMBER".localized)
 
         view.isHidden = true
 
@@ -478,7 +495,7 @@ class ReportIncidentViewController: UIViewController {
         nav?.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
     }
 
-    @objc func onBackButtonClick() {
+    @objc override func onBackButtonClick() {
         print("On back button click called. Am I on main thread? \(Thread.isMainThread)")
         if Thread.callStackSymbols.count > 2 {
             print("Who called me: \(Thread.callStackSymbols[2])")
@@ -555,20 +572,11 @@ class ReportIncidentViewController: UIViewController {
         })
 
         self.placeholderLabel.snp.remakeConstraints({ (make: ConstraintMaker) in
-            //make.leading.equalToSuperview().offset(10)
-
+            //make.leading.equalToSuperview().offset(10) // TODO YIGAL not working???
             make.top.equalToSuperview().offset(2)
             make.height.equalTo(labelHeight)
-            make.trailing.equalToSuperview().offset(-UIScreen.main.bounds.size.width/1.75 ) //UIScreen.main.bounds.size.width/10 + 20)
+            make.trailing.equalToSuperview().offset(-UIScreen.main.bounds.size.width/1.75 )
         })
-
-
-//        self.placeholderLabel.snp.remakeConstraints({ (make: ConstraintMaker) in
-//            //make.leading.equalToSuperview().offset(10)
-//            make.top.equalToSuperview().offset(2)
-//            make.height.equalTo(labelHeight)
-//            make.trailing.equalToSuperview().offset(-205)
-//        })
 
         self.switchLabel.snp.remakeConstraints({ (make: ConstraintMaker) in
             make.leading.equalToSuperview().offset(edgesPadding)
@@ -755,10 +763,6 @@ extension ReportIncidentViewController: AddImageInput {
 
     func showImagPickerScreen(_ pickerController: UIImagePickerController, animated: Bool) {
         self.present(pickerController, animated: animated)
-    }
-
-    func showAlert(_ alert: UIAlertController, animated: Bool) {
-        self.present(alert, animated: animated)
     }
 
     func setSelectedImage(image: UIImage) {

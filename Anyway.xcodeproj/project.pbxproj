@@ -135,6 +135,7 @@
 		9FF3E4FB231C391200B14B9F /* AddImageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FF3E4FA231C391200B14B9F /* AddImageViewModel.swift */; };
 		9FF3E4FD231C394200B14B9F /* AddImageInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FF3E4FC231C394200B14B9F /* AddImageInput.swift */; };
 		9FF3E4FF231C398000B14B9F /* AddImageOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FF3E4FE231C398000B14B9F /* AddImageOutput.swift */; };
+		9FF3E501231CFEC700B14B9F /* BaseViewConroller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FF3E500231CFEC700B14B9F /* BaseViewConroller.swift */; };
 		D780B83056A321F7A86B0BFA /* Pods_Anyway.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60483B6CF861F474FF1CC114 /* Pods_Anyway.framework */; };
 /* End PBXBuildFile section */
 
@@ -342,6 +343,7 @@
 		9FF3E4FA231C391200B14B9F /* AddImageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddImageViewModel.swift; sourceTree = "<group>"; };
 		9FF3E4FC231C394200B14B9F /* AddImageInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddImageInput.swift; sourceTree = "<group>"; };
 		9FF3E4FE231C398000B14B9F /* AddImageOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddImageOutput.swift; sourceTree = "<group>"; };
+		9FF3E500231CFEC700B14B9F /* BaseViewConroller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewConroller.swift; sourceTree = "<group>"; };
 		A72C13C132E386EC44C00CA4 /* Pods-Anyway.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Anyway.debug.xcconfig"; path = "Target Support Files/Pods-Anyway/Pods-Anyway.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -481,6 +483,7 @@
 				9F1F6F01230E826D00AD5A8D /* HazardData.swift */,
 				9F1F6F03230E848200AD5A8D /* QGrid.swift */,
 				9F6AC2442311865900EF5F31 /* FirstLaunch.swift */,
+				9FF3E500231CFEC700B14B9F /* BaseViewConroller.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -1067,6 +1070,7 @@
 				9F691440231257CB00D60153 /* NewMarker.swift in Sources */,
 				9F0EE9DE230C8DE100D53D4D /* GMUPoint.m in Sources */,
 				9F0EE8FA22F71C1400D53D4D /* OCMapView.m in Sources */,
+				9FF3E501231CFEC700B14B9F /* BaseViewConroller.swift in Sources */,
 				9F0EE9DB230C8DE100D53D4D /* GMUFeature.m in Sources */,
 				9F6E35852313E9DC00A8457F /* MainViewModel.swift in Sources */,
 				9F0EE8B222F7164600D53D4D /* HistoryViewController.swift in Sources */,

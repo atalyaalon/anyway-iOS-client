@@ -14,4 +14,10 @@ protocol ViewInput: class {
 
     func showAlert(_ alert: UIAlertController, animated: Bool)
 
+    func displayErrorAlert(error: Error?)
+
+    func showLoadingIndicator()
+
+    func hideLoadingIndicator() 
+
 }

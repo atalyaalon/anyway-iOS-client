@@ -10,7 +10,6 @@ import UIKit
 
 protocol MainViewInput: ViewInput {
 
-    func displayErrorAlert(error: Error?)
 
     func showImagPickerScreen(_ pickerController: UIImagePickerController, animated: Bool)
 

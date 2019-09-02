@@ -87,10 +87,12 @@ class MainViewModel: NSObject, UINavigationControllerDelegate {
     func getAnnotations(_ edges: Edges) {
 
         showHUD()
+        //view?.showLoadingIndicator()
 
         self.api.getAnnotationsRequest(edges, filter: filter) { (markers: [NewMarker]?) in
 
             self.hideHUD()
+            //self.view?.hideLoadingIndicator()
             guard let markers = markers else {
                 print("finished parsing annotations. ERROR markers ar nil")
 

@@ -12,7 +12,7 @@ import SnapKit
 import MaterialComponents.MaterialButtons
 //import MaterialComponents.MaterialButtons_Theming
 
-class MainViewController: UIViewController {
+class MainViewController: BaseViewController {
 
     private static let ZOOM: Float = 16
     private let BIG_DRAWER_HEIGHT:CGFloat = 150.0
@@ -37,6 +37,13 @@ class MainViewController: UIViewController {
         mainViewModel = MainViewModel(viewController: self)
         addImageModel = AddImageViewModel(viewController: self)
         mainViewModel.viewDidLoad()
+    }
+
+    override func setupView() {
+        self.navigationController?.isNavigationBarHidden = true
+        self.setupMapView()
+        self.topDrawer = TopDrawer()
+        self.view.addSubview(topDrawer!)
     }
 
     private func setupMapView() {
@@ -171,37 +178,11 @@ extension MainViewController: GMSMapViewDelegate {
 // MARK: - MainViewInput
 extension MainViewController : MainViewInput {
 
-    func setupView() {
-        self.navigationController?.isNavigationBarHidden = true
-        self.setupMapView()
-        self.topDrawer = TopDrawer()
-        self.view.addSubview(topDrawer!)
-    }
-
     func showImagPickerScreen(_ pickerController: UIImagePickerController, animated: Bool) {
         self.present(pickerController, animated: animated)
     }
 
-    func showAlert(_ alert: UIAlertController, animated: Bool) {
-        self.present(alert, animated: animated)
-    }
 
-    public func displayErrorAlert(error: Error? = nil) {
-        let title = "Network Error"
-        var erroDesc = ""
-        if let err = error {
-            erroDesc = err.localizedDescription
-        }
-        let msg = "Something went wrong \(erroDesc)"
-        let prompt = UIAlertController(title: title, message: msg, preferredStyle: .alert)
-        let cancelText = "OK".localized
-        let cancel = UIAlertAction(title: cancelText, style: .cancel, handler: nil)
-        prompt.addAction(cancel)
-        //        prompt.popoverPresentationController?.sourceView = nextButton
-        //        prompt.popoverPresentationController?.sourceRect = nextButton.bounds
-        //        prompt.popoverPresentationController?.permittedArrowDirections = .any
-        present(prompt, animated: true, completion: nil)
-    }
     
     func pushViewController(_ vc: UIViewController, animated: Bool) {
         self.navigationController!.pushViewController(vc, animated: animated)
