@@ -64,6 +64,8 @@ public class AnywayAPIImpl { //}: AnywayAPI {
             "show_time" : filter.dayTime.rawValue,
             "weather" : filter.weather.rawValue,
 
+            "show_rsa" : 0, // TODO YIGAL check 
+
             // New filter options, currently hardcoded
             // TODO: Add these as options in filter with UI
             "start_time" : 25,
