@@ -15,10 +15,10 @@ enum ReportIncidentVCState: Int {
 
 class ReportIncidentViewModel: NSObject {
 
-    weak var view: ReportIncidentInput?
+    weak var view: ReportIncidentInput!
     private var api: AnywayAPIImpl
 
-    init(viewController: ReportIncidentInput?) {
+    init(viewController: ReportIncidentInput) {
         self.view = viewController
         let sessionConfiguration: URLSessionConfiguration = URLSessionConfiguration.default
         sessionConfiguration.timeoutIntervalForRequest = Config.TIMEOUT_INTERVAL_FOR_REQUEST
@@ -26,9 +26,6 @@ class ReportIncidentViewModel: NSObject {
         super.init()
 
     }
-
-
-
 }
 
 
@@ -39,7 +36,7 @@ extension ReportIncidentViewModel: ReportIncidentOutput {
 
     func viewDidLoad() {
 
-        self.view?.setupView()
+        self.view.setupView()
         //self.setMainViewState(state: .start)
     }
 }

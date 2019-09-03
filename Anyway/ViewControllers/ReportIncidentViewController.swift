@@ -24,9 +24,10 @@ class ReportIncidentViewController: BaseViewController {
     private let topPadding: CGFloat = 7
     private let labelHeight: CGFloat = 30
     private let collectionViewInsets: CGFloat = 10
+    private let reuseIdentifier = "cell"
+    private let backgroundColor: UIColor = UIColor.white//.withAlphaComponent(0.525)
 
     private var reportIncidentModel: ReportIncidentOutput! //ReportIncidentViewModel
-
     private var addImageModel: AddImageOutput! //AddImageViewModel
 
     private var scrollView: UIScrollView!
@@ -37,44 +38,44 @@ class ReportIncidentViewController: BaseViewController {
     private var collectionView: UICollectionView!
     private var otherLabel: UILabel!
     private var hazardDescTextView: UITextView!
+    private var placeholderLabel : UILabel!
     private var switchLabel: UILabel!
     private var switchControl: UISwitch!
     private var addUserDetailsView: SpringView!
     private var sendButton: UIButton!
 
-    //private var rightBarButtonItem: UIBarButtonItem?
-    private let reuseIdentifier = "cell"
     private var items: [HazardData] = HazardsStorage.hazards
     private var selectedItems = Set<Int>()
     private var currentResponder: UIResponder?
 
-    private let backgroundColor: UIColor = UIColor.white//.withAlphaComponent(0.525) //UIColor.purple
-    private var placeholderLabel : UILabel!
     private var tapGesture: UITapGestureRecognizer!
     private var imageTapGesture: UITapGestureRecognizer!
 
     private var activeField: UITextView?
     public weak var delegate: ReportIncidentViewControllerDelegate?
-
     private weak var cropDelegate: RSKImageCropViewControllerDelegate?
     private weak var imagePickerController: UIImagePickerController?
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        reportIncidentModel = ReportIncidentViewModel(viewController: self)
         addImageModel = AddImageViewModel(viewController: self)
-        setupView()
+        //setupView()
+        reportIncidentModel.viewDidLoad()
     }
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         addKeyboardObservers()
         addTapGesture()
+        addImageTapGesture()
     }
 
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         removeKeyboardObservers()
         removeTapGesture()
+        removeImagepGesture()
     }
 
     //
@@ -84,7 +85,6 @@ class ReportIncidentViewController: BaseViewController {
 
         self.navigationController?.isNavigationBarHidden = false
         setupScrollView()
-        //setupContentView()
         setupContentView()
         setupImageOfTheIncidentLabel()
         setupImage()
@@ -103,14 +103,19 @@ class ReportIncidentViewController: BaseViewController {
         self.view.updateConstraintsIfNeeded()
     }
 
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
+    fileprivate func setScrollViewHeight() {
+
         var contentRect = CGRect.zero
         for view: UIView in scrollView.subviews {
             contentRect = contentRect.union(view.frame)
         }
         contentRect.size.height = contentRect.size.height
         scrollView.contentSize = contentRect.size
+    }
+
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        setScrollViewHeight()
     }
 
     private func addKeyboardObservers() {
@@ -132,6 +137,17 @@ class ReportIncidentViewController: BaseViewController {
     private func removeTapGesture() {
         contentView.removeGestureRecognizer(tapGesture)
     }
+
+    private func addImageTapGesture() {
+        imageTapGesture = UITapGestureRecognizer(target: self, action: #selector(imageTapped))
+        self.incidentImageView?.addGestureRecognizer(imageTapGesture)
+    }
+
+    private func removeImagepGesture() {
+        self.incidentImageView?.removeGestureRecognizer(imageTapGesture)
+    }
+
+
 
     private func enableKeyboardDissmissingByTap() {
         self.tapGesture.isEnabled = true
@@ -200,8 +216,8 @@ class ReportIncidentViewController: BaseViewController {
             self.incidentImageView = UIImageView()
             self.incidentImageView?.image = #imageLiteral(resourceName: "plus2")
             self.incidentImageView?.maskWith(color: UIColor.lightGray)
-            imageTapGesture = UITapGestureRecognizer(target: self, action: #selector(imageTapped))
-            self.incidentImageView?.addGestureRecognizer(imageTapGesture)
+//            imageTapGesture = UITapGestureRecognizer(target: self, action: #selector(imageTapped))
+//            self.incidentImageView?.addGestureRecognizer(imageTapGesture)
             self.incidentImageView?.isUserInteractionEnabled = true
             self.contentView.addSubview(self.incidentImageView!)
         }
@@ -768,6 +784,12 @@ extension ReportIncidentViewController: AddImageInput {
     func setSelectedImage(image: UIImage) {
         self.incidentImageView?.image = image
     }
+}
+
+// MARK: - ReportIncidentInput
+extension ReportIncidentViewController: ReportIncidentInput {
+
+
 }
 
 

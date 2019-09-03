@@ -10,7 +10,7 @@ import UIKit
 
 protocol ReportIncidentInput: ViewInput {
 
-    func showImagPickerScreen(_ pickerController: UIImagePickerController, animated: Bool)
+    //func showImagPickerScreen(_ pickerController: UIImagePickerController, animated: Bool)
 
 
 }
