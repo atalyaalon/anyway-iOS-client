@@ -19,7 +19,7 @@ class MainViewController: BaseViewController {
     private let SMALL_DRAWER_HEIGHT:CGFloat = 120.0
     private let BIG_DRAWER_BUTTON_HEIGHT_OFFSET:CGFloat = 30.0
     
-    private let BUTTON_Y:CGFloat = 70.0
+    private let BUTTON_Y:CGFloat = 95.0
     private let BUTTON_HEIGHT:CGFloat = 30.0
     private let BUTTON_WIDTH:CGFloat = 100.0
 
@@ -263,8 +263,8 @@ extension MainViewController : MainViewInput {
                                    firstButtonAction: #selector(self.cancelButtonTapped),
                                    secondButtonAction: #selector(self.reportButtonTapped ))
 
-                self.topDrawer?.setText(text:"PLACES_MAKRKED_WITH_HEATMAP".localized, drawerHeight: 150)
-                self.topDrawer?.setVisibility(visible: true)
+                self.topDrawer?.setText(text:"PLACES_MAKRKED_WITH_HEATMAP".localized, drawerHeight: self.BIG_DRAWER_HEIGHT)
+                //self.topDrawer?.setVisibility(visible: true)
                 // DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(14)) {
                 // self?.topDrawer?.setVisibility(visible: true)
                 // }

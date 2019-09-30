@@ -11,28 +11,10 @@ import UIKit
 
 public class TopDrawer: UIView {
 
-
-//    public var isVisible: Bool {
-//        get { return _isVisible }
-//        set {
-//            guard newValue != _isVisible else { return }
-//            toggleVisibility()
-//        }
- //   }
-    public func setText(text: String, drawerHeight: CGFloat? = nil){
-        if let drawerHeight = drawerHeight {
-            self.drawerHeight = drawerHeight
-        }
-        setupView(labelText: text)
-    }
-
     private var drawerHeight: CGFloat?
-
     private var _isVisible: Bool = true
-
-    //private var yesButton = CAShapeLayer()
     private var textlayer: CATextLayer?
-
+    private var borderLayer : CAShapeLayer?
 
     private lazy var panGestureRecognizer: UIPanGestureRecognizer = {
         return UIPanGestureRecognizer(target: self, action: #selector(self.didPanDrawer(_:)))
@@ -65,6 +47,15 @@ public class TopDrawer: UIView {
         super.init(coder: aDecoder)
         setupView()
     }
+    
+    
+    public func setText(text: String, drawerHeight: CGFloat? = nil){
+        if let drawerHeight = drawerHeight {
+            self.drawerHeight = drawerHeight
+        }
+        setupView(labelText: text)
+    }
+
 
     public func setVisibility(visible: Bool) {
         if _isVisible && visible {
@@ -73,6 +64,7 @@ public class TopDrawer: UIView {
         if !_isVisible && !visible {
             return
         }
+         //setupView()
         let newFrame: CGRect = visible ? startingFrame() : hiddenFrame()
 
         UIView.animate(
@@ -106,15 +98,15 @@ private extension TopDrawer {
 //        )
         
         
-//        frame = CGRect(
-//            x: 0.0,
-//            y: 0.0, //self.drawerHeight ?? Constants.minimumVisibleHeight,
-//            width: UIScreen.main.bounds.size.width,
-//            height: Constants.height
-//        )
+        frame = CGRect(
+            x: 0.0,
+            y: 0.0, //self.drawerHeight ?? Constants.minimumVisibleHeight,
+            width: UIScreen.main.bounds.size.width,
+            height: self.drawerHeight ?? Constants.height
+        )
         
         
-        frame = startingFrame()
+        //frame = startingFrame()
         backgroundColor = UIColor.lightGray.withAlphaComponent(0.825)
 
 //        if let sublayers = layer.sublayers {
@@ -124,6 +116,10 @@ private extension TopDrawer {
 //        }
         if textlayer != nil {
             textlayer?.removeFromSuperlayer()
+        }
+        
+        if borderLayer != nil {
+            borderLayer?.removeFromSuperlayer()
         }
 
         // Keep the drawer at the top of the visible hierarchy
@@ -144,18 +140,20 @@ private extension TopDrawer {
         maskLayer.path = maskPath.cgPath
         layer.mask = maskLayer
 
-        let borderLayer = CAShapeLayer()
-        borderLayer.frame = bounds
-        borderLayer.path = maskPath.cgPath
-        borderLayer.lineWidth = 1.0
-        borderLayer.strokeColor = UIColor.darkGray.cgColor
-        borderLayer.fillColor = UIColor.clear.cgColor
-        layer.addSublayer(borderLayer)
+        borderLayer = CAShapeLayer()
+        if let borderLayer = borderLayer {
+            borderLayer.frame = bounds
+            borderLayer.path = maskPath.cgPath
+            borderLayer.lineWidth = 1.0
+            borderLayer.strokeColor = UIColor.darkGray.cgColor
+            borderLayer.fillColor = UIColor.clear.cgColor
+            layer.addSublayer(borderLayer)
+        }
 
         textlayer = CATextLayer()
         guard let textlayer = textlayer  else { return }
         //var textHeightOfset:CGFloat = 100.0
-        var textHeightOfset:CGFloat = (120/3)*2 
+        var textHeightOfset:CGFloat = (120/3)*2 + 10
         if self.drawerHeight == nil  ||  self.drawerHeight == 120 {
             //textHeightOfset = 50.0
             textHeightOfset = 120/2 - 18/2
@@ -193,7 +191,7 @@ private extension TopDrawer {
             shapeLayer.lineWidth = grooveSize.height
             shapeLayer.fillColor = UIColor.clear.cgColor
 
-            layer.addSublayer(shapeLayer)
+           // layer.addSublayer(shapeLayer)
         }
 
         addGestureRecognizer(panGestureRecognizer)
