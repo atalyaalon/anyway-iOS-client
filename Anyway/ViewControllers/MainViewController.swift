@@ -18,6 +18,10 @@ class MainViewController: BaseViewController {
     private let BIG_DRAWER_HEIGHT:CGFloat = 150.0
     private let SMALL_DRAWER_HEIGHT:CGFloat = 120.0
     private let BIG_DRAWER_BUTTON_HEIGHT_OFFSET:CGFloat = 30.0
+    
+    private let BUTTON_Y:CGFloat = 70.0
+    private let BUTTON_HEIGHT:CGFloat = 30.0
+    private let BUTTON_WIDTH:CGFloat = 100.0
 
     @IBOutlet weak var addressLabel: UILabel!
     @IBOutlet var mapView: GMSMapView!
@@ -116,7 +120,7 @@ class MainViewController: BaseViewController {
         mainViewModel.handleReportButtonTap()
     }
 
-    private func addTowButtons(toView: UIView?,
+    private func addTwoButtons(toView: UIView?,
                                firstButtonText: String,
                                secondButtonText: String,
                                firstButtonAction: Selector,
@@ -124,9 +128,12 @@ class MainViewController: BaseViewController {
 
         toView?.subviews.forEach({ $0.removeFromSuperview() })
 
-        let buttonY = UIScreen.main.bounds.size.height - self.BIG_DRAWER_HEIGHT  - self.BIG_DRAWER_BUTTON_HEIGHT_OFFSET
-        let firstButtonX = UIScreen.main.bounds.size.width/2 + 10
-        let firstButton = MDCFloatingButton(frame: CGRect(x: firstButtonX, y: buttonY, width: 100, height: 30))
+        //let buttonY = UIScreen.main.bounds.size.height - self.BIG_DRAWER_HEIGHT  - self.BIG_DRAWER_BUTTON_HEIGHT_OFFSET
+        let buttonY =  BUTTON_Y //self.BIG_DRAWER_HEIGHT  - self.BIG_DRAWER_BUTTON_HEIGHT_OFFSET
+        //let firstButtonX = UIScreen.main.bounds.size.width/2 + 10
+        
+        let firstButtonX = UIScreen.main.bounds.size.width/2  - 10 - BUTTON_WIDTH
+        let firstButton = MDCFloatingButton(frame: CGRect(x: firstButtonX, y: buttonY, width: BUTTON_WIDTH, height: BUTTON_HEIGHT))
         firstButton.setTitle(firstButtonText, for: UIControl.State.normal)
         firstButton.backgroundColor = UIColor.lightGray
         firstButton.setTitleColor(UIColor.white, for: .normal)
@@ -134,8 +141,9 @@ class MainViewController: BaseViewController {
         firstButton.setElevation(ShadowElevation(rawValue: 12), for: .highlighted)
         firstButton.addTarget(self, action: firstButtonAction, for: .touchUpInside)
 
-        let secondButtonX = UIScreen.main.bounds.size.width/2 - 110
-        let secondButton = MDCFloatingButton(frame: CGRect(x: secondButtonX, y: buttonY, width: 100, height: 30))
+        //let secondButtonX = UIScreen.main.bounds.size.width/2 - 110
+        let secondButtonX = UIScreen.main.bounds.size.width/2 + 10
+        let secondButton = MDCFloatingButton(frame: CGRect(x: secondButtonX, y: buttonY, width: BUTTON_WIDTH, height: BUTTON_HEIGHT))
         secondButton.setTitle(secondButtonText, for: UIControl.State.normal)
         secondButton.backgroundColor = UIColor.lightGray
         secondButton.setTitleColor(UIColor.white, for: .normal)
@@ -232,11 +240,11 @@ extension MainViewController : MainViewInput {
             DispatchQueue.main.async { [weak self]  in
                 guard let self = self else { return }
                 self.disableFilterAndHelpButtons()
-                self.addTowButtons(toView: self.topDrawer,
-                              firstButtonText: "CONTINUE".localized,
-                              secondButtonText: "CANCEL".localized,
-                              firstButtonAction: #selector(self.nextButtonTapped),
-                              secondButtonAction: #selector(self.cancelButtonTapped))
+                self.addTwoButtons(toView: self.topDrawer,
+                              firstButtonText: "CANCEL".localized,
+                              secondButtonText:  "CONTINUE".localized,
+                              firstButtonAction: #selector(self.cancelButtonTapped ),
+                              secondButtonAction: #selector(self.nextButtonTapped))
 
                 self.topDrawer?.setText(text: "TAP_CONTINUE_TO_GET_DANGEROUS_PLACES".localized, drawerHeight: self.BIG_DRAWER_HEIGHT)
                 self.topDrawer?.setVisibility(visible: true)
@@ -249,21 +257,21 @@ extension MainViewController : MainViewInput {
         case .markersReceived:
             DispatchQueue.main.async { [weak self]  in
                 guard let self = self else { return  }
-                self.addTowButtons(toView: self.topDrawer,
-                                   firstButtonText: "CONTINUE_TO_INFORM".localized,
-                                   secondButtonText: "CANCEL".localized,
-                                   firstButtonAction: #selector(self.reportButtonTapped),
-                                   secondButtonAction: #selector(self.cancelButtonTapped))
+                self.addTwoButtons(toView: self.topDrawer,
+                                   firstButtonText:  "CANCEL".localized,
+                                   secondButtonText: "CONTINUE_TO_INFORM".localized,
+                                   firstButtonAction: #selector(self.cancelButtonTapped),
+                                   secondButtonAction: #selector(self.reportButtonTapped ))
 
                 self.topDrawer?.setText(text:"PLACES_MAKRKED_WITH_HEATMAP".localized, drawerHeight: 150)
-                //self?.topDrawer?.setVisibility(visible: true)
+                self.topDrawer?.setVisibility(visible: true)
                 // DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(14)) {
                 // self?.topDrawer?.setVisibility(visible: true)
                 // }
             }
         case .reportTapped:
             DispatchQueue.main.async { [weak self]  in
-                self?.topDrawer?.setVisibility(visible: false)
+                //self?.topDrawer?.setVisibility(visible: false)
                 self?.addImageModel.showSelectImageAlert(true)
             }
         }

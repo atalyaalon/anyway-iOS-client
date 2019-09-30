@@ -235,7 +235,7 @@ extension MainViewModel: FilterScreenDelegate {
 // MARK: - ReportIncidentViewControllerDelegate
 extension MainViewModel: ReportIncidentViewControllerDelegate {
 
-    func didSelectHazard(incidentData: Incident?) {
+    func didFinishReport(incidentData: Incident?) {
         
 
         self.api.reportIncident(incidentData!) { (result: Bool) in
@@ -249,7 +249,7 @@ extension MainViewModel: ReportIncidentViewControllerDelegate {
         self.setMainViewState(state: .start)
     }
 
-    func didCancelHazard() {
+    func didCancelReport() {
         view?.popViewController(animated: true)
     }
 }

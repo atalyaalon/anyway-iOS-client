@@ -13,8 +13,8 @@ import RSKImageCropper
 
 protocol ReportIncidentViewControllerDelegate: class {
 
-    func didSelectHazard(incidentData: Incident?)
-    func didCancelHazard() 
+    func didFinishReport(incidentData: Incident?)
+    func didCancelReport() 
 }
 
 
@@ -498,7 +498,7 @@ class ReportIncidentViewController: BaseViewController {
         
         
 
-        self.delegate?.didSelectHazard(incidentData: incidentData)
+        self.delegate?.didFinishReport(incidentData: incidentData)
     }
 
     private func setupNavigationBar() {
@@ -523,13 +523,13 @@ class ReportIncidentViewController: BaseViewController {
         if Thread.callStackSymbols.count > 2 {
             print("Who called me: \(Thread.callStackSymbols[2])")
         }
-        delegate?.didCancelHazard()
+        delegate?.didCancelReport()
     }
 
     // MARK: - Actions
     @objc func backBarButtonItemAction(sender: UIButton) {
         self.currentResponder?.resignFirstResponder()
-        delegate?.didCancelHazard()
+        delegate?.didCancelReport()
     }
     //
     // MARK: Layout
