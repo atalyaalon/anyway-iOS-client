@@ -238,7 +238,7 @@ extension MainViewModel: ReportIncidentViewControllerDelegate {
     func didSelectHazard(incidentData: Incident?) {
         
 
-        self.api.reportIncident2(incidentData!) { (result: Bool) in
+        self.api.reportIncident(incidentData!) { (result: Bool) in
            
             self.hideHUD()
             print("finished reportIncident. result = \(result)")

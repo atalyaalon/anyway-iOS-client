@@ -6,19 +6,20 @@ target 'Anyway' do
   use_frameworks!
 
     pod 'Alamofire'
-    pod 'SwiftyJSON'
+    pod 'SwiftyJSON', '~> 4.0'
     pod 'Eureka'
     pod 'RealmSwift'
     pod 'GoogleMaps'
     pod 'SwiftLocation'
     pod 'RxSwift', '~> 5'
     pod 'RxCocoa', '~> 5'
-    pod 'RxGoogleMaps'
+    #pod 'RxGoogleMaps'
     pod 'MBProgressHUD', '~> 1.1.0'
     pod 'SnapKit', '~> 4.0.0'
     pod 'MaterialComponents/Buttons'
     pod 'RSKImageCropper'
     pod 'Spring', :git => 'https://github.com/MengTo/Spring.git'
+    pod 'AlamofireNetworkActivityLogger', '~> 3.0'
     #pod 'MaterialComponents/Buttons+Theming'
     #pod 'MaterialComponents/schemes/Color'
 
