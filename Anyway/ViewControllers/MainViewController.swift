@@ -19,7 +19,8 @@ class MainViewController: BaseViewController {
     private let SMALL_DRAWER_HEIGHT:CGFloat = 120.0
     private let BIG_DRAWER_BUTTON_HEIGHT_OFFSET:CGFloat = 30.0
     
-    private let BUTTON_Y:CGFloat = 95.0
+    //private let BUTTON_Y:CGFloat = 95.0 // FOR TOP
+    private let BUTTON_Y:CGFloat = 80.0 // FOR DOWN
     private let BUTTON_HEIGHT:CGFloat = 30.0
     private let BUTTON_WIDTH:CGFloat = 100.0
 
@@ -56,6 +57,8 @@ class MainViewController: BaseViewController {
         mapView.delegate           = self
         mapView.isMyLocationEnabled = true
         mapView.settings.myLocationButton = true
+        mapView.padding = UIEdgeInsets(top: 0, left: 0, bottom: 120, right: 0)// FOR DOWN
+
         mapView.settings.compassButton = true
         setupHelpButton()
         setupFilterButton()

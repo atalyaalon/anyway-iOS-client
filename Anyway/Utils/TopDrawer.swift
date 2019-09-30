@@ -89,24 +89,19 @@ public class TopDrawer: UIView {
 private extension TopDrawer {
 
     func setupView(labelText: String? = nil) {
-
+        
 //        frame = CGRect(
 //            x: 0.0,
-//            y: -(Constants.height - (self.drawerHeight ?? Constants.minimumVisibleHeight) ),// Constants.minimumVisibleHeight),
+//            //y: 0.0, //self.drawerHeight ?? Constants.minimumVisibleHeight,   // FOR TOP
+//            y:UIScreen.main.bounds.size.height - (self.drawerHeight ?? Constants.height), // FOR DOWN
 //            width: UIScreen.main.bounds.size.width,
-//            height: Constants.height
+//            height: self.drawerHeight ?? Constants.height
 //        )
         
-        
-        frame = CGRect(
-            x: 0.0,
-            y: 0.0, //self.drawerHeight ?? Constants.minimumVisibleHeight,
-            width: UIScreen.main.bounds.size.width,
-            height: self.drawerHeight ?? Constants.height
-        )
+
         
         
-        //frame = startingFrame()
+        frame = startingFrame()
         backgroundColor = UIColor.lightGray.withAlphaComponent(0.825)
 
 //        if let sublayers = layer.sublayers {
@@ -128,7 +123,8 @@ private extension TopDrawer {
 
         let maskPath = UIBezierPath(
             roundedRect: bounds,
-            byRoundingCorners: [.bottomLeft, .bottomRight],
+            //byRoundingCorners: [.bottomLeft, .bottomRight],// FOR TOP
+            byRoundingCorners: [.topLeft, .topRight], // FOR DOWN
             cornerRadii: CGSize(
                 width: Constants.cornerRadius,
                 height: Constants.cornerRadius
@@ -144,7 +140,7 @@ private extension TopDrawer {
         if let borderLayer = borderLayer {
             borderLayer.frame = bounds
             borderLayer.path = maskPath.cgPath
-            borderLayer.lineWidth = 1.0
+            borderLayer.lineWidth = 3.0
             borderLayer.strokeColor = UIColor.darkGray.cgColor
             borderLayer.fillColor = UIColor.clear.cgColor
             layer.addSublayer(borderLayer)
@@ -153,10 +149,10 @@ private extension TopDrawer {
         textlayer = CATextLayer()
         guard let textlayer = textlayer  else { return }
         //var textHeightOfset:CGFloat = 100.0
-        var textHeightOfset:CGFloat = (120/3)*2 + 10
+        var textHeightOfset:CGFloat = (120/3)*2 + 30
         if self.drawerHeight == nil  ||  self.drawerHeight == 120 {
             //textHeightOfset = 50.0
-            textHeightOfset = 120/2 - 18/2
+            textHeightOfset = 120/2 - 18/2 + 20
         }
         //let stingWidth:CGFloat = labelText?.widthOfString(usingFont : UIFont.systemFont(ofSize: 16)) ?? 0 + 0
         textlayer.frame = CGRect(x: 0, y:frame.height - textHeightOfset, width: frame.width , height: 18)
@@ -227,20 +223,20 @@ private extension TopDrawer {
     func hiddenFrame() -> CGRect {
         return CGRect(
             x: 0.0,
-            y: -Constants.height,
+            //y: 0.0,  // FOR TOP
+            y: UIScreen.main.bounds.size.height ,  // FOR DOWN
             width: UIScreen.main.bounds.size.width,
-            height: Constants.height
+            height:0.0
         )
     }
-
+    
     func startingFrame() -> CGRect {
         return CGRect(
             x: 0.0,
-           //  y: -(Constants.height - (self.drawerHeight ?? Constants.minimumVisibleHeight)),
-            //y: self.drawerHeight ?? Constants.minimumVisibleHeight,
-            y:0.0,
+            // y:0.0, //FOR TOP
+            y:UIScreen.main.bounds.size.height - (self.drawerHeight ?? Constants.minimumVisibleHeight),// FOR DOWN
             width: UIScreen.main.bounds.size.width,
-            height: Constants.height
+            height: self.drawerHeight ?? Constants.height
         )
     }
 
