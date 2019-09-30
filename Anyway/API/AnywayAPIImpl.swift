@@ -21,13 +21,6 @@ public class AnywayAPIImpl { //}: AnywayAPI {
         self.sessionManager = Alamofire.SessionManager(configuration: sessionConfiguration)
     }
 
-    func reportIncident(_ edges: Edges, filter: Filter, anotations: (( Bool)->Void )? ){
-
-        let apiCall = APICall(endpoint: ReportIncidentEndPoint.report_incident)
-
-
-    }
-
 
     func getAnnotationsRequest(_ edges: Edges, filter: Filter, anotations: (( [NewMarker]?)->Void )? ){
 
@@ -122,15 +115,169 @@ public class AnywayAPIImpl { //}: AnywayAPI {
    
     }
 
+    
+    func reportIncident2(_ incidentData: Incident, result: @escaping ( (Bool)->Void ) ) {
+        
+        var request = URLRequest(url: URL(string: "https:/anyway.co.il/report-problem")!)
+        request.httpMethod = HTTPMethod.post.rawValue
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        let params: [String : Any] = [
+            "longitude" : incidentData.longitude,
+            "latitude" : incidentData.latitude,
+            "signs_on_the_road_not_clear" : incidentData.signs_on_the_road_not_clear,
+            "signs_problem" : incidentData.signs_problem,
+            "pothole" : incidentData.pothole,
+            "no_light" : incidentData.no_light,
+            "crossing_missing"   : incidentData.crossing_missing,
+            "sidewalk_is_blocked" : incidentData.sidewalk_is_blocked, //not used (server logic determenines this)
+            "street_light_issue"   : incidentData.street_light_issue,
+            "road_hazard"     : incidentData.road_hazard,
+            "fist_name"   : incidentData.fist_name ?? "",
+            "last_name"  : incidentData.fist_name ?? "",
+            "email"   : incidentData.email ?? "",
+            "id" : incidentData.id ?? "",
+            "problem_descripion" : incidentData.problem_descripion ?? "",
+            
+            //let imageData = selectedImageView?.image?.jpegData(compressionQuality: 0.8)
+            //"imageData" : incidentData.imageData
+            "imageData" :"bla"
+        ]
+    
+        
+        let pjson = params.jsonStringRepresentation
+        
+        //let pjson = attendences.toJSONString(prettyPrint: false)
+        let data = (pjson?.data(using: .utf8))! as Data
+        
+        request.httpBody = data
+        
+        Alamofire.request(request).response { (response) in
+            print(response)
+        
+        }
+    }
+    
+
+    
+    func reportIncident(_ incidentData: Incident, result: @escaping ( (Bool)->Void ) ) {
+        
+        let apiCall = APICall(endpoint: ReportIncidentEndPoint.report_incident)
+        
+    
+        let params: [String : Any] = [
+            "longitude" : incidentData.longitude,
+            "latitude" : incidentData.latitude,
+            "signs_on_the_road_not_clear" : incidentData.signs_on_the_road_not_clear,
+            "signs_problem" : incidentData.signs_problem,
+            "pothole" : incidentData.pothole,
+            "no_light" : incidentData.no_light,
+            "crossing_missing"   : incidentData.crossing_missing,
+            "sidewalk_is_blocked" : incidentData.sidewalk_is_blocked, //not used (server logic determenines this)
+            "street_light_issue"   : incidentData.street_light_issue,
+            "road_hazard"     : incidentData.road_hazard,
+            "fist_name"   : incidentData.fist_name ?? "",
+            "last_name"  : incidentData.fist_name ?? "",
+            "email"   : incidentData.email ?? "",
+            "id" : incidentData.id ?? "",
+            "problem_descripion" : incidentData.problem_descripion ?? "",
+            
+             //let imageData = selectedImageView?.image?.jpegData(compressionQuality: 0.8)
+            //"imageData" : incidentData.imageData
+            "imageData" :"bla"
+           
+        ]
+        
+        apiCall.add(params: params)
+        
+        let urlRequest = createUrlRequest(for: apiCall)
+        let dataRequest: DataRequest = sessionManager.request(urlRequest)
+        
+        print("Sending incident report")
+        
+        //print("params: \(params)")
+        
+        UIApplication.shared.isNetworkActivityIndicatorVisible = true
+  
+        //let task = dataRequest.response(completionHandler: { (response: DefaultDataResponse) in
+            
+
+        
+//        // build request
+//        let request1 = Alamofire.request(
+//            "https:/anyway.co.il/report-problem",
+//            method: .post,
+//            parameters: params,
+//            //encoding: URLEncoding.`default`,
+//            encoding: JSONEncoding.default,
+//            headers: nil
+//        ).debugLog()
+//
+//        request1.responseString(completionHandler: { responseValue in
+//
+//
+//
+//            switch responseValue.result {
+//            case .success:
+//                print("success!")
+//                if let value = responseValue.result.value {
+//                    print("success! \(value)")
+//                    //json = JSON(value)
+//                } else {
+//                   // json = JSON.null
+//                }
+//            case .failure(let err):
+//                print("Error! \(err)")
+//                //json = JSON.null
+//            }
+//
+//
+//        })
+
+        
+
+        let task = dataRequest.responseString(completionHandler: { (response: DataResponse<String>) in
+
+            switch response.result {
+            case .success:
+
+                print("success!")
+
+                if let jsonString = response.result.value   {
+                    print(jsonString)
+                }
+                let errMsg = String(data: response.data!, encoding: String.Encoding.utf8)!
+                debugPrint(errMsg)
+                debugPrint(response)
 
 
+                result(true)
+
+            case .failure(let err):
+                print("Error! \(err)")
+            }
+            //anotations?(markers?.markers)
+
+        })
+
+
+        
+    }
+
+ 
+    
+ 
     private func createUrlRequest(for apiCall: APICall) -> URLRequest {
         let url = URL.init(string: baseUrl)
         var urlRequest = URLRequest(url:((url?.appendingPathComponent(apiCall.endpoint.info.path))!))
         urlRequest.httpMethod = apiCall.endpoint.info.method.rawValue
         urlRequest.httpBody = apiCall.httpBody
+        
+        urlRequest.setValue("application/json", forHTTPHeaderField: "Content-Type")
 
         if !apiCall.allParameters.isEmpty {
+            
+            //encoding: JSONEncoding.default,
             do {
                 let urlEncoding = URLEncoding(destination: .queryString, arrayEncoding: .noBrackets, boolEncoding: .literal)
                 urlRequest = try urlEncoding.encode(urlRequest, with: apiCall.allParameters)
@@ -197,3 +344,23 @@ public class AnywayAPIImpl { //}: AnywayAPI {
 
 }
 
+//extension Request {
+//    public func debugLog() -> Self {
+//        #if DEBUG
+//        debugPrint(self)
+//        #endif
+//        return self
+//    }
+//}
+
+
+extension Dictionary {
+    var jsonStringRepresentation: String? {
+        guard let theJSONData = try? JSONSerialization.data(withJSONObject: self,
+                                                            options: [.prettyPrinted]) else {
+                                                                return nil
+        }
+        
+        return String(data: theJSONData, encoding: .ascii)
+    }
+}

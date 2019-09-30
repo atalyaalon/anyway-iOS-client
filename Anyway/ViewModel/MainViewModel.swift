@@ -236,6 +236,15 @@ extension MainViewModel: FilterScreenDelegate {
 extension MainViewModel: ReportIncidentViewControllerDelegate {
 
     func didSelectHazard(incidentData: Incident?) {
+        
+
+        self.api.reportIncident2(incidentData!) { (result: Bool) in
+           
+            self.hideHUD()
+            print("finished reportIncident. result = \(result)")
+        }
+        
+   
         view?.popViewController(animated: true)
         self.setMainViewState(state: .start)
     }

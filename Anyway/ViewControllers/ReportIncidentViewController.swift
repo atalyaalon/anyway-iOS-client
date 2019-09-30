@@ -491,6 +491,13 @@ class ReportIncidentViewController: BaseViewController {
             incidentData.phone_number = userDetailArray[4]
         }
 
+        incidentData.problem_descripion = hazardDescTextView.text
+        
+        
+      //   let imageData = selectedImageView?.image?.jpegData(compressionQuality: 0.8)
+        
+        
+
         self.delegate?.didSelectHazard(incidentData: incidentData)
     }
 
