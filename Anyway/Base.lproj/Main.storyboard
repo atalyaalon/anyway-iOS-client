@@ -63,33 +63,19 @@
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sEZ-um-WKY" customClass="GMSMapView">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" red="0.96862745098039216" green="0.90196078431372551" blue="0.97254901960784312" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" alpha="0.69999999999999996" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eQm-xW-TfV">
-                                <rect key="frame" x="20" y="-62" width="374" height="33"/>
-                                <color key="backgroundColor" red="0.97000747919999997" green="0.90035343170000004" blue="0.9744523168" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="33" id="RRS-Yc-X1t"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="sEZ-um-WKY" secondAttribute="trailing" id="EC0-kM-WOh"/>
                             <constraint firstItem="sEZ-um-WKY" firstAttribute="top" secondItem="iQu-uc-iDB" secondAttribute="top" id="UyA-FX-6Gr"/>
-                            <constraint firstItem="eQm-xW-TfV" firstAttribute="leading" secondItem="iQu-uc-iDB" secondAttribute="leadingMargin" id="YD6-nX-hOW"/>
-                            <constraint firstItem="fev-gO-UnZ" firstAttribute="top" secondItem="eQm-xW-TfV" secondAttribute="bottom" constant="765" id="aLY-MN-xXv"/>
                             <constraint firstItem="sEZ-um-WKY" firstAttribute="leading" secondItem="iQu-uc-iDB" secondAttribute="leading" id="dkT-Tb-cEZ"/>
-                            <constraint firstItem="eQm-xW-TfV" firstAttribute="trailing" secondItem="iQu-uc-iDB" secondAttribute="trailingMargin" id="qZl-dV-09P"/>
                             <constraint firstItem="sEZ-um-WKY" firstAttribute="bottom" secondItem="iQu-uc-iDB" secondAttribute="bottom" id="qv3-TJ-Zz9"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="cJl-eI-WzG"/>
                     <connections>
-                        <outlet property="addressLabel" destination="eQm-xW-TfV" id="M5M-Fn-93R"/>
                         <outlet property="mapView" destination="sEZ-um-WKY" id="SfW-nB-FhO"/>
                     </connections>
                 </viewController>

@@ -80,6 +80,10 @@ extension UIColor {
     open class var f8DarkGrey: UIColor {
         return UIColor(hexString: "#555555")
     }
+    open class var pink: UIColor {
+        return UIColor(hexString: "#F7E6F8")
+    }
+    
 
     open class var purple1: UIColor {
         return UIColor(hexString: "#DFDDFA")

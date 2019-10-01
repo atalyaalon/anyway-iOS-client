@@ -33,7 +33,7 @@ public class TopDrawer: UIView {
 //        self.backgroundColor = backgroundColor
 //    }
 
-    init(frame: CGRect, drawerType: DrawerType = .top) {
+    init(frame: CGRect, drawerType: DrawerType = .buttom) {
         super.init(frame: frame)
         self.drawerType = drawerType
         self.frame = hiddenFrame()
@@ -160,7 +160,7 @@ private extension TopDrawer {
         var textHeightOfset:CGFloat = (120/3)*2 + 30
         if self.drawerHeight == nil  ||  self.drawerHeight == 120 {
             //textHeightOfset = 50.0
-            textHeightOfset = 120/2 - 18/2 + 20
+            textHeightOfset = 150/2 - 18/2 + 20
         }
         //let stingWidth:CGFloat = labelText?.widthOfString(usingFont : UIFont.systemFont(ofSize: 16)) ?? 0 + 0
         textlayer.frame = CGRect(x: 0, y:frame.height - textHeightOfset, width: frame.width , height: 18)

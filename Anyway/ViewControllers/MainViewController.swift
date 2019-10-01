@@ -24,7 +24,7 @@ class MainViewController: BaseViewController {
     private let BUTTON_HEIGHT:CGFloat = 30.0
     private let BUTTON_WIDTH:CGFloat = 100.0
 
-    @IBOutlet weak var addressLabel: UILabel!
+    private var addressLabel: UILabel!
     @IBOutlet var mapView: GMSMapView!
 
     private var mainViewModel: MainViewOutput! //MainViewModel
@@ -70,6 +70,7 @@ class MainViewController: BaseViewController {
         mapView.settings.compassButton = true
         setupHelpButton()
         setupFilterButton()
+        setupAdressLabel()
         mapView.animate(toZoom: Config.ZOOM)
     }
 
@@ -104,20 +105,34 @@ class MainViewController: BaseViewController {
     }
 
     
-//    
-//    private func setupAdressLabel() {
-//        var buttonY: CGFloat = 130
-//        if self.drawerType == .top {
-//            buttonY = 160
+    
+    private func setupAdressLabel() {
+        var buttonY: CGFloat = 70
+        if self.drawerType == .top {
+            buttonY = UIScreen.main.bounds.size.height - 70
+        }
+        
+//        if #available(iOS 11.0, *) {
+//            let guide = view.safeAreaLayoutGuide
+//            let width = guide.layoutFrame.size.width
+//        } else {
+//            // Fallback on earlier versions
 //        }
-//        filterButton = MDCFloatingButton(frame: CGRect(x: UIScreen.main.bounds.minX + 30 , y: buttonY, width: 23, height: 23))
-//        filterButton.setImage(#imageLiteral(resourceName: "filter_add"), for: .normal)
-//        filterButton.backgroundColor = UIColor.white
-//        filterButton.setElevation(ShadowElevation(rawValue: 12), for: .normal)
-//        filterButton.setElevation(ShadowElevation(rawValue: 12), for: .highlighted)
-//        filterButton.addTarget(self, action: #selector(filterButtonTap), for: .touchUpInside)
-//        self.view.addSubview(filterButton)
-//    }
+        
+        
+        addressLabel = UILabel(frame: CGRect(x: UIScreen.main.bounds.minX + 70 , y: buttonY, width: UIScreen.main.bounds.size.width - 140, height: 30))
+
+        addressLabel.backgroundColor = UIColor.pink//.withAlphaComponent(0.825)
+        addressLabel.layer.cornerRadius = 6.0
+        addressLabel.layer.masksToBounds = true
+       // addressLabel.layer.borderWidth = 1.0
+        addressLabel.layer.borderColor = UIColor.black.cgColor
+        
+        addressLabel.textColor = UIColor.f8BlackText
+        addressLabel.font = UIFont.systemFont(ofSize: 14)
+        addressLabel.textAlignment = .center
+        self.view.addSubview(addressLabel)
+    }
     
     private func enableFilterAndHelpButtons(){
         filterButton.isEnabled = true;
