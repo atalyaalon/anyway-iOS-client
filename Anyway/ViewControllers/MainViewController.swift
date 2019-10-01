@@ -14,10 +14,10 @@ import MaterialComponents.MaterialButtons
 
 class MainViewController: BaseViewController {
 
-    private static let ZOOM: Float = 16
-    private let BIG_DRAWER_HEIGHT:CGFloat = 150.0
-    private let SMALL_DRAWER_HEIGHT:CGFloat = 120.0
-    private let BIG_DRAWER_BUTTON_HEIGHT_OFFSET:CGFloat = 30.0
+//    private static let ZOOM: Float = 16
+//    private let BIG_DRAWER_HEIGHT:CGFloat = 150.0
+//    private let SMALL_DRAWER_HEIGHT:CGFloat = 120.0
+//    private let BIG_DRAWER_BUTTON_HEIGHT_OFFSET:CGFloat = 30.0
     
     //private let BUTTON_Y:CGFloat = 95.0 // FOR TOP
     private let BUTTON_Y:CGFloat = 80.0 // FOR DOWN
@@ -37,6 +37,8 @@ class MainViewController: BaseViewController {
     private var topDrawer: TopDrawer?
     private var addImageModel: AddImageOutput! //AddImageViewModel
 
+    private var drawerType: DrawerType  = .buttom
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         mainViewModel = MainViewModel(viewController: self)
@@ -52,7 +54,7 @@ class MainViewController: BaseViewController {
     override func setupView() {
         self.navigationController?.isNavigationBarHidden = true
         self.setupMapView()
-        self.topDrawer = TopDrawer()
+        self.topDrawer = TopDrawer(frame: CGRect.zero, drawerType: self.drawerType)
         self.view.addSubview(topDrawer!)
     }
 
@@ -62,15 +64,21 @@ class MainViewController: BaseViewController {
         mapView.delegate           = self
         mapView.isMyLocationEnabled = true
         mapView.settings.myLocationButton = true
-        mapView.padding = UIEdgeInsets(top: 0, left: 0, bottom: 120, right: 0)// FOR DOWN
+        if self.drawerType == .buttom {
+            mapView.padding = UIEdgeInsets(top: 0, left: 0, bottom: 120, right: 0)// FOR DOWN
+        }
         mapView.settings.compassButton = true
         setupHelpButton()
         setupFilterButton()
-        mapView.animate(toZoom: MainViewController.ZOOM)
+        mapView.animate(toZoom: Config.ZOOM)
     }
 
     private func setupHelpButton() {
-        helpButton = MDCFloatingButton(frame: CGRect(x: UIScreen.main.bounds.width - 50, y: 130, width: 26, height: 26))
+        var buttonY: CGFloat = 130
+        if self.drawerType == .top {
+            buttonY = 160
+        }
+        helpButton = MDCFloatingButton(frame: CGRect(x: UIScreen.main.bounds.width - 50, y: buttonY, width: 26, height: 26))
         helpButton.setImage(#imageLiteral(resourceName: "information"), for: .normal)
         helpButton.backgroundColor = UIColor.white
         helpButton.setElevation(ShadowElevation(rawValue: 12), for: .normal)
@@ -82,7 +90,11 @@ class MainViewController: BaseViewController {
     }
 
     private func setupFilterButton() {
-        filterButton = MDCFloatingButton(frame: CGRect(x: UIScreen.main.bounds.minX + 30 , y: 130, width: 23, height: 23))
+        var buttonY: CGFloat = 130
+        if self.drawerType == .top {
+            buttonY = 160
+        }
+        filterButton = MDCFloatingButton(frame: CGRect(x: UIScreen.main.bounds.minX + 30 , y: buttonY, width: 23, height: 23))
         filterButton.setImage(#imageLiteral(resourceName: "filter_add"), for: .normal)
         filterButton.backgroundColor = UIColor.white
         filterButton.setElevation(ShadowElevation(rawValue: 12), for: .normal)
@@ -91,6 +103,22 @@ class MainViewController: BaseViewController {
         self.view.addSubview(filterButton)
     }
 
+    
+//    
+//    private func setupAdressLabel() {
+//        var buttonY: CGFloat = 130
+//        if self.drawerType == .top {
+//            buttonY = 160
+//        }
+//        filterButton = MDCFloatingButton(frame: CGRect(x: UIScreen.main.bounds.minX + 30 , y: buttonY, width: 23, height: 23))
+//        filterButton.setImage(#imageLiteral(resourceName: "filter_add"), for: .normal)
+//        filterButton.backgroundColor = UIColor.white
+//        filterButton.setElevation(ShadowElevation(rawValue: 12), for: .normal)
+//        filterButton.setElevation(ShadowElevation(rawValue: 12), for: .highlighted)
+//        filterButton.addTarget(self, action: #selector(filterButtonTap), for: .touchUpInside)
+//        self.view.addSubview(filterButton)
+//    }
+    
     private func enableFilterAndHelpButtons(){
         filterButton.isEnabled = true;
         helpButton.isEnabled = true;
@@ -179,7 +207,7 @@ extension MainViewController: GMSMapViewDelegate {
     }
     func cameraMoveToLocation(toLocation: CLLocationCoordinate2D?) {
         if toLocation != nil {
-            self.mapView.camera = GMSCameraPosition.camera(withTarget: toLocation!, zoom: MainViewController.ZOOM)
+            self.mapView.camera = GMSCameraPosition.camera(withTarget: toLocation!, zoom: Config.ZOOM)
         }
     }
     func mapView(_ mapView: GMSMapView, didTapAt coordinate: CLLocationCoordinate2D) {
@@ -240,18 +268,8 @@ extension MainViewController : MainViewInput {
                 self.enableFilterAndHelpButtons()
                 self.mapView.clear()
                 self.topDrawer?.subviews.forEach({ $0.removeFromSuperview() })
-                self.topDrawer?.setText(text: "CHOOSE_A_PLACE".localized, drawerHeight: self.SMALL_DRAWER_HEIGHT)
-               // self.topDrawer?.isHidden = false
+                self.topDrawer?.setText(text: "CHOOSE_A_PLACE".localized, drawerHeight: Config.SMALL_DRAWER_HEIGHT)
                 self.topDrawer?.setVisibility(visible: true)
-//
-//
-//                DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(2)) {
-//                    self.topDrawer?.setVisibility(visible: false)
-//                }
-//
-//                DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(5)) {
-//                    self.topDrawer?.setVisibility(visible: true)
-//                }
             }
         case .placePicked:
             DispatchQueue.main.async { [weak self]  in
@@ -263,10 +281,8 @@ extension MainViewController : MainViewInput {
                               firstButtonAction: #selector(self.cancelButtonTapped ),
                               secondButtonAction: #selector(self.nextButtonTapped))
 
-                self.topDrawer?.setText(text: "TAP_CONTINUE_TO_GET_DANGEROUS_PLACES".localized, drawerHeight: self.BIG_DRAWER_HEIGHT)
-                //self.topDrawer?.setText(text: "TAP_CONTINUE_TO_GET_DANGEROUS_PLACES".localized)
-                // self.topDrawer?.setText(text: "CHOOSE_A_PLACE".localized, drawerHeight: self.SMALL_DRAWER_HEIGHT)
-                self.topDrawer?.setVisibility(visible: true)
+                self.topDrawer?.setText(text: "TAP_CONTINUE_TO_GET_DANGEROUS_PLACES".localized, drawerHeight: Config.BIG_DRAWER_HEIGHT)
+                 self.topDrawer?.setVisibility(visible: true)
             }
         case .continueTappedAfterPlacePicked:
             DispatchQueue.main.async { [weak self]  in
@@ -282,11 +298,8 @@ extension MainViewController : MainViewInput {
                                    firstButtonAction: #selector(self.cancelButtonTapped),
                                    secondButtonAction: #selector(self.reportButtonTapped ))
 
-                self.topDrawer?.setText(text:"PLACES_MAKRKED_WITH_HEATMAP".localized, drawerHeight: self.BIG_DRAWER_HEIGHT)
+                self.topDrawer?.setText(text:"PLACES_MAKRKED_WITH_HEATMAP".localized, drawerHeight: Config.BIG_DRAWER_HEIGHT)
                 self.topDrawer?.setVisibility(visible: true)
-                // DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(14)) {
-                // self?.topDrawer?.setVisibility(visible: true)
-                // }
             }
         case .reportTapped:
             DispatchQueue.main.async { [weak self]  in
@@ -297,7 +310,7 @@ extension MainViewController : MainViewInput {
     }
 
     func setCameraPosition(coordinate : CLLocationCoordinate2D) {
-        mapView.camera = GMSCameraPosition(target: coordinate, zoom: MainViewController.ZOOM, bearing: 0, viewingAngle: 0)
+        mapView.camera = GMSCameraPosition(target: coordinate, zoom: Config.ZOOM, bearing: 0, viewingAngle: 0)
     }
 
     func setAddressLabel(address: String) {

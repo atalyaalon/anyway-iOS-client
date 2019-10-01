@@ -28,6 +28,7 @@ class MainViewModel: NSObject, UINavigationControllerDelegate {
     private var locationManager = CLLocationManager()
     private var currentState:MainVCState = .start
     private var selectedImageView: UIImageView?
+    private var incidentLocation: CLLocationCoordinate2D?
 
     init(viewController: MainViewInput?) {
         self.view = viewController
@@ -61,11 +62,12 @@ class MainViewModel: NSObject, UINavigationControllerDelegate {
     }
     //let imageData = selectedImageView?.image?.jpegData(compressionQuality: 0.8)
     
-    private func startSelectHazardView() {
+    private func startReportIncidentVC() {
         let ReportIncidentViewController:ReportIncidentViewController = UIStoryboard.main.instantiateViewController(withIdentifier: "ReportIncidentViewController") as UIViewController as! ReportIncidentViewController
 
         ReportIncidentViewController.delegate = self as ReportIncidentViewControllerDelegate
         ReportIncidentViewController.incidentImageView = self.selectedImageView
+        ReportIncidentViewController.incidentLocation = self.incidentLocation
 
         self.view?.pushViewController(ReportIncidentViewController, animated: true)
     }
@@ -177,6 +179,8 @@ extension MainViewModel: MainViewOutput {
         if self.currentState != .start  {
             return
         }
+        
+        self.incidentLocation = coordinate
         reverseGeocodeCoordinate(coordinate)
         addMarkerOnTheMap(coordinate)
     }
@@ -211,11 +215,11 @@ extension MainViewModel: MainViewOutput {
 
         self.selectedImageView = UIImageView()
         self.selectedImageView?.image = image
-        self.startSelectHazardView()
+        self.startReportIncidentVC()
     }
 
     func handleSkipSelectedWhenAddingImage(){
-        self.startSelectHazardView()
+        self.startReportIncidentVC()
     }
 }
 

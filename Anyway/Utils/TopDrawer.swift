@@ -9,44 +9,42 @@
 import Foundation
 import UIKit
 
+enum DrawerType: Int {
+    case top = 0
+    case buttom = 1
+}
+
 public class TopDrawer: UIView {
 
     private var drawerHeight: CGFloat?
     private var _isVisible: Bool = false
     private var textlayer: CATextLayer?
     private var borderLayer : CAShapeLayer?
+    private var drawerType: DrawerType!
+    
+    private let drawerBackgroundColor = UIColor.lightGray.withAlphaComponent(0.825)
 
     private lazy var panGestureRecognizer: UIPanGestureRecognizer = {
         return UIPanGestureRecognizer(target: self, action: #selector(self.didPanDrawer(_:)))
     }()
 
-    public convenience init(backgroundColor: UIColor) {
-        self.init()
-        self.backgroundColor = backgroundColor
-    }
+//    public convenience init(backgroundColor: UIColor) {
+//        self.init()
+//        self.backgroundColor = backgroundColor
+//    }
 
-
-    public init(text: String? = nil, drawerHeight: CGFloat? = nil) {
-        //self.labelText = text
-        super.init(frame: .zero)
-        if let drawerHeight = drawerHeight {
-            self.drawerHeight = drawerHeight
-        }else{
-            self.drawerHeight =  Constants.minimumVisibleHeight
-        }
-        setupView(labelText: text)
-
-    }
-
-    public override init(frame: CGRect) {
+    init(frame: CGRect, drawerType: DrawerType = .top) {
         super.init(frame: frame)
+        self.drawerType = drawerType
         self.frame = hiddenFrame()
+        
         setupView()
     }
 
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         self.frame = hiddenFrame()
+        self.drawerType = .buttom
         setupView()
     }
     
@@ -57,9 +55,6 @@ public class TopDrawer: UIView {
         }
         setupView(labelText: text)
     }
-
-    
-    
     
     public func setVisibility(visible: Bool) {
         if _isVisible && visible {
@@ -81,10 +76,18 @@ public class TopDrawer: UIView {
             options: .curveEaseOut,
             animations: {
                 if visible {
-                    newFrame.origin.y -= 300.0
+                    if ( self.drawerType == .buttom) {
+                       newFrame.origin.y -= Config.BIG_DRAWER_HEIGHT * 2 //300
+                    } else {
+                        newFrame.origin.y += Config.BIG_DRAWER_HEIGHT //150
+                    }
                 }
                 else{
-                    newFrame.origin.y += 300.0
+                    if ( self.drawerType == .buttom) {
+                        newFrame.origin.y += Config.BIG_DRAWER_HEIGHT * 2 //300
+                    }else{
+                        newFrame.origin.y -= Config.BIG_DRAWER_HEIGHT
+                    }
                 }
                 
                 self.frame = newFrame
@@ -105,9 +108,9 @@ private extension TopDrawer {
 
     func setupView(labelText: String? = nil) {
         
-       //frame = startingFrame()
+        //frame = startingFrame()
         //frame = hiddenFrame()
-        backgroundColor = UIColor.lightGray.withAlphaComponent(0.825)
+        backgroundColor = drawerBackgroundColor
 
 //        if let sublayers = layer.sublayers {// crash!!
 //            for sublayer in sublayers {
@@ -129,7 +132,7 @@ private extension TopDrawer {
         let maskPath = UIBezierPath(
             roundedRect: bounds,
             //byRoundingCorners: [.bottomLeft, .bottomRight],// FOR TOP
-            byRoundingCorners: [.topLeft, .topRight], // FOR DOWN
+            byRoundingCorners: self.drawerType == .buttom ? [.topLeft, .topRight] :[.bottomLeft, .bottomRight] , 
             cornerRadii: CGSize(
                 width: Constants.cornerRadius,
                 height: Constants.cornerRadius
@@ -171,8 +174,6 @@ private extension TopDrawer {
         textlayer.foregroundColor = UIColor.black.cgColor
 
         layer.addSublayer(textlayer)
-
-    
 
         let grooveSize: CGSize = CGSize(width: 24.0, height: 2.125)
 
@@ -225,25 +226,39 @@ private extension TopDrawer {
 private extension TopDrawer {
     
     
-    //FOR DOWN
+
+    
     func hiddenFrame() -> CGRect {
         return CGRect(
             x: 0.0,
-            y: UIScreen.main.bounds.size.height + 150.0,
+            y: self.drawerType == .buttom ? UIScreen.main.bounds.size.height + Config.BIG_DRAWER_HEIGHT :-Config.BIG_DRAWER_HEIGHT,
             width: UIScreen.main.bounds.size.width,
-            height:150.0
+            height:Config.BIG_DRAWER_HEIGHT
         )
     }
-    
+  
+//    // FOR TOP
 //    func hiddenFrame() -> CGRect {
 //        return CGRect(
 //            x: 0.0,
-//            //y: 0.0,  // FOR TOP
-//            y: UIScreen.main.bounds.size.height ,  // FOR DOWN
+//            y: -150.0,
 //            width: UIScreen.main.bounds.size.width,
-//            height:0.0
+//            height:150.0
 //        )
 //    }
+    
+    //FOR DOWN
+//        func hiddenFrame() -> CGRect {
+//            return CGRect(
+//                x: 0.0,
+//                y: UIScreen.main.bounds.size.height + Config.BIG_DRAWER_HEIGHT,
+//                width: UIScreen.main.bounds.size.width,
+//                height:Config.BIG_DRAWER_HEIGHT
+//            )
+//        }
+
+    
+    
 //
 //    func startingFrame() -> CGRect {
 //        return CGRect(
@@ -255,14 +270,7 @@ private extension TopDrawer {
 //        )
 //    }
 
-    func fullFrame() -> CGRect {
-        return CGRect(
-            x: 0.0,
-            y: 0.0,
-            width: UIScreen.main.bounds.size.width,
-            height: Constants.height
-        )
-    }
+
 }
 
 private extension TopDrawer {

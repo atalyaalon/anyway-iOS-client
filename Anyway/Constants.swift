@@ -18,6 +18,12 @@ let appLaunchZoomRadius = 0.005
 struct Config {
 
     static let TIMEOUT_INTERVAL_FOR_REQUEST: Double = 15
+    
+    static let ZOOM: Float = 16
+    static let BIG_DRAWER_HEIGHT:CGFloat = 150.0
+    static let SMALL_DRAWER_HEIGHT:CGFloat = 120.0
+    static let BIG_DRAWER_BUTTON_HEIGHT_OFFSET:CGFloat = 30.0
+
 }
 
 struct AnywayColor {

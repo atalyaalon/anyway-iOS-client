@@ -55,6 +55,9 @@ class ReportIncidentViewController: BaseViewController {
     public weak var delegate: ReportIncidentViewControllerDelegate?
     private weak var cropDelegate: RSKImageCropViewControllerDelegate?
     private weak var imagePickerController: UIImagePickerController?
+    
+    var incidentLocation: CLLocationCoordinate2D?
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -489,8 +492,14 @@ class ReportIncidentViewController: BaseViewController {
             incidentData.id = userDetailArray[2]
             incidentData.email = userDetailArray[3]
             incidentData.phone_number = userDetailArray[4]
+           
         }
 
+        if let incidentLocation = self.incidentLocation {
+            incidentData.latitude = incidentLocation.latitude
+            incidentData.longitude = incidentLocation.longitude
+            
+        }
         incidentData.problem_descripion = hazardDescTextView.text
         
         
