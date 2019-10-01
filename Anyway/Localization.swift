@@ -108,6 +108,16 @@ struct ManualLocalizationWorker {
     static func overrideCurrentLocal() {
         let local = [currentLocal.rawValue]
         defaults.set(local, forKey: "AppleLanguages")
+        
+        //YIGAL added to set hebrew as default language at first launch
+        if FirstLaunch().isFirstLaunch {
+            
+            // Set Hebrew as default language on First Launch
+            let arr = NSArray(objects: "he_IL")
+            UserDefaults.standard.set(arr, forKey: "AppleLanguages")
+        }
+            
+        
         defaults.synchronize()
     }
     
