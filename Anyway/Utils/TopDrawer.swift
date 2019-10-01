@@ -12,7 +12,7 @@ import UIKit
 public class TopDrawer: UIView {
 
     private var drawerHeight: CGFloat?
-    private var _isVisible: Bool = true
+    private var _isVisible: Bool = false
     private var textlayer: CATextLayer?
     private var borderLayer : CAShapeLayer?
 
@@ -40,11 +40,13 @@ public class TopDrawer: UIView {
 
     public override init(frame: CGRect) {
         super.init(frame: frame)
+        self.frame = hiddenFrame()
         setupView()
     }
 
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
+        self.frame = hiddenFrame()
         setupView()
     }
     
@@ -56,7 +58,9 @@ public class TopDrawer: UIView {
         setupView(labelText: text)
     }
 
-
+    
+    
+    
     public func setVisibility(visible: Bool) {
         if _isVisible && visible {
             return
@@ -64,9 +68,11 @@ public class TopDrawer: UIView {
         if !_isVisible && !visible {
             return
         }
-         //setupView()
-        let newFrame: CGRect = visible ? startingFrame() : hiddenFrame()
-
+        self._isVisible = visible
+        //setupView()
+        //var newFrame: CGRect = visible ? startingFrame() : hiddenFrame()
+        var newFrame: CGRect = self.frame
+        
         UIView.animate(
             withDuration: 0.8,
             delay: 0.0,
@@ -74,37 +80,36 @@ public class TopDrawer: UIView {
             initialSpringVelocity: 0.75,
             options: .curveEaseOut,
             animations: {
+                if visible {
+                    newFrame.origin.y -= 300.0
+                }
+                else{
+                    newFrame.origin.y += 300.0
+                }
+                
                 self.frame = newFrame
                 self.layoutIfNeeded()
-                self._isVisible = visible
-            }
-            ) { _ in
+                //self._isVisible = visible
+        },
+            completion:  { _ in
                 //self._isVisible.toggle()
                 //self._isVisible = visible
-            }
-
+        })
+        
     }
+    
+
 }
 
 private extension TopDrawer {
 
     func setupView(labelText: String? = nil) {
         
-//        frame = CGRect(
-//            x: 0.0,
-//            //y: 0.0, //self.drawerHeight ?? Constants.minimumVisibleHeight,   // FOR TOP
-//            y:UIScreen.main.bounds.size.height - (self.drawerHeight ?? Constants.height), // FOR DOWN
-//            width: UIScreen.main.bounds.size.width,
-//            height: self.drawerHeight ?? Constants.height
-//        )
-        
-
-        
-        
-        frame = startingFrame()
+       //frame = startingFrame()
+        //frame = hiddenFrame()
         backgroundColor = UIColor.lightGray.withAlphaComponent(0.825)
 
-//        if let sublayers = layer.sublayers {
+//        if let sublayers = layer.sublayers {// crash!!
 //            for sublayer in sublayers {
 //                sublayer.removeFromSuperlayer()
 //            }
@@ -167,8 +172,6 @@ private extension TopDrawer {
 
         layer.addSublayer(textlayer)
 
-
-
     
 
         let grooveSize: CGSize = CGSize(width: 24.0, height: 2.125)
@@ -220,25 +223,37 @@ private extension TopDrawer {
 }
 
 private extension TopDrawer {
+    
+    
+    //FOR DOWN
     func hiddenFrame() -> CGRect {
         return CGRect(
             x: 0.0,
-            //y: 0.0,  // FOR TOP
-            y: UIScreen.main.bounds.size.height ,  // FOR DOWN
+            y: UIScreen.main.bounds.size.height + 150.0,
             width: UIScreen.main.bounds.size.width,
-            height:0.0
+            height:150.0
         )
     }
     
-    func startingFrame() -> CGRect {
-        return CGRect(
-            x: 0.0,
-            // y:0.0, //FOR TOP
-            y:UIScreen.main.bounds.size.height - (self.drawerHeight ?? Constants.minimumVisibleHeight),// FOR DOWN
-            width: UIScreen.main.bounds.size.width,
-            height: self.drawerHeight ?? Constants.height
-        )
-    }
+//    func hiddenFrame() -> CGRect {
+//        return CGRect(
+//            x: 0.0,
+//            //y: 0.0,  // FOR TOP
+//            y: UIScreen.main.bounds.size.height ,  // FOR DOWN
+//            width: UIScreen.main.bounds.size.width,
+//            height:0.0
+//        )
+//    }
+//
+//    func startingFrame() -> CGRect {
+//        return CGRect(
+//            x: 0.0,
+//            // y:0.0, //FOR TOP
+//            y:UIScreen.main.bounds.size.height - (self.drawerHeight ?? Constants.minimumVisibleHeight),// FOR DOWN
+//            width: UIScreen.main.bounds.size.width,
+//            height: self.drawerHeight ?? Constants.height
+//        )
+//    }
 
     func fullFrame() -> CGRect {
         return CGRect(

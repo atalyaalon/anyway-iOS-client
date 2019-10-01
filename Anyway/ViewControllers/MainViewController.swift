@@ -43,6 +43,11 @@ class MainViewController: BaseViewController {
         addImageModel = AddImageViewModel(viewController: self)
         mainViewModel.viewDidLoad()
     }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        //self.topDrawer?.setText(text: "CHOOSE_A_PLACE".localized, drawerHeight: self.SMALL_DRAWER_HEIGHT)
+        //self.topDrawer?.setVisibility(visible: true)
+    }
 
     override func setupView() {
         self.navigationController?.isNavigationBarHidden = true
@@ -58,7 +63,6 @@ class MainViewController: BaseViewController {
         mapView.isMyLocationEnabled = true
         mapView.settings.myLocationButton = true
         mapView.padding = UIEdgeInsets(top: 0, left: 0, bottom: 120, right: 0)// FOR DOWN
-
         mapView.settings.compassButton = true
         setupHelpButton()
         setupFilterButton()
@@ -237,7 +241,17 @@ extension MainViewController : MainViewInput {
                 self.mapView.clear()
                 self.topDrawer?.subviews.forEach({ $0.removeFromSuperview() })
                 self.topDrawer?.setText(text: "CHOOSE_A_PLACE".localized, drawerHeight: self.SMALL_DRAWER_HEIGHT)
+               // self.topDrawer?.isHidden = false
                 self.topDrawer?.setVisibility(visible: true)
+//
+//
+//                DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(2)) {
+//                    self.topDrawer?.setVisibility(visible: false)
+//                }
+//
+//                DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(5)) {
+//                    self.topDrawer?.setVisibility(visible: true)
+//                }
             }
         case .placePicked:
             DispatchQueue.main.async { [weak self]  in
@@ -250,6 +264,8 @@ extension MainViewController : MainViewInput {
                               secondButtonAction: #selector(self.nextButtonTapped))
 
                 self.topDrawer?.setText(text: "TAP_CONTINUE_TO_GET_DANGEROUS_PLACES".localized, drawerHeight: self.BIG_DRAWER_HEIGHT)
+                //self.topDrawer?.setText(text: "TAP_CONTINUE_TO_GET_DANGEROUS_PLACES".localized)
+                // self.topDrawer?.setText(text: "CHOOSE_A_PLACE".localized, drawerHeight: self.SMALL_DRAWER_HEIGHT)
                 self.topDrawer?.setVisibility(visible: true)
             }
         case .continueTappedAfterPlacePicked:
@@ -267,7 +283,7 @@ extension MainViewController : MainViewInput {
                                    secondButtonAction: #selector(self.reportButtonTapped ))
 
                 self.topDrawer?.setText(text:"PLACES_MAKRKED_WITH_HEATMAP".localized, drawerHeight: self.BIG_DRAWER_HEIGHT)
-                //self.topDrawer?.setVisibility(visible: true)
+                self.topDrawer?.setVisibility(visible: true)
                 // DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(14)) {
                 // self?.topDrawer?.setVisibility(visible: true)
                 // }
