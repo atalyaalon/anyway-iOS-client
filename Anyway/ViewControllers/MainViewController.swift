@@ -14,10 +14,6 @@ import MaterialComponents.MaterialButtons
 
 class MainViewController: BaseViewController {
 
-//    private static let ZOOM: Float = 16
-//    private let BIG_DRAWER_HEIGHT:CGFloat = 150.0
-//    private let SMALL_DRAWER_HEIGHT:CGFloat = 120.0
-//    private let BIG_DRAWER_BUTTON_HEIGHT_OFFSET:CGFloat = 30.0
     
     //private let BUTTON_Y:CGFloat = 95.0 // FOR TOP
     private let BUTTON_Y:CGFloat = 80.0 // FOR DOWN
