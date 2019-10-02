@@ -83,7 +83,21 @@ class MainViewModel: NSObject, UINavigationControllerDelegate {
             list.append(coords)
         }
         view?.addCoordinateListToHeatMap(coordinateList: list)
+        
+  
+        //addAllMarkersToMap(markers: markers)
+       
      }
+    // TEST SHOW MARKERS INSTEAD OF HEATMAP
+    func addAllMarkersToMap(markers: [NewMarker]) {
+        
+        for marker in markers {
+            let coordinate = CLLocationCoordinate2D(latitude: marker.latitude, longitude: marker.longitude)
+            view?.setMarkerOnTheMap(coordinate: coordinate)
+        }
+    }
+    
+    
 
 
     func getAnnotations(_ edges: Edges) {

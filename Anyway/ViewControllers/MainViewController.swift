@@ -14,7 +14,7 @@ import MaterialComponents.MaterialButtons
 
 class MainViewController: BaseViewController {
 
-    
+    //private var gradientStartPoints = [0.0002, 0.02] as [NSNumber]
     //private let BUTTON_Y:CGFloat = 95.0 // FOR TOP
     private let BUTTON_Y:CGFloat = 80.0 // FOR DOWN
     private let BUTTON_HEIGHT:CGFloat = 30.0
@@ -25,7 +25,9 @@ class MainViewController: BaseViewController {
 
     private var mainViewModel: MainViewOutput! //MainViewModel
     private var gradientColors = [UIColor.green, UIColor.red]
-    private var gradientStartPoints = [0.02, 0.09] as [NSNumber]
+    private var gradientStartPoints = [0.0002, 0.02] as [NSNumber]
+    // private var gradientStartPoints = [0.02, 0.09] as [NSNumber] //old
+    // private var gradientStartPoints = [0.2, 1.0] as [NSNumber] // demo
     private var heatmapLayer: GMUHeatmapTileLayer!
     //private var snackbarView = SnackBarView()
     private var helpButton: MDCFloatingButton!
@@ -107,14 +109,6 @@ class MainViewController: BaseViewController {
         if self.drawerType == .top {
             buttonY = UIScreen.main.bounds.size.height - 70
         }
-        
-//        if #available(iOS 11.0, *) {
-//            let guide = view.safeAreaLayoutGuide
-//            let width = guide.layoutFrame.size.width
-//        } else {
-//            // Fallback on earlier versions
-//        }
-        
         
         addressLabel = UILabel(frame: CGRect(x: UIScreen.main.bounds.minX + 70 , y: buttonY, width: UIScreen.main.bounds.size.width - 140, height: 30))
 
@@ -252,6 +246,10 @@ extension MainViewController : MainViewInput {
         heatmapLayer.weightedData = coordinateList
         self.heatmapLayer.map = self.mapView
     }
+    
+    func addMarkerstoMap(markers: [NewMarker]) {
+       // self.mapView.addAno
+    }
 
     func removeHeatMapLayer() {
         heatmapLayer.map = nil
@@ -260,8 +258,8 @@ extension MainViewController : MainViewInput {
 
     func addHeatMapLayer() {
         heatmapLayer = GMUHeatmapTileLayer()
-        heatmapLayer.radius = 80
-        heatmapLayer.opacity = 0.9
+        heatmapLayer.radius = 100
+        heatmapLayer.opacity = 1
         heatmapLayer.gradient = GMUGradient(colors: gradientColors, startPoints: gradientStartPoints,colorMapSize: 256)
     }
 

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="hgT-Zb-3Q7">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="r7Q-GB-wa4">
     <device id="retina5_5" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -52,7 +52,7 @@
         <!--Main View Controller-->
         <scene sceneID="sLY-bs-yes">
             <objects>
-                <viewController id="GQG-KH-GPO" customClass="MainViewController" customModule="Anyway" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MainViewController" id="GQG-KH-GPO" customClass="MainViewController" customModule="Anyway" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="DLX-fR-4dK"/>
                         <viewControllerLayoutGuide type="bottom" id="fev-gO-UnZ"/>
@@ -81,7 +81,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="G5Q-TS-pSb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1298.5507246376812" y="1444.5652173913045"/>
+            <point key="canvasLocation" x="2205.7971014492755" y="1444.5652173913045"/>
         </scene>
         <!--Question Bar View Controller-->
         <scene sceneID="PDD-TY-466">
@@ -134,7 +134,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="p3I-re-MVO" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4007.5614366729687" y="1496.6327977315693"/>
+            <point key="canvasLocation" x="4914.4927536231889" y="1495.9239130434785"/>
         </scene>
         <!--Language View Controller-->
         <scene sceneID="pwg-jz-8QM">
@@ -245,7 +245,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UgG-cQ-JNN" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="6349.5064062171823" y="1428.8456994328924"/>
+            <point key="canvasLocation" x="7256.521739130435" y="1428.2608695652175"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
@@ -263,7 +263,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                             </mapView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="   " textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6CP-to-AaA" userLabel="כמות נמצאו..." customClass="InsetLabel" customModule="Anyway" customModuleProvider="target">
-                                <rect key="frame" x="383.33333333333331" y="36" width="14.666666666666686" height="23"/>
+                                <rect key="frame" x="367.33333333333331" y="36" width="30.666666666666686" height="39"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="19"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
@@ -534,7 +534,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RDv-tl-ZQ8" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3513.967653854233" y="-175.23534549689441"/>
+            <point key="canvasLocation" x="3501" y="-315"/>
         </scene>
         <!--Info View Controller-->
         <scene sceneID="79c-oD-IBZ">
@@ -839,7 +839,7 @@ ANYWAY מציגה על גבי מפה תאונות דרכים עם נפגעים (
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5w0-v9-lwI" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4137.6811594202909" y="791.57608695652175"/>
+            <point key="canvasLocation" x="5044.927536231884" y="790.76086956521749"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="QUe-CU-OuK">
@@ -956,10 +956,10 @@ ANYWAY מציגה על גבי מפה תאונות דרכים עם נפגעים (
             </objects>
             <point key="canvasLocation" x="-3921.7391304347834" y="1332.8804347826087"/>
         </scene>
-        <!--View Controller-->
+        <!--Onboarding View Controller-->
         <scene sceneID="FeC-8I-92c">
             <objects>
-                <viewController storyboardIdentifier="OnboardingViewController" id="Joe-3E-hMz" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="OnboardingViewController" id="Joe-3E-hMz" customClass="OnboardingViewController" customModule="Anyway" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="8ZR-uq-2hq"/>
                         <viewControllerLayoutGuide type="bottom" id="PSp-Ku-ZDo"/>
@@ -1055,7 +1055,7 @@ ANYWAY מציגה על גבי מפה תאונות דרכים עם נפגעים (
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
-                                    <segue destination="Ibh-0K-3z1" kind="presentation" id="J3N-IU-jkk"/>
+                                    <action selector="onReportNowPressed:" destination="Joe-3E-hMz" eventType="touchUpInside" id="hzn-ku-Pjh"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -1082,10 +1082,11 @@ ANYWAY מציגה על גבי מפה תאונות דרכים עם נפגעים (
                             <constraint firstItem="GRb-Ji-pf6" firstAttribute="top" secondItem="8ZR-uq-2hq" secondAttribute="bottom" constant="33" id="yOU-D3-GKO"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="zy4-vE-ca3"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3eH-yN-3sM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1342.1550094517961" y="1435.4914933837431"/>
+            <point key="canvasLocation" x="-436.23188405797106" y="1434.7826086956522"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="h3b-tV-6vw">
@@ -1103,7 +1104,7 @@ ANYWAY מציגה על גבי מפה תאונות דרכים עם נפגעים (
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2zO-tN-9My" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-61.449275362318851" y="1445.024770223584"/>
+            <point key="canvasLocation" x="844.92753623188412" y="1444.5652173913045"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="KGT-rg-FEl">
@@ -1122,7 +1123,25 @@ ANYWAY מציגה על גבי מפה תאונות דרכים עם נפגעים (
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hsT-eR-OI3" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2692.7116152068897" y="1496.6327977315693"/>
+            <point key="canvasLocation" x="3598.5507246376815" y="1495.9239130434785"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="Ic2-8k-HHe">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="r7Q-GB-wa4" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="DqK-UU-sDR">
+                        <rect key="frame" x="0.0" y="20" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="Joe-3E-hMz" kind="relationship" relationship="rootViewController" id="fRT-pT-ufN"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="bKX-0P-vjC" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1343.4782608695652" y="1434.7826086956522"/>
         </scene>
     </scenes>
     <resources>

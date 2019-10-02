@@ -10,13 +10,28 @@ import UIKit
 
 class OnboardingViewController: UIViewController {
 
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.navigationController?.isNavigationBarHidden = true
+        
 
-        // Do any additional setup after loading the view.
     }
     
+    @IBAction func onReportNowPressed(_ sender: AnyObject) {
+        
+        
+        let ReportIncidentViewController:ReportIncidentViewController = UIStoryboard.main.instantiateViewController(withIdentifier: "ReportIncidentViewController") as UIViewController as! ReportIncidentViewController
+  
+        let MainViewController:MainViewController = UIStoryboard.main.instantiateViewController(withIdentifier: "MainViewController") as UIViewController as! MainViewController
 
+        self.navigationController!.pushViewController(MainViewController, animated: false)
+          
+        self.navigationController!.pushViewController(ReportIncidentViewController, animated: true)
+        
+        
+    }
     /*
     // MARK: - Navigation
 

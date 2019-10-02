@@ -190,12 +190,12 @@ extension UIAlertController {
         }
     }
 }
-
-extension UIAlertView {
-    class func show(_ title: String?, message: String?, closeTitle: String?) {
-        UIAlertView(title: title, message: message, delegate: nil, cancelButtonTitle: closeTitle).show()
-    }
-}
+//
+//extension UIAlertView {
+//    class func show(_ title: String?, message: String?, closeTitle: String?) {
+//        UIAlertView(title: title, message: message, delegate: nil, cancelButtonTitle: closeTitle).show()
+//    }
+//}
 
 extension UIImageView {
     func setImage(_ url: String, placeHolder: UIImage? = nil, animated: Bool = true) {

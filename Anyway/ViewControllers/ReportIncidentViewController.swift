@@ -532,13 +532,17 @@ class ReportIncidentViewController: BaseViewController {
         if Thread.callStackSymbols.count > 2 {
             print("Who called me: \(Thread.callStackSymbols[2])")
         }
-        delegate?.didCancelReport()
+        //delegate?.didCancelReport()
+        self.navigationController?.popViewController(animated: true)
+        self.navigationController?.isNavigationBarHidden = true
     }
 
     // MARK: - Actions
     @objc func backBarButtonItemAction(sender: UIButton) {
         self.currentResponder?.resignFirstResponder()
         delegate?.didCancelReport()
+        
+
     }
     //
     // MARK: Layout

@@ -99,7 +99,6 @@
 		9F0EE9DF230C8DE100D53D4D /* GMUPair.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F0EE9BD230C8DE100D53D4D /* GMUPair.m */; };
 		9F0EE9E0230C8DE100D53D4D /* GMULineString.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F0EE9C2230C8DE100D53D4D /* GMULineString.m */; };
 		9F0EE9E1230C8DE100D53D4D /* GMUGeoJSONParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F0EE9C6230C8DE100D53D4D /* GMUGeoJSONParser.m */; };
-		9F1F6EFE230E757100AD5A8D /* SelectHazardSwiftUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F1F6EFD230E757100AD5A8D /* SelectHazardSwiftUIView.swift */; };
 		9F1F6F00230E819900AD5A8D /* HazardGridCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F1F6EFF230E819900AD5A8D /* HazardGridCell.swift */; };
 		9F1F6F02230E826D00AD5A8D /* HazardData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F1F6F01230E826D00AD5A8D /* HazardData.swift */; };
 		9F1F6F04230E848200AD5A8D /* QGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F1F6F03230E848200AD5A8D /* QGrid.swift */; };
@@ -129,6 +128,8 @@
 		9F8BDE2B23191DC5001BDDA1 /* TopDrawer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F8BDE2A23191DC4001BDDA1 /* TopDrawer.swift */; };
 		9F8BDE2D23197EBE001BDDA1 /* QuestionBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F8BDE2C23197EBE001BDDA1 /* QuestionBarViewController.swift */; };
 		9F8BDE39231B2670001BDDA1 /* PlaceHolderTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F8BDE38231B2670001BDDA1 /* PlaceHolderTextView.swift */; };
+		9FCBB284234482A500F9B1BD /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FCBB283234482A500F9B1BD /* OnboardingViewController.swift */; };
+		9FCBB2862344C82200F9B1BD /* HaRavReines.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 9FCBB2852344C82200F9B1BD /* HaRavReines.gpx */; };
 		9FF3E4F5231C223200B14B9F /* ReportIncidentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FF3E4F4231C223200B14B9F /* ReportIncidentViewModel.swift */; };
 		9FF3E4F7231C235800B14B9F /* ReportIncidentInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FF3E4F6231C235800B14B9F /* ReportIncidentInput.swift */; };
 		9FF3E4F9231C237F00B14B9F /* ReportIncidentOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FF3E4F8231C237F00B14B9F /* ReportIncidentOutput.swift */; };
@@ -306,7 +307,6 @@
 		9F0EE9C5230C8DE100D53D4D /* GMUGeometryRenderer+Testing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GMUGeometryRenderer+Testing.h"; sourceTree = "<group>"; };
 		9F0EE9C6230C8DE100D53D4D /* GMUGeoJSONParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GMUGeoJSONParser.m; sourceTree = "<group>"; };
 		9F0EE9C7230C8DE100D53D4D /* GMUGeometryRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GMUGeometryRenderer.h; sourceTree = "<group>"; };
-		9F1F6EFD230E757100AD5A8D /* SelectHazardSwiftUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectHazardSwiftUIView.swift; sourceTree = "<group>"; };
 		9F1F6EFF230E819900AD5A8D /* HazardGridCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HazardGridCell.swift; sourceTree = "<group>"; };
 		9F1F6F01230E826D00AD5A8D /* HazardData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HazardData.swift; sourceTree = "<group>"; };
 		9F1F6F03230E848200AD5A8D /* QGrid.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QGrid.swift; sourceTree = "<group>"; };
@@ -337,6 +337,8 @@
 		9F8BDE2C23197EBE001BDDA1 /* QuestionBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionBarViewController.swift; sourceTree = "<group>"; };
 		9F8BDE2E23198EA3001BDDA1 /* Spring.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Spring.framework; path = Anyway/Spring.framework; sourceTree = "<group>"; };
 		9F8BDE38231B2670001BDDA1 /* PlaceHolderTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceHolderTextView.swift; sourceTree = "<group>"; };
+		9FCBB283234482A500F9B1BD /* OnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
+		9FCBB2852344C82200F9B1BD /* HaRavReines.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = HaRavReines.gpx; sourceTree = "<group>"; };
 		9FF3E4F4231C223200B14B9F /* ReportIncidentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportIncidentViewModel.swift; sourceTree = "<group>"; };
 		9FF3E4F6231C235800B14B9F /* ReportIncidentInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportIncidentInput.swift; sourceTree = "<group>"; };
 		9FF3E4F8231C237F00B14B9F /* ReportIncidentOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportIncidentOutput.swift; sourceTree = "<group>"; };
@@ -427,6 +429,7 @@
 			children = (
 				9F6AC24823118F0700EF5F31 /* Images.xcassets */,
 				9F1F6F05230E892800AD5A8D /* hazards.json */,
+				9FCBB2852344C82200F9B1BD /* HaRavReines.gpx */,
 				9F2076E0229254540034EABF /* Ben Avigdor.gpx */,
 				30D6E5BA1A92639500337FDB /* LaunchScreen.xib */,
 				30D6E5B01A92639500337FDB /* Info.plist */,
@@ -478,12 +481,12 @@
 				9F0EE8B722F7169000D53D4D /* FilterViewController+Setup.swift */,
 				9F0EE8AC22F7164600D53D4D /* HistoryViewController.swift */,
 				9F0EE8AD22F7164600D53D4D /* LanguageViewController.swift */,
-				9F1F6EFD230E757100AD5A8D /* SelectHazardSwiftUIView.swift */,
 				9F1F6EFF230E819900AD5A8D /* HazardGridCell.swift */,
 				9F1F6F01230E826D00AD5A8D /* HazardData.swift */,
 				9F1F6F03230E848200AD5A8D /* QGrid.swift */,
 				9F6AC2442311865900EF5F31 /* FirstLaunch.swift */,
 				9FF3E500231CFEC700B14B9F /* BaseViewConroller.swift */,
+				9FCBB283234482A500F9B1BD /* OnboardingViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -850,6 +853,7 @@
 				30D6E5B71A92639500337FDB /* Main.storyboard in Resources */,
 				9F6AC24923118F0700EF5F31 /* Images.xcassets in Resources */,
 				9F0EE90122F71C1400D53D4D /* JGProgressHUD Resources.bundle in Resources */,
+				9FCBB2862344C82200F9B1BD /* HaRavReines.gpx in Resources */,
 				30D6E5BC1A92639500337FDB /* LaunchScreen.xib in Resources */,
 				9F1F6F06230E892900AD5A8D /* hazards.json in Resources */,
 				9F2076E1229254540034EABF /* Ben Avigdor.gpx in Resources */,
@@ -983,7 +987,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				9F0EE97B2308D16500D53D4D /* UIAlertController+Extensions.swift in Sources */,
-				9F1F6EFE230E757100AD5A8D /* SelectHazardSwiftUIView.swift in Sources */,
 				9F0EE97122F8699A00D53D4D /* UILabel+Anyway.swift in Sources */,
 				9F0EE9D9230C8DE100D53D4D /* GMUPolygon.m in Sources */,
 				9F0EE96B22F78A7100D53D4D /* KeyboardObserver.swift in Sources */,
@@ -1050,6 +1053,7 @@
 				9F6E35922313F8AB00A8457F /* AnywayAPI.swift in Sources */,
 				9F0EE8BD22F718F300D53D4D /* InsetLabel.swift in Sources */,
 				9F0EE90622F71C1400D53D4D /* JGProgressHUDRingIndicatorView.m in Sources */,
+				9FCBB284234482A500F9B1BD /* OnboardingViewController.swift in Sources */,
 				9F0EE8FF22F71C1400D53D4D /* JGProgressHUDAnimation.m in Sources */,
 				9F1F6F0A230EE24C00AD5A8D /* HazardCollectionViewCell.swift in Sources */,
 				9F0EE9D4230C8DE100D53D4D /* GMUHeatmapTileLayer.m in Sources */,

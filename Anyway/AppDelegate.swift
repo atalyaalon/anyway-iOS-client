@@ -12,7 +12,7 @@ import GoogleMaps
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-    //public let GOOGLE_PLACES_API_KEY: String = "AIzaSyASfw9p93gn1kEfp6uQdWjYVmX6tJVQVPQ"
+    
     private let GOOGLE_MAPS_API_KEY: String = "AIzaSyASfw9p93gn1kEfp6uQdWjYVmX6tJVQVPQ"
 
 
@@ -20,16 +20,31 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         ManualLocalizationWorker.overrideCurrentLocal()
         self.setupGoogleServices()
+        
+        // Root vc must be a UINavigationController
+        if  let navVC = self.window?.rootViewController as? UINavigationController,
+            let visibleVC = navVC.visibleViewController {
+            
+            var viewController: UIViewController
 
-        self.window = UIWindow(frame: UIScreen.main.bounds)
-        var viewController: UIViewController
-        if FirstLaunch().isFirstLaunch {
-             viewController = UIStoryboard.main.instantiateViewController(withIdentifier: "OnboardingViewController")
-        } else {
-            viewController = UIStoryboard.main.instantiateInitialViewController()!
+            if FirstLaunch().isFirstLaunch {
+                 viewController = UIStoryboard.main.instantiateViewController(withIdentifier: "OnboardingViewController")
+            } else {
+                 viewController = UIStoryboard.main.instantiateViewController(withIdentifier: "MainViewController") as UIViewController as! MainViewController
+            }
+            navVC.pushViewController(viewController, animated: false)
         }
-        self.window?.rootViewController = viewController
-        self.window?.makeKeyAndVisible()
+        
+
+//        self.window = UIWindow(frame: UIScreen.main.bounds)
+//        var viewController: UIViewController
+//        if FirstLaunch().isFirstLaunch {
+//             viewController = UIStoryboard.main.instantiateViewController(withIdentifier: "OnboardingViewController")
+//        } else {
+//            viewController = UIStoryboard.main.instantiateInitialViewController()!
+//        }
+//        self.window?.rootViewController = viewController
+//        self.window?.makeKeyAndVisible()
         return true
     }
 

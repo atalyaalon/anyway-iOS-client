@@ -69,7 +69,11 @@ enum WeatherType: Int {
 }
 
 public struct Filter {
-    var startDate = Date(timeIntervalSince1970: 1356991200) { didSet{ valueChanged() } } // Default: Jan 1st 2013
+    //var startDate = Date(timeIntervalSince1970: 1356991200) { didSet{ valueChanged() } } // Default: Jan 1st 2013
+    var startDate = Date(timeIntervalSince1970: 1451649600) { didSet{ valueChanged() } } // Default: Jan 1st 2016
+    
+    //var startDate = Date(timeIntervalSince1970: 1483272000) { didSet{ valueChanged() } } // Default: Jan 1st 2017
+    
     var endDate = Date() { didSet{ valueChanged() } }  // Default: Now
    
     var showFatal = true { didSet{ valueChanged() } }

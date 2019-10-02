@@ -23,6 +23,8 @@ protocol MainViewInput: ViewInput {
     //func displaySendAnswersQuestionnaire()
 
     func addCoordinateListToHeatMap(coordinateList: [GMUWeightedLatLng])
+    
+    func addMarkerstoMap(markers: [NewMarker])
 
     func removeHeatMapLayer()
 
