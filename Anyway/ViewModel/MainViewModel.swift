@@ -29,6 +29,7 @@ class MainViewModel: NSObject, UINavigationControllerDelegate {
     private var currentState:MainVCState = .start
     private var selectedImageView: UIImageView?
     private var incidentLocation: CLLocationCoordinate2D?
+    private var incidentAddress: String?
 
     init(viewController: MainViewInput?) {
         self.view = viewController
@@ -68,6 +69,7 @@ class MainViewModel: NSObject, UINavigationControllerDelegate {
         ReportIncidentViewController.delegate = self as ReportIncidentViewControllerDelegate
         ReportIncidentViewController.incidentImageView = self.selectedImageView
         ReportIncidentViewController.incidentLocation = self.incidentLocation
+        ReportIncidentViewController.incidentAddress = self.incidentAddress
 
         self.view?.pushViewController(ReportIncidentViewController, animated: true)
     }
@@ -213,6 +215,7 @@ extension MainViewModel: MainViewOutput {
             }
             print ("address  = \(address)")
             self.view?.setAddressLabel(address: lines.joined(separator: "\n"))
+            self.incidentAddress = lines.joined(separator: "\n")
             //self.addressLabel.text = lines.joined(separator: "\n")
         }
     }

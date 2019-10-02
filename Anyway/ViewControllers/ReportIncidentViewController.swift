@@ -20,6 +20,7 @@ protocol ReportIncidentViewControllerDelegate: class {
 
 class ReportIncidentViewController: BaseViewController {
 
+    private let contentRectHeight: CGFloat = 1200
     private let edgesPadding: CGFloat = 25
     private let topPadding: CGFloat = 7
     private let labelHeight: CGFloat = 30
@@ -34,7 +35,9 @@ class ReportIncidentViewController: BaseViewController {
     private var contentView : UIView!
     private var imageOfTheIncidentLabel: UILabel!
     public var  incidentImageView: UIImageView?
-    public var  incidentTypesLabel: UILabel!
+    private var incidentTypesLabel: UILabel!
+    private var incidentAddressLabel: UILabel!
+    private var addressTextView :UITextView!
     private var collectionView: UICollectionView!
     private var otherLabel: UILabel!
     private var hazardDescTextView: UITextView!
@@ -57,6 +60,7 @@ class ReportIncidentViewController: BaseViewController {
     private weak var imagePickerController: UIImagePickerController?
     
     var incidentLocation: CLLocationCoordinate2D?
+    var incidentAddress: String?
     
 
     override func viewDidLoad() {
@@ -91,9 +95,11 @@ class ReportIncidentViewController: BaseViewController {
         setupContentView()
         setupImageOfTheIncidentLabel()
         setupImage()
+        setupAddressLabel()
+        setupAddressTextView()
         setupIncidentTypesLabel()
         setupCollectionView()
-        setupOtherLabel()
+        setupCommentLabel()
         setupTextView()
         setupSwitchLabel()
         setupSwitchControlView()
@@ -112,7 +118,7 @@ class ReportIncidentViewController: BaseViewController {
         for view: UIView in scrollView.subviews {
             contentRect = contentRect.union(view.frame)
         }
-        contentRect.size.height = contentRect.size.height
+       // contentRect.size.height = contentRect.size.height
         scrollView.contentSize = contentRect.size
     }
 
@@ -241,6 +247,37 @@ class ReportIncidentViewController: BaseViewController {
         addImageModel.showSelectImageAlert(false)
     }
 
+    private func setupAddressLabel() {
+        let view: UILabel = UILabel()
+        view.textColor = UIColor.f8BlackText
+        view.font = UIFont.systemFont(ofSize: 17)
+        view.textAlignment = .center
+        view.text = "INCIDENT_ADDRESS".localized
+        self.contentView.addSubview(view)
+        self.incidentAddressLabel = view
+    }
+    
+    private func setupAddressTextView() {
+
+        let view = PlaceHolderTextView()
+        view.backgroundColor = .clear
+        view.isEditable = true
+        view.showsVerticalScrollIndicator = true
+        view.font = UIFont.systemFont(ofSize: 14)
+        //view.place = ""
+        view.layer.cornerRadius = 4.0
+        view.layer.borderWidth = 1.0
+        view.layer.borderColor = UIColor.black.cgColor
+        view.returnKeyType = UIReturnKeyType.done
+        view.text = self.incidentAddress
+        
+        self.contentView.addSubview(view)
+        self.addressTextView = view
+       // self.addressTextView.delegate = self
+        
+      
+    }
+    
     private func setupIncidentTypesLabel() {
         let view: UILabel = UILabel()
         view.textColor = UIColor.f8BlackText
@@ -250,6 +287,8 @@ class ReportIncidentViewController: BaseViewController {
         self.contentView.addSubview(view)
         self.incidentTypesLabel = view
     }
+ 
+    
     private func setupCollectionView() {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
@@ -269,7 +308,7 @@ class ReportIncidentViewController: BaseViewController {
         self.collectionView.reloadData()
     }
 
-    private func setupOtherLabel() {
+    private func setupCommentLabel() {
         let view: UILabel = UILabel()
         view.textColor = UIColor.f8BlackText
         view.font = UIFont.systemFont(ofSize: 19)
@@ -560,7 +599,7 @@ class ReportIncidentViewController: BaseViewController {
         self.contentView.snp.remakeConstraints({ (make: ConstraintMaker) in
             make.edges.equalToSuperview()
             make.width.equalToSuperview()
-            make.height.equalTo(1100)
+            make.height.equalTo(contentRectHeight)
             //make.height.equalToSuperview().priority(250)
          })
 
@@ -576,8 +615,9 @@ class ReportIncidentViewController: BaseViewController {
             make.width.equalTo(100)
             make.top.equalTo(imageOfTheIncidentLabel.snp.bottom).offset(topPadding)
         })
-
-        self.incidentTypesLabel.snp.remakeConstraints({ (make: ConstraintMaker) in
+        
+        
+        self.incidentAddressLabel.snp.remakeConstraints({ (make: ConstraintMaker) in
             make.leading.equalToSuperview().offset(edgesPadding)
             if let incidentImageView = self.incidentImageView{
                 make.top.equalTo(incidentImageView.snp.bottom).offset(edgesPadding)
@@ -586,6 +626,22 @@ class ReportIncidentViewController: BaseViewController {
             }
             make.height.equalTo(labelHeight)
         })
+        
+        self.addressTextView.snp.remakeConstraints({ (make: ConstraintMaker) in
+            make.leading.equalToSuperview().offset(edgesPadding)
+            make.trailing.equalToSuperview().offset(-edgesPadding)
+            make.height.equalTo(labelHeight)
+            make.top.equalTo(self.incidentAddressLabel.snp.bottom).offset(topPadding)
+        })
+        
+
+        
+        self.incidentTypesLabel.snp.remakeConstraints({ (make: ConstraintMaker) in
+            make.leading.equalToSuperview().offset(edgesPadding)
+            make.height.equalTo(labelHeight)
+            make.top.equalTo(self.addressTextView.snp.bottom).offset(edgesPadding)
+        })
+        
 
         self.collectionView.snp.remakeConstraints({ (make: ConstraintMaker) in
             make.leading.equalToSuperview().offset(edgesPadding - collectionViewInsets)

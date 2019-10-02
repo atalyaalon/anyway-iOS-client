@@ -492,8 +492,9 @@
 "SELECT_IMAGE" = "Select image";
 
 "IMAGE_OF_THE_INCIDENGT" = "Image of the incident";
-"INCIDENGT_TYPE" = "Incidengt type";
+"INCIDENGT_TYPE" = "Incident type";
 
 "REPORT_AN_INCIDENT" = "Report an incident";
 "REPORT_TO_MUNICIPALITY" ="Report to municipality";
 "SKIP" = "Skip";
+"INCIDENT_ADDRESS" = "Address";
