@@ -1,6 +1,0 @@
-framework module RxGoogleMaps {
-  umbrella header "RxGoogleMaps-umbrella.h"
-
-  export *
-  module * { export * }
-}

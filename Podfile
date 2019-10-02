@@ -19,7 +19,7 @@ target 'Anyway' do
     pod 'MaterialComponents/Buttons'
     pod 'RSKImageCropper'
     pod 'Spring', :git => 'https://github.com/MengTo/Spring.git'
-    pod 'AlamofireNetworkActivityLogger', '~> 3.0'
+    #pod 'AlamofireNetworkActivityLogger', '~> 3.0'
     #pod 'MaterialComponents/Buttons+Theming'
     #pod 'MaterialComponents/schemes/Color'
 
