@@ -312,7 +312,7 @@ class Network {
 
         var markers:NewMarkers? = nil
 
-        let task = request.responseString(completionHandler: { (response: DataResponse<String>) in
+        request.responseString(completionHandler: { (response: DataResponse<String>) in
 
             switch response.result {
                 case .success:

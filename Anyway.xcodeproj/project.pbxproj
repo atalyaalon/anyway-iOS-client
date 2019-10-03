@@ -339,6 +339,7 @@
 		9F8BDE38231B2670001BDDA1 /* PlaceHolderTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceHolderTextView.swift; sourceTree = "<group>"; };
 		9FCBB283234482A500F9B1BD /* OnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
 		9FCBB2852344C82200F9B1BD /* HaRavReines.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = HaRavReines.gpx; sourceTree = "<group>"; };
+		9FCBB2872345207C00F9B1BD /* Anyway.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Anyway.entitlements; sourceTree = "<group>"; };
 		9FF3E4F4231C223200B14B9F /* ReportIncidentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportIncidentViewModel.swift; sourceTree = "<group>"; };
 		9FF3E4F6231C235800B14B9F /* ReportIncidentInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportIncidentInput.swift; sourceTree = "<group>"; };
 		9FF3E4F8231C237F00B14B9F /* ReportIncidentOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportIncidentOutput.swift; sourceTree = "<group>"; };
@@ -401,6 +402,7 @@
 		30D6E5AE1A92639500337FDB /* Anyway */ = {
 			isa = PBXGroup;
 			children = (
+				9FCBB2872345207C00F9B1BD /* Anyway.entitlements */,
 				309CCBDE1C569FAA00C829E5 /* main.swift */,
 				30D6E5B11A92639500337FDB /* AppDelegate.swift */,
 				30AF03671A9BC62C008B7889 /* Anyway-Bridging-Header.h */,
@@ -820,7 +822,12 @@
 						CreatedOnToolsVersion = 6.1.1;
 						DevelopmentTeam = KMG627KSFF;
 						LastSwiftMigration = 0820;
-						ProvisioningStyle = Automatic;
+						ProvisioningStyle = Manual;
+						SystemCapabilities = {
+							com.apple.Push = {
+								enabled = 0;
+							};
+						};
 					};
 				};
 			};
@@ -1191,8 +1198,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = KMG627KSFF;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1203,12 +1211,13 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				ONLY_ACTIVE_ARCH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = il.org.hasadna.Anyway;
+				PRODUCT_BUNDLE_IDENTIFIER = com.yigalomer.anyway;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "Anyway Dev Profile";
 				SWIFT_OBJC_BRIDGING_HEADER = "Anyway/Anyway-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -1259,8 +1268,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = KMG627KSFF;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1270,13 +1280,13 @@
 				INFOPLIST_FILE = Anyway/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = il.org.hasadna.Anyway;
+				PRODUCT_BUNDLE_IDENTIFIER = com.yigalomer.anyway;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE_SPECIFIER = "Anyway Dev Profile";
 				SWIFT_OBJC_BRIDGING_HEADER = "Anyway/Anyway-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};

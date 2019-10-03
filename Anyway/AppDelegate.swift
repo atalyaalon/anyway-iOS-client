@@ -22,8 +22,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.setupGoogleServices()
         
         // Root vc must be a UINavigationController
-        if  let navVC = self.window?.rootViewController as? UINavigationController,
-            let visibleVC = navVC.visibleViewController {
+        if  let navVC = self.window?.rootViewController as? UINavigationController {
             
             var viewController: UIViewController
 
