@@ -23,7 +23,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         // Root vc must be a UINavigationController
         if  let navVC = self.window?.rootViewController as? UINavigationController {
-            
+
             var viewController: UIViewController
 
             if FirstLaunch().isFirstLaunch {

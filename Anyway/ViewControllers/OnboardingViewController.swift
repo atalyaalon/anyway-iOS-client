@@ -26,9 +26,9 @@ class OnboardingViewController: UIViewController {
   
         let MainViewController:MainViewController = UIStoryboard.main.instantiateViewController(withIdentifier: "MainViewController") as UIViewController as! MainViewController
 
-        self.navigationController!.pushViewController(MainViewController, animated: false)
+        self.navigationController?.pushViewController(MainViewController, animated: false)
           
-        self.navigationController!.pushViewController(ReportIncidentViewController, animated: true)
+        self.navigationController?.pushViewController(ReportIncidentViewController, animated: true)
         
         
     }

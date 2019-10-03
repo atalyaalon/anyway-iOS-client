@@ -14,7 +14,7 @@ class FirstLaunch {
 
     let wasLaunchedBefore: Bool
     var isFirstLaunch: Bool {
-        //return true
+       // return true
        return !wasLaunchedBefore
     }
 
