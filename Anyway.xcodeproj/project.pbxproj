@@ -111,6 +111,7 @@
 		9F5A1EB123173135001F537E /* ViewOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F5A1EB023173135001F537E /* ViewOutput.swift */; };
 		9F5A1EB3231731BB001F537E /* ViewInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F5A1EB2231731BB001F537E /* ViewInput.swift */; };
 		9F691440231257CB00D60153 /* NewMarker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F69143F231257CB00D60153 /* NewMarker.swift */; };
+		9F69DB132345F61500F167F9 /* ReportIncidentUserInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F69DB122345F61500F167F9 /* ReportIncidentUserInfoViewController.swift */; };
 		9F6AC2452311865900EF5F31 /* FirstLaunch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F6AC2442311865900EF5F31 /* FirstLaunch.swift */; };
 		9F6AC247231189FC00EF5F31 /* UIStoryboard+Anyway.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F6AC246231189FC00EF5F31 /* UIStoryboard+Anyway.swift */; };
 		9F6AC24923118F0700EF5F31 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9F6AC24823118F0700EF5F31 /* Images.xcassets */; };
@@ -318,6 +319,7 @@
 		9F5A1EB023173135001F537E /* ViewOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewOutput.swift; sourceTree = "<group>"; };
 		9F5A1EB2231731BB001F537E /* ViewInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewInput.swift; sourceTree = "<group>"; };
 		9F69143F231257CB00D60153 /* NewMarker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewMarker.swift; sourceTree = "<group>"; };
+		9F69DB122345F61500F167F9 /* ReportIncidentUserInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportIncidentUserInfoViewController.swift; sourceTree = "<group>"; };
 		9F6AC2442311865900EF5F31 /* FirstLaunch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstLaunch.swift; sourceTree = "<group>"; };
 		9F6AC246231189FC00EF5F31 /* UIStoryboard+Anyway.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIStoryboard+Anyway.swift"; sourceTree = "<group>"; };
 		9F6AC24823118F0700EF5F31 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
@@ -486,6 +488,7 @@
 				9F6AC2442311865900EF5F31 /* FirstLaunch.swift */,
 				9FF3E500231CFEC700B14B9F /* BaseViewConroller.swift */,
 				9FCBB283234482A500F9B1BD /* OnboardingViewController.swift */,
+				9F69DB122345F61500F167F9 /* ReportIncidentUserInfoViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -1054,6 +1057,7 @@
 				9F0EE9CE230C8DE100D53D4D /* GMUDefaultClusterIconGenerator.m in Sources */,
 				9F6E35922313F8AB00A8457F /* AnywayAPI.swift in Sources */,
 				9F0EE8BD22F718F300D53D4D /* InsetLabel.swift in Sources */,
+				9F69DB132345F61500F167F9 /* ReportIncidentUserInfoViewController.swift in Sources */,
 				9F0EE90622F71C1400D53D4D /* JGProgressHUDRingIndicatorView.m in Sources */,
 				9FCBB284234482A500F9B1BD /* OnboardingViewController.swift in Sources */,
 				9F0EE8FF22F71C1400D53D4D /* JGProgressHUDAnimation.m in Sources */,

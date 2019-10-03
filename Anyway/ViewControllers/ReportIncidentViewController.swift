@@ -544,7 +544,7 @@ class ReportIncidentViewController: BaseViewController {
         
       //   let imageData = selectedImageView?.image?.jpegData(compressionQuality: 0.8)
         
-        
+        //startReportIncidentUserInfoVC()
 
         self.delegate?.didFinishReport(incidentData: incidentData)
     }
@@ -700,6 +700,20 @@ class ReportIncidentViewController: BaseViewController {
 
         })
         super.updateViewConstraints()
+    }
+    
+    
+    
+    
+    private func startReportIncidentUserInfoVC() {
+        let reportIncidentUserInfoViewController:ReportIncidentUserInfoViewController = UIStoryboard.main.instantiateViewController(withIdentifier: "ReportIncidentUserInfoViewController") as UIViewController as! ReportIncidentUserInfoViewController
+
+//        ReportIncidentViewController.delegate = self as ReportIncidentViewControllerDelegate
+//        ReportIncidentViewController.incidentImageView = self.selectedImageView
+//        ReportIncidentViewController.incidentLocation = self.incidentLocation
+//        ReportIncidentViewController.incidentAddress = self.incidentAddress
+
+        self.navigationController?.pushViewController(reportIncidentUserInfoViewController, animated: true)
     }
 }
 

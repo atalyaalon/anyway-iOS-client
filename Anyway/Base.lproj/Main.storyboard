@@ -60,7 +60,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sEZ-um-WKY" customClass="GMSMapView">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="716"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                                 <color key="backgroundColor" red="0.96862745098039216" green="0.90196078431372551" blue="0.97254901960784312" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </view>
                         </subviews>
@@ -100,6 +100,24 @@
             </objects>
             <point key="canvasLocation" x="3700.0000000000005" y="1435"/>
         </scene>
+        <!--Report Incident User Info View Controller-->
+        <scene sceneID="nh3-eJ-bGx">
+            <objects>
+                <viewController storyboardIdentifier="ReportIncidentUserInfoViewController" id="yzf-m2-E7c" customClass="ReportIncidentUserInfoViewController" customModule="Anyway" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="lnZ-hT-q91"/>
+                        <viewControllerLayoutGuide type="bottom" id="FQm-yq-cZI"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Ktj-9g-D5d">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="WO4-lO-aQf" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4541" y="1435"/>
+        </scene>
         <!--Language View Controller-->
         <scene sceneID="pwg-jz-8QM">
             <objects>
@@ -109,7 +127,7 @@
                         <viewControllerLayoutGuide type="bottom" id="v41-Oy-lgi"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="Mpb-0j-ah0">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="716"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="בחר/י שפה Choose Language" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PJN-6J-MDt" userLabel="Choose Language">
@@ -227,7 +245,7 @@
                                 <rect key="frame" x="0.0" y="-20" width="414" height="756"/>
                             </mapView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="   " textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6CP-to-AaA" userLabel="כמות נמצאו..." customClass="InsetLabel" customModule="Anyway" customModuleProvider="target">
-                                <rect key="frame" x="383" y="16" width="15" height="23"/>
+                                <rect key="frame" x="367" y="16" width="31" height="39"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="19"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
@@ -509,7 +527,7 @@
                         <viewControllerLayoutGuide type="bottom" id="Hhe-TW-Xi8"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="qQL-3E-FnB">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="805"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="i2U-g3-eNt">

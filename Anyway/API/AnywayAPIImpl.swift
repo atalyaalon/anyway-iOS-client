@@ -16,7 +16,7 @@ public class AnywayAPIImpl { //}: AnywayAPI {
     public var errorHandler: ErrorHandler?
     private let sessionManager: SessionManager
 
-    private let baseUrl = "http://www.anyway.co.il"
+    private let baseUrl = "https://www.anyway.co.il"
 
     required public init( sessionConfiguration: URLSessionConfiguration ) {
         self.sessionManager = Alamofire.SessionManager(configuration: sessionConfiguration)
@@ -120,29 +120,31 @@ public class AnywayAPIImpl { //}: AnywayAPI {
         let apiCall = APICall(endpoint: ReportIncidentEndPoint.report_incident)
         
         let params: [String : Any] = [
-            "longitude" : incidentData.longitude,
-            "latitude" : incidentData.latitude,
-            "signs_on_the_road_not_clear" : incidentData.signs_on_the_road_not_clear,
-            "signs_problem" : incidentData.signs_problem,
-            "pothole" : incidentData.pothole,
-            "no_light" : incidentData.no_light,
-            "crossing_missing"   : incidentData.crossing_missing,
-            "sidewalk_is_blocked" : incidentData.sidewalk_is_blocked, //not used (server logic determenines this)
-            "street_light_issue"   : incidentData.street_light_issue,
-            "road_hazard"     : incidentData.road_hazard,
-            "fist_name"   : incidentData.fist_name ?? "",
-            "last_name"  : incidentData.fist_name ?? "",
-            "email"   : incidentData.email ?? "",
-            "id" : incidentData.id ?? "",
-            "problem_descripion" : incidentData.problem_descripion ?? "",
-            
-             //let imageData = selectedImageView?.image?.jpegData(compressionQuality: 0.8)
-            //"imageData" : incidentData.imageData
-            "imageData" :"bla"
-           
-        ]
+              "longitude": incidentData.longitude,
+              "latitude": incidentData.latitude,
+              "signs_on_the_road_not_clear" : incidentData.signs_on_the_road_not_clear,
+              "signs_problem" : incidentData.signs_problem,
+              "pothole" : incidentData.pothole,
+              "no_light" : incidentData.no_light,
+              "no_sign": incidentData.no_sign,
+              "crossing_missing"   : incidentData.crossing_missing,
+              "sidewalk_is_blocked" : incidentData.sidewalk_is_blocked, //not used (server logic determenines this)
+              "street_light_issue"   : incidentData.street_light_issue,
+              "road_hazard"     : incidentData.road_hazard,
+              "first_name"   : incidentData.fist_name ?? "",
+              "last_name"  : incidentData.fist_name ?? "",
+              "email"   : incidentData.email ?? "",
+              "phone_number": incidentData.phone_number ?? "",
+              "personal_id" : incidentData.id ?? "",
+              "problem_descripion" : incidentData.problem_descripion ?? "",
+              "image_data" :"bla",
+              "send_to_municipality": incidentData.send_to_monicipality,
+              "problem_description": incidentData.problem_descripion ?? ""]
         
         apiCall.add(params: params)
+        
+        apiCall.add(header: "Content-Type", value: "application/json")
+    
         
         let urlRequest = createUrlRequest(for: apiCall)
         let dataRequest: DataRequest = sessionManager.request(urlRequest)
@@ -153,32 +155,30 @@ public class AnywayAPIImpl { //}: AnywayAPI {
         
         UIApplication.shared.isNetworkActivityIndicatorVisible = true
   
-        //let task = dataRequest.response(completionHandler: { (response: DefaultDataResponse) in
-        let task = dataRequest.responseString(completionHandler: { (response: DataResponse<String>) in
+//        //let task = dataRequest.response(completionHandler: { (response: DefaultDataResponse) in
+        _ = dataRequest.responseString(completionHandler: { (response: DataResponse<String>) in
 
             switch response.result {
             case .success:
 
-                print("success!")
-
+                print("reportIncident Success!")
                 if let jsonString = response.result.value   {
                     print(jsonString)
                 }
-                let errMsg = String(data: response.data!, encoding: String.Encoding.utf8)!
-                debugPrint(errMsg)
-                debugPrint(response)
-
+                //let errMsg = String(data: response.data!, encoding: String.Encoding.utf8)!
                 result(true)
 
             case .failure(let err):
+                print("reportIncident Failed!")
                 print("Error! \(err)")
+                debugPrint(err)
+                result(false)
             }
 
         })
     }
 
- 
-    
+
  
     private func createUrlRequest(for apiCall: APICall) -> URLRequest {
         let url = URL.init(string: baseUrl)
@@ -201,12 +201,10 @@ public class AnywayAPIImpl { //}: AnywayAPI {
             }
         }
         
-        
-        
-
         apiCall.allHttpHeaders.forEach { (key: String, value: String) in
             urlRequest.addValue(value, forHTTPHeaderField: key)
         }
+        print("urlRequest \(urlRequest)")
 
         return urlRequest
     }
