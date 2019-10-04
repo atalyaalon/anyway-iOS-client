@@ -199,7 +199,16 @@ extension MainViewModel: MainViewOutput {
         self.incidentLocation = coordinate
         reverseGeocodeCoordinate(coordinate)
         addMarkerOnTheMap(coordinate)
+        //TEST TEST -remove
+        startReportIncidentUserInfoVC()
     }
+    
+        ///TEST TEST - todo remove
+        private func startReportIncidentUserInfoVC() {
+            let reportIncidentUserInfoViewController:ReportIncidentUserInfoViewController = UIStoryboard.main.instantiateViewController(withIdentifier: "ReportIncidentUserInfoViewController") as UIViewController as! ReportIncidentUserInfoViewController
+
+            self.view?.pushViewController(reportIncidentUserInfoViewController, animated: true)
+        }
 
     func handleCameraMovedToPosition(coordinate: CLLocationCoordinate2D) {
         if self.currentState == .start {

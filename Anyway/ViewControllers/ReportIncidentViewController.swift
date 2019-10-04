@@ -544,9 +544,9 @@ class ReportIncidentViewController: BaseViewController {
         
       //   let imageData = selectedImageView?.image?.jpegData(compressionQuality: 0.8)
         
-        //startReportIncidentUserInfoVC()
+        startReportIncidentUserInfoVC()
 
-        self.delegate?.didFinishReport(incidentData: incidentData)
+        //self.delegate?.didFinishReport(incidentData: incidentData)
     }
 
     private func setupNavigationBar() {
