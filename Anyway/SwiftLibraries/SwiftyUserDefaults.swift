@@ -85,26 +85,39 @@ public extension UserDefaults {
     
     /// Sets value for `key`
     
-    subscript(key: String) -> Any? {
+    subscript<T>(key: String) -> T? {
         get {
-            return self[key]
+            return value(forKey: key) as? T
         }
         set {
-            if let v = newValue as? Int {
-                set(v, forKey: key)
-            } else if let v = newValue as? Double {
-                set(v, forKey: key)
-            } else if let v = newValue as? Bool {
-                set(v, forKey: key)
-            } else if let v = newValue as? NSObject {
-                set(v, forKey: key)
-            } else if newValue == nil {
+            if newValue == nil {
                 removeObject(forKey: key)
             } else {
-                assertionFailure("Invalid value type")
+                set(newValue, forKey: key)
             }
         }
     }
+    
+//    subscript(key: String) -> Any? {
+//        get {
+//            return self//[key]
+//        }
+//        set {
+//            if let v = newValue as? Int {
+//                set(v, forKey: key)
+//            } else if let v = newValue as? Double {
+//                set(v, forKey: key)
+//            } else if let v = newValue as? Bool {
+//                set(v, forKey: key)
+//            } else if let v = newValue as? NSObject {
+//                set(v, forKey: key)
+//            } else if newValue == nil {
+//                removeObject(forKey: key)
+//            } else {
+//                assertionFailure("Invalid value type")
+//            }
+//        }
+//    }
     
     /// Returns `true` if `key` exists
     

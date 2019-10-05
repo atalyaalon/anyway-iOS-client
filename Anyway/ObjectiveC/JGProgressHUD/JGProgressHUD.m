@@ -286,8 +286,8 @@ static CGRect keyboardFrame = (CGRect){{0.0f, 0.0f}, {0.0f, 0.0f}};
             self.indicatorView.frame = indicatorFrame;
         }
         
-        _textLabel.frame = labelFrame;
-        _detailTextLabel.frame = detailFrame;
+        self->_textLabel.frame = labelFrame;
+        self->_detailTextLabel.frame = detailFrame;
     };
     
     if (!animateIndicator) {

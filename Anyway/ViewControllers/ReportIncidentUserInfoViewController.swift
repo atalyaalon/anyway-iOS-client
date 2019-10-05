@@ -26,6 +26,7 @@ class ReportIncidentUserInfoViewController: FormViewController {
     private var phoneNumber: String?
     var incidentData: Incident!
     weak var delegate: ReportIncidentUserInfoViewControllerDelegate?
+    private let hud = JGProgressHUD(style: .light)
     
     
     override func viewDidLoad() {
@@ -59,25 +60,74 @@ class ReportIncidentUserInfoViewController: FormViewController {
     private func sendButtonTapped() {
         
         addUserInfoToIncidentData()
-        
+        self.showHUD()
         self.api.reportIncident(incidentData!) { (result: Bool) in
-           
-            //self.hideHUD()
-            print("finished reportIncident. result = \(result)")
             
-            self.show(error: "הנתונים נשלחו בהצלחה")
-           
-//            self.delegate?.didFinishUserInfo()
+            DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(2)) {
+                self.hideHUD()
+                print("finished reportIncident. result = \(result)")
+                
+                if result {
+                    self.showSuccess(error: "הנתונים נשלחו בהצלחה")
+                }
+                else{
+                    self.showError(error: "הנתונים לא נשלחו")
+                }
+            }
         }
         
         
         
         // startReportIncidentUserInfoVC(incidentData: incidentData)
         
-
+        
     }
       
+    func showSuccess(error: String) {
+        print("Trying to show error of base VC. Am I on main thread? \(Thread.isMainThread)")
+        if Thread.callStackSymbols.count > 2 {
+            print("Who called me: \(Thread.callStackSymbols[2])")
+        }
+        let alertController: UIAlertController = UIAlertController(title: error, message: nil, preferredStyle: .alert)
+        
+        alertController.addAction(UIAlertAction(title: "OK".localized, style: .cancel) { [unowned self] _ in
+            self.navigationController?.popViewController(animated: false)
+            self.delegate?.didFinishUserInfo()
+        })
+        
+        present(alertController, animated: true, completion: nil)
+    }
+    
+    func showError(error: String) {
+          print("Trying to show error of base VC. Am I on main thread? \(Thread.isMainThread)")
+          if Thread.callStackSymbols.count > 2 {
+              print("Who called me: \(Thread.callStackSymbols[2])")
+          }
+          let alertController: UIAlertController = UIAlertController(title: error, message: nil, preferredStyle: .alert)
+          
+          alertController.addAction(UIAlertAction(title: "OK".localized, style: .cancel) { _ in
+              //self.navigationController?.popViewController(animated: false)
+             // self.delegate?.didFinishUserInfo()
+          })
+          
+          present(alertController, animated: true, completion: nil)
+      }
+    
+    private func showHUD() {
+        DispatchQueue.main.async { [weak self]  in
+            
+            self?.hud?.isHidden = false
+            self?.hud?.show(in: self?.view, animated:true);
+            //hud.mode = .indeterminate
+            self?.hud?.textLabel.text = "שולח נתונים".localized
+        }
+    }
 
+      private func hideHUD() { 
+          DispatchQueue.main.async { [weak self]  in
+              self?.hud?.isHidden = true
+          }
+      }
     
     private func addForm() {// -> Section {
         
@@ -161,17 +211,21 @@ class ReportIncidentUserInfoViewController: FormViewController {
                     form.allRows.compactMap { $0.tag }, // All row tags
                     { _ in
                         let count = row.section?.form?.validate().count
-                        return self.isFormValid(count)
+                        if  !(self.sendToMonicipality ?? false) {
+                            return false
+                            // or if sendToMonicipality is true  and all other rows are valid - not empty
+                        }else  if  count != 0 &&  self.sendToMonicipality ?? false {
+                            return true
+                        }
+                        else{
+                            return false
+                        }
                 })
                 
                 row.onCellSelection { [weak self] (cell, row) in
-                   // if row.section?.form?.validate().count == 0{
-                       // print("form is valid")
-                    //let count = row.section?.form?.validate().count
                     if !(row.isDisabled){
                         self?.sendButtonTapped()
                     }
-//                    }
 //                    else{
 //                        print("form is NOT valid")
 //                        //self?.show(error: "שדות חסרים")
@@ -181,19 +235,7 @@ class ReportIncidentUserInfoViewController: FormViewController {
         }
     }
     
-    
-    fileprivate func isFormValid(_ count: Int?) -> Bool {
-        // button is enabled when sendToMonicipality is false
-        if  !(self.sendToMonicipality ?? false) {
-            return false
-            // or if sendToMonicipality is true  and all other rows are valid - not empty
-        }else  if  count != 0 &&  self.sendToMonicipality ?? false {
-            return true
-        }
-        else{
-            return false
-        }
-    }
+ 
     
     private func setAllCellTextColorAccordingToSwitch() {
         
@@ -220,26 +262,7 @@ class ReportIncidentUserInfoViewController: FormViewController {
         }
     }
     
-    
-    
-    func show(error: String) {
-        print("Trying to show error of base VC. Am I on main thread? \(Thread.isMainThread)")
-        if Thread.callStackSymbols.count > 2 {
-            print("Who called me: \(Thread.callStackSymbols[2])")
-        }
-        let alertController: UIAlertController = UIAlertController(title: error, message: nil, preferredStyle: .alert)
-        //alertController.addAction(UIAlertAction(title: "OK".localized, style: .cancel))
-        
-        alertController.addAction(UIAlertAction(title: "OK".localized, style: .cancel) { [unowned self] _ in
-            //self.openCameraScreen(delegate: self.cropDelegate!)
-             self.navigationController?.popViewController(animated: false)
-            self.delegate?.didFinishUserInfo()
-        })
 
-        present(alertController, animated: true, completion: nil)
-    }
-    
-    
     
     private func setupNavigationBar() {
 
@@ -262,3 +285,18 @@ class ReportIncidentUserInfoViewController: FormViewController {
            self.navigationController?.popViewController(animated: true)
        }
 }
+
+
+   
+//    fileprivate func isFormValid(_ count: Int?) -> Bool {
+//        // button is enabled when sendToMonicipality is false
+//        if  !(self.sendToMonicipality ?? false) {
+//            return false
+//            // or if sendToMonicipality is true  and all other rows are valid - not empty
+//        }else  if  count != 0 &&  self.sendToMonicipality ?? false {
+//            return true
+//        }
+//        else{
+//            return false
+//        }
+//    }

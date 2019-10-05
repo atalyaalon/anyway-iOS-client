@@ -87,7 +87,7 @@ public class AnywayAPIImpl { //}: AnywayAPI {
 
         var markers:NewMarkers? = nil
 
-        let task = dataRequest.responseString(completionHandler: { (response: DataResponse<String>) in
+        dataRequest.responseString(completionHandler: { (response: DataResponse<String>) in
 
             switch response.result {
             case .success:
@@ -103,7 +103,12 @@ public class AnywayAPIImpl { //}: AnywayAPI {
             case .failure(let err):
                 print("Error! \(err)")
             }
-            anotations?(markers?.markers)
+            
+            
+            DispatchQueue.main.async {
+                anotations?(markers?.markers)
+            }
+
 
             //            return Disposables.create {
             //                task.cancel()
