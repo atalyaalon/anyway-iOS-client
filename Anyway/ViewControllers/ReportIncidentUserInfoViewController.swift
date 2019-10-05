@@ -9,37 +9,80 @@
 import UIKit
 import Eureka
 
+protocol ReportIncidentUserInfoViewControllerDelegate: class {
+
+    func didFinishUserInfo()
+    func didCancelUserInfo()
+}
+
 class ReportIncidentUserInfoViewController: FormViewController {
 
+    private var api: AnywayAPIImpl!
+    private var sendToMonicipality: Bool?
     private var firstName: String?
     private var lastName: String?
-    private var sendToMonicipality: Bool?
     private var id: String?
     private var email: String?
     private var phoneNumber: String?
+    var incidentData: Incident!
+    weak var delegate: ReportIncidentUserInfoViewControllerDelegate?
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
         //self.navigationController?.isNavigationBarHidden = false
-
+        let sessionConfiguration: URLSessionConfiguration = URLSessionConfiguration.default
+        sessionConfiguration.timeoutIntervalForRequest = Config.TIMEOUT_INTERVAL_FOR_REQUEST
+        self.api = AnywayAPIImpl(sessionConfiguration: sessionConfiguration)
+        
+        setupNavigationBar()
         setupForm()
     }
+    
     internal func setupForm() {
-
+        
         navigationOptions = RowNavigationOptions.Disabled
         //form += [userSection()]
-         userSection()
+        addForm()
     }
       
       
- 
+    private func addUserInfoToIncidentData() {
+        incidentData.send_to_monicipality = sendToMonicipality ?? false
+        self.incidentData.fist_name = self.firstName
+        self.incidentData.id = self.lastName
+        self.incidentData.fist_name = self.id
+        self.incidentData.email = self.email
+        self.incidentData.phone_number = self.phoneNumber
+    }
+    
+    private func sendButtonTapped() {
+        
+        addUserInfoToIncidentData()
+        
+        self.api.reportIncident(incidentData!) { (result: Bool) in
+           
+            //self.hideHUD()
+            print("finished reportIncident. result = \(result)")
+            
+            self.show(error: "הנתונים נשלחו בהצלחה")
+           
+//            self.delegate?.didFinishUserInfo()
+        }
+        
+        
+        
+        // startReportIncidentUserInfoVC(incidentData: incidentData)
+        
+
+    }
       
-    private func userSection() {// -> Section {
+
+    
+    private func addForm() {// -> Section {
+        
         
         // return Section("פרטים אישיים")
-        //return Section("")
         form +++ Section("")
             <<< SwitchRow("report") {
                 $0.title = "דווח לרשות העירונית"
@@ -48,11 +91,8 @@ class ReportIncidentUserInfoViewController: FormViewController {
                 guard let sendToMonicipality = row.value else {return}
                 self?.sendToMonicipality = sendToMonicipality
                 
-                self?.setAllCelltextColorAccordingtoSwitch()
-                //self?.tableView.reloadData()
+                self?.setAllCellTextColorAccordingToSwitch()
             }
-            
-            
             
             <<< TextRow("firstName"){ row in
                 row.title = "שם פרטי"
@@ -62,6 +102,7 @@ class ReportIncidentUserInfoViewController: FormViewController {
                 guard let firstName = row.value else {return}
                 self?.firstName = firstName
             }
+            
             <<< TextRow("lastName"){row in
                 row.title = "שם משפחה"
                 row.add(rule: RuleRequired())
@@ -88,6 +129,7 @@ class ReportIncidentUserInfoViewController: FormViewController {
                 guard let email = row.value else {return}
                 self?.email = email
             }
+            
             <<< PhoneRow("phone"){
                 $0.title = "מספר טלפון"
                 $0.add(rule: RuleRequired())
@@ -97,12 +139,9 @@ class ReportIncidentUserInfoViewController: FormViewController {
                 self?.phoneNumber = phoneNumber
             }
             
-            
-            //
-            //                        +++ Section("שלח את פרטי המפגע") { section in
-            //                               section.header?.height = { 40 }
-            //                               section.footer?.height = { 40 }
-            //                           }
+
+            //+++ Section("שלח את פרטי המפגע") { section in
+            // Button section
             +++ Section("") { section in
                 section.header?.height = { 50 }
                 section.footer?.height = { 40 }
@@ -110,60 +149,53 @@ class ReportIncidentUserInfoViewController: FormViewController {
             
             <<< ButtonRow(){ row in
                 row.title = "שלח"
-                
-                
-                // $0.disabled =  Condition.function( $0.section?.form?.validate().count == 0)
+            
                 row.cellUpdate { cell, row in
                     cell.textLabel?.textColor = UIColor.white
                     cell.backgroundColor =  UIColor.init(hexString: "3764BC")
-                    //                                let count = row.section?.form?.validate().count
                     print ( " in cellUpdate -   row.isDisabled  = \( row.isDisabled )" )
                     cell.backgroundColor = row.isDisabled ? UIColor.lightGray : UIColor.init(hexString: "3764BC")
-                    //                                if  !(self.sendToMonicipality ?? false ){
-                    //                                         // print ( "in cellUpdate - count = \(count) \(self.sendToMonicipality)"
-                    //                                    cell.backgroundColor = UIColor.init(hexString: "3764BC")
-                    //                                }else if count != 0 &&  self.sendToMonicipality ?? false {
-                    //                                    cell.backgroundColor = UIColor.init(hexString: "3764BC")
-                    //                                                   //print ( "2in cellUpdate - count = \(count) \(self.sendToMonicipality)")
-                    //
-                    //                                }
-                    //                                else{
-                    //                                   cell.backgroundColor =  UIColor.lightGray
-                    //                                }
+
                 }
                 row.disabled = Condition.function(
-                    form.allRows.flatMap { $0.tag }, // All row tags
+                    form.allRows.compactMap { $0.tag }, // All row tags
                     { _ in
                         let count = row.section?.form?.validate().count
-                        //row.section?.form?.validate().count == 0
-                        if  !(self.sendToMonicipality ?? false) {
-                            print ( "1in row.disabled - count = \(count) \(self.sendToMonicipality)")
-                            return false
-                        }else  if  count != 0 &&  self.sendToMonicipality ?? false {
-                            print ( "2in row.disabled - count = \(count) \(self.sendToMonicipality)")
-                            return true
-                        }
-                        else{
-                            print ( "3in row.disabled - count = \(count) \(self.sendToMonicipality)")
-                            return false
-                        }
-                        
-                }) // Form has no validation errors
+                        return self.isFormValid(count)
+                })
                 
                 row.onCellSelection { [weak self] (cell, row) in
-                    //print("validating errors: \(row.section?.form?.validate().count)")
-                    if row.section?.form?.validate().count == 0{
-                        print("form is valid")
+                   // if row.section?.form?.validate().count == 0{
+                       // print("form is valid")
+                    //let count = row.section?.form?.validate().count
+                    if !(row.isDisabled){
+                        self?.sendButtonTapped()
                     }
-                    else{
-                        print("form is NOT valid")
-                    }
+//                    }
+//                    else{
+//                        print("form is NOT valid")
+//                        //self?.show(error: "שדות חסרים")
+//                    }
                 }
                 
         }
     }
     
-    private func setAllCelltextColorAccordingtoSwitch() {
+    
+    fileprivate func isFormValid(_ count: Int?) -> Bool {
+        // button is enabled when sendToMonicipality is false
+        if  !(self.sendToMonicipality ?? false) {
+            return false
+            // or if sendToMonicipality is true  and all other rows are valid - not empty
+        }else  if  count != 0 &&  self.sendToMonicipality ?? false {
+            return true
+        }
+        else{
+            return false
+        }
+    }
+    
+    private func setAllCellTextColorAccordingToSwitch() {
         
         let rowFirstName: TextRow? = self.form.rowBy(tag: "firstName")
         let rowLastName: TextRow? = self.form.rowBy(tag: "lastName")
@@ -187,5 +219,46 @@ class ReportIncidentUserInfoViewController: FormViewController {
             rowPhone?.cell.titleLabel?.textColor = .black
         }
     }
+    
+    
+    
+    func show(error: String) {
+        print("Trying to show error of base VC. Am I on main thread? \(Thread.isMainThread)")
+        if Thread.callStackSymbols.count > 2 {
+            print("Who called me: \(Thread.callStackSymbols[2])")
+        }
+        let alertController: UIAlertController = UIAlertController(title: error, message: nil, preferredStyle: .alert)
+        //alertController.addAction(UIAlertAction(title: "OK".localized, style: .cancel))
+        
+        alertController.addAction(UIAlertAction(title: "OK".localized, style: .cancel) { [unowned self] _ in
+            //self.openCameraScreen(delegate: self.cropDelegate!)
+             self.navigationController?.popViewController(animated: false)
+            self.delegate?.didFinishUserInfo()
+        })
 
+        present(alertController, animated: true, completion: nil)
+    }
+    
+    
+    
+    private func setupNavigationBar() {
+
+         let leftBarButtonItem: UIBarButtonItem = UIBarButtonItem(title: "BACK".localized,
+                                                   style: .plain,
+                                                   target: self,
+                                                   action: #selector(onBackButtonClick))
+         leftBarButtonItem.tintColor = UIColor.white
+         self.navigationItem.setLeftBarButton(leftBarButtonItem, animated: false)
+         self.navigationItem.title = "REPORT_AN_INCIDENT".localized
+
+         let nav = self.navigationController?.navigationBar
+         nav?.isTranslucent = false;
+         nav?.barTintColor = UIColor.init(hexString: "3764BC")
+         nav?.barStyle = UIBarStyle.black
+         nav?.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
+     }
+    
+    @objc func onBackButtonClick() {
+           self.navigationController?.popViewController(animated: true)
+       }
 }

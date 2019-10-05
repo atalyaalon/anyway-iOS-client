@@ -200,7 +200,7 @@ extension MainViewModel: MainViewOutput {
         reverseGeocodeCoordinate(coordinate)
         addMarkerOnTheMap(coordinate)
         //TEST TEST -remove
-        startReportIncidentUserInfoVC()
+       // startReportIncidentUserInfoVC()
     }
     
         ///TEST TEST - todo remove
@@ -265,17 +265,17 @@ extension MainViewModel: FilterScreenDelegate {
 // MARK: - ReportIncidentViewControllerDelegate
 extension MainViewModel: ReportIncidentViewControllerDelegate {
 
-    func didFinishReport(incidentData: Incident?) {
+    func didFinishReport() {
         
 
-        self.api.reportIncident(incidentData!) { (result: Bool) in
-           
-            self.hideHUD()
-            print("finished reportIncident. result = \(result)")
-        }
-        
+//        self.api.reportIncident(incidentData!) { (result: Bool) in
+//
+//            self.hideHUD()
+//            print("finished reportIncident. result = \(result)")
+//        }
+//
    
-        view?.popViewController(animated: true)
+        view?.popViewController(animated: false)
         self.setMainViewState(state: .start)
     }
 
