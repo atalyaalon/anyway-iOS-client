@@ -43,11 +43,6 @@ class MainViewController: BaseViewController {
         addImageModel = AddImageViewModel(viewController: self)
         mainViewModel.viewDidLoad()
     }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        //self.topDrawer?.setText(text: "CHOOSE_A_PLACE".localized, drawerHeight: self.SMALL_DRAWER_HEIGHT)
-        //self.topDrawer?.setVisibility(visible: true)
-    }
 
     override func setupView() {
         self.navigationController?.isNavigationBarHidden = true

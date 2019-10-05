@@ -36,6 +36,8 @@ class ReportIncidentUserInfoViewController: FormViewController {
         sessionConfiguration.timeoutIntervalForRequest = Config.TIMEOUT_INTERVAL_FOR_REQUEST
         self.api = AnywayAPIImpl(sessionConfiguration: sessionConfiguration)
         
+         print ("incident data 3 = \(incidentData!)")
+        
         setupNavigationBar()
         setupForm()
     }
@@ -49,21 +51,27 @@ class ReportIncidentUserInfoViewController: FormViewController {
       
       
     private func addUserInfoToIncidentData() {
+        
+        print ("incident data 5 = \(incidentData!)")
+
         incidentData.send_to_monicipality = sendToMonicipality ?? false
         self.incidentData.fist_name = self.firstName
-        self.incidentData.id = self.lastName
-        self.incidentData.fist_name = self.id
+        self.incidentData.id = self.id
+        self.incidentData.last_name = self.lastName
         self.incidentData.email = self.email
         self.incidentData.phone_number = self.phoneNumber
+        
+        print ("incident data 6 = \(incidentData!)")
     }
     
     private func sendButtonTapped() {
         
+        print ("incident data 4 = \(incidentData!)")
         addUserInfoToIncidentData()
         self.showHUD()
         self.api.reportIncident(incidentData!) { (result: Bool) in
             
-            DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(2)) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1)) {
                 self.hideHUD()
                 print("finished reportIncident. result = \(result)")
                 

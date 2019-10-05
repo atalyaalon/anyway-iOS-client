@@ -20,7 +20,7 @@ protocol ReportIncidentViewControllerDelegate: class {
 
 class ReportIncidentViewController: BaseViewController {
 
-    private let contentRectHeight: CGFloat = 1200
+    private let contentRectHeight: CGFloat = 1000
     private let edgesPadding: CGFloat = 25
     private let topPadding: CGFloat = 7
     private let labelHeight: CGFloat = 30
@@ -76,6 +76,28 @@ class ReportIncidentViewController: BaseViewController {
         addKeyboardObservers()
         addTapGesture()
         addImageTapGesture()
+        addDoneButtonOnKeyboard()
+    }
+    
+    
+    func addDoneButtonOnKeyboard() {
+        let doneToolbar: UIToolbar = UIToolbar(frame: CGRect(x: 0, y: 0, width: 320, height: 40))
+        doneToolbar.barStyle       = UIBarStyle.default
+        let flexSpace              = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.flexibleSpace, target: nil, action: nil)
+        let done: UIBarButtonItem  = UIBarButtonItem(title: "סיום", style: UIBarButtonItem.Style.done, target: self, action: #selector(ReportIncidentViewController.doneButtonAction))
+        
+        var items = [UIBarButtonItem]()
+        items.append(flexSpace)
+        items.append(done)
+        
+        doneToolbar.items = items
+        doneToolbar.sizeToFit()
+        
+        self.hazardDescTextView.inputAccessoryView = doneToolbar
+    }
+
+    @objc func doneButtonAction() {
+        self.hazardDescTextView.resignFirstResponder()
     }
 
     override func viewDidDisappear(_ animated: Bool) {
@@ -126,7 +148,7 @@ class ReportIncidentViewController: BaseViewController {
         super.viewDidLayoutSubviews()
         setScrollViewHeight()
     }
-
+    
     private func addKeyboardObservers() {
 
         NotificationCenter.default.addObserver(self, selector: #selector(ReportIncidentViewController.keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
@@ -140,6 +162,9 @@ class ReportIncidentViewController: BaseViewController {
 
     private func addTapGesture() {
         tapGesture = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
+        tapGesture.cancelsTouchesInView = false
+        tapGesture.delaysTouchesBegan = false
+        tapGesture.delaysTouchesEnded = false
         contentView.addGestureRecognizer(tapGesture)
     }
 
@@ -268,7 +293,7 @@ class ReportIncidentViewController: BaseViewController {
         view.layer.cornerRadius = 4.0
         view.layer.borderWidth = 1.0
         view.layer.borderColor = UIColor.black.cgColor
-        view.returnKeyType = UIReturnKeyType.done
+        //view.returnKeyType = UIReturnKeyType.done
         view.text = self.incidentAddress
         
         self.contentView.addSubview(view)
@@ -329,7 +354,7 @@ class ReportIncidentViewController: BaseViewController {
         view.layer.cornerRadius = 4.0
         view.layer.borderWidth = 1.0
         view.layer.borderColor = UIColor.black.cgColor
-        view.returnKeyType = UIReturnKeyType.done
+        //view.returnKeyType = UIReturnKeyType.done
         //view.placeholder = "describe bla bla"
         //view.placeholderColor = UIColor.lightGray
 
@@ -485,12 +510,12 @@ class ReportIncidentViewController: BaseViewController {
         //view.layer.masksToBounds = false
         //view.layer.shadowPath = UIBezierPath(roundedRect: view.bounds, cornerRadius: view.layer.cornerRadius).cgPath
 
-        view.addTarget(self, action: #selector(sendButtonTapped), for: .touchUpInside)
+        view.addTarget(self, action: #selector(continewButtonTapped), for: .touchUpInside)
         self.contentView.addSubview(view)
         self.sendButton = view
     }
 
-    @objc private func sendButtonTapped(_ sender: UIButton) {
+    @objc private func continewButtonTapped(_ sender: UIButton) {
         sender.layer.shadowColor = UIColor.white.cgColor
 
         var array: Array<HazardData>? = nil
@@ -540,6 +565,8 @@ class ReportIncidentViewController: BaseViewController {
             
         }
         incidentData.problem_descripion = hazardDescTextView.text
+        
+        print ("incident data 1 = \(incidentData)")
         
         
       //   let imageData = selectedImageView?.image?.jpegData(compressionQuality: 0.8)
@@ -715,6 +742,8 @@ class ReportIncidentViewController: BaseViewController {
         reportIncidentUserInfoViewController.incidentData = incidentData
         reportIncidentUserInfoViewController.delegate = self
 
+         print ("incident data 2 = \(incidentData)")
+        
         self.navigationController?.pushViewController(reportIncidentUserInfoViewController, animated: true)
     }
 }
@@ -889,11 +918,8 @@ extension ReportIncidentViewController: ReportIncidentInput {
 extension ReportIncidentViewController: ReportIncidentUserInfoViewControllerDelegate {
 
     func didFinishUserInfo() {
-        
-        
+                
         self.delegate?.didFinishReport()
-        //view?.popViewController(animated: true)
-        //self.setMainViewState(state: .start)
     }
 
     func didCancelUserInfo() {
