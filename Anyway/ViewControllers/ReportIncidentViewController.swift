@@ -51,6 +51,7 @@ class ReportIncidentViewController: BaseViewController {
 
     private var tapGesture: UITapGestureRecognizer!
     private var imageTapGesture: UITapGestureRecognizer!
+    private var imageIsEmpty: Bool!
 
     private var activeField: UITextView?
     public weak var delegate: ReportIncidentViewControllerDelegate?
@@ -244,6 +245,7 @@ class ReportIncidentViewController: BaseViewController {
         // If image was received from mainVC use it. else create one and set the place holder image
         if let view = self.incidentImageView {
             self.contentView.addSubview(view)
+            self.imageIsEmpty = false
         }
         else {
             self.incidentImageView = UIImageView()
@@ -251,6 +253,7 @@ class ReportIncidentViewController: BaseViewController {
             self.incidentImageView?.maskWith(color: UIColor.lightGray)
             self.incidentImageView?.isUserInteractionEnabled = true
             self.contentView.addSubview(self.incidentImageView!)
+            self.imageIsEmpty = true
         }
 
         self.incidentImageView?.contentMode = .center
@@ -436,7 +439,11 @@ class ReportIncidentViewController: BaseViewController {
         incidentData.signs_problem = self.selectedItems.contains(7)
         incidentData.street_light_issue = self.selectedItems.contains(8)
 
-        incidentData.imageData = incidentImageView?.image?.jpegData(compressionQuality: 0.8)
+        if (self.imageIsEmpty) {
+          incidentData.imageData = Data()
+        }else {
+            incidentData.imageData = incidentImageView?.image?.jpegData(compressionQuality: 0.8)
+        }
          
         if let incidentLocation = self.incidentLocation {
             incidentData.latitude = incidentLocation.latitude
@@ -749,6 +756,7 @@ extension ReportIncidentViewController: AddImageInput {
 
     func setSelectedImage(image: UIImage) {
         self.incidentImageView?.image = image
+        self.imageIsEmpty = false
     }
 }
 
