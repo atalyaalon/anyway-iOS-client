@@ -27,9 +27,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             var viewController: UIViewController
 
             if FirstLaunch().isFirstLaunch {
+                
                  viewController = UIStoryboard.main.instantiateViewController(withIdentifier: "OnboardingViewController")
+                
             } else {
+                
                  viewController = UIStoryboard.main.instantiateViewController(withIdentifier: "MainViewController") as UIViewController as! MainViewController
+                 let mainViewModel = MainViewModel(viewController: viewController as? MainViewInput)
+                (viewController as! MainViewController).mainViewModel = mainViewModel
             }
             navVC.pushViewController(viewController, animated: false)
         }

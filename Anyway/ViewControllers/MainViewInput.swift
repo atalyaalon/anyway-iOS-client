@@ -44,5 +44,5 @@ protocol MainViewInput: ViewInput {
     
     func setMarkerOnTheMap(coordinate: CLLocationCoordinate2D)
 
-    
+    func clearMap()
 }

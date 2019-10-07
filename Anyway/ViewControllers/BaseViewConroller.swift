@@ -11,7 +11,6 @@ import UIKit
 class BaseViewController: UIViewController, ViewInput {
 
     private var loadingIndicator: UIActivityIndicatorView!
-
     //
     // MARK: Lifecycle
     //

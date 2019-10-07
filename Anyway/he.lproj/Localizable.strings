@@ -483,3 +483,7 @@
 "REPORT_TO_MUNICIPALITY" = "דווח לרשות העירונית";
 "SKIP" = "דלג";
 "INCIDENT_ADDRESS" = "כתובת המפגע";
+"REPORT_AN_INCIDENT1" = "דיווח על מפגע 1/2";
+"REPORT_AN_INCIDENT2" = "דיווח על מפגע 2/2";
+"CHOOSE_A_NEW_PLACE" = "בחר את מקום המפגע";
+"CONTINUE_TO_CHANGE_LOCATION" = "לחץ המשך לשינוי מקום המפגע";

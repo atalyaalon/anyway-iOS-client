@@ -58,7 +58,7 @@ extension AddImageViewModel: UIImagePickerControllerDelegate {
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
 
         if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
-            let viewController = RSKImageCropViewController(image: image, cropMode: .circle)
+            let viewController = RSKImageCropViewController(image: image, cropMode: .square)
             viewController.delegate = self.cropDelegate
             picker.pushViewController(viewController, animated: true)
         } else {

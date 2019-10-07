@@ -79,7 +79,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="G5Q-TS-pSb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2022" y="1639"/>
+            <point key="canvasLocation" x="2928.985507246377" y="1638.5869565217392"/>
         </scene>
         <!--Report Incident View Controller-->
         <scene sceneID="knM-tX-qVZ">
@@ -98,7 +98,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="p3I-re-MVO" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2846" y="1639"/>
+            <point key="canvasLocation" x="3752.1739130434785" y="1638.5869565217392"/>
         </scene>
         <!--Report Incident User Info View Controller-->
         <scene sceneID="nh3-eJ-bGx">
@@ -116,7 +116,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WO4-lO-aQf" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3661" y="1639"/>
+            <point key="canvasLocation" x="4568.115942028986" y="1638.5869565217392"/>
         </scene>
         <!--Language View Controller-->
         <scene sceneID="pwg-jz-8QM">
@@ -164,7 +164,7 @@
                                 <color key="textColor" red="0.33333333333333331" green="0.33333333333333331" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jeo-8J-3rG" customClass="MDCFlatButton">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jeo-8J-3rG" customClass="MDCFlatButton">
                                 <rect key="frame" x="16" y="57" width="50" height="30"/>
                                 <state key="normal" title="Close">
                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -213,6 +213,7 @@
                             <constraint firstItem="cDp-bC-bqI" firstAttribute="top" secondItem="1XK-fo-oAQ" secondAttribute="bottom" constant="8" symbolic="YES" id="TMi-vY-7AC"/>
                             <constraint firstItem="Jeo-8J-3rG" firstAttribute="top" secondItem="Mpb-0j-ah0" secondAttribute="top" constant="57" id="TRa-66-FnR"/>
                             <constraint firstItem="wB9-x5-zJY" firstAttribute="centerX" secondItem="Mpb-0j-ah0" secondAttribute="centerX" id="WuG-zg-vkY"/>
+                            <constraint firstAttribute="trailing" secondItem="Jeo-8J-3rG" secondAttribute="trailing" constant="348" id="Xvp-l1-zMg"/>
                             <constraint firstItem="Jeo-8J-3rG" firstAttribute="leading" secondItem="Mpb-0j-ah0" secondAttribute="leading" constant="16" id="cMj-gd-aZe"/>
                             <constraint firstItem="cDp-bC-bqI" firstAttribute="centerX" secondItem="kVM-yJ-aoa" secondAttribute="centerX" id="j4h-Jz-pAF"/>
                             <constraint firstItem="kVM-yJ-aoa" firstAttribute="centerX" secondItem="1XK-fo-oAQ" secondAttribute="centerX" id="oBm-tL-ger"/>
@@ -227,7 +228,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UgG-cQ-JNN" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="8163.7681159420299" y="1428.2608695652175"/>
+            <point key="canvasLocation" x="9071.0144927536239" y="1428.2608695652175"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
@@ -424,6 +425,7 @@
                                             <constraints>
                                                 <constraint firstItem="tyf-jI-jFl" firstAttribute="top" secondItem="rH6-ij-ZCJ" secondAttribute="top" constant="21" id="9HS-bh-6wD"/>
                                                 <constraint firstItem="Fex-Oc-l0F" firstAttribute="leading" secondItem="rH6-ij-ZCJ" secondAttribute="leadingMargin" constant="7" id="cTy-GE-5Bv"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="tyf-jI-jFl" secondAttribute="trailing" constant="267" id="fV2-Fw-j69"/>
                                                 <constraint firstItem="Fex-Oc-l0F" firstAttribute="top" secondItem="rH6-ij-ZCJ" secondAttribute="top" constant="9" id="fWY-Sb-eWj"/>
                                                 <constraint firstAttribute="bottom" secondItem="Fex-Oc-l0F" secondAttribute="bottom" constant="9" id="jmj-zb-jnH"/>
                                                 <constraint firstItem="tyf-jI-jFl" firstAttribute="leading" secondItem="Fex-Oc-l0F" secondAttribute="trailing" constant="8" symbolic="YES" id="oM2-YT-U6W"/>
@@ -503,6 +505,7 @@
                             <constraint firstItem="Fk7-Eq-26z" firstAttribute="leading" secondItem="2vr-Fk-HUK" secondAttribute="leading" id="8rC-y5-aVv"/>
                             <constraint firstItem="U6W-Ye-Qcs" firstAttribute="top" secondItem="Fk7-Eq-26z" secondAttribute="bottom" id="AuG-LF-BVY"/>
                             <constraint firstAttribute="trailing" secondItem="Fk7-Eq-26z" secondAttribute="trailing" id="Jjz-Xk-G0c"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="vJ5-fW-puP" secondAttribute="trailing" constant="311" id="N4d-RE-Ayi"/>
                             <constraint firstItem="vJ5-fW-puP" firstAttribute="leading" secondItem="2vr-Fk-HUK" secondAttribute="leadingMargin" id="R7X-lf-H8U"/>
                             <constraint firstItem="Fk7-Eq-26z" firstAttribute="top" secondItem="vJ5-fW-puP" secondAttribute="bottom" priority="900" constant="16" id="ZEk-FX-UTY"/>
                         </constraints>
@@ -632,6 +635,7 @@ ANYWAY מציגה על גבי מפה תאונות דרכים עם נפגעים (
                                     <constraint firstItem="XRC-qu-oN2" firstAttribute="centerX" secondItem="i2U-g3-eNt" secondAttribute="centerX" id="18x-DF-4I5"/>
                                     <constraint firstItem="Jdk-sO-5fr" firstAttribute="leading" secondItem="g6g-zS-DDt" secondAttribute="trailing" constant="15" id="75Q-tj-UEA"/>
                                     <constraint firstItem="Em2-NV-DRo" firstAttribute="centerX" secondItem="i2U-g3-eNt" secondAttribute="centerX" id="ALt-I8-Nz5"/>
+                                    <constraint firstItem="zZc-95-OkH" firstAttribute="leading" secondItem="nxh-xy-J7Q" secondAttribute="trailing" constant="149" id="ARu-cV-gF6"/>
                                     <constraint firstItem="W6a-lU-jj5" firstAttribute="leading" secondItem="Jdk-sO-5fr" secondAttribute="leading" constant="1" id="BAV-7K-cBh"/>
                                     <constraint firstItem="nxh-xy-J7Q" firstAttribute="leading" secondItem="i2U-g3-eNt" secondAttribute="leading" constant="20" id="GBB-iN-QJu"/>
                                     <constraint firstAttribute="bottom" secondItem="g6g-zS-DDt" secondAttribute="bottom" constant="60" id="GaP-BU-9gb"/>
@@ -644,13 +648,13 @@ ANYWAY מציגה על גבי מפה תאונות דרכים עם נפגעים (
                                     <constraint firstAttribute="trailing" secondItem="W6a-lU-jj5" secondAttribute="trailing" constant="30" id="Yek-XL-2lS"/>
                                     <constraint firstAttribute="centerX" secondItem="wcD-nt-HIs" secondAttribute="centerX" id="YtM-8f-QUt"/>
                                     <constraint firstItem="wcD-nt-HIs" firstAttribute="top" secondItem="SQC-Jd-2iJ" secondAttribute="bottom" constant="-24" id="aLv-Fi-c3H"/>
-                                    <constraint firstItem="zZc-95-OkH" firstAttribute="baseline" secondItem="nxh-xy-J7Q" secondAttribute="baseline" id="b9x-pK-6Mg"/>
                                     <constraint firstAttribute="trailing" secondItem="SQC-Jd-2iJ" secondAttribute="trailing" constant="18" id="hXa-6l-Uas"/>
                                     <constraint firstItem="SQC-Jd-2iJ" firstAttribute="top" secondItem="Em2-NV-DRo" secondAttribute="bottom" constant="51" id="iki-q9-Han"/>
                                     <constraint firstItem="XRC-qu-oN2" firstAttribute="top" secondItem="nxh-xy-J7Q" secondAttribute="bottom" constant="22" id="lFS-xG-S3Y"/>
                                     <constraint firstAttribute="width" secondItem="SQC-Jd-2iJ" secondAttribute="width" constant="36" id="lKY-bn-aXc"/>
                                     <constraint firstItem="c5w-2M-nJU" firstAttribute="top" secondItem="XRC-qu-oN2" secondAttribute="bottom" constant="18" id="ljJ-7s-373"/>
                                     <constraint firstItem="SQC-Jd-2iJ" firstAttribute="leading" secondItem="i2U-g3-eNt" secondAttribute="leading" constant="18" id="rF8-fe-fOh"/>
+                                    <constraint firstAttribute="trailing" secondItem="Jdk-sO-5fr" secondAttribute="trailing" constant="89.329999999999998" id="ttD-EA-SNl"/>
                                     <constraint firstItem="W6a-lU-jj5" firstAttribute="top" secondItem="Jdk-sO-5fr" secondAttribute="bottom" id="uew-E4-rnI"/>
                                     <constraint firstItem="c5w-2M-nJU" firstAttribute="centerX" secondItem="XRC-qu-oN2" secondAttribute="centerX" id="uie-q3-Dhy"/>
                                     <constraint firstItem="nxh-xy-J7Q" firstAttribute="top" secondItem="i2U-g3-eNt" secondAttribute="top" constant="16" id="ziL-xJ-Acg"/>
@@ -983,10 +987,9 @@ ANYWAY מציגה על גבי מפה תאונות דרכים עם נפגעים (
                                 </userDefinedRuntimeAttributes>
                             </textView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NSO-b9-FzC">
-                                <rect key="frame" x="151" y="529" width="110" height="30"/>
+                                <rect key="frame" x="148" y="534" width="117" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="CMm-LE-txW"/>
-                                    <constraint firstAttribute="width" constant="110" id="v1V-SH-hSE"/>
                                 </constraints>
                                 <state key="normal" title="המשך">
                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -994,7 +997,7 @@ ANYWAY מציגה על גבי מפה תאונות דרכים עם נפגעים (
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="circleCorner" value="NO"/>
                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                        <real key="value" value="3"/>
+                                        <real key="value" value="4"/>
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
                                         <color key="value" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -1004,13 +1007,12 @@ ANYWAY מציגה על גבי מפה תאונות דרכים עם נפגעים (
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
-                                    <segue destination="GQG-KH-GPO" kind="presentation" modalPresentationStyle="fullScreen" id="pbg-z3-8pd"/>
+                                    <action selector="onContinuePressed:" destination="Joe-3E-hMz" eventType="touchUpInside" id="OS7-lm-s3L"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FPq-f0-PPK">
-                                <rect key="frame" x="151" y="579" width="110" height="30"/>
+                                <rect key="frame" x="148" y="580" width="117" height="30"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="110" id="ReZ-m7-I5P"/>
                                     <constraint firstAttribute="height" constant="30" id="xF5-lN-UxX"/>
                                 </constraints>
                                 <state key="normal" title="דווח עכשיו">
@@ -1019,7 +1021,7 @@ ANYWAY מציגה על גבי מפה תאונות דרכים עם נפגעים (
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="circleCorner" value="NO"/>
                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                        <real key="value" value="5"/>
+                                        <real key="value" value="4"/>
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
                                         <color key="value" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -1038,20 +1040,22 @@ ANYWAY מציגה על גבי מפה תאונות דרכים עם נפגעים (
                             <constraint firstItem="Bdu-s9-diq" firstAttribute="top" secondItem="1dM-CA-jx1" secondAttribute="top" id="49S-Cq-OOb"/>
                             <constraint firstItem="d6O-R8-Tx6" firstAttribute="top" secondItem="GRb-Ji-pf6" secondAttribute="bottom" constant="62" id="57B-om-TrS"/>
                             <constraint firstItem="GRb-Ji-pf6" firstAttribute="centerX" secondItem="1dM-CA-jx1" secondAttribute="centerX" id="7ak-Im-WCQ"/>
-                            <constraint firstItem="FPq-f0-PPK" firstAttribute="top" secondItem="NSO-b9-FzC" secondAttribute="bottom" constant="20" id="GeV-q8-Fn3"/>
+                            <constraint firstItem="FPq-f0-PPK" firstAttribute="top" secondItem="NSO-b9-FzC" secondAttribute="bottom" constant="16" id="GeV-q8-Fn3"/>
                             <constraint firstAttribute="trailingMargin" secondItem="d6O-R8-Tx6" secondAttribute="trailing" constant="35" id="HdW-6T-raZ"/>
                             <constraint firstAttribute="trailing" secondItem="Bdu-s9-diq" secondAttribute="trailing" id="IZE-TP-gEH"/>
-                            <constraint firstItem="NSO-b9-FzC" firstAttribute="top" secondItem="d6O-R8-Tx6" secondAttribute="bottom" constant="36" id="KQg-yn-VZD"/>
+                            <constraint firstItem="NSO-b9-FzC" firstAttribute="top" secondItem="d6O-R8-Tx6" secondAttribute="bottom" constant="41" id="KQg-yn-VZD"/>
+                            <constraint firstItem="NSO-b9-FzC" firstAttribute="leading" secondItem="1dM-CA-jx1" secondAttribute="leadingMargin" constant="128" id="NDc-jh-tx6"/>
                             <constraint firstItem="d6O-R8-Tx6" firstAttribute="leading" secondItem="1dM-CA-jx1" secondAttribute="leadingMargin" constant="33" id="OMK-k5-Fyf"/>
                             <constraint firstItem="PSp-Ku-ZDo" firstAttribute="top" secondItem="GRb-Ji-pf6" secondAttribute="bottom" constant="583" id="R5g-gX-iRZ"/>
                             <constraint firstItem="GRb-Ji-pf6" firstAttribute="leading" secondItem="1dM-CA-jx1" secondAttribute="leadingMargin" constant="57" id="fKc-pz-q5r"/>
                             <constraint firstAttribute="bottom" secondItem="Bdu-s9-diq" secondAttribute="bottom" id="gai-Mp-45j"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="NSO-b9-FzC" secondAttribute="trailing" constant="129" id="i41-22-eSF"/>
                             <constraint firstItem="PSp-Ku-ZDo" firstAttribute="top" secondItem="d6O-R8-Tx6" secondAttribute="bottom" constant="243" id="kkP-IS-9xj"/>
                             <constraint firstItem="Bdu-s9-diq" firstAttribute="leading" secondItem="1dM-CA-jx1" secondAttribute="leading" id="lmE-iU-ldX"/>
                             <constraint firstItem="FPq-f0-PPK" firstAttribute="trailing" secondItem="NSO-b9-FzC" secondAttribute="trailing" id="tAK-SB-o4u"/>
-                            <constraint firstItem="NSO-b9-FzC" firstAttribute="centerX" secondItem="1dM-CA-jx1" secondAttribute="centerX" constant="-1" id="ufa-1l-V2G"/>
+                            <constraint firstItem="NSO-b9-FzC" firstAttribute="centerX" secondItem="1dM-CA-jx1" secondAttribute="centerX" constant="-0.5" id="ufa-1l-V2G"/>
                             <constraint firstItem="FPq-f0-PPK" firstAttribute="leading" secondItem="NSO-b9-FzC" secondAttribute="leading" id="vWp-tZ-tri"/>
-                            <constraint firstItem="FPq-f0-PPK" firstAttribute="centerX" secondItem="1dM-CA-jx1" secondAttribute="centerX" constant="-1" id="xde-E9-mZW"/>
+                            <constraint firstItem="FPq-f0-PPK" firstAttribute="centerX" secondItem="1dM-CA-jx1" secondAttribute="centerX" constant="-0.5" id="xde-E9-mZW"/>
                             <constraint firstItem="GRb-Ji-pf6" firstAttribute="top" secondItem="8ZR-uq-2hq" secondAttribute="bottom" constant="9" id="yOU-D3-GKO"/>
                         </constraints>
                     </view>
@@ -1059,7 +1063,7 @@ ANYWAY מציגה על גבי מפה תאונות דרכים עם נפגעים (
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3eH-yN-3sM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1120" y="1639"/>
+            <point key="canvasLocation" x="1118.840579710145" y="1638.5869565217392"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="nl5-8Z-6za">
@@ -1078,6 +1082,24 @@ ANYWAY מציגה על גבי מפה תאונות דרכים עם נפגעים (
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Wym-bh-kgb" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="207" y="1639"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="cfM-2m-xpe">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="LmZ-9W-zuH" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Zco-FU-XXM">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="GQG-KH-GPO" kind="relationship" relationship="rootViewController" id="VyI-pw-jzl"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="bgj-Y0-b70" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2021.7391304347827" y="1638.5869565217392"/>
         </scene>
     </scenes>
     <resources>

@@ -84,6 +84,9 @@ extension UIColor {
         return UIColor(hexString: "#F7E6F8")
     }
     
+    open class var anywayBlue:UIColor{
+        UIColor.init(hexString: "3764BC")
+    }
 
     open class var purple1: UIColor {
         return UIColor(hexString: "#DFDDFA")

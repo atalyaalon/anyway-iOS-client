@@ -37,6 +37,10 @@ protocol MainViewOutput : ViewOutput {
     func handleSelectedImage(image: UIImage)
 
     func handleSkipSelectedWhenAddingImage()
+    
+    func handleContinueAfterPickingANewPlace()
+    
+    func handleCancelAfterPickingANewPlace()
 
 }
 

@@ -18,6 +18,7 @@ protocol ViewInput: class {
 
     func showLoadingIndicator()
 
-    func hideLoadingIndicator() 
+    func hideLoadingIndicator()
+
 
 }

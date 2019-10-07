@@ -11,9 +11,8 @@ import Foundation
 autoreleasepool {
     
     ManualLocalizationWorker.overrideCurrentLocal()
-    UIApplicationMain(
-    CommandLine.argc, CommandLine.unsafeArgv,
-    nil, NSStringFromClass(AppDelegate.self))
+    
+    UIApplicationMain(CommandLine.argc, CommandLine.unsafeArgv,nil, NSStringFromClass(AppDelegate.self))
 
 //
 //    UIApplicationMain(

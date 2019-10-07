@@ -142,9 +142,13 @@ public class AnywayAPIImpl { //}: AnywayAPI {
               "phone_number": incidentData.phone_number ?? "",
               "personal_id" : incidentData.id ?? "",
               "problem_descripion" : incidentData.problem_descripion ?? "",
-              "image_data" :"bla",
+              "image_data" :incidentData.imageData?.base64EncodedString() as Any,
               "send_to_municipality": incidentData.send_to_monicipality,
               "problem_description": incidentData.problem_descripion ?? ""]
+         //let imageStr = imageData.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0))
+        
+        //let base64 = imageData?.base64EncodedData(options: .lineLength64Characters)
+
         
         apiCall.add(params: params)
         

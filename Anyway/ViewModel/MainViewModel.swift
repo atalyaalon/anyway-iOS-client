@@ -16,7 +16,8 @@ enum MainVCState: Int {
     case continueTappedAfterPlacePicked = 2
     case markersReceived = 3
     case reportTapped = 4
-    //case hazardSelected = 5
+    case requestToChangePlace = 5
+    case placePickedAfterRequestToChangeLoc = 6
 }
 
 class MainViewModel: NSObject, UINavigationControllerDelegate {
@@ -30,6 +31,8 @@ class MainViewModel: NSObject, UINavigationControllerDelegate {
     private var selectedImageView: UIImageView?
     private var incidentLocation: CLLocationCoordinate2D?
     private var incidentAddress: String?
+    private var oldAddressBefoerTheChange: String?
+    
 
     init(viewController: MainViewInput?) {
         self.view = viewController
@@ -63,15 +66,20 @@ class MainViewModel: NSObject, UINavigationControllerDelegate {
     }
     //let imageData = selectedImageView?.image?.jpegData(compressionQuality: 0.8)
     
-    private func startReportIncidentVC() {
-        let ReportIncidentViewController:ReportIncidentViewController = UIStoryboard.main.instantiateViewController(withIdentifier: "ReportIncidentViewController") as UIViewController as! ReportIncidentViewController
+    private func startReportIncidentVC(withAdress:Bool = true) {
+        let reportIncidentViewController:ReportIncidentViewController = UIStoryboard.main.instantiateViewController(withIdentifier: "ReportIncidentViewController") as UIViewController as! ReportIncidentViewController
 
-        ReportIncidentViewController.delegate = self as ReportIncidentViewControllerDelegate
-        ReportIncidentViewController.incidentImageView = self.selectedImageView
-        ReportIncidentViewController.incidentLocation = self.incidentLocation
-        ReportIncidentViewController.incidentAddress = self.incidentAddress
+        reportIncidentViewController.delegate = self as ReportIncidentViewControllerDelegate
+        reportIncidentViewController.incidentImageView = self.selectedImageView
+        reportIncidentViewController.incidentLocation = self.incidentLocation
+        if withAdress {
+            reportIncidentViewController.incidentAddress = self.incidentAddress
+        }
+        else{
+            reportIncidentViewController.incidentAddress = self.oldAddressBefoerTheChange
+        }
 
-        self.view?.pushViewController(ReportIncidentViewController, animated: true)
+        self.view?.pushViewController(reportIncidentViewController, animated: true)
     }
 
     private func addHeatmap(markers: [NewMarker])  {
@@ -99,8 +107,6 @@ class MainViewModel: NSObject, UINavigationControllerDelegate {
         }
     }
     
-    
-
 
     func getAnnotations(_ edges: Edges) {
 
@@ -192,23 +198,29 @@ extension MainViewModel: MainViewOutput {
     }
 
     func handleTapOnTheMap(coordinate: CLLocationCoordinate2D){
-        if self.currentState != .start  {
-            return
+        if self.currentState == .start  || self.currentState == .requestToChangePlace {
+            self.incidentLocation = coordinate
+            if self.currentState == .requestToChangePlace {
+                self.oldAddressBefoerTheChange = incidentAddress
+            }
+            reverseGeocodeCoordinate(coordinate)
+            addMarkerOnTheMap(coordinate)
+        }
+        else if self.currentState == .placePicked {
+            self.incidentLocation = coordinate
+            reverseGeocodeCoordinate(coordinate)
+            self.view?.clearMap()
+            addMarkerOnTheMap(coordinate)
+            
+        }
+        else if self.currentState == .placePickedAfterRequestToChangeLoc {
+            self.oldAddressBefoerTheChange = incidentAddress
+            self.setMainViewState(state: .placePickedAfterRequestToChangeLoc)
         }
         
-        self.incidentLocation = coordinate
-        reverseGeocodeCoordinate(coordinate)
-        addMarkerOnTheMap(coordinate)
         //TEST TEST -remove
-       // startReportIncidentUserInfoVC()
+        // startReportIncidentUserInfoVC()
     }
-    
-        ///TEST TEST - todo remove
-        private func startReportIncidentUserInfoVC() {
-            let reportIncidentUserInfoViewController:ReportIncidentUserInfoViewController = UIStoryboard.main.instantiateViewController(withIdentifier: "ReportIncidentUserInfoViewController") as UIViewController as! ReportIncidentUserInfoViewController
-
-            self.view?.pushViewController(reportIncidentUserInfoViewController, animated: true)
-        }
 
     func handleCameraMovedToPosition(coordinate: CLLocationCoordinate2D) {
         if self.currentState == .start {
@@ -233,8 +245,15 @@ extension MainViewModel: MainViewOutput {
         let marker = GMSMarker()
         marker.position = CLLocationCoordinate2D(latitude: coordinate.latitude, longitude: coordinate.longitude)
 
-        self.setMainViewState(state: .placePicked)
         view?.setMarkerOnTheMap(coordinate: coordinate)
+        
+        if currentState == .start  ||  currentState == .placePicked{
+            self.setMainViewState(state: .placePicked)
+        }
+        else{
+            self.setMainViewState(state: .placePickedAfterRequestToChangeLoc)
+        }
+        
     }
 
     func handleSelectedImage(image: UIImage) {
@@ -246,6 +265,13 @@ extension MainViewModel: MainViewOutput {
 
     func handleSkipSelectedWhenAddingImage(){
         self.startReportIncidentVC()
+    }
+    
+    func handleContinueAfterPickingANewPlace(){
+        self.startReportIncidentVC()
+    }
+    func handleCancelAfterPickingANewPlace(){
+        startReportIncidentVC(withAdress:false)
     }
 }
 
@@ -281,6 +307,12 @@ extension MainViewModel: ReportIncidentViewControllerDelegate {
 
     func didCancelReport() {
         view?.popViewController(animated: true)
+        self.setMainViewState(state: .start)
+    }
+    func didRequestToChangeLocation(){ // TODO return an incident data if already part of it was filled by the user
+        view?.popViewController(animated: false)
+        self.setMainViewState(state: .requestToChangePlace)
+        
     }
 }
 

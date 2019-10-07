@@ -22,6 +22,7 @@ class InfoViewController: UIViewController {
         super.viewDidLoad()
         langButton.setTitle("LANGUAGE".localized, for: UIControl.State.normal)
         infoLabelText.text = "ANYWAY_TEXT".localized
+        langButton.isHidden = true // for now no need to change language
     }
     
     @IBAction func dismissAction() {
@@ -30,7 +31,7 @@ class InfoViewController: UIViewController {
     }
     
     @IBAction func moroInfoLinkAction() {
-        
+      UIApplication.shared.openURL(NSURL(string: "https://www.anyway.co.il")! as URL)
     }
     
 }

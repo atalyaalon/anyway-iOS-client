@@ -14,7 +14,8 @@ import RSKImageCropper
 protocol ReportIncidentViewControllerDelegate: class {
 
     func didFinishReport()
-    func didCancelReport() 
+    func didCancelReport()
+    func didRequestToChangeLocation()
 }
 
 
@@ -26,7 +27,7 @@ class ReportIncidentViewController: BaseViewController {
     private let labelHeight: CGFloat = 30
     private let collectionViewInsets: CGFloat = 10
     private let reuseIdentifier = "cell"
-    private let backgroundColor: UIColor = UIColor.white//.withAlphaComponent(0.525)
+    private let backgroundColor: UIColor = UIColor.white
 
     private var reportIncidentModel: ReportIncidentOutput! //ReportIncidentViewModel
     private var addImageModel: AddImageOutput! //AddImageViewModel
@@ -38,15 +39,12 @@ class ReportIncidentViewController: BaseViewController {
     private var incidentTypesLabel: UILabel!
     private var incidentAddressLabel: UILabel!
     private var addressTextView :UITextView!
+    private var mapButton: UIButton!
     private var collectionView: UICollectionView!
     private var otherLabel: UILabel!
     private var hazardDescTextView: UITextView!
     private var placeholderLabel : UILabel!
-    //private var switchLabel: UILabel!
-    //private var switchControl: UISwitch!
-   // private var addUserDetailsView: SpringView!
     private var sendButton: UIButton!
-
     private var items: [HazardData] = HazardsStorage.hazards
     private var selectedItems = Set<Int>()
     private var currentResponder: UIResponder?
@@ -119,6 +117,7 @@ class ReportIncidentViewController: BaseViewController {
         setupImage()
         setupAddressLabel()
         setupAddressTextView()
+        setupMapButton()
         setupIncidentTypesLabel()
         setupCollectionView()
         setupCommentLabel()
@@ -250,8 +249,6 @@ class ReportIncidentViewController: BaseViewController {
             self.incidentImageView = UIImageView()
             self.incidentImageView?.image = #imageLiteral(resourceName: "plus2")
             self.incidentImageView?.maskWith(color: UIColor.lightGray)
-//            imageTapGesture = UITapGestureRecognizer(target: self, action: #selector(imageTapped))
-//            self.incidentImageView?.addGestureRecognizer(imageTapGesture)
             self.incidentImageView?.isUserInteractionEnabled = true
             self.contentView.addSubview(self.incidentImageView!)
         }
@@ -298,9 +295,28 @@ class ReportIncidentViewController: BaseViewController {
         
         self.contentView.addSubview(view)
         self.addressTextView = view
-       // self.addressTextView.delegate = self
+    }
+    
+    private func setupMapButton() {
+        let view: UIButton = UIButton()
         
-      
+        view.clipsToBounds = true
+        view.setTitleColor(UIColor.white, for: UIControl.State.normal)
+        view.backgroundColor = UIColor.anywayBlue
+        view.tintColor = UIColor.black
+        view.setTitle("מפה (לחץ לשינוי מקום המפגע)", for: UIControl.State.normal)
+        
+        view.layer.borderColor = UIColor.black.cgColor
+        view.layer.borderWidth = 1
+        view.layer.cornerRadius = 5
+        
+        view.addTarget(self, action: #selector(mapButtonTapped), for: .touchUpInside)
+        self.contentView.addSubview(view)
+        self.mapButton = view
+    }
+    
+    @objc private func mapButtonTapped(_ sender: UIButton) {
+        self.delegate?.didRequestToChangeLocation()
     }
     
     private func setupIncidentTypesLabel() {
@@ -313,7 +329,6 @@ class ReportIncidentViewController: BaseViewController {
         self.incidentTypesLabel = view
     }
  
-    
     private func setupCollectionView() {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
@@ -368,126 +383,11 @@ class ReportIncidentViewController: BaseViewController {
         placeholderLabel.font = UIFont.italicSystemFont(ofSize: 14)
         placeholderLabel.sizeToFit()
         //placeholderLabel.textAlignment = .right
-        hazardDescTextView.addSubview(placeholderLabel)
+        self.contentView.addSubview(placeholderLabel)
         //placeholderLabel.frame.origin = CGPoint(x: 10, y: 10)
         placeholderLabel.textColor = UIColor.lightGray
         placeholderLabel.isHidden = !hazardDescTextView.text.isEmpty
     }
-
-//    private func setupSwitchLabel() {
-//        let view: UILabel = UILabel()
-//        view.textColor = UIColor.f8BlackText
-//        view.font = UIFont.systemFont(ofSize: 17)
-//        view.textAlignment = .center
-//        view.text = "REPORT_TO_MUNICIPALITY".localized
-//        self.contentView.addSubview(view)
-//        self.switchLabel = view
-//    }
-//    private func setupSwitchControlView() {
-//        let view = UISwitch()
-//        view.addTarget(self, action: #selector(valueChanged), for: .valueChanged)
-//        self.contentView.addSubview(view)
-//        self.switchControl = view
-//
-//    }
-//    @objc func valueChanged() {
-//        let isOn:Bool = self.switchControl.isOn
-//        print("\(isOn)")
-//        if isOn {
-//            if isAllAddUserDetailsViewSubviewsNotEmpty()  && (selectedItems.count > 0 || !self.hazardDescTextView.text.isEmpty) {
-//                self.sendButton.backgroundColor = UIColor.init(hexString: "3764BC")
-//            }
-//            else{
-//                self.sendButton.backgroundColor = UIColor.lightGray
-//            }
-//            self.addUserDetailsView.isHidden = false
-//            self.addUserDetailsView.duration = 1.0
-//            self.addUserDetailsView.animation = "pop"
-//            self.addUserDetailsView.animate()
-//        }
-//        else{
-//            if  selectedItems.count > 0 || !self.hazardDescTextView.text.isEmpty {
-//                self.sendButton.backgroundColor = UIColor.init(hexString: "3764BC")
-//            }
-//            else{
-//                self.sendButton.backgroundColor = UIColor.lightGray
-//            }
-//            self.addUserDetailsView.animation = "fadeOut"
-//            self.addUserDetailsView.duration = 2.0
-//            self.addUserDetailsView.animate()
-//        }
-//    }
-
-  /*  private func setupAddUserDetailsView(){
-        let view = SpringView()
-        view.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width-40, height: 210)
-        view.layer.cornerRadius = 5.0
-        view.layer.borderWidth = 1.0
-        view.layer.borderColor = UIColor.black.cgColor
-
-        view.isHidden = false
-        view.duration = 1.0
-        view.damping = 0.8
-        view.animation = "pop"
-
-
-        func addTextView2(factory: (() -> UITextView),  index:CGFloat,  placeHolder: String, config: ((UITextView, CGFloat, String) -> Void)  ) {
-
-            let textView: UITextView  = factory()
-            config(textView,index,placeHolder)
-        }
-
-
-        addTextView2(factory:{ () in
-                return  UITextView()
-            },index: 0 , placeHolder: "FIRST_NAME".localized , config: { (textView,index,placeHolder) in
-
-                textView.backgroundColor = .white
-                textView.isEditable = true
-                textView.font = UIFont.systemFont(ofSize: 14)
-                textView.layer.cornerRadius = 4.0
-                textView.layer.borderWidth = 1.0
-                textView.layer.borderColor = UIColor.black.cgColor
-                textView.textColor = UIColor.lightGray
-                textView.delegate = self
-                textView.text = placeHolder
-
-                let y: CGFloat = 10 + index*10.0 + index * 30.0
-
-                textView.frame = CGRect(x: 10, y: y, width: UIScreen.main.bounds.size.width-70, height: 30)
-                view.addSubview(textView)
-            }
-        )
-
-        func addTextView(_ index:CGFloat, _ placeHolder: String ) {
-
-            let textView = UITextView()
-            textView.backgroundColor = .white
-            textView.isEditable = true
-            textView.font = UIFont.systemFont(ofSize: 14)
-            textView.layer.cornerRadius = 4.0
-            textView.layer.borderWidth = 1.0
-            textView.layer.borderColor = UIColor.black.cgColor
-            textView.textColor = UIColor.lightGray
-            textView.delegate = self
-            textView.text = placeHolder
-
-            let y: CGFloat = 10 + index*10.0 + index * 30.0
-
-            textView.frame = CGRect(x: 10, y: y, width: UIScreen.main.bounds.size.width-70, height: 30)
-            view.addSubview(textView)
-        }
-        //addTextView(0, "FIRST_NAME".localized)
-        addTextView(1, "LAST_NAME".localized)
-        addTextView(2, "ID_NUMBER".localized)
-        addTextView(3, "EMAIL".localized)
-        addTextView(4, "PHONE_NUMBER".localized)
-
-        view.isHidden = true
-
-        self.contentView.addSubview(view)
-        self.addUserDetailsView = view
-    }*/
 
     private func setupSendButton() {
         let view: UIButton = UIButton()
@@ -536,29 +436,8 @@ class ReportIncidentViewController: BaseViewController {
         incidentData.signs_problem = self.selectedItems.contains(7)
         incidentData.street_light_issue = self.selectedItems.contains(8)
 
-        /*incidentData.send_to_monicipality = self.switchControl.isOn
-        var userDetailArray:Array<String> = Array<String>()
-        if self.switchControl.isOn {
-
-            for  (index, subView)  in self.addUserDetailsView.subviews.enumerated() {
-                if let subView = subView as? UITextView {
-                    if !subView.text.isEmpty  && subView.textColor != UIColor.lightGray {
-                        print("index = \(index) subView text = \(String(describing: subView.text))")
-                        print("userDetailArray  = \(userDetailArray)")
-                        userDetailArray.insert( subView.text, at: index)
-                    }
-                }else{
-                    print("ERROR addUserDetailsView has unidentified subviews")
-                }
-            }
-            incidentData.fist_name = userDetailArray[0]
-            incidentData.last_name = userDetailArray[1]
-            incidentData.id = userDetailArray[2]
-            incidentData.email = userDetailArray[3]
-            incidentData.phone_number = userDetailArray[4]
-           
-        }*/
-
+        incidentData.imageData = incidentImageView?.image?.jpegData(compressionQuality: 0.8)
+         
         if let incidentLocation = self.incidentLocation {
             incidentData.latitude = incidentLocation.latitude
             incidentData.longitude = incidentLocation.longitude
@@ -578,38 +457,37 @@ class ReportIncidentViewController: BaseViewController {
 
     private func setupNavigationBar() {
 
-        let leftBarButtonItem: UIBarButtonItem = UIBarButtonItem(title: "BACK".localized,
+        let leftBarButtonItem: UIBarButtonItem = UIBarButtonItem(title: "CANCEL".localized,
                                                   style: .plain,
                                                   target: self,
                                                   action: #selector(onBackButtonClick))
         leftBarButtonItem.tintColor = UIColor.white
         self.navigationItem.setLeftBarButton(leftBarButtonItem, animated: false)
-        self.navigationItem.title = "REPORT_AN_INCIDENT".localized
+        self.navigationItem.title = "REPORT_AN_INCIDENT1".localized
 
         let nav = self.navigationController?.navigationBar
         nav?.isTranslucent = false;
-        nav?.barTintColor = UIColor.init(hexString: "3764BC")//backgroundColor
+        nav?.barTintColor = UIColor.anywayBlue//backgroundColor
         nav?.barStyle = UIBarStyle.black
         nav?.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
     }
 
     @objc override func onBackButtonClick() {
-        print("On back button click called. Am I on main thread? \(Thread.isMainThread)")
-        if Thread.callStackSymbols.count > 2 {
-            print("Who called me: \(Thread.callStackSymbols[2])")
+
+        if let delegate = self.delegate {
+            delegate.didCancelReport()
         }
-        //delegate?.didCancelReport()
-        self.navigationController?.popViewController(animated: true)
-        self.navigationController?.isNavigationBarHidden = true
+        else{
+            self.navigationController?.popViewController(animated: true)
+            self.navigationController?.isNavigationBarHidden = true
+        }
     }
 
     // MARK: - Actions
-    @objc func backBarButtonItemAction(sender: UIButton) {
-        self.currentResponder?.resignFirstResponder()
-        delegate?.didCancelReport()
-        
-
-    }
+//    @objc func backBarButtonItemAction(sender: UIButton) {
+//        self.currentResponder?.resignFirstResponder()
+//        delegate?.didCancelReport()
+//    }
     //
     // MARK: Layout
     //
@@ -662,11 +540,18 @@ class ReportIncidentViewController: BaseViewController {
         })
         
 
-        
+        self.mapButton.snp.remakeConstraints({ (make: ConstraintMaker) in
+            make.centerX.equalToSuperview()
+            make.top.equalTo(self.addressTextView.snp.bottom).offset(topPadding)
+            make.trailing.equalToSuperview().offset(-edgesPadding)
+            make.leading.equalToSuperview().offset(edgesPadding)
+            make.height.equalTo(40)
+
+        })
         self.incidentTypesLabel.snp.remakeConstraints({ (make: ConstraintMaker) in
             make.leading.equalToSuperview().offset(edgesPadding)
             make.height.equalTo(labelHeight)
-            make.top.equalTo(self.addressTextView.snp.bottom).offset(edgesPadding)
+            make.top.equalTo(self.mapButton.snp.bottom).offset(edgesPadding)
         })
         
 
@@ -691,33 +576,16 @@ class ReportIncidentViewController: BaseViewController {
         })
 
         self.placeholderLabel.snp.remakeConstraints({ (make: ConstraintMaker) in
+            
+            make.leading.equalToSuperview().offset(edgesPadding + 4)
+            
             //make.leading.equalToSuperview().offset(10) // TODO YIGAL not working???
-            make.top.equalToSuperview().offset(2)
+            //make.top.equalTo(self.hazardDescTextView.center).offset(labelHeight/2 )
+            make.top.equalTo(self.hazardDescTextView).offset(5)
             make.height.equalTo(labelHeight)
-            make.trailing.equalToSuperview().offset(-UIScreen.main.bounds.size.width/1.75 )
-        })
-
-       /* self.switchLabel.snp.remakeConstraints({ (make: ConstraintMaker) in
-            make.leading.equalToSuperview().offset(edgesPadding)
-            make.height.equalTo(labelHeight)
-            make.top.equalTo(self.hazardDescTextView.snp.bottom).offset(edgesPadding)
-        })
-
-        self.switchControl.snp.remakeConstraints({ (make: ConstraintMaker) in
-            make.centerY.equalTo(self.switchLabel)
-            make.top.equalTo(self.hazardDescTextView.snp.bottom).offset(edgesPadding)
-            make.height.equalTo(labelHeight)
+            //make.trailing.equalToSuperview().offset(-UIScreen.main.bounds.size.width/1.75 )
             make.trailing.equalToSuperview().offset(-edgesPadding)
         })
-
-        self.addUserDetailsView.snp.remakeConstraints({ (make: ConstraintMaker) in
-            make.centerX.equalToSuperview()
-            make.top.equalTo(self.switchControl.snp.bottom).offset(edgesPadding)
-            make.trailing.equalToSuperview().offset(-edgesPadding)
-            make.leading.equalToSuperview().offset(edgesPadding)
-            make.height.equalTo(210)
-        })
- */
 
         self.sendButton.snp.remakeConstraints({ (make: ConstraintMaker) in
             make.centerX.equalToSuperview()
@@ -735,14 +603,11 @@ class ReportIncidentViewController: BaseViewController {
     
     private func startReportIncidentUserInfoVC(incidentData: Incident) {
         let reportIncidentUserInfoViewController:ReportIncidentUserInfoViewController = UIStoryboard.main.instantiateViewController(withIdentifier: "ReportIncidentUserInfoViewController") as UIViewController as! ReportIncidentUserInfoViewController
-
-//        ReportIncidentViewController.delegate = self as ReportIncidentViewControllerDelegate
-//        ReportIncidentViewController.incidentImageView = self.selectedImageView
-//        ReportIncidentViewController.incidentLocation = self.incidentLocation
+        
         reportIncidentUserInfoViewController.incidentData = incidentData
         reportIncidentUserInfoViewController.delegate = self
-
-         print ("incident data 2 = \(incidentData)")
+        
+        //print ("incident data 2 = \(incidentData)")
         
         self.navigationController?.pushViewController(reportIncidentUserInfoViewController, animated: true)
     }
@@ -756,13 +621,8 @@ extension ReportIncidentViewController: UITextViewDelegate {
         activeField = textView
 
         let frameToScrollTo: CGRect = self.hazardDescTextView.frame
-//        if (activeField != self.hazardDescTextView ) {
-//            print("activeField is not hazardDescTextView")
-//            frameToScrollTo = addUserDetailsView.frame
-//        }
-        //if let activeField = activeField {
-            self.scrollView.scrollRectToVisible(frameToScrollTo, animated: true)
-        //}
+
+        self.scrollView.scrollRectToVisible(frameToScrollTo, animated: true)
 
         if textView.textColor == UIColor.lightGray {
             textView.text = nil
@@ -770,29 +630,14 @@ extension ReportIncidentViewController: UITextViewDelegate {
         }
     }
 
-    private func isAllAddUserDetailsViewSubviewsNotEmpty() -> Bool {
-
-//        for subView in self.addUserDetailsView.subviews {
-//            if let subView = subView as? UITextView {
-//                if subView.text.isEmpty  || subView.textColor == UIColor.lightGray {
-//                    return false
-//                }
-//            } else {
-//                print("addUserDetailsView has unidentified subviews")
-//                return false
-//            }
-//        }
-        return true
-    }
-
     func textViewDidChange(_ textView: UITextView) {
         placeholderLabel.isHidden = !hazardDescTextView.text.isEmpty
 
         if !hazardDescTextView.text.isEmpty || selectedItems.count > 0{
-            self.sendButton.backgroundColor = UIColor.init(hexString: "3764BC")
+            self.sendButton.backgroundColor = UIColor.anywayBlue
         }
         else if selectedItems.count > 0 {
-            self.sendButton.backgroundColor = UIColor.init(hexString: "3764BC")
+            self.sendButton.backgroundColor = UIColor.anywayBlue
         }
         else{
             self.sendButton.backgroundColor = UIColor.lightGray
@@ -859,10 +704,10 @@ extension ReportIncidentViewController: UICollectionViewDelegate {
         }
 
         if  selectedItems.count > 0 {
-            self.sendButton.backgroundColor = UIColor.init(hexString: "3764BC")
+            self.sendButton.backgroundColor = UIColor.anywayBlue
         }
         else if !hazardDescTextView.text.isEmpty || selectedItems.count > 0  {
-            self.sendButton.backgroundColor = UIColor.init(hexString: "3764BC")
+            self.sendButton.backgroundColor = UIColor.anywayBlue
         }
         else{
             self.sendButton.backgroundColor = UIColor.lightGray
@@ -910,9 +755,7 @@ extension ReportIncidentViewController: AddImageInput {
 // MARK: - ReportIncidentInput
 extension ReportIncidentViewController: ReportIncidentInput {
 
-
 }
-
 
 // MARK: - ReportIncidentViewControllerDelegate
 extension ReportIncidentViewController: ReportIncidentUserInfoViewControllerDelegate {

@@ -14,7 +14,7 @@ import MaterialComponents.MaterialButtons
 
 class MainViewController: BaseViewController {
 
-    //private var gradientStartPoints = [0.0002, 0.02] as [NSNumber]
+    private var gradientStartPoints = [0.0002, 0.02] as [NSNumber]
     //private let BUTTON_Y:CGFloat = 95.0 // FOR TOP
     private let BUTTON_Y:CGFloat = 80.0 // FOR DOWN
     private let BUTTON_HEIGHT:CGFloat = 30.0
@@ -23,11 +23,11 @@ class MainViewController: BaseViewController {
     private var addressLabel: UILabel!
     @IBOutlet var mapView: GMSMapView!
 
-    private var mainViewModel: MainViewOutput! //MainViewModel
+    var mainViewModel: MainViewOutput! //MainViewModel
     private var gradientColors = [UIColor.green, UIColor.red]
-    private var gradientStartPoints = [0.0002, 0.02] as [NSNumber]
-    // private var gradientStartPoints = [0.02, 0.09] as [NSNumber] //old
-    // private var gradientStartPoints = [0.2, 1.0] as [NSNumber] // demo
+   // private var gradientStartPoints = [0.008, 0.02] as [NSNumber]
+   //  private var gradientStartPoints = [0.01, 0.01] as [NSNumber] //old
+    //private var gradientStartPoints = [0.01, 0.9] as [NSNumber] // demo
     private var heatmapLayer: GMUHeatmapTileLayer!
     //private var snackbarView = SnackBarView()
     private var helpButton: MDCFloatingButton!
@@ -37,12 +37,14 @@ class MainViewController: BaseViewController {
 
     private var drawerType: DrawerType  = .buttom
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        mainViewModel = MainViewModel(viewController: self)
+        //mainViewModel = MainViewModel(viewController: self) /injected instead
         addImageModel = AddImageViewModel(viewController: self)
         mainViewModel.viewDidLoad()
     }
+   
 
     override func setupView() {
         self.navigationController?.isNavigationBarHidden = true
@@ -154,6 +156,14 @@ class MainViewController: BaseViewController {
         //addImageModel.showSelectImageAlert(true)
         mainViewModel.handleReportButtonTap()
     }
+    @objc private func continueAfterPickingANewPlace(_ sender: Any) {
+        mainViewModel.handleContinueAfterPickingANewPlace()
+    }
+    @objc private func cancelAfterPickingANewPlace(_ sender: Any) {
+        mainViewModel.handleCancelAfterPickingANewPlace()
+    }
+    
+    
 
     private func addTwoButtons(toView: UIView?,
                                firstButtonText: String,
@@ -228,7 +238,13 @@ extension MainViewController : MainViewInput {
 
     
     func pushViewController(_ vc: UIViewController, animated: Bool) {
-        self.navigationController!.pushViewController(vc, animated: animated)
+        if  let  navigationController = self.navigationController {
+            navigationController.pushViewController(vc, animated: animated)
+        }
+        else{
+            print("ERROR - pushViewController - no navigation controller")
+        }
+        
     }
     
     func popViewController( animated: Bool) {
@@ -254,7 +270,7 @@ extension MainViewController : MainViewInput {
     func addHeatMapLayer() {
         heatmapLayer = GMUHeatmapTileLayer()
         heatmapLayer.radius = 100
-        heatmapLayer.opacity = 1
+        heatmapLayer.opacity = 0.6
         heatmapLayer.gradient = GMUGradient(colors: gradientColors, startPoints: gradientStartPoints,colorMapSize: 256)
     }
 
@@ -262,6 +278,7 @@ extension MainViewController : MainViewInput {
         filterButton.isEnabled = false;
         helpButton.isEnabled = false;
     }
+
 
     func setActionForState(state: MainVCState) {
 
@@ -310,7 +327,33 @@ extension MainViewController : MainViewInput {
                 //self?.topDrawer?.setVisibility(visible: false)
                 self?.addImageModel.showSelectImageAlert(true)
             }
+            
+        case .requestToChangePlace:
+            DispatchQueue.main.async { [weak self]  in
+                guard let self = self else { return }
+                self.disableFilterAndHelpButtons()
+                self.mapView.clear()
+                self.topDrawer?.subviews.forEach({ $0.removeFromSuperview() })
+                self.topDrawer?.setText(text: "CHOOSE_A_NEW_PLACE".localized, drawerHeight: Config.SMALL_DRAWER_HEIGHT)
+                self.topDrawer?.setVisibility(visible: true)
+            }
+            
+        case .placePickedAfterRequestToChangeLoc:
+            
+             DispatchQueue.main.async { [weak self]  in
+                guard let self = self else { return }
+                self.addTwoButtons(toView: self.topDrawer,
+                                   firstButtonText:  "CANCEL".localized,
+                                   secondButtonText: "CONTINUE".localized,
+                                   firstButtonAction: #selector(self.cancelAfterPickingANewPlace),
+                                   secondButtonAction: #selector(self.continueAfterPickingANewPlace ))
+                self.topDrawer?.setText(text: "CONTINUE_TO_CHANGE_LOCATION".localized, drawerHeight: Config.BIG_DRAWER_HEIGHT)
+                self.topDrawer?.setVisibility(visible: true)
+
+            }
+
         }
+   
     }
 
     func setCameraPosition(coordinate : CLLocationCoordinate2D) {
@@ -326,6 +369,10 @@ extension MainViewController : MainViewInput {
         marker.position = CLLocationCoordinate2D(latitude: coordinate.latitude, longitude: coordinate.longitude)
         // marker.snippet = ""
         marker.map = self.mapView
+    }
+    
+    func clearMap() {
+       self.mapView.clear()
     }
 }
 

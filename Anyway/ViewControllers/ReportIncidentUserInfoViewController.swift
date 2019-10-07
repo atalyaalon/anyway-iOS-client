@@ -210,9 +210,9 @@ class ReportIncidentUserInfoViewController: FormViewController {
             
                 row.cellUpdate { cell, row in
                     cell.textLabel?.textColor = UIColor.white
-                    cell.backgroundColor =  UIColor.init(hexString: "3764BC")
+                    cell.backgroundColor =  UIColor.anywayBlue
                     print ( " in cellUpdate -   row.isDisabled  = \( row.isDisabled )" )
-                    cell.backgroundColor = row.isDisabled ? UIColor.lightGray : UIColor.init(hexString: "3764BC")
+                    cell.backgroundColor = row.isDisabled ? UIColor.lightGray : UIColor.anywayBlue
 
                 }
                 row.disabled = Condition.function(
@@ -234,10 +234,6 @@ class ReportIncidentUserInfoViewController: FormViewController {
                     if !(row.isDisabled){
                         self?.sendButtonTapped()
                     }
-//                    else{
-//                        print("form is NOT valid")
-//                        //self?.show(error: "שדות חסרים")
-//                    }
                 }
                 
         }
@@ -280,11 +276,11 @@ class ReportIncidentUserInfoViewController: FormViewController {
                                                    action: #selector(onBackButtonClick))
          leftBarButtonItem.tintColor = UIColor.white
          self.navigationItem.setLeftBarButton(leftBarButtonItem, animated: false)
-         self.navigationItem.title = "REPORT_AN_INCIDENT".localized
+         self.navigationItem.title = "REPORT_AN_INCIDENT2".localized
 
          let nav = self.navigationController?.navigationBar
          nav?.isTranslucent = false;
-         nav?.barTintColor = UIColor.init(hexString: "3764BC")
+         nav?.barTintColor = UIColor.anywayBlue
          nav?.barStyle = UIBarStyle.black
          nav?.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
      }
